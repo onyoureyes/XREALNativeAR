@@ -1,0 +1,37 @@
+# Android
+.gradle/
+build/
+local.properties
+*.apk
+captures/
+.externalNativeBuild/
+.cxx/
+
+# IDE
+.idea/
+*.iml
+
+# Native/CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+*.o
+*.a
+*.so
+
+# Models (Large Files)
+yolov5s.dlc
+yolov5s.onnx
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project-specific
+apk_contents/
+apk_verify_v3/
+tunnel_output.txt
+build_log.txt
+bashupload_log.txt
+upload_res.txt

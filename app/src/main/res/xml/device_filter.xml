@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- XREAL Light USB device filter -->
+    <!-- VID: 3318 (0x0CF6), PID: 1024 (0x0400) are example values -->
+    <!-- You may need to adjust these based on actual XREAL USB device info -->
+    <usb-device vendor-id="3318" product-id="1024" />
+</resources>
