@@ -1,0 +1,32 @@
+﻿.\gradlew.bat : e: file:///C:/Users/User/.gemini/antigravity/scratch/XREALNativeAR/app/src/main/kotlin/com/xreal/native
+ar/WhisperEngine.kt:22:5 Platform declaration clash: The following declarations have the same JVM signature (setOnResul
+tListener(Lkotlin/jvm/functions/Function1;)V):
+위치 줄:1 문자:63
++ ... id Studio\jbr"; .\gradlew.bat compileDebugKotlin --quiet 2>&1 | Out-F ...
++                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (e: file:///C:/U.../Function1;)V)::String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+    fun `<set-onResultListener>`(`<set-?>`: ((String) -> Unit)?): Unit defined in com.xreal.nativear.WhisperEngine
+    fun setOnResultListener(l: (String) -> Unit): Unit defined in com.xreal.nativear.WhisperEngine
+e: file:///C:/Users/User/.gemini/antigravity/scratch/XREALNativeAR/app/src/main/kotlin/com/xreal/nativear/WhisperEngine
+.kt:68:5 Platform declaration clash: The following declarations have the same JVM signature (setOnResultListener(Lkotli
+n/jvm/functions/Function1;)V):
+    fun `<set-onResultListener>`(`<set-?>`: ((String) -> Unit)?): Unit defined in com.xreal.nativear.WhisperEngine
+    fun setOnResultListener(l: (String) -> Unit): Unit defined in com.xreal.nativear.WhisperEngine
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':app:compileDebugKotlin'.
+> A failure occurred while executing org.jetbrains.kotlin.compilerRunner.GradleCompilerRunnerWithWorkers$GradleKotlinCo
+mpilerWorkAction
+   > Compilation error. See log for more details
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights.
+> Get more help at https://help.gradle.org.
+
+BUILD FAILED in 8s

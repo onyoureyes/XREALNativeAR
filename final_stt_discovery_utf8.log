@@ -1,0 +1,191 @@
+﻿
+log_raw.txt:1226:02-09 01:24:37.992  1979 12848 W ContextImpl: Calling a method in the system process without a qualifi
+ed user: android.app.ContextImpl.sendBroadcast:1335 com.samsung.android.mocca.app.vehicle.AdvancedVehicleDetection.repo
+rtAdvancedVehicleEvent:185 com.samsung.android.mocca.app.vehicle.AdvancedVehicleDetection.handleWifiScanResult:340 com.
+samsung.android.mocca.app.vehicle.AdvancedVehicleDetection.q:0 D.e.h:231 
+log_raw.txt:2231:02-09 01:37:20.458 10101 10101 W ContextImpl: Calling a method in the system process without a qualifi
+ed user: android.app.ContextImpl.startService:2068 android.content.ContextWrapper.startService:872 android.content.Cont
+extWrapper.startService:872 com.samsung.android.sm.cleaner.receiver.SuspiciousAppsReceiver.onReceive:100 android.app.Ac
+tivityThread.handleReceiver:5663 
+log_raw.txt:5805:02-09 02:24:56.276  1979 12848 W ContextImpl: Calling a method in the system process without a qualifi
+ed user: android.app.ContextImpl.sendBroadcast:1335 com.samsung.android.mocca.app.vehicle.AdvancedVehicleDetection.repo
+rtAdvancedVehicleEvent:185 com.samsung.android.mocca.app.vehicle.AdvancedVehicleDetection.handleWifiScanResult:340 com.
+samsung.android.mocca.app.vehicle.AdvancedVehicleDetection.q:0 D.e.h:231 
+log_raw.txt:10723:02-09 03:22:23.389  1979  2422 D UsbDeviceManager: cancelAsUser: id=31
+log_raw.txt:10731:02-09 03:22:23.390  1979  2422 D UsbDeviceManager: notifyAsUser: id=0 title=USB濡??대??꾪솕 異⑹쟾
+log_raw.txt:10828:02-09 03:22:23.724  1979  1979 W ContextImpl: Calling a method in the system process without a qualif
+ied user: android.app.ContextImpl.sendBroadcast:1335 vendor.samsung.frameworks.codecsolution.Logging.insertDiagmonLog:1
+4 vendor.samsung.frameworks.codecsolution.Logging.insertLog:6 vendor.samsung.frameworks.codecsolution.Logging.insertLog
+:1 vendor.samsung.frameworks.codecsolution.SehCodecSolutionService$1.handleMessage:24 
+log_raw.txt:10830:02-09 03:22:23.728  4839  4839 W ContextImpl: Calling a method in the system process without a qualif
+ied user: android.app.ContextImpl.startService:2068 android.content.ContextWrapper.startService:872 android.content.Con
+textWrapper.startService:872 com.sec.android.diagmonagent.sa.receiver.CFLogReceiver.onReceive:56 android.app.ActivityTh
+read.handleReceiver:5663 
+log_raw.txt:11376:02-09 03:22:39.841  1979 12848 W ContextImpl: Calling a method in the system process without a qualif
+ied user: android.app.ContextImpl.sendBroadcast:1335 com.samsung.android.mocca.app.vehicle.AdvancedVehicleDetection.rep
+ortAdvancedVehicleEvent:185 com.samsung.android.mocca.app.vehicle.AdvancedVehicleDetection.handleWifiScanResult:340 com
+.samsung.android.mocca.app.vehicle.AdvancedVehicleDetection.q:0 D.e.h:231 
+log_raw.txt:11517:02-09 03:22:46.553  1979  2938 W ContextImpl: Calling a method in the system process without a qualif
+ied user: android.app.ContextImpl.sendBroadcast:1335 com.samsung.accessory.manager.authentication.usb.UsbAuthenticator.
+notifyFriendsStateChanged$1:80 com.samsung.accessory.manager.authentication.usb.UsbAuthenticator.setUsbVerified:55 com.
+samsung.accessory.manager.authentication.usb.UsbAuthenticator$UsbAuthHandler.handleMessage:98 android.os.Handler.dispat
+chMessage:110 
+log_raw.txt:11618:02-09 03:22:46.579  1979  2425 V UsbDeviceManager: onKeyguardStateChanged: isShowing:false secure:fal
+se user:0
+log_raw.txt:11635:02-09 03:22:46.586  5894  5894 W ContextImpl: Calling a method in the system process without a qualif
+ied user: android.app.ContextImpl.startService:2068 android.content.ContextWrapper.startService:872 com.samsung.gpuwatc
+happ.f.b:182 com.samsung.gpuwatchapp.ForegroundAppWatcher$1.lambda$noteResumeComponent$0:6 com.samsung.gpuwatchapp.Fore
+groundAppWatcher$1.b:0 
+log_raw.txt:11776:02-09 03:22:46.674  4839  4839 W ContextImpl: Calling a method in the system process without a qualif
+ied user: android.app.ContextImpl.startService:2068 android.content.ContextWrapper.startService:872 android.content.Con
+textWrapper.startService:872 com.sec.android.diagmonagent.sa.receiver.CFLogReceiver.onReceive:56 android.app.ActivityTh
+read.handleReceiver:5663 
+log_raw.txt:11811:02-09 03:22:46.710  1979  1979 W ContextImpl: Calling a method in the system process without a qualif
+ied user: android.app.ContextImpl.sendBroadcast:1335 vendor.samsung.frameworks.codecsolution.Logging.insertDiagmonLog:1
+4 vendor.samsung.frameworks.codecsolution.Logging.insertLog:6 vendor.samsung.frameworks.codecsolution.Logging.insertLog
+:1 vendor.samsung.frameworks.codecsolution.SehCodecSolutionService$1.handleMessage:24 
+log_raw.txt:11812:02-09 03:22:46.710  1979  4073 W ContextImpl: Calling a method in the system process without a qualif
+ied user: android.app.ContextImpl.sendBroadcastMultiplePermissions:1418 android.content.Context.sendBroadcastMultiplePe
+rmissions:2534 android.content.Context.sendBroadcastMultiplePermissions:2522 com.android.server.TelephonyRegistry.broad
+castDataConnectionStateChanged:95 com.android.server.TelephonyRegistry.notifyDataConnectionForSubscriber:114 
+log_raw.txt:11813:02-09 03:22:46.711  4839  4839 W ContextImpl: Calling a method in the system process without a qualif
+ied user: android.app.ContextImpl.startService:2068 android.content.ContextWrapper.startService:872 android.content.Con
+textWrapper.startService:872 com.sec.android.diagmonagent.sa.receiver.CFLogReceiver.onReceive:56 android.app.ActivityTh
+read.handleReceiver:5663 
+log_raw.txt:11856:02-09 03:22:46.744  4839  4839 W ContextImpl: Calling a method in the system process without a qualif
+ied user: android.app.ContextImpl.startService:2068 android.content.ContextWrapper.startService:872 android.content.Con
+textWrapper.startService:872 com.sec.android.diagmonagent.sa.receiver.CFLogReceiver.onReceive:56 android.app.ActivityTh
+read.handleReceiver:5663 
+log_raw.txt:11908:02-09 03:22:46.776  4839  4839 W ContextImpl: Calling a method in the system process without a qualif
+ied user: android.app.ContextImpl.startService:2068 android.content.ContextWrapper.startService:872 android.content.Con
+textWrapper.startService:872 com.sec.android.diagmonagent.sa.receiver.CFLogReceiver.onReceive:56 android.app.ActivityTh
+read.handleReceiver:5663 
+log_raw.txt:12000:02-09 03:22:46.849  4839  4839 W ContextImpl: Calling a method in the system process without a qualif
+ied user: android.app.ContextImpl.startService:2068 android.content.ContextWrapper.startService:872 android.content.Con
+textWrapper.startService:872 com.sec.android.diagmonagent.sa.receiver.CFLogReceiver.onReceive:56 android.app.ActivityTh
+read.handleReceiver:5663 
+log_raw.txt:12039:02-09 03:22:46.888  1979  3073 W ContextImpl: Calling a method in the system process without a qualif
+ied user: android.app.ContextImpl.sendBroadcastMultiplePermissions:1385 android.content.Context.sendBroadcastMultiplePe
+rmissions:2588 com.android.server.TelephonyRegistry.broadcastServiceStateChanged:63 com.android.server.TelephonyRegistr
+y.notifyServiceStateForPhoneId:185 com.android.internal.telephony.ITelephonyRegistry$Stub.onTransact:667 
+log_raw.txt:12042:02-09 03:22:46.897  1979  3073 W ContextImpl: Calling a method in the system process without a qualif
+ied user: android.app.ContextImpl.sendBroadcastMultiplePermissions:1418 com.android.server.TelephonyRegistry.broadcastS
+erviceStateChanged:92 com.android.server.TelephonyRegistry.notifyServiceStateForPhoneId:185 com.android.internal.teleph
+ony.ITelephonyRegistry$Stub.onTransact:667 android.os.Binder.execTransactInternal:1462 
+log_raw.txt:12043:02-09 03:22:46.901  1979  3073 W ContextImpl: Calling a method in the system process without a qualif
+ied user: android.app.ContextImpl.sendBroadcastMultiplePermissions:1418 com.android.server.TelephonyRegistry.broadcastS
+erviceStateChanged:121 com.android.server.TelephonyRegistry.notifyServiceStateForPhoneId:185 com.android.internal.telep
+hony.ITelephonyRegistry$Stub.onTransact:667 android.os.Binder.execTransactInternal:1462 
+log_raw.txt:12046:02-09 03:22:46.912  1979  3073 W ContextImpl: Calling a method in the system process without a qualif
+ied user: android.app.ContextImpl.sendBroadcastMultiplePermissions:1418 com.android.server.TelephonyRegistry.broadcastS
+erviceStateChanged:144 com.android.server.TelephonyRegistry.notifyServiceStateForPhoneId:185 com.android.internal.telep
+hony.ITelephonyRegistry$Stub.onTransact:667 android.os.Binder.execTransactInternal:1462 
+log_raw.txt:12052:02-09 03:22:46.956  1979  3833 W ContextImpl: Calling a method in the system process without a qualif
+ied user: android.app.ContextImpl.sendBroadcastMultiplePermissions:1418 android.content.Context.sendBroadcastMultiplePe
+rmissions:2534 android.content.Context.sendBroadcastMultiplePermissions:2522 com.android.server.TelephonyRegistry.broad
+castDataConnectionStateChanged:95 com.android.server.TelephonyRegistry.notifyDataConnectionForSubscriber:114 
+log_raw.txt:12054:02-09 03:22:46.971  1979  5071 W ContextImpl: Calling a method in the system process without a qualif
+ied user: android.app.ContextImpl.sendBroadcastMultiplePermissions:1385 android.content.Context.sendBroadcastMultiplePe
+rmissions:2588 com.android.server.TelephonyRegistry.broadcastServiceStateChanged:63 com.android.server.TelephonyRegistr
+y.notifyServiceStateForPhoneId:185 com.android.internal.telephony.ITelephonyRegistry$Stub.onTransact:667 
+log_raw.txt:12055:02-09 03:22:46.979  1979  1979 W ContextImpl: Calling a method in the system process without a qualif
+ied user: android.app.ContextImpl.sendBroadcast:1335 vendor.samsung.frameworks.codecsolution.Logging.insertDiagmonLog:1
+4 vendor.samsung.frameworks.codecsolution.Logging.insertLog:6 vendor.samsung.frameworks.codecsolution.Logging.insertLog
+:1 vendor.samsung.frameworks.codecsolution.SehCodecSolutionService$1.handleMessage:24 
+log_raw.txt:12056:02-09 03:22:46.986  1979  5071 W ContextImpl: Calling a method in the system process without a qualif
+ied user: android.app.ContextImpl.sendBroadcastMultiplePermissions:1418 com.android.server.TelephonyRegistry.broadcastS
+erviceStateChanged:92 com.android.server.TelephonyRegistry.notifyServiceStateForPhoneId:185 com.android.internal.teleph
+ony.ITelephonyRegistry$Stub.onTransact:667 android.os.Binder.execTransactInternal:1462 
+log_raw.txt:12084:02-09 03:22:46.993  4839  4839 W ContextImpl: Calling a method in the system process without a qualif
+ied user: android.app.ContextImpl.startService:2068 android.content.ContextWrapper.startService:872 android.content.Con
+textWrapper.startService:872 com.sec.android.diagmonagent.sa.receiver.CFLogReceiver.onReceive:56 android.app.ActivityTh
+read.handleReceiver:5663 
+log_raw.txt:12085:02-09 03:22:46.999  1979  5071 W ContextImpl: Calling a method in the system process without a qualif
+ied user: android.app.ContextImpl.sendBroadcastMultiplePermissions:1418 com.android.server.TelephonyRegistry.broadcastS
+erviceStateChanged:121 com.android.server.TelephonyRegistry.notifyServiceStateForPhoneId:185 com.android.internal.telep
+hony.ITelephonyRegistry$Stub.onTransact:667 android.os.Binder.execTransactInternal:1462 
+log_raw.txt:12088:02-09 03:22:47.014  1979  5071 W ContextImpl: Calling a method in the system process without a qualif
+ied user: android.app.ContextImpl.sendBroadcastMultiplePermissions:1418 com.android.server.TelephonyRegistry.broadcastS
+erviceStateChanged:144 com.android.server.TelephonyRegistry.notifyServiceStateForPhoneId:185 com.android.internal.telep
+hony.ITelephonyRegistry$Stub.onTransact:667 android.os.Binder.execTransactInternal:1462 
+log_raw.txt:12099:02-09 03:22:47.059  1979  4041 W ContextImpl: Calling a method in the system process without a qualif
+ied user: android.app.ContextImpl.sendBroadcastMultiplePermissions:1385 android.content.Context.sendBroadcastMultiplePe
+rmissions:2588 com.android.server.TelephonyRegistry.broadcastServiceStateChanged:63 com.android.server.TelephonyRegistr
+y.notifyServiceStateForPhoneId:185 com.android.internal.telephony.ITelephonyRegistry$Stub.onTransact:667 
+log_raw.txt:12100:02-09 03:22:47.062  1979  4041 W ContextImpl: Calling a method in the system process without a qualif
+ied user: android.app.ContextImpl.sendBroadcastMultiplePermissions:1418 com.android.server.TelephonyRegistry.broadcastS
+erviceStateChanged:92 com.android.server.TelephonyRegistry.notifyServiceStateForPhoneId:185 com.android.internal.teleph
+ony.ITelephonyRegistry$Stub.onTransact:667 android.os.Binder.execTransactInternal:1462 
+log_raw.txt:12101:02-09 03:22:47.064  1979  4041 W ContextImpl: Calling a method in the system process without a qualif
+ied user: android.app.ContextImpl.sendBroadcastMultiplePermissions:1418 com.android.server.TelephonyRegistry.broadcastS
+erviceStateChanged:121 com.android.server.TelephonyRegistry.notifyServiceStateForPhoneId:185 com.android.internal.telep
+hony.ITelephonyRegistry$Stub.onTransact:667 android.os.Binder.execTransactInternal:1462 
+log_raw.txt:12102:02-09 03:22:47.065  1979 12848 W ContextImpl: Calling a method in the system process without a qualif
+ied user: android.app.ContextImpl.sendBroadcast:1335 com.samsung.android.mocca.app.base.SemContextProvider.reportPedome
+terEvent:148 com.samsung.android.mocca.app.base.SemContextProvider.lambda$new$3:66 com.samsung.android.mocca.app.base.S
+emContextProvider.a:0 x.i.onSemContextChanged:2 
+log_raw.txt:12104:02-09 03:22:47.069  1979  4041 W ContextImpl: Calling a method in the system process without a qualif
+ied user: android.app.ContextImpl.sendBroadcastMultiplePermissions:1418 com.android.server.TelephonyRegistry.broadcastS
+erviceStateChanged:144 com.android.server.TelephonyRegistry.notifyServiceStateForPhoneId:185 com.android.internal.telep
+hony.ITelephonyRegistry$Stub.onTransact:667 android.os.Binder.execTransactInternal:1462 
+log_raw.txt:12250:02-09 03:22:47.171  1979  2422 D UsbDeviceManager: cancelAsUser: id=32
+log_raw.txt:12256:02-09 03:22:47.179  1979  5335 W ContextImpl: Calling a method in the system process without a qualif
+ied user: android.app.ContextImpl.sendBroadcastMultiplePermissions:1385 android.content.Context.sendBroadcastMultiplePe
+rmissions:2588 com.android.server.TelephonyRegistry.broadcastServiceStateChanged:63 com.android.server.TelephonyRegistr
+y.notifyServiceStateForPhoneId:185 com.android.internal.telephony.ITelephonyRegistry$Stub.onTransact:667 
+log_raw.txt:12257:02-09 03:22:47.183  1979  5335 W ContextImpl: Calling a method in the system process without a qualif
+ied user: android.app.ContextImpl.sendBroadcastMultiplePermissions:1418 com.android.server.TelephonyRegistry.broadcastS
+erviceStateChanged:92 com.android.server.TelephonyRegistry.notifyServiceStateForPhoneId:185 com.android.internal.teleph
+ony.ITelephonyRegistry$Stub.onTransact:667 android.os.Binder.execTransactInternal:1462 
+log_raw.txt:12258:02-09 03:22:47.184  1979  5335 W ContextImpl: Calling a method in the system process without a qualif
+ied user: android.app.ContextImpl.sendBroadcastMultiplePermissions:1418 com.android.server.TelephonyRegistry.broadcastS
+erviceStateChanged:121 com.android.server.TelephonyRegistry.notifyServiceStateForPhoneId:185 com.android.internal.telep
+hony.ITelephonyRegistry$Stub.onTransact:667 android.os.Binder.execTransactInternal:1462 
+log_raw.txt:12259:02-09 03:22:47.186  1979  5335 W ContextImpl: Calling a method in the system process without a qualif
+ied user: android.app.ContextImpl.sendBroadcastMultiplePermissions:1418 com.android.server.TelephonyRegistry.broadcastS
+erviceStateChanged:144 com.android.server.TelephonyRegistry.notifyServiceStateForPhoneId:185 com.android.internal.telep
+hony.ITelephonyRegistry$Stub.onTransact:667 android.os.Binder.execTransactInternal:1462 
+log_raw.txt:12321:02-09 03:22:47.301  1979  3896 W ContextImpl: Calling a method in the system process without a qualif
+ied user: android.app.ContextImpl.sendBroadcastMultiplePermissions:1385 android.content.Context.sendBroadcastMultiplePe
+rmissions:2588 com.android.server.TelephonyRegistry.broadcastServiceStateChanged:63 com.android.server.TelephonyRegistr
+y.notifyServiceStateForPhoneId:185 com.android.internal.telephony.ITelephonyRegistry$Stub.onTransact:667 
+log_raw.txt:12322:02-09 03:22:47.302  1979  3896 W ContextImpl: Calling a method in the system process without a qualif
+ied user: android.app.ContextImpl.sendBroadcastMultiplePermissions:1418 com.android.server.TelephonyRegistry.broadcastS
+erviceStateChanged:92 com.android.server.TelephonyRegistry.notifyServiceStateForPhoneId:185 com.android.internal.teleph
+ony.ITelephonyRegistry$Stub.onTransact:667 android.os.Binder.execTransactInternal:1462 
+log_raw.txt:12323:02-09 03:22:47.303  1979  3896 W ContextImpl: Calling a method in the system process without a qualif
+ied user: android.app.ContextImpl.sendBroadcastMultiplePermissions:1418 com.android.server.TelephonyRegistry.broadcastS
+erviceStateChanged:121 com.android.server.TelephonyRegistry.notifyServiceStateForPhoneId:185 com.android.internal.telep
+hony.ITelephonyRegistry$Stub.onTransact:667 android.os.Binder.execTransactInternal:1462 
+log_raw.txt:12324:02-09 03:22:47.304  1979  3896 W ContextImpl: Calling a method in the system process without a qualif
+ied user: android.app.ContextImpl.sendBroadcastMultiplePermissions:1418 com.android.server.TelephonyRegistry.broadcastS
+erviceStateChanged:144 com.android.server.TelephonyRegistry.notifyServiceStateForPhoneId:185 com.android.internal.telep
+hony.ITelephonyRegistry$Stub.onTransact:667 android.os.Binder.execTransactInternal:1462 
+log_raw.txt:12330:02-09 03:22:47.326  1979  2989 W ContextImpl: Calling a method in the system process without a qualif
+ied user: android.app.ContextImpl.sendBroadcast:1335 com.samsung.android.gesture.PocketModeEvent$1.handleMessage:459 an
+droid.os.Handler.dispatchMessage:110 android.os.Looper.loopOnce:273 android.os.Looper.loop:363 
+log_raw.txt:12331:02-09 03:22:47.327  1979  2989 W ContextImpl: Calling a method in the system process without a qualif
+ied user: android.app.ContextImpl.sendBroadcast:1335 com.samsung.android.gesture.PocketModeEvent$1.handleMessage:293 an
+droid.os.Handler.dispatchMessage:110 android.os.Looper.loopOnce:273 android.os.Looper.loop:363 
+log_raw.txt:12332:02-09 03:22:47.339  4839  4839 W ContextImpl: Calling a method in the system process without a qualif
+ied user: android.app.ContextImpl.startService:2068 android.content.ContextWrapper.startService:872 android.content.Con
+textWrapper.startService:872 com.sec.android.diagmonagent.sa.receiver.CFLogReceiver.onReceive:56 android.app.ActivityTh
+read.handleReceiver:5663 
+log_raw.txt:12334:02-09 03:22:47.351  1979  4069 D WindowManager: Changing focus from Window{4ed28c9 u0 com.sec.android
+.app.launcher/com.sec.android.app.launcher.activities.LauncherActivity} to Window{800aad1 u0 UnintentionalLcdOn} displa
+yId=0 Callers=com.android.server.wm.WindowManagerService.addWindowInner:565 com.android.server.wm.WindowManagerService.
+addWindow:1842 com.android.server.wm.Session.addToDisplayAsUser:24 android.view.IWindowSession$Stub.onTransact:757 
+log_raw.txt:12444:02-09 03:22:47.516  1979  4041 W ContextImpl: Calling a method in the system process without a qualif
+ied user: android.app.ContextImpl.sendBroadcastMultiplePermissions:1385 android.content.Context.sendBroadcastMultiplePe
+rmissions:2588 com.android.server.TelephonyRegistry.broadcastServiceStateChanged:63 com.android.server.TelephonyRegistr
+y.notifyServiceStateForPhoneId:185 com.android.internal.telephony.ITelephonyRegistry$Stub.onTransact:667 
+log_raw.txt:12446:02-09 03:22:47.524  1979  4041 W ContextImpl: Calling a method in the system process without a qualif
+ied user: android.app.ContextImpl.sendBroadcastMultiplePermissions:1418 com.android.server.TelephonyRegistry.broadcastS
+erviceStateChanged:92 com.android.server.TelephonyRegistry.notifyServiceStateForPhoneId:185 com.android.internal.teleph
+ony.ITelephonyRegistry$Stub.onTransact:667 android.os.Binder.execTransactInternal:1462 
+log_raw.txt:12448:02-09 03:22:47.531  1979  4041 W ContextImpl: Calling a method in the system process without a qualif
+ied user: android.app.ContextImpl.sendBroadcastMultiplePermissions:1418 com.android.server.TelephonyRegistry.broadcastS
+erviceStateChanged:121 com.android.server.TelephonyRegistry.notifyServiceStateForPhoneId:185 com.android.internal.telep
+hony.ITelephonyRegistry$Stub.onTransact:667 android.os.Binder.execTransactInternal:1462 
+
+

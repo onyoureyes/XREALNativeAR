@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- XREAL Light (aka Nreal Light) -->
+    <!-- Producer: Nreal / XREAL -->
+    <!-- Chip: OV580 (Camera/IMU Controller) -->
+    <usb-device vendor-id="1204" product-id="622" /> <!-- 0x04b4, 0x026e -->
+    <usb-device vendor-id="3415" product-id="4417" /> <!-- 0x0d57, 0x1141 -->
+    <usb-device vendor-id="1158" product-id="22332" /> <!-- 0x0486, 0x573c (IMU) -->
+    <usb-device vendor-id="1449" product-id="1664" /> <!-- 0x05a9, 0x0680 (OV580) -->
+    <usb-device vendor-id="1204" product-id="25970" /> <!-- 0x04b4, 0x6572 (Hub/Display) -->
+</resources>

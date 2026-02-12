@@ -1,0 +1,786 @@
+﻿
+02-09 08:17:30.710  1647  2688 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_SEEK
+02-09 08:17:30.710  1647  2688 D DlbEffectContext: handleSeek(seek operation ends, restore profile to 2)
+02-09 08:17:30.710  1647  2688 D DlbEffectContext: transformExternalGain() volume:0x5AD50C fVol:0.354813 extVal:-144
+02-09 08:17:31.225  1647  2887 D DlbEffectContext: getParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:17:31.225  1647  2887 D DlbEffectContext: getParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:17:31.225  1647  2887 D DlbEffectContext: getParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:17:31.225  1647  2887 D DlbEffectContext: getParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:17:31.225  1647  2887 D DlbEffectContext: getParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:17:31.227  1647  1800 D DlbSpatializerEffectContext: setParam() received parameter SPATIALIZER_PARAM_ENABLE
+02-09 08:17:31.227  1529  1529 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:17:31.227  1647  1800 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:17:31.228  1647  1800 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:17:31.228  1647  1800 D DlbEffectContext: setContentProcEnabled(enabled=0)
+02-09 08:17:31.228  1647  1800 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:17:31.228  1647  1800 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:17:31.228  1647  1800 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:17:31.228  1529  1529 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:17:31.228  1529  1529 D DlbEffectContext: setProfile(profile=5) stageIdx:-1303
+02-09 08:17:31.228  1647  1800 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:17:31.228  1647  1800 D DlbEffectContext: setProfile(profile=5) stageIdx:-2105
+02-09 08:17:31.228  1647  1800 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:17:31.228  1647  1800 D DlbEffectContext: setProfile(profile=5) stageIdx:-2108
+02-09 08:17:31.228  1647  1800 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:17:31.228  1647  1800 D DlbEffectContext: setProfile(profile=5) stageIdx:-2113
+02-09 08:17:31.229  1647  1800 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:17:31.229  1647  1800 D DlbEffectContext: setProfile(profile=5) stageIdx:-2902
+02-09 08:17:31.229  1647  1800 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:17:31.229  1647  1800 D DlbEffectContext: setProfile(profile=5) stageIdx:-29002
+02-09 08:17:31.232  1647  1800 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:17:31.232  1647  1800 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:17:31.232  1647  1800 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:17:31.232  1647  1800 D DlbEffectContext: setProfile(profile=5) stageIdx:-29003
+02-09 08:17:31.232  1647  1800 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:17:31.232  1647  1800 D DlbEffectContext: setProfile(profile=5) stageIdx:-29004
+02-09 08:17:31.247  1647  2887 D DlbSpatializerEffectContext: setParam() received parameter SPATIALIZER_PARAM_ENABLE
+02-09 08:17:31.248  1529  1529 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:17:31.248  1647  2887 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:17:31.248  1647  2887 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:17:31.248  1647  2887 D DlbEffectContext: setContentProcEnabled(enabled=0)
+02-09 08:17:31.248  1647  2887 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:17:31.248  1647  2887 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:17:31.248  1647  2887 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:17:31.248  1529  1529 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:17:31.248  1529  1529 D DlbEffectContext: setProfile(profile=5) stageIdx:-1303
+02-09 08:17:31.248  1647  2887 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:17:31.248  1647  2887 D DlbEffectContext: setProfile(profile=5) stageIdx:-2105
+02-09 08:17:31.248  1647  2887 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:17:31.248  1647  2887 D DlbEffectContext: setProfile(profile=5) stageIdx:-2108
+02-09 08:17:31.248  1647  2887 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:17:31.248  1647  2887 D DlbEffectContext: setProfile(profile=5) stageIdx:-2113
+02-09 08:17:31.249  1647  2887 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:17:31.249  1647  2887 D DlbEffectContext: setProfile(profile=5) stageIdx:-2902
+02-09 08:17:31.249  1647  2887 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:17:31.249  1647  2887 D DlbEffectContext: setProfile(profile=5) stageIdx:-29002
+02-09 08:17:32.433  1647  2688 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_SEEK
+02-09 08:17:32.433  1647  2688 D DlbEffectContext: handleSeek(seek operation starts, current profile is 2)
+02-09 08:17:32.433  1647  2688 D DlbEffectContext: transformExternalGain() volume:0x0 fVol:0.000000 extVal:-2080
+02-09 08:17:34.016  1979 12848 W ContextImpl: Calling a method in the system process without a qualified user: android.
+app.ContextImpl.sendBroadcast:1335 com.samsung.android.mocca.app.vehicle.AdvancedVehicleDetection.reportAdvancedVehicle
+Event:185 com.samsung.android.mocca.app.vehicle.AdvancedVehicleDetection.handleWifiScanResult:340 com.samsung.android.m
+occa.app.vehicle.AdvancedVehicleDetection.q:0 D.e.h:231 
+02-09 08:17:34.715  7938  7938 I ALT.AFClient: #audio# acquire audio focus for client(TNG_TRANSCRIPTION)
+02-09 08:17:34.715  7938  7938 I ALT.AFCSessionMgr: #audio# acquire audio focus for client(TNG_TRANSCRIPTION) session(t
+oken(91))
+02-09 08:17:34.716  7938  7938 I ALT.ARCProvider: #audio# activating audio request client(TNG_TRANSCRIPTION)
+02-09 08:17:34.716  7938  7938 I ALT.ClientsRegy: #audio# activating audio client(token(1080633974), TNG_TRANSCRIPTION)
+02-09 08:17:34.716  7938  7938 I ALT.ClientsRegy: #audio# enforcing concurrency state on a new client(TNG_TRANSCRIPTION
+, token(1080633974))
+02-09 08:17:34.716  7938  7938 I ALT.ClientsRegy: #audio# deactivating(DEACTIVATED_NEW_CLIENT) client(token(697398338),
+ TNG_TRANSCRIPTION)
+02-09 08:17:34.716  7938  7938 I ALT.AudioRoutesRegy: #audio# disconnecting(DISCONNECT_REASON_NEW_CLIENT_ACTIVATING) au
+dio route(token(1596516235), BUILTIN_AUDIO_ROUTE) for client(token(697398338), TNG_TRANSCRIPTION)
+02-09 08:17:34.716  7938  7938 I ALT.AudioRoutesRegy: #audio# initializing the default route(484173017) for client(toke
+n(1080633974), TNG_TRANSCRIPTION)
+02-09 08:17:34.717  7938  7938 I ALT.AudioSessionsRegy: #audio# starting audio session(530197965) for client(token(1080
+633974), TNG_TRANSCRIPTION)
+02-09 08:17:34.717  7938  7938 I ALT.AudioSessionsRegy: #audio# enforcing concurrency state on new audio session of cli
+ent(token(1080633974), TNG_TRANSCRIPTION)
+02-09 08:17:34.717  7938  7938 I ALT.AudioSrcDataRegy: #audio# starting audio source session(530197965) on route(token(
+484173017), BUILTIN_AUDIO_ROUTE) for client(token(1080633974), TNG_TRANSCRIPTION)
+02-09 08:17:34.717  7938  7938 I ALT.AudioSrcDataRegy: #audio# enforcing concurrency state on a new audio source of cli
+ent(token(1080633974), TNG_TRANSCRIPTION)
+02-09 08:17:34.718  7938  7938 I ALT.AudioRoutesRegy: #audio# enforcing routes concurrency state on Event.PreStart(rout
+e=484173017, session=530197965) of client(token(1080633974), TNG_TRANSCRIPTION)
+02-09 08:17:34.720  7938  7938 I ALT.AudioRoutesRegy: #audio# update route state on Event.Started(route=484173017) of c
+lient(token(1080633974), TNG_TRANSCRIPTION)
+02-09 08:17:34.753  7938  7981 I fxc     : #audio# starting listening client(TNG_TRANSCRIPTION) route(AudioRouteType[na
+me=BUILTIN_AUDIO_ROUTE]) took 33(ms)
+02-09 08:17:34.771  7938  7979 W native  : W0000 00:00:1770592654.771452    7979 context_session_resource.cc:123] Conte
+xtAwareModel context_model cannot process the following RecognitionContext:
+02-09 08:17:34.820  7938 30604 W native  : W0000 00:00:1770592654.820415   30604 context_session_resource.cc:123] Conte
+xtAwareModel context_model cannot process the following RecognitionContext:
+02-09 08:17:40.278  7938 30605 I SodaSpeechRecognizer: #handleFinalResult: 2 hyp
+02-09 08:17:40.500  1979  1979 D EdgeLightingPolicyManager: putNotification tickerText:false,titleText:true,text:true,s
+ub:falsecn= + null
+02-09 08:17:40.878  7938  7985 I ALT.AudioSessionsRegy: #audio# stopping(CLIENT_REQUESTED) audio session(530197965) for
+ client(token(1080633974), TNG_TRANSCRIPTION)
+02-09 08:17:40.887  7938  7984 I SodaSpeechRecognizer: Audio process finished, transcription completed.
+02-09 08:17:40.927  7938  7982 I AudioLibraryAudioContro: Mic closing result: # fky@7bca4
+02-09 08:17:41.086  7938  8002 I cn_CronetUrlRequestContext: destroyNativeStreamLocked org.chromium.net.impl.CronetBidi
+rectionalStream@4963772
+02-09 08:17:41.090 30188 30188 I MAIN_AR : STT Result: ??듬졊? ??쒕?援?쓽 ??듬졊? ?꾧뎄吏
+02-09 08:17:41.288  1979 12848 W ContextImpl: Calling a method in the system process without a qualified user: android.
+app.ContextImpl.sendBroadcast:1335 com.samsung.android.mocca.app.vehicle.AdvancedVehicleDetection.reportAdvancedVehicle
+Event:185 com.samsung.android.mocca.app.vehicle.AdvancedVehicleDetection.handleWifiScanResult:340 com.samsung.android.m
+occa.app.vehicle.AdvancedVehicleDetection.q:0 D.e.h:231 
+02-09 08:17:44.612  1979  3184 D OpenNetworkQos[4.00]: updateBssidLatestDnsResultType - result: 0
+02-09 08:17:45.164  1647  2688 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_SEEK
+02-09 08:17:45.164  1647  2688 D DlbEffectContext: handleSeek(seek operation ends, restore profile to 2)
+02-09 08:17:45.164  1647  2688 D DlbEffectContext: transformExternalGain() volume:0x5AD50C fVol:0.354813 extVal:-144
+02-09 08:17:45.676  1647 13172 D DlbEffectContext: getParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:17:45.676  1647 13172 D DlbEffectContext: getParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:17:45.676  1647 13172 D DlbEffectContext: getParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:17:45.676  1647 13172 D DlbEffectContext: getParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:17:45.676  1647 13172 D DlbEffectContext: getParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:17:45.678  1647 13172 D DlbSpatializerEffectContext: setParam() received parameter SPATIALIZER_PARAM_ENABLE
+02-09 08:17:45.678  1529  2835 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:17:45.678  1647 13172 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:17:45.678  1647 13172 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:17:45.678  1647 13172 D DlbEffectContext: setContentProcEnabled(enabled=0)
+02-09 08:17:45.678  1647 13172 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:17:45.678  1647 13172 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:17:45.678  1647 13172 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:17:45.679  1529  2835 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:17:45.679  1529  2835 D DlbEffectContext: setProfile(profile=5) stageIdx:-1303
+02-09 08:17:45.679  1647 13172 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:17:45.679  1647 13172 D DlbEffectContext: setProfile(profile=5) stageIdx:-2105
+02-09 08:17:45.679  1647 13172 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:17:45.679  1647 13172 D DlbEffectContext: setProfile(profile=5) stageIdx:-2108
+02-09 08:17:45.679  1647 13172 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:17:45.679  1647 13172 D DlbEffectContext: setProfile(profile=5) stageIdx:-2113
+02-09 08:17:45.680  1647 13172 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:17:45.680  1647 13172 D DlbEffectContext: setProfile(profile=5) stageIdx:-2902
+02-09 08:17:45.680  1647 13172 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:17:45.680  1647 13172 D DlbEffectContext: setProfile(profile=5) stageIdx:-29002
+02-09 08:17:45.682  1647  1801 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:17:45.682  1647  1801 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:17:45.682  1647  1801 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:17:45.682  1647  1801 D DlbEffectContext: setProfile(profile=5) stageIdx:-29003
+02-09 08:17:45.682  1647  1801 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:17:45.682  1647  1801 D DlbEffectContext: setProfile(profile=5) stageIdx:-29004
+02-09 08:17:45.690  1647 13172 D DlbSpatializerEffectContext: setParam() received parameter SPATIALIZER_PARAM_ENABLE
+02-09 08:17:45.690  1529  2835 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:17:45.690  1647 13172 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:17:45.690  1647 13172 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:17:45.690  1647 13172 D DlbEffectContext: setContentProcEnabled(enabled=0)
+02-09 08:17:45.690  1647 13172 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:17:45.690  1647 13172 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:17:45.690  1647 13172 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:17:45.691  1529  2835 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:17:45.691  1529  2835 D DlbEffectContext: setProfile(profile=5) stageIdx:-1303
+02-09 08:17:45.691  1647 13172 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:17:45.691  1647 13172 D DlbEffectContext: setProfile(profile=5) stageIdx:-2105
+02-09 08:17:45.691  1647 13172 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:17:45.691  1647 13172 D DlbEffectContext: setProfile(profile=5) stageIdx:-2108
+02-09 08:17:45.691  1647 13172 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:17:45.691  1647 13172 D DlbEffectContext: setProfile(profile=5) stageIdx:-2113
+02-09 08:17:45.691  1647 13172 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:17:45.691  1647 13172 D DlbEffectContext: setProfile(profile=5) stageIdx:-2902
+02-09 08:17:45.691  1647 13172 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:17:45.691  1647 13172 D DlbEffectContext: setProfile(profile=5) stageIdx:-29002
+02-09 08:17:48.563  1979 12848 W ContextImpl: Calling a method in the system process without a qualified user: android.
+app.ContextImpl.sendBroadcast:1335 com.samsung.android.mocca.app.vehicle.AdvancedVehicleDetection.reportAdvancedVehicle
+Event:185 com.samsung.android.mocca.app.vehicle.AdvancedVehicleDetection.handleWifiScanResult:340 com.samsung.android.m
+occa.app.vehicle.AdvancedVehicleDetection.q:0 D.e.h:231 
+02-09 08:17:52.798  7938  7938 I ALT.AFClient: #audio# acquire audio focus for client(TNG_TRANSCRIPTION)
+02-09 08:17:52.798  7938  7938 I ALT.AFCSessionMgr: #audio# acquire audio focus for client(TNG_TRANSCRIPTION) session(t
+oken(92))
+02-09 08:17:52.799  7938  7938 I ALT.ARCProvider: #audio# activating audio request client(TNG_TRANSCRIPTION)
+02-09 08:17:52.799  7938  7938 I ALT.ClientsRegy: #audio# activating audio client(token(79653844), TNG_TRANSCRIPTION)
+02-09 08:17:52.799  7938  7938 I ALT.ClientsRegy: #audio# enforcing concurrency state on a new client(TNG_TRANSCRIPTION
+, token(79653844))
+02-09 08:17:52.799  7938  7938 I ALT.ClientsRegy: #audio# deactivating(DEACTIVATED_NEW_CLIENT) client(token(1080633974)
+, TNG_TRANSCRIPTION)
+02-09 08:17:52.800  7938  7938 I ALT.AudioRoutesRegy: #audio# disconnecting(DISCONNECT_REASON_NEW_CLIENT_ACTIVATING) au
+dio route(token(484173017), BUILTIN_AUDIO_ROUTE) for client(token(1080633974), TNG_TRANSCRIPTION)
+02-09 08:17:52.800  7938  7938 I ALT.AudioRoutesRegy: #audio# initializing the default route(613389477) for client(toke
+n(79653844), TNG_TRANSCRIPTION)
+02-09 08:17:52.800  7938  7938 I ALT.AudioSessionsRegy: #audio# starting audio session(1537894403) for client(token(796
+53844), TNG_TRANSCRIPTION)
+02-09 08:17:52.800  7938  7938 I ALT.AudioSessionsRegy: #audio# enforcing concurrency state on new audio session of cli
+ent(token(79653844), TNG_TRANSCRIPTION)
+02-09 08:17:52.800  7938  7938 I ALT.AudioSrcDataRegy: #audio# starting audio source session(1537894403) on route(token
+(613389477), BUILTIN_AUDIO_ROUTE) for client(token(79653844), TNG_TRANSCRIPTION)
+02-09 08:17:52.800  7938  7938 I ALT.AudioSrcDataRegy: #audio# enforcing concurrency state on a new audio source of cli
+ent(token(79653844), TNG_TRANSCRIPTION)
+02-09 08:17:52.801  7938  7938 I ALT.AudioRoutesRegy: #audio# enforcing routes concurrency state on Event.PreStart(rout
+e=613389477, session=1537894403) of client(token(79653844), TNG_TRANSCRIPTION)
+02-09 08:17:52.802  7938  7938 I ALT.AudioRoutesRegy: #audio# update route state on Event.Started(route=613389477) of c
+lient(token(79653844), TNG_TRANSCRIPTION)
+02-09 08:17:52.856  7938  7980 W native  : W0000 00:00:1770592672.856020    7980 context_session_resource.cc:123] Conte
+xtAwareModel context_model cannot process the following RecognitionContext:
+02-09 08:17:52.861  7938  7985 I fxc     : #audio# starting listening client(TNG_TRANSCRIPTION) route(AudioRouteType[na
+me=BUILTIN_AUDIO_ROUTE]) took 59(ms)
+02-09 08:17:52.863  1647  2688 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_SEEK
+02-09 08:17:52.863  1647  2688 D DlbEffectContext: handleSeek(seek operation starts, current profile is 2)
+02-09 08:17:52.863  1647  2688 D DlbEffectContext: transformExternalGain() volume:0x0 fVol:0.000000 extVal:-2080
+02-09 08:17:52.945  7938 30673 W native  : W0000 00:00:1770592672.945000   30673 context_session_resource.cc:123] Conte
+xtAwareModel context_model cannot process the following RecognitionContext:
+02-09 08:17:55.925  1979 12848 W ContextImpl: Calling a method in the system process without a qualified user: android.
+app.ContextImpl.sendBroadcast:1335 com.samsung.android.mocca.app.vehicle.AdvancedVehicleDetection.reportAdvancedVehicle
+Event:185 com.samsung.android.mocca.app.vehicle.AdvancedVehicleDetection.handleWifiScanResult:340 com.samsung.android.m
+occa.app.vehicle.AdvancedVehicleDetection.q:0 D.e.h:231 
+02-09 08:17:55.951 19398 19452 D SensorManager: requestTrigger :: 172, smd  Wakeup, ctoh@4e0d8e0
+02-09 08:17:57.240  7938 30674 I SodaSpeechRecognizer: #handleFinalResult: 3 hyp
+02-09 08:17:57.927  7938  7996 I ALT.AudioSessionsRegy: #audio# stopping(CLIENT_REQUESTED) audio session(1537894403) fo
+r client(token(79653844), TNG_TRANSCRIPTION)
+02-09 08:17:57.954  7938  7984 I SodaSpeechRecognizer: Audio process finished, transcription completed.
+02-09 08:17:57.954  7938  7985 I AudioLibraryAudioContro: Mic closing result: # fky@7bca4
+02-09 08:17:58.144  7938  8002 I cn_CronetUrlRequestContext: destroyNativeStreamLocked org.chromium.net.impl.CronetBidi
+rectionalStream@d13bc7f
+02-09 08:17:58.147 30188 30188 I MAIN_AR : STT Result: ???꾩옱 湲곗???紐???硫곗튌濡??덈땲
+02-09 08:18:00.009  3285  3285 D QSClockBellTower: He is ready to ring the bell. (((QSClockBellSound - TimeText:8:18, T
+imeContentDescription:?ㅼ쟾 8:18, DateText:2??9???붿슂?? ShortDateText:2??9??(??, Demo:false)))
+02-09 08:18:00.009  3285  3285 D QSClock : StatusBar clock=8:18 notifyTimeChanged(QSClockBellSound - TimeText:8:18, Tim
+eContentDescription:?ㅼ쟾 8:18, DateText:2??9???붿슂?? ShortDateText:2??9??(??, Demo:false) clockVisibleByPolicy=true, cloc
+kVisibleByUser=true, visible=true, parent=android.widget.LinearLayout{d659731 V.E...... ......ID 0,0-65,63 #7f0a069b ap
+p:id/left_clock_container} caller=com.android.systemui.statusbar.phone.fragment.CollapsedStatusBarFragment.animateShow:
+52 com.android.systemui.statusbar.phone.fragment.CollapsedStatusBarFragment.updateStatusBarVisibilitiesInner:230 com.an
+droid.systemui.statusbar.phone.fragment.CollapsedStatusBarFragment.updateStatusBarVisibilities:65 com.android.systemui.
+statusbar.phone.fragment.CollapsedStatusBarFragment$$ExternalSyntheticLambda0.onStatusBarWindowStateChanged:6 com.andro
+id.systemui.statusbar.window.StatusBarWindowStateController$commandQueueCallback$1.setWindowState:39  
+02-09 08:18:00.805  1647  2688 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_SEEK
+02-09 08:18:00.805  1647  2688 D DlbEffectContext: handleSeek(seek operation ends, restore profile to 2)
+02-09 08:18:00.805  1647  2688 D DlbEffectContext: transformExternalGain() volume:0x5AD50C fVol:0.354813 extVal:-144
+02-09 08:18:01.299  1647  1801 D DlbEffectContext: getParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:18:01.299  1647  1801 D DlbEffectContext: getParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:18:01.299  1647  1801 D DlbEffectContext: getParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:18:01.299  1647  1801 D DlbEffectContext: getParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:18:01.299  1647  1801 D DlbEffectContext: getParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:18:01.301  1647  1801 D DlbSpatializerEffectContext: setParam() received parameter SPATIALIZER_PARAM_ENABLE
+02-09 08:18:01.301  1529  1529 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:18:01.302  1647  1801 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:18:01.302  1647  1801 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:18:01.302  1647  1801 D DlbEffectContext: setContentProcEnabled(enabled=0)
+02-09 08:18:01.302  1647  1801 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:18:01.302  1647  1801 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:18:01.302  1647  1801 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:18:01.303  1529  1529 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:18:01.303  1529  1529 D DlbEffectContext: setProfile(profile=5) stageIdx:-1303
+02-09 08:18:01.303  1647  1801 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:18:01.303  1647  1801 D DlbEffectContext: setProfile(profile=5) stageIdx:-2105
+02-09 08:18:01.303  1647  1801 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:18:01.303  1647  1801 D DlbEffectContext: setProfile(profile=5) stageIdx:-2108
+02-09 08:18:01.303  1647  1801 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:18:01.303  1647  1801 D DlbEffectContext: setProfile(profile=5) stageIdx:-2113
+02-09 08:18:01.304  1647  1801 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:18:01.304  1647  1801 D DlbEffectContext: setProfile(profile=5) stageIdx:-2902
+02-09 08:18:01.304  1647  1801 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:18:01.304  1647  1801 D DlbEffectContext: setProfile(profile=5) stageIdx:-29002
+02-09 08:18:01.310  1647  1647 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:18:01.310  1647  1647 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:18:01.310  1647  1647 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:18:01.310  1647  1647 D DlbEffectContext: setProfile(profile=5) stageIdx:-29003
+02-09 08:18:01.310  1647  1647 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:18:01.310  1647  1647 D DlbEffectContext: setProfile(profile=5) stageIdx:-29004
+02-09 08:18:01.317  1647  1647 D DlbSpatializerEffectContext: setParam() received parameter SPATIALIZER_PARAM_ENABLE
+02-09 08:18:01.317  1529  1529 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:18:01.317  1647  1647 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:18:01.317  1647  1647 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:18:01.317  1647  1647 D DlbEffectContext: setContentProcEnabled(enabled=0)
+02-09 08:18:01.317  1647  1647 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:18:01.317  1647  1647 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:18:01.317  1647  1647 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:18:01.317  1529  1529 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:18:01.317  1529  1529 D DlbEffectContext: setProfile(profile=5) stageIdx:-1303
+02-09 08:18:01.317  1647  1647 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:18:01.317  1647  1647 D DlbEffectContext: setProfile(profile=5) stageIdx:-2105
+02-09 08:18:01.317  1647  1647 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:18:01.317  1647  1647 D DlbEffectContext: setProfile(profile=5) stageIdx:-2108
+02-09 08:18:01.317  1647  1647 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:18:01.317  1647  1647 D DlbEffectContext: setProfile(profile=5) stageIdx:-2113
+02-09 08:18:01.318  1647  1647 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:18:01.318  1647  1647 D DlbEffectContext: setProfile(profile=5) stageIdx:-2902
+02-09 08:18:01.318  1647  1647 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:18:01.318  1647  1647 D DlbEffectContext: setProfile(profile=5) stageIdx:-29002
+02-09 08:18:02.641  1979 12848 W ContextImpl: Calling a method in the system process without a qualified user: android.
+app.ContextImpl.sendBroadcast:1335 com.samsung.android.mocca.app.vehicle.AdvancedVehicleDetection.reportAdvancedVehicle
+Event:185 com.samsung.android.mocca.app.vehicle.AdvancedVehicleDetection.handleWifiScanResult:340 com.samsung.android.m
+occa.app.vehicle.AdvancedVehicleDetection.q:0 D.e.h:231 
+02-09 08:18:09.950  1979 12848 W ContextImpl: Calling a method in the system process without a qualified user: android.
+app.ContextImpl.sendBroadcast:1335 com.samsung.android.mocca.app.vehicle.AdvancedVehicleDetection.reportAdvancedVehicle
+Event:185 com.samsung.android.mocca.app.vehicle.AdvancedVehicleDetection.handleWifiScanResult:340 com.samsung.android.m
+occa.app.vehicle.AdvancedVehicleDetection.q:0 D.e.h:231 
+02-09 08:18:15.051  7938  7938 I ALT.AFClient: #audio# acquire audio focus for client(TNG_TRANSCRIPTION)
+02-09 08:18:15.051  7938  7938 I ALT.AFCSessionMgr: #audio# acquire audio focus for client(TNG_TRANSCRIPTION) session(t
+oken(93))
+02-09 08:18:15.052  7938  7938 I ALT.ARCProvider: #audio# activating audio request client(TNG_TRANSCRIPTION)
+02-09 08:18:15.052  7938  7938 I ALT.ClientsRegy: #audio# activating audio client(token(985725284), TNG_TRANSCRIPTION)
+02-09 08:18:15.052  7938  7938 I ALT.ClientsRegy: #audio# enforcing concurrency state on a new client(TNG_TRANSCRIPTION
+, token(985725284))
+02-09 08:18:15.052  7938  7938 I ALT.ClientsRegy: #audio# deactivating(DEACTIVATED_NEW_CLIENT) client(token(79653844), 
+TNG_TRANSCRIPTION)
+02-09 08:18:15.052  7938  7938 I ALT.AudioRoutesRegy: #audio# disconnecting(DISCONNECT_REASON_NEW_CLIENT_ACTIVATING) au
+dio route(token(613389477), BUILTIN_AUDIO_ROUTE) for client(token(79653844), TNG_TRANSCRIPTION)
+02-09 08:18:15.052  7938  7938 I ALT.AudioRoutesRegy: #audio# initializing the default route(821801783) for client(toke
+n(985725284), TNG_TRANSCRIPTION)
+02-09 08:18:15.053  7938  7938 I ALT.AudioSessionsRegy: #audio# starting audio session(1718039327) for client(token(985
+725284), TNG_TRANSCRIPTION)
+02-09 08:18:15.053  7938  7938 I ALT.AudioSessionsRegy: #audio# enforcing concurrency state on new audio session of cli
+ent(token(985725284), TNG_TRANSCRIPTION)
+02-09 08:18:15.053  7938  7938 I ALT.AudioSrcDataRegy: #audio# starting audio source session(1718039327) on route(token
+(821801783), BUILTIN_AUDIO_ROUTE) for client(token(985725284), TNG_TRANSCRIPTION)
+02-09 08:18:15.053  7938  7938 I ALT.AudioSrcDataRegy: #audio# enforcing concurrency state on a new audio source of cli
+ent(token(985725284), TNG_TRANSCRIPTION)
+02-09 08:18:15.053  7938  7938 I ALT.AudioRoutesRegy: #audio# enforcing routes concurrency state on Event.PreStart(rout
+e=821801783, session=1718039327) of client(token(985725284), TNG_TRANSCRIPTION)
+02-09 08:18:15.054  7938  7938 I ALT.AudioRoutesRegy: #audio# update route state on Event.Started(route=821801783) of c
+lient(token(985725284), TNG_TRANSCRIPTION)
+02-09 08:18:15.116  7938  7981 I fxc     : #audio# starting listening client(TNG_TRANSCRIPTION) route(AudioRouteType[na
+me=BUILTIN_AUDIO_ROUTE]) took 60(ms)
+02-09 08:18:15.120  7938  7973 W native  : W0000 00:00:1770592695.120109    7973 context_session_resource.cc:123] Conte
+xtAwareModel context_model cannot process the following RecognitionContext:
+02-09 08:18:15.146  1647  2688 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_SEEK
+02-09 08:18:15.146  1647  2688 D DlbEffectContext: handleSeek(seek operation starts, current profile is 2)
+02-09 08:18:15.146  1647  2688 D DlbEffectContext: transformExternalGain() volume:0x0 fVol:0.000000 extVal:-2080
+02-09 08:18:15.179  7938 30800 W native  : W0000 00:00:1770592695.179315   30800 context_session_resource.cc:123] Conte
+xtAwareModel context_model cannot process the following RecognitionContext:
+02-09 08:18:17.184  1979 12848 W ContextImpl: Calling a method in the system process without a qualified user: android.
+app.ContextImpl.sendBroadcast:1335 com.samsung.android.mocca.app.vehicle.AdvancedVehicleDetection.reportAdvancedVehicle
+Event:185 com.samsung.android.mocca.app.vehicle.AdvancedVehicleDetection.handleWifiScanResult:340 com.samsung.android.m
+occa.app.vehicle.AdvancedVehicleDetection.q:0 D.e.h:231 
+02-09 08:18:18.219 19398 19444 D SensorManager: requestTrigger :: 172, smd  Wakeup, ggfn@248b226
+02-09 08:18:18.221 19398 30558 D SensorManager: requestTrigger :: 172, smd  Wakeup, ctoh@6e40414
+02-09 08:18:20.244  7938 30801 I SodaSpeechRecognizer: #handleFinalResult: 4 hyp
+02-09 08:18:24.265  1979 12848 W ContextImpl: Calling a method in the system process without a qualified user: android.
+app.ContextImpl.sendBroadcast:1335 com.samsung.android.mocca.app.vehicle.AdvancedVehicleDetection.reportAdvancedVehicle
+Event:185 com.samsung.android.mocca.app.vehicle.AdvancedVehicleDetection.handleWifiScanResult:340 com.samsung.android.m
+occa.app.vehicle.AdvancedVehicleDetection.q:0 D.e.h:231 
+02-09 08:18:24.294 21360 21360 I [CE]_LocationPatternManager: pvpUpdate - Result: 2
+02-09 08:18:24.341  7938  7985 I ALT.AudioSessionsRegy: #audio# stopping(CLIENT_REQUESTED) audio session(1718039327) fo
+r client(token(985725284), TNG_TRANSCRIPTION)
+02-09 08:18:24.351  7938  7981 I SodaSpeechRecognizer: Audio process finished, transcription completed.
+02-09 08:18:24.354 30188 30188 I MAIN_AR : STT Result: 留먯씠 ???섏옏???ㅼ꽍????듬졊 已볤꺼?쒖?媛 ?몄젨???꾩쭅???ㅼ꽍?댁씠 ??듬졊?대씪 留먰븯硫??대
+뼞?섎땲
+02-09 08:18:24.383  7938  7982 I AudioLibraryAudioContro: Mic closing result: # fky@7bca4
+02-09 08:18:24.649  7938  8002 I cn_CronetUrlRequestContext: destroyNativeStreamLocked org.chromium.net.impl.CronetBidi
+rectionalStream@5a7682a
+02-09 08:18:29.065  1647  2688 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_SEEK
+02-09 08:18:29.065  1647  2688 D DlbEffectContext: handleSeek(seek operation ends, restore profile to 2)
+02-09 08:18:29.065  1647  2688 D DlbEffectContext: transformExternalGain() volume:0x5AD50C fVol:0.354813 extVal:-144
+02-09 08:18:29.565  1647  1801 D DlbEffectContext: getParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:18:29.565  1647  1801 D DlbEffectContext: getParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:18:29.565  1647  1801 D DlbEffectContext: getParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:18:29.565  1647  1801 D DlbEffectContext: getParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:18:29.565  1647  1801 D DlbEffectContext: getParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:18:29.567  1647  1801 D DlbSpatializerEffectContext: setParam() received parameter SPATIALIZER_PARAM_ENABLE
+02-09 08:18:29.567  1529  1529 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:18:29.567  1647  1801 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:18:29.567  1647  1801 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:18:29.567  1647  1801 D DlbEffectContext: setContentProcEnabled(enabled=0)
+02-09 08:18:29.567  1647  1801 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:18:29.567  1647  1801 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:18:29.567  1647  1801 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:18:29.567  1529  1529 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:18:29.567  1529  1529 D DlbEffectContext: setProfile(profile=5) stageIdx:-1303
+02-09 08:18:29.568  1647  1801 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:18:29.568  1647  1801 D DlbEffectContext: setProfile(profile=5) stageIdx:-2105
+02-09 08:18:29.568  1647  1801 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:18:29.568  1647  1801 D DlbEffectContext: setProfile(profile=5) stageIdx:-2108
+02-09 08:18:29.568  1647  1801 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:18:29.568  1647  1801 D DlbEffectContext: setProfile(profile=5) stageIdx:-2113
+02-09 08:18:29.569  1647  1801 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:18:29.569  1647  1801 D DlbEffectContext: setProfile(profile=5) stageIdx:-2902
+02-09 08:18:29.569  1647  1801 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:18:29.569  1647  1801 D DlbEffectContext: setProfile(profile=5) stageIdx:-29002
+02-09 08:18:29.571  1647  2887 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:18:29.571  1647  2887 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:18:29.571  1647  2887 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:18:29.571  1647  2887 D DlbEffectContext: setProfile(profile=5) stageIdx:-29003
+02-09 08:18:29.571  1647  2887 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:18:29.571  1647  2887 D DlbEffectContext: setProfile(profile=5) stageIdx:-29004
+02-09 08:18:29.579  1647  2887 D DlbSpatializerEffectContext: setParam() received parameter SPATIALIZER_PARAM_ENABLE
+02-09 08:18:29.579  1529  1529 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:18:29.579  1647  2887 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:18:29.579  1647  2887 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:18:29.579  1647  2887 D DlbEffectContext: setContentProcEnabled(enabled=0)
+02-09 08:18:29.579  1647  2887 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:18:29.579  1647  2887 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:18:29.579  1647  2887 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:18:29.580  1529  1529 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:18:29.580  1529  1529 D DlbEffectContext: setProfile(profile=5) stageIdx:-1303
+02-09 08:18:29.580  1647  2887 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:18:29.580  1647  2887 D DlbEffectContext: setProfile(profile=5) stageIdx:-2105
+02-09 08:18:29.580  1647  2887 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:18:29.580  1647  2887 D DlbEffectContext: setProfile(profile=5) stageIdx:-2108
+02-09 08:18:29.580  1647  2887 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:18:29.580  1647  2887 D DlbEffectContext: setProfile(profile=5) stageIdx:-2113
+02-09 08:18:29.580  1647  2887 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:18:29.580  1647  2887 D DlbEffectContext: setProfile(profile=5) stageIdx:-2902
+02-09 08:18:29.580  1647  2887 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:18:29.580  1647  2887 D DlbEffectContext: setProfile(profile=5) stageIdx:-29002
+02-09 08:18:30.932  1979 12848 W ContextImpl: Calling a method in the system process without a qualified user: android.
+app.ContextImpl.sendBroadcast:1335 com.samsung.android.mocca.app.vehicle.AdvancedVehicleDetection.reportAdvancedVehicle
+Event:185 com.samsung.android.mocca.app.vehicle.AdvancedVehicleDetection.handleWifiScanResult:340 com.samsung.android.m
+occa.app.vehicle.AdvancedVehicleDetection.q:0 D.e.h:231 
+02-09 08:18:38.212  1979 12848 W ContextImpl: Calling a method in the system process without a qualified user: android.
+app.ContextImpl.sendBroadcast:1335 com.samsung.android.mocca.app.vehicle.AdvancedVehicleDetection.reportAdvancedVehicle
+Event:185 com.samsung.android.mocca.app.vehicle.AdvancedVehicleDetection.handleWifiScanResult:340 com.samsung.android.m
+occa.app.vehicle.AdvancedVehicleDetection.q:0 D.e.h:231 
+02-09 08:18:44.710  1979  3184 D OpenNetworkQos[4.00]: updateBssidLatestDnsResultType - result: 0
+02-09 08:18:45.493  1979 12848 W ContextImpl: Calling a method in the system process without a qualified user: android.
+app.ContextImpl.sendBroadcast:1335 com.samsung.android.mocca.app.vehicle.AdvancedVehicleDetection.reportAdvancedVehicle
+Event:185 com.samsung.android.mocca.app.vehicle.AdvancedVehicleDetection.handleWifiScanResult:340 com.samsung.android.m
+occa.app.vehicle.AdvancedVehicleDetection.q:0 D.e.h:231 
+02-09 08:18:50.655  7938  7938 I ALT.AFClient: #audio# acquire audio focus for client(TNG_TRANSCRIPTION)
+02-09 08:18:50.655  7938  7938 I ALT.AFCSessionMgr: #audio# acquire audio focus for client(TNG_TRANSCRIPTION) session(t
+oken(94))
+02-09 08:18:50.656  7938  7938 I ALT.ARCProvider: #audio# activating audio request client(TNG_TRANSCRIPTION)
+02-09 08:18:50.656  7938  7938 I ALT.ClientsRegy: #audio# activating audio client(token(1046969771), TNG_TRANSCRIPTION)
+02-09 08:18:50.656  7938  7938 I ALT.ClientsRegy: #audio# enforcing concurrency state on a new client(TNG_TRANSCRIPTION
+, token(1046969771))
+02-09 08:18:50.656  7938  7938 I ALT.ClientsRegy: #audio# deactivating(DEACTIVATED_NEW_CLIENT) client(token(985725284),
+ TNG_TRANSCRIPTION)
+02-09 08:18:50.657  7938  7938 I ALT.AudioRoutesRegy: #audio# disconnecting(DISCONNECT_REASON_NEW_CLIENT_ACTIVATING) au
+dio route(token(821801783), BUILTIN_AUDIO_ROUTE) for client(token(985725284), TNG_TRANSCRIPTION)
+02-09 08:18:50.657  7938  7938 I ALT.AudioRoutesRegy: #audio# initializing the default route(1733934775) for client(tok
+en(1046969771), TNG_TRANSCRIPTION)
+02-09 08:18:50.657  7938  7938 I ALT.AudioSessionsRegy: #audio# starting audio session(1368219323) for client(token(104
+6969771), TNG_TRANSCRIPTION)
+02-09 08:18:50.657  7938  7938 I ALT.AudioSessionsRegy: #audio# enforcing concurrency state on new audio session of cli
+ent(token(1046969771), TNG_TRANSCRIPTION)
+02-09 08:18:50.658  7938  7938 I ALT.AudioSrcDataRegy: #audio# starting audio source session(1368219323) on route(token
+(1733934775), BUILTIN_AUDIO_ROUTE) for client(token(1046969771), TNG_TRANSCRIPTION)
+02-09 08:18:50.658  7938  7938 I ALT.AudioSrcDataRegy: #audio# enforcing concurrency state on a new audio source of cli
+ent(token(1046969771), TNG_TRANSCRIPTION)
+02-09 08:18:50.658  7938  7938 I ALT.AudioRoutesRegy: #audio# enforcing routes concurrency state on Event.PreStart(rout
+e=1733934775, session=1368219323) of client(token(1046969771), TNG_TRANSCRIPTION)
+02-09 08:18:50.659  7938  7938 I ALT.AudioRoutesRegy: #audio# update route state on Event.Started(route=1733934775) of 
+client(token(1046969771), TNG_TRANSCRIPTION)
+02-09 08:18:50.728  7938  7974 W native  : W0000 00:00:1770592730.728097    7974 context_session_resource.cc:123] Conte
+xtAwareModel context_model cannot process the following RecognitionContext:
+02-09 08:18:50.730  7938  7983 I fxc     : #audio# starting listening client(TNG_TRANSCRIPTION) route(AudioRouteType[na
+me=BUILTIN_AUDIO_ROUTE]) took 71(ms)
+02-09 08:18:50.749  1647  2688 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_SEEK
+02-09 08:18:50.749  1647  2688 D DlbEffectContext: handleSeek(seek operation starts, current profile is 2)
+02-09 08:18:50.749  1647  2688 D DlbEffectContext: transformExternalGain() volume:0x0 fVol:0.000000 extVal:-2080
+02-09 08:18:50.790  7938 30901 W native  : W0000 00:00:1770592730.790964   30901 context_session_resource.cc:123] Conte
+xtAwareModel context_model cannot process the following RecognitionContext:
+02-09 08:18:52.739  1979 12848 W ContextImpl: Calling a method in the system process without a qualified user: android.
+app.ContextImpl.sendBroadcast:1335 com.samsung.android.mocca.app.vehicle.AdvancedVehicleDetection.reportAdvancedVehicle
+Event:185 com.samsung.android.mocca.app.vehicle.AdvancedVehicleDetection.handleWifiScanResult:340 com.samsung.android.m
+occa.app.vehicle.AdvancedVehicleDetection.q:0 D.e.h:231 
+02-09 08:18:53.724 19398 19444 D SensorManager: requestTrigger :: 172, smd  Wakeup, ggfn@cf6b927
+02-09 08:18:55.326  7938 30905 I SodaSpeechRecognizer: #handleFinalResult: 2 hyp
+02-09 08:18:58.891  7938  7996 I ALT.AudioSessionsRegy: #audio# stopping(CLIENT_REQUESTED) audio session(1368219323) fo
+r client(token(1046969771), TNG_TRANSCRIPTION)
+02-09 08:18:58.898  7938  7985 I SodaSpeechRecognizer: Audio process finished, transcription completed.
+02-09 08:18:58.930  7938  7996 I AudioLibraryAudioContro: Mic closing result: # fky@7bca4
+02-09 08:18:59.125  7938  8002 I cn_CronetUrlRequestContext: destroyNativeStreamLocked org.chromium.net.impl.CronetBidi
+rectionalStream@6b52ae9
+02-09 08:18:59.134 30188 30188 I MAIN_AR : STT Result: 2024?꾩쑝濡?寃?됲뻽?쇰땲源??뱀뿰?섍쿋援щ굹 洹쇰뜲 吏湲덉? 2026??2?붿씤???닿구
+02-09 08:18:59.695  1979 12848 W ContextImpl: Calling a method in the system process without a qualified user: android.
+app.ContextImpl.sendBroadcast:1335 com.samsung.android.mocca.app.vehicle.AdvancedVehicleDetection.reportAdvancedVehicle
+Event:185 com.samsung.android.mocca.app.vehicle.AdvancedVehicleDetection.handleWifiScanResult:340 com.samsung.android.m
+occa.app.vehicle.AdvancedVehicleDetection.q:0 D.e.h:231 
+02-09 08:18:59.880 19398 19978 I cn_CronetUrlRequestContext: destroyNativeStreamLocked org.chromium.net.impl.CronetBidi
+rectionalStream@20aa918
+02-09 08:19:00.007  3285  3285 D QSClockBellTower: He is ready to ring the bell. (((QSClockBellSound - TimeText:8:19, T
+imeContentDescription:?ㅼ쟾 8:19, DateText:2??9???붿슂?? ShortDateText:2??9??(??, Demo:false)))
+02-09 08:19:00.007  3285  3285 D QSClock : StatusBar clock=8:19 notifyTimeChanged(QSClockBellSound - TimeText:8:19, Tim
+eContentDescription:?ㅼ쟾 8:19, DateText:2??9???붿슂?? ShortDateText:2??9??(??, Demo:false) clockVisibleByPolicy=true, cloc
+kVisibleByUser=true, visible=true, parent=android.widget.LinearLayout{d659731 V.E...... ......ID 0,0-67,63 #7f0a069b ap
+p:id/left_clock_container} caller=com.android.systemui.statusbar.phone.fragment.CollapsedStatusBarFragment.animateShow:
+52 com.android.systemui.statusbar.phone.fragment.CollapsedStatusBarFragment.updateStatusBarVisibilitiesInner:230 com.an
+droid.systemui.statusbar.phone.fragment.CollapsedStatusBarFragment.updateStatusBarVisibilities:65 com.android.systemui.
+statusbar.phone.fragment.CollapsedStatusBarFragment$$ExternalSyntheticLambda0.onStatusBarWindowStateChanged:6 com.andro
+id.systemui.statusbar.window.StatusBarWindowStateController$commandQueueCallback$1.setWindowState:39  
+02-09 08:19:02.477  1647  2688 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_SEEK
+02-09 08:19:02.478  1647  2688 D DlbEffectContext: handleSeek(seek operation ends, restore profile to 2)
+02-09 08:19:02.478  1647  2688 D DlbEffectContext: transformExternalGain() volume:0x5AD50C fVol:0.354813 extVal:-144
+02-09 08:19:02.985  1647  2887 D DlbEffectContext: getParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:19:02.985  1647  2887 D DlbEffectContext: getParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:19:02.985  1647  2887 D DlbEffectContext: getParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:19:02.985  1647  2887 D DlbEffectContext: getParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:19:02.985  1647  2887 D DlbEffectContext: getParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:19:02.989  1647  2887 D DlbSpatializerEffectContext: setParam() received parameter SPATIALIZER_PARAM_ENABLE
+02-09 08:19:02.989  1529  1529 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:19:02.990  1647  2887 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:19:02.990  1647  2887 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:19:02.990  1647  2887 D DlbEffectContext: setContentProcEnabled(enabled=0)
+02-09 08:19:02.990  1647  2887 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:19:02.990  1647  2887 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:19:02.990  1647  2887 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:19:02.992  1529  1529 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:19:02.992  1529  1529 D DlbEffectContext: setProfile(profile=5) stageIdx:-1303
+02-09 08:19:02.992  1647  2887 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:19:02.992  1647  2887 D DlbEffectContext: setProfile(profile=5) stageIdx:-2105
+02-09 08:19:02.992  1647  2887 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:19:02.992  1647  2887 D DlbEffectContext: setProfile(profile=5) stageIdx:-2108
+02-09 08:19:02.992  1647  2887 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:19:02.992  1647  2887 D DlbEffectContext: setProfile(profile=5) stageIdx:-2113
+02-09 08:19:02.993  1647  2887 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:19:02.993  1647  2887 D DlbEffectContext: setProfile(profile=5) stageIdx:-2902
+02-09 08:19:02.993  1647  2887 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:19:02.993  1647  2887 D DlbEffectContext: setProfile(profile=5) stageIdx:-29002
+02-09 08:19:02.997  1647  1801 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:19:02.997  1647  1801 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:19:02.997  1647  1801 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:19:02.997  1647  1801 D DlbEffectContext: setProfile(profile=5) stageIdx:-29003
+02-09 08:19:02.997  1647  1801 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:19:02.997  1647  1801 D DlbEffectContext: setProfile(profile=5) stageIdx:-29004
+02-09 08:19:03.007  1647  2887 D DlbSpatializerEffectContext: setParam() received parameter SPATIALIZER_PARAM_ENABLE
+02-09 08:19:03.007  1529  1529 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:19:03.007  1647  2887 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:19:03.007  1647  2887 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:19:03.007  1647  2887 D DlbEffectContext: setContentProcEnabled(enabled=0)
+02-09 08:19:03.007  1647  2887 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:19:03.007  1647  2887 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:19:03.007  1647  2887 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_ENABLE
+02-09 08:19:03.007  1529  1529 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:19:03.007  1529  1529 D DlbEffectContext: setProfile(profile=5) stageIdx:-1303
+02-09 08:19:03.008  1647  2887 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:19:03.008  1647  2887 D DlbEffectContext: setProfile(profile=5) stageIdx:-2105
+02-09 08:19:03.008  1647  2887 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:19:03.008  1647  2887 D DlbEffectContext: setProfile(profile=5) stageIdx:-2108
+02-09 08:19:03.008  1647  2887 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:19:03.008  1647  2887 D DlbEffectContext: setProfile(profile=5) stageIdx:-2113
+02-09 08:19:03.008  1647  2887 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:19:03.008  1647  2887 D DlbEffectContext: setProfile(profile=5) stageIdx:-2902
+02-09 08:19:03.008  1647  2887 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_PROFILE
+02-09 08:19:03.008  1647  2887 D DlbEffectContext: setProfile(profile=5) stageIdx:-29002
+02-09 08:19:06.528 19714 19759 I SamsungAccount: [CallbackInfo] [InAIDL-CallbackManager] setRunningRequestType :1
+02-09 08:19:06.553 19398 29980 I NetworkScheduler.Stats: (REDACTED) Task %s/%s finished executing. cause:%s result: %s 
+elapsed_millis: %s uptime_millis: %s exec_start_elapsed_seconds: %s
+02-09 08:19:06.982  1979 12848 W ContextImpl: Calling a method in the system process without a qualified user: android.
+app.ContextImpl.sendBroadcast:1335 com.samsung.android.mocca.app.vehicle.AdvancedVehicleDetection.reportAdvancedVehicle
+Event:185 com.samsung.android.mocca.app.vehicle.AdvancedVehicleDetection.handleWifiScanResult:340 com.samsung.android.m
+occa.app.vehicle.AdvancedVehicleDetection.q:0 D.e.h:231 
+02-09 08:19:07.198 19714 19759 I SamsungAccount: [CallbackInfo] [InAIDL-CallbackManager] setRunningRequestType :0
+02-09 08:19:13.100  1979  1979 D EdgeLightingPolicyManager: putNotification tickerText:false,titleText:true,text:true,s
+ub:falsecn= + null
+02-09 08:19:13.145  8677  8677 D LightingScheduleInfo: getChainText: from titleText
+02-09 08:19:13.148  8677  8677 D LightingScheduleInfo: getChainText: from titleText
+02-09 08:19:14.239  1979 12848 W ContextImpl: Calling a method in the system process without a qualified user: android.
+app.ContextImpl.sendBroadcast:1335 com.samsung.android.mocca.app.vehicle.AdvancedVehicleDetection.reportAdvancedVehicle
+Event:185 com.samsung.android.mocca.app.vehicle.AdvancedVehicleDetection.handleWifiScanResult:340 com.samsung.android.m
+occa.app.vehicle.AdvancedVehicleDetection.q:0 D.e.h:231 
+02-09 08:19:21.547  1979 12848 W ContextImpl: Calling a method in the system process without a qualified user: android.
+app.ContextImpl.sendBroadcast:1335 com.samsung.android.mocca.app.vehicle.AdvancedVehicleDetection.reportAdvancedVehicle
+Event:185 com.samsung.android.mocca.app.vehicle.AdvancedVehicleDetection.handleWifiScanResult:340 com.samsung.android.m
+occa.app.vehicle.AdvancedVehicleDetection.q:0 D.e.h:231 
+02-09 08:19:28.943  1979 12848 W ContextImpl: Calling a method in the system process without a qualified user: android.
+app.ContextImpl.sendBroadcast:1335 com.samsung.android.mocca.app.vehicle.AdvancedVehicleDetection.reportAdvancedVehicle
+Event:185 com.samsung.android.mocca.app.vehicle.AdvancedVehicleDetection.handleWifiScanResult:340 com.samsung.android.m
+occa.app.vehicle.AdvancedVehicleDetection.q:0 D.e.h:231 
+02-09 08:19:36.296  1979 12848 W ContextImpl: Calling a method in the system process without a qualified user: android.
+app.ContextImpl.sendBroadcast:1335 com.samsung.android.mocca.app.vehicle.AdvancedVehicleDetection.reportAdvancedVehicle
+Event:185 com.samsung.android.mocca.app.vehicle.AdvancedVehicleDetection.handleWifiScanResult:340 com.samsung.android.m
+occa.app.vehicle.AdvancedVehicleDetection.q:0 D.e.h:231 
+02-09 08:19:36.366 21360 21360 I [CE]_LocationPatternManager: pvpUpdate - Result: 2
+02-09 08:19:36.764  7938  7938 I ALT.AFClient: #audio# acquire audio focus for client(TNG_TRANSCRIPTION)
+02-09 08:19:36.764  7938  7938 I ALT.AFCSessionMgr: #audio# acquire audio focus for client(TNG_TRANSCRIPTION) session(t
+oken(95))
+02-09 08:19:36.767  7938  7938 I ALT.ARCProvider: #audio# activating audio request client(TNG_TRANSCRIPTION)
+02-09 08:19:36.767  7938  7938 I ALT.ClientsRegy: #audio# activating audio client(token(1418697590), TNG_TRANSCRIPTION)
+02-09 08:19:36.767  7938  7938 I ALT.ClientsRegy: #audio# enforcing concurrency state on a new client(TNG_TRANSCRIPTION
+, token(1418697590))
+02-09 08:19:36.767  7938  7938 I ALT.ClientsRegy: #audio# deactivating(DEACTIVATED_NEW_CLIENT) client(token(1046969771)
+, TNG_TRANSCRIPTION)
+02-09 08:19:36.767  7938  7938 I ALT.AudioRoutesRegy: #audio# disconnecting(DISCONNECT_REASON_NEW_CLIENT_ACTIVATING) au
+dio route(token(1733934775), BUILTIN_AUDIO_ROUTE) for client(token(1046969771), TNG_TRANSCRIPTION)
+02-09 08:19:36.767  7938  7938 I ALT.AudioRoutesRegy: #audio# initializing the default route(51001847) for client(token
+(1418697590), TNG_TRANSCRIPTION)
+02-09 08:19:36.768  7938  7938 I ALT.AudioSessionsRegy: #audio# starting audio session(1847478224) for client(token(141
+8697590), TNG_TRANSCRIPTION)
+02-09 08:19:36.768  7938  7938 I ALT.AudioSessionsRegy: #audio# enforcing concurrency state on new audio session of cli
+ent(token(1418697590), TNG_TRANSCRIPTION)
+02-09 08:19:36.768  7938  7938 I ALT.AudioSrcDataRegy: #audio# starting audio source session(1847478224) on route(token
+(51001847), BUILTIN_AUDIO_ROUTE) for client(token(1418697590), TNG_TRANSCRIPTION)
+02-09 08:19:36.768  7938  7938 I ALT.AudioSrcDataRegy: #audio# enforcing concurrency state on a new audio source of cli
+ent(token(1418697590), TNG_TRANSCRIPTION)
+02-09 08:19:36.770  7938  7938 I ALT.AudioRoutesRegy: #audio# enforcing routes concurrency state on Event.PreStart(rout
+e=51001847, session=1847478224) of client(token(1418697590), TNG_TRANSCRIPTION)
+02-09 08:19:36.770  7938  7938 I ALT.AudioRoutesRegy: #audio# update route state on Event.Started(route=51001847) of cl
+ient(token(1418697590), TNG_TRANSCRIPTION)
+02-09 08:19:36.826  7938  7981 I fxc     : #audio# starting listening client(TNG_TRANSCRIPTION) route(AudioRouteType[na
+me=BUILTIN_AUDIO_ROUTE]) took 55(ms)
+02-09 08:19:36.833  7938  7979 W native  : W0000 00:00:1770592776.833536    7979 context_session_resource.cc:123] Conte
+xtAwareModel context_model cannot process the following RecognitionContext:
+02-09 08:19:36.834  1647  2688 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_SEEK
+02-09 08:19:36.835  1647  2688 D DlbEffectContext: handleSeek(seek operation starts, current profile is 2)
+02-09 08:19:36.835  1647  2688 D DlbEffectContext: transformExternalGain() volume:0x0 fVol:0.000000 extVal:-2080
+02-09 08:19:36.905  7938 31051 W native  : W0000 00:00:1770592776.905176   31051 context_session_resource.cc:123] Conte
+xtAwareModel context_model cannot process the following RecognitionContext:
+02-09 08:19:42.912  1979 12848 W ContextImpl: Calling a method in the system process without a qualified user: android.
+app.ContextImpl.sendBroadcast:1335 com.samsung.android.mocca.app.vehicle.AdvancedVehicleDetection.reportAdvancedVehicle
+Event:185 com.samsung.android.mocca.app.vehicle.AdvancedVehicleDetection.handleWifiScanResult:340 com.samsung.android.m
+occa.app.vehicle.AdvancedVehicleDetection.q:0 D.e.h:231 
+02-09 08:19:43.183  7938 31052 I SodaSpeechRecognizer: #handleFinalResult: 1 hyp
+02-09 08:19:43.681  7938  7981 I ALT.AudioSessionsRegy: #audio# stopping(CLIENT_REQUESTED) audio session(1847478224) fo
+r client(token(1418697590), TNG_TRANSCRIPTION)
+02-09 08:19:43.694  7938  7996 I SodaSpeechRecognizer: Audio process finished, transcription completed.
+02-09 08:19:43.728  7938  7982 I AudioLibraryAudioContro: Mic closing result: # fky@7bca4
+02-09 08:19:43.849 30188 30188 I MAIN_AR : STT Result: 2026??2??湲곗??쇰줈 ?ㅼ떆 寃?됲빐???뚮젮 以?
+02-09 08:19:43.873  1979  3833 D WindowManager: Transition is created, t=TransitionRecord{6392a35 id=-1 type=CLOSE flag
+s=0x10}, caller=com.android.server.wm.Transition.<init>:182 com.android.server.wm.TransitionController.createTransition
+:17 com.android.server.wm.TransitionController.requestTransitionIfNeeded:48 com.android.server.wm.RootWindowContainer$$
+ExternalSyntheticLambda34.accept:176 com.android.server.wm.Task.forAllLeafTasks:6 
+02-09 08:19:43.873  1979  3833 D BLASTSyncEngine: SyncGroup is created, id=1442, name=Transition-CLOSE, caller=com.andr
+oid.server.wm.BLASTSyncEngine$SyncGroup.<init>:52 com.android.server.wm.TransitionController.moveToCollecting:79 com.an
+droid.server.wm.TransitionController.createTransition:46 com.android.server.wm.TransitionController.requestTransitionIf
+Needed:48 com.android.server.wm.RootWindowContainer$$ExternalSyntheticLambda34.accept:176 com.android.server.wm.Task.fo
+rAllLeafTasks:6 com.android.server.wm.WindowContainer.forAllLeafTasks:4 
+02-09 08:19:43.873  1979  3833 W BLASTSyncEngine: setSyncMethod, id=1442, method=0, caller=com.android.server.wm.Transi
+tionController.moveToCollecting:91 com.android.server.wm.TransitionController.createTransition:46 com.android.server.wm
+.TransitionController.requestTransitionIfNeeded:48 
+02-09 08:19:43.873  1979  3833 V WindowManager: Start collecting in Transition: TransitionRecord{6392a35 id=1442 type=C
+LOSE flags=0x10}, caller=com.android.server.wm.TransitionController.createTransition:46 com.android.server.wm.Transitio
+nController.requestTransitionIfNeeded:48 com.android.server.wm.RootWindowContainer$$ExternalSyntheticLambda34.accept:17
+6 com.android.server.wm.Task.forAllLeafTasks:6 com.android.server.wm.WindowContainer.forAllLeafTasks:4 
+02-09 08:19:43.873  1979  3833 V WindowManager: Requesting StartTransition: TransitionRecord{6392a35 id=1442 type=CLOSE
+ flags=0x10}, caller=com.android.server.wm.TransitionController.requestTransitionIfNeeded:56 com.android.server.wm.Root
+WindowContainer$$ExternalSyntheticLambda34.accept:176 com.android.server.wm.Task.forAllLeafTasks:6 com.android.server.w
+m.WindowContainer.forAllLeafTasks:4 com.android.server.wm.DisplayArea.forAllLeafTasks:4 
+02-09 08:19:43.875  7938  8002 I cn_CronetUrlRequestContext: destroyNativeStreamLocked org.chromium.net.impl.CronetBidi
+rectionalStream@bae88bc
+02-09 08:19:43.907  3285  3396 V WindowManagerShell: Transition requested (#1442): android.os.BinderProxy@13d44b2 Trans
+itionRequestInfo { type = CLOSE, triggerTask = TaskInfo{userId=0 taskId=279 effectiveUid=10491 displayId=0 isRunning=tr
+ue baseIntent=Intent { flg=0x10000000 cmp=com.xreal.nativear/.MainActivity } baseActivity=ComponentInfo{com.xreal.nativ
+ear/com.xreal.nativear.MainActivity} topActivity=ComponentInfo{com.xreal.nativear/com.xreal.nativear.MainActivity} orig
+Activity=null realActivity=ComponentInfo{com.xreal.nativear/com.xreal.nativear.MainActivity} numActivities=1 lastActive
+Time=253715704 supportsMultiWindow=true resizeMode=1 isResizeable=true minWidth=-1 minHeight=-1 maxWidth=-1 maxHeight=-
+1 defaultMinSize=220 desktopDefaultMinSize=304 token=WCT{android.window.IWindowContainerToken$Stub$Proxy@5b0ac03} topAc
+tivityType=1 pictureInPictureParams=null shouldDockBigOverlays=false launchIntoPipHostTaskId=-1 lastParentTaskIdBeforeP
+ip=-1 displayCutoutSafeInsets=Rect(87, 0 - 0, 0) topActivityInfo=ActivityInfo{df45780 com.xreal.nativear.MainActivity} 
+launchCookies=[] positionInParent=Point(0, 0) parentTaskId=-1 isFocused=true isVisible=true isVisibleRequested=true isT
+opActivityNoDisplay=false isSleeping=false locusId=null displayAreaFeatureId=1 isTopActivityTransparent=false isActivit
+yStackTransparent=false lastNonFullscreenBounds=Rect(685, 150 - 1505, 833) capturedLink=null capturedLinkTimestamp=0 re
+questedVisibleTypes=-9 topActivityRequestOpenInBrowserEducationTimestamp=0 appCompatTaskInfo=AppCompatTaskInfo { topAct
+ivityInSizeCompat=false eligibleForLetterboxEducation= false isLetterboxEducationEnabled= false isLetterboxDoubleTapEna
+bled= false eligibleForUserAspectRatioButton= false topActivityBoundsLetterboxed= false isFromLetterboxDoubleTap= false
+ topActivityLetterboxVerticalPosition= -1 topActivityLetterboxHorizontalPosition= -1 topActivityLetterboxWidth=-1 topAc
+tivityLetterboxHeight=-1 topActivityAppBounds=Rect(87, 0 - 2190, 904) isUserFullscreenOverrideEnabled=false isSystemFul
+lscreenOverrideEnabled=false hasMinAspectRatioOverride=false topActivityLetterboxBounds=null cameraCompatTaskInfo=Camer
+aCompatTaskInfo { freeformCameraCompatMode=inactive} topActivityBounds=null topActivityInDisplayCompat=false singleTapF
+romLetterbox=false} topActivityMainWindowFrame=null originallySupportedMultiWindow=true hasWallpaper=false rootAffinity
+=10491:com.xreal.nativear isTopTaskInStage=false CoverLauncherWidgetTask=false LaunchedFromAppsCoverLauncherTask=false 
+LaunchedFromMultistarCoverLauncherTask=false isAllowedSeamlessRotation=false isTopTransparentActivity=true isAliasManag
+ed=false hasConfigChanged=false snappingGuideBounds=null isAiKeyRemoveAppTask=false lastDesktopWindowingBounds=null las
+tExternalDesktopWindowingBounds=null isTopFullScreenWindow=true isFullSizeWindow=true safeCutoutInsets=null}, pipChange
+ = null, remoteTransition = null, displayChange = null, flags = 16, debugId = 1442 }
+02-09 08:19:43.917 30258 32042 I HoneySpace.HoneyAppWidgetHost: success hidden_semStartListening - result: true, host: 
+9ab6fa8, hostId: 1025
+02-09 08:19:43.959  3285  3539 D CollapsedStatusBarFragmentExt: fullscreen    shouldHideIconsForNextAppWindow:false, la
+stFullscreen(pkg:com.sec.android.app.launcher, flag:false),    keyguard(fa:false, ga:false, oc:false, show:false)
+02-09 08:19:43.999  1979  2422 V WindowManager: Sent Transition (#1442) createdAt=02-09 08:19:43.872 via request=Transi
+tionRequestInfo { type = CLOSE, triggerTask = TaskInfo{userId=0 taskId=279 effectiveUid=10491 displayId=0 isRunning=tru
+e baseIntent=Intent { flg=0x10000000 cmp=com.xreal.nativear/.MainActivity } baseActivity=ComponentInfo{com.xreal.native
+ar/com.xreal.nativear.MainActivity} topActivity=ComponentInfo{com.xreal.nativear/com.xreal.nativear.MainActivity} origA
+ctivity=null realActivity=ComponentInfo{com.xreal.nativear/com.xreal.nativear.MainActivity} numActivities=1 lastActiveT
+ime=253715704 supportsMultiWindow=true resizeMode=1 isResizeable=true minWidth=-1 minHeight=-1 maxWidth=-1 maxHeight=-1
+ defaultMinSize=220 desktopDefaultMinSize=304 token=WCT{RemoteToken{34a17a2 Task{6e18093 #279 type=standard A=10491:com
+.xreal.nativear}}} topActivityType=1 pictureInPictureParams=null shouldDockBigOverlays=false launchIntoPipHostTaskId=-1
+ lastParentTaskIdBeforePip=-1 displayCutoutSafeInsets=Rect(87, 0 - 0, 0) topActivityInfo=ActivityInfo{30b9c33 com.xreal
+.nativear.MainActivity} launchCookies=[] positionInParent=Point(0, 0) parentTaskId=-1 isFocused=true isVisible=true isV
+isibleRequested=true isTopActivityNoDisplay=false isSleeping=false locusId=null displayAreaFeatureId=1 isTopActivityTra
+nsparent=false isActivityStackTransparent=false lastNonFullscreenBounds=Rect(685, 150 - 1505, 833) capturedLink=null ca
+pturedLinkTimestamp=0 requestedVisibleTypes=-9 topActivityRequestOpenInBrowserEducationTimestamp=0 appCompatTaskInfo=Ap
+pCompatTaskInfo { topActivityInSizeCompat=false eligibleForLetterboxEducation= false isLetterboxEducationEnabled= false
+ isLetterboxDoubleTapEnabled= false eligibleForUserAspectRatioButton= false topActivityBoundsLetterboxed= false isFromL
+etterboxDoubleTap= false topActivityLetterboxVerticalPosition= -1 topActivityLetterboxHorizontalPosition= -1 topActivit
+yLetterboxWidth=-1 topActivityLetterboxHeight=-1 topActivityAppBounds=Rect(87, 0 - 2190, 904) isUserFullscreenOverrideE
+nabled=false isSystemFullscreenOverrideEnabled=false hasMinAspectRatioOverride=false topActivityLetterboxBounds=null ca
+meraCompatTaskInfo=CameraCompatTaskInfo { freeformCameraCompatMode=inactive} topActivityBounds=null topActivityInDispla
+yCompat=false singleTapFromLetterbox=false} topActivityMainWindowFrame=null originallySupportedMultiWindow=true hasWall
+paper=false rootAffinity=10491:com.xreal.nativear isTopTaskInStage=false CoverLauncherWidgetTask=false LaunchedFromApps
+CoverLauncherTask=false LaunchedFromMultistarCoverLauncherTask=false isAllowedSeamlessRotation=false isTopTransparentAc
+tivity=true isAliasManaged=false hasConfigChanged=false snappingGuideBounds=null isAiKeyRemoveAppTask=false lastDesktop
+WindowingBounds=null lastExternalDesktopWindowingBounds=null isTopFullScreenWindow=true isFullSizeWindow=true safeCutou
+tInsets=null}, pipChange = null, remoteTransition = null, displayChange = null, flags = 16, debugId = 1442 }
+02-09 08:19:44.007 30258 30258 I HoneySpace.AnimationResult: setAnimation, animation: false
+02-09 08:19:44.063  2023 30265 I Camera3-Status: markComponent: Component 1 is now idle - RequestThread
+02-09 08:19:44.285  1612 30339 E CamX    : [ERROR][ISP    ] camxifenode.cpp:599 ReleaseDevice() QDGB Releasing - IFEDev
+ice : RealTimeFeatureZSLPreviewRaw_IFE0_cam2, Result: 0 m_hDevice 10813702
+02-09 08:19:44.362 30258 30258 I HoneySpace.AnimationResult: finish, false
+02-09 08:19:44.363 30258 13391 I HoneySpace.AnimationResult: asyncFinishRunnable run
+02-09 08:19:44.363 30258 30258 I HoneySpace.AnimationResult: completeCallback run
+02-09 08:19:45.186  1979  3184 D OpenNetworkQos[4.00]: updateBssidLatestDnsResultType - result: 0
+02-09 08:19:50.294  1979  5341 V WindowManager: Collecting in transition 1443: ActivityRecord{260590437 u0 com.sec.andr
+oid.app.launcher/com.android.quickstep.RecentsActivity t-1}, caller=com.android.server.wm.Transition.collectExistenceCh
+ange:40 com.android.server.wm.ActivityStarter.handleStartResult:761 com.android.server.wm.ActivityStarter.startActivity
+Unchecked:218 com.android.server.wm.ActivityStarter.executeRequest:3581 com.android.server.wm.ActivityStarter.execute:1
+752 
+02-09 08:19:50.295  1979  5341 V WindowManager: }, caller=com.android.server.wm.ActivityStarter.handleStartResult:982 c
+om.android.server.wm.ActivityStarter.startActivityUnchecked:218 com.android.server.wm.ActivityStarter.executeRequest:35
+81 com.android.server.wm.ActivityStarter.execute:1752 com.android.server.wm.ActivityTaskManagerService.startActivityAsU
+ser:95 
+02-09 08:19:50.300  3285  3396 V WindowManagerShell: Transition requested (#1443): android.os.BinderProxy@f05fa07 Trans
+itionRequestInfo { type = OPEN, triggerTask = TaskInfo{userId=0 taskId=14 effectiveUid=10162 displayId=0 isRunning=true
+ baseIntent=Intent { act=android.intent.action.MAIN cat=[android.intent.category.DEFAULT] flg=0x10800000 cmp=com.sec.an
+droid.app.launcher/com.android.quickstep.RecentsActivity } baseActivity=ComponentInfo{com.sec.android.app.launcher/com.
+android.quickstep.RecentsActivity} topActivity=ComponentInfo{com.sec.android.app.launcher/com.android.quickstep.Recents
+Activity} origActivity=null realActivity=ComponentInfo{com.sec.android.app.launcher/com.android.quickstep.RecentsActivi
+ty} numActivities=1 lastActiveTime=253869219 supportsMultiWindow=true resizeMode=2 isResizeable=true minWidth=-1 minHei
+ght=-1 maxWidth=-1 maxHeight=-1 defaultMinSize=220 desktopDefaultMinSize=304 token=WCT{android.window.IWindowContainerT
+oken$Stub$Proxy@23c734} topActivityType=3 pictureInPictureParams=null shouldDockBigOverlays=false launchIntoPipHostTask
+Id=-1 lastParentTaskIdBeforePip=-1 displayCutoutSafeInsets=Rect(0, 0 - 0, 0) topActivityInfo=ActivityInfo{c25d95d com.a
+ndroid.quickstep.RecentsActivity} launchCookies=[android.os.BinderProxy@f4612d2] positionInParent=Point(0, 0) parentTas
+kId=-1 isFocused=true isVisible=false isVisibleRequested=true isTopActivityNoDisplay=false isSleeping=false locusId=nul
+l displayAreaFeatureId=1 isTopActivityTransparent=false isActivityStackTransparent=false lastNonFullscreenBounds=Rect(6
+85, 150 - 1505, 833) capturedLink=null capturedLinkTimestamp=0 requestedVisibleTypes=-10 topActivityRequestOpenInBrowse
+rEducationTimestamp=0 appCompatTaskInfo=AppCompatTaskInfo { topActivityInSizeCompat=false eligibleForLetterboxEducation
+= false isLetterboxEducationEnabled= false isLetterboxDoubleTapEnabled= false eligibleForUserAspectRatioButton= false t
+opActivityBoundsLetterboxed= false isFromLetterboxDoubleTap= false topActivityLetterboxVerticalPosition= -1 topActivity
+LetterboxHorizontalPosition= -1 topActivityLetterboxWidth=-1 topActivityLetterboxHeight=-1 topActivityAppBounds=Rect(0,
+ 0 - 2316, 904) isUserFullscreenOverrideEnabled=false isSystemFullscreenOverrideEnabled=false hasMinAspectRatioOverride
+=false topActivityLetterboxBounds=null cameraCompatTaskInfo=CameraCompatTaskInfo { freeformCameraCompatMode=inactive} t
+opActivityBounds=null topActivityInDisplayCompat=false singleTapFromLetterbox=false} topActivityMainWindowFrame=null or
+iginallySupportedMultiWindow=true hasWallpaper=false rootAffinity=null isTopTaskInStage=false CoverLauncherWidgetTask=f
+alse LaunchedFromAppsCoverLauncherTask=false LaunchedFromMultistarCoverLauncherTask=false isAllowedSeamlessRotation=fal
+se isTopTransparentActivity=true isAliasManaged=false hasConfigChanged=false snappingGuideBounds=null isAiKeyRemoveAppT
+ask=false lastDesktopWindowingBounds=null lastExternalDesktopWindowingBounds=null isTopFullScreenWindow=true isFullSize
+Window=trueisHandleImmersive=true safeCutoutInsets=null}, pipChange = null, remoteTransition = RemoteTransition { remot
+eTransition = android.window.IRemoteTransition$Stub$Proxy@afe2fa3, appThread = android.app.IApplicationThread$Stub$Prox
+y@bd022a0, debugName = QuickstepLaunchflags =NONE }, displayChange = null, flags = 0, debugId = 1443 }
+02-09 08:19:50.314 30258 30258 I HoneySpace.ListTaskViewHolder: loadIconAndLabel: tasks = [[id=275 windowingMode=1 user
+=0 lastActiveTime=252828175] null],
+02-09 08:19:50.314 30258 30258 I HoneySpace.ListTaskViewHolder:  position = 0, taskView = TaskView[a88ceda], currentIds
+: [275], requestedIds: [275]
+02-09 08:19:50.345 30258 30258 I HoneySpace.ListTaskViewHolder: loadThumbnail: tasks = [[id=275 windowingMode=1 user=0 
+lastActiveTime=252828175] null], 
+02-09 08:19:50.345 30258 30258 I HoneySpace.ListTaskViewHolder:  position = 0, taskView = TaskView[a88ceda], currentIds
+: [275], requestedIds: [275]
+02-09 08:19:50.349  1979  2422 V WindowManager: Sent Transition (#1443) createdAt=02-09 08:19:50.283 via request=Transi
+tionRequestInfo { type = OPEN, triggerTask = TaskInfo{userId=0 taskId=14 effectiveUid=10162 displayId=0 isRunning=true 
+baseIntent=Intent { act=android.intent.action.MAIN cat=[android.intent.category.DEFAULT] flg=0x10800000 cmp=com.sec.and
+roid.app.launcher/com.android.quickstep.RecentsActivity } baseActivity=ComponentInfo{com.sec.android.app.launcher/com.a
+ndroid.quickstep.RecentsActivity} topActivity=ComponentInfo{com.sec.android.app.launcher/com.android.quickstep.RecentsA
+ctivity} origActivity=null realActivity=ComponentInfo{com.sec.android.app.launcher/com.android.quickstep.RecentsActivit
+y} numActivities=1 lastActiveTime=253869219 supportsMultiWindow=true resizeMode=2 isResizeable=true minWidth=-1 minHeig
+ht=-1 maxWidth=-1 maxHeight=-1 defaultMinSize=220 desktopDefaultMinSize=304 token=WCT{RemoteToken{e684352 Task{d8d653 #
+14 type=recents I=com.sec.android.app.launcher/com.android.quickstep.RecentsActivity}}} topActivityType=3 pictureInPict
+ureParams=null shouldDockBigOverlays=false launchIntoPipHostTaskId=-1 lastParentTaskIdBeforePip=-1 displayCutoutSafeIns
+ets=Rect(0, 0 - 0, 0) topActivityInfo=ActivityInfo{735f8d9 com.android.quickstep.RecentsActivity} launchCookies=[androi
+d.os.BinderProxy@e880489] positionInParent=Point(0, 0) parentTaskId=-1 isFocused=true isVisible=false isVisibleRequeste
+d=true isTopActivityNoDisplay=false isSleeping=false locusId=null displayAreaFeatureId=1 isTopActivityTransparent=false
+ isActivityStackTransparent=false lastNonFullscreenBounds=Rect(685, 150 - 1505, 833) capturedLink=null capturedLinkTime
+stamp=0 requestedVisibleTypes=-10 topActivityRequestOpenInBrowserEducationTimestamp=0 appCompatTaskInfo=AppCompatTaskIn
+fo { topActivityInSizeCompat=false eligibleForLetterboxEducation= false isLetterboxEducationEnabled= false isLetterboxD
+oubleTapEnabled= false eligibleForUserAspectRatioButton= false topActivityBoundsLetterboxed= false isFromLetterboxDoubl
+eTap= false topActivityLetterboxVerticalPosition= -1 topActivityLetterboxHorizontalPosition= -1 topActivityLetterboxWid
+th=-1 topActivityLetterboxHeight=-1 topActivityAppBounds=Rect(0, 0 - 2316, 904) isUserFullscreenOverrideEnabled=false i
+sSystemFullscreenOverrideEnabled=false hasMinAspectRatioOverride=false topActivityLetterboxBounds=null cameraCompatTask
+Info=CameraCompatTaskInfo { freeformCameraCompatMode=inactive} topActivityBounds=null topActivityInDisplayCompat=false 
+singleTapFromLetterbox=false} topActivityMainWindowFrame=null originallySupportedMultiWindow=true hasWallpaper=false ro
+otAffinity=null isTopTaskInStage=false CoverLauncherWidgetTask=false LaunchedFromAppsCoverLauncherTask=false LaunchedFr
+omMultistarCoverLauncherTask=false isAllowedSeamlessRotation=false isTopTransparentActivity=true isAliasManaged=false h
+asConfigChanged=false snappingGuideBounds=null isAiKeyRemoveAppTask=false lastDesktopWindowingBounds=null lastExternalD
+esktopWindowingBounds=null isTopFullScreenWindow=true isFullSizeWindow=trueisHandleImmersive=true safeCutoutInsets=null
+}, pipChange = null, remoteTransition = RemoteTransition { remoteTransition = android.window.IRemoteTransition$Stub$Pro
+xy@c41dc8e, appThread = android.app.IApplicationThread$Stub$Proxy@d125caf, debugName = QuickstepLaunchflags =NONE }, di
+splayChange = null, flags = 0, debugId = 1443 }
+02-09 08:19:50.360 30258 30258 I HoneySpace.AnimationResult: setAnimation, animation: false
+02-09 08:19:50.361 30258 30258 I HoneySpace.ListTaskViewHolder: loadIconAndLabel: tasks = [[id=279 windowingMode=1 user
+=0 lastActiveTime=253862805] null],
+02-09 08:19:50.361 30258 30258 I HoneySpace.ListTaskViewHolder:  position = 0, taskView = TaskView[a88ceda], currentIds
+: [279], requestedIds: [279]
+02-09 08:19:50.362 30258 30258 I HoneySpace.ListTaskViewHolder: loadIconAndLabel: tasks = [[id=275 windowingMode=1 user
+=0 lastActiveTime=252828175] null],
+02-09 08:19:50.362 30258 30258 I HoneySpace.ListTaskViewHolder:  position = 1, taskView = TaskView[ac9d71e], currentIds
+: [275], requestedIds: [275]
+02-09 08:19:50.362 30258 30258 I HoneySpace.ListTaskViewHolder: loadThumbnail: tasks = [[id=275 windowingMode=1 user=0 
+lastActiveTime=252828175] null], 
+02-09 08:19:50.362 30258 30258 I HoneySpace.ListTaskViewHolder:  position = 1, taskView = TaskView[ac9d71e], currentIds
+: [275], requestedIds: [275]
+02-09 08:19:50.363 30258 30258 I HoneySpace.ListTaskViewHolder: loadThumbnail: tasks = [[id=279 windowingMode=1 user=0 
+lastActiveTime=253862805] null], 
+02-09 08:19:50.363 30258 30258 I HoneySpace.ListTaskViewHolder:  position = 0, taskView = TaskView[a88ceda], currentIds
+: [279], requestedIds: [279]
+02-09 08:19:50.663 30258 30258 I HoneySpace.AnimationResult: finish, false
+02-09 08:19:50.665 30258 13391 I HoneySpace.AnimationResult: asyncFinishRunnable run
+02-09 08:19:50.669 30258 30258 I HoneySpace.AnimationResult: completeCallback run
+02-09 08:20:00.015  3285  3285 D QSClockBellTower: He is ready to ring the bell. (((QSClockBellSound - TimeText:8:20, T
+imeContentDescription:?ㅼ쟾 8:20, DateText:2??9???붿슂?? ShortDateText:2??9??(??, Demo:false)))
+02-09 08:20:00.016  3285  3285 D QSClock : StatusBar clock=8:20 notifyTimeChanged(QSClockBellSound - TimeText:8:20, Tim
+eContentDescription:?ㅼ쟾 8:20, DateText:2??9???붿슂?? ShortDateText:2??9??(??, Demo:false) clockVisibleByPolicy=true, cloc
+kVisibleByUser=true, visible=true, parent=android.widget.LinearLayout{d659731 V.E...... ......ID 0,0-67,63 #7f0a069b ap
+p:id/left_clock_container} caller=com.android.systemui.statusbar.phone.fragment.CollapsedStatusBarFragment.animateShow:
+52 com.android.systemui.statusbar.phone.fragment.CollapsedStatusBarFragment.updateStatusBarVisibilitiesInner:230 com.an
+droid.systemui.statusbar.phone.fragment.CollapsedStatusBarFragment.updateStatusBarVisibilities:65 com.android.systemui.
+statusbar.phone.fragment.CollapsedStatusBarFragment$$ExternalSyntheticLambda0.onStatusBarWindowStateChanged:6 com.andro
+id.systemui.statusbar.window.StatusBarWindowStateController$commandQueueCallback$1.setWindowState:39  
+
+

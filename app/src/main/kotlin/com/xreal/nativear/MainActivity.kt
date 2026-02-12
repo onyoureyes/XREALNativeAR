@@ -1,6 +1,7 @@
 package com.xreal.nativear
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
@@ -13,118 +14,69 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
 import java.io.File
-import java.util.concurrent.ExecutorService
+import android.graphics.Bitmap
+import android.view.MotionEvent
+import org.koin.android.ext.android.inject
 import java.util.concurrent.Executors
+import java.util.concurrent.ExecutorService
 
-class MainActivity : AppCompatActivity() {
-    
-    private var nativeLibLoaded = false
-    private var nativeError = ""
-    
-    // Native methods (marked with try-catch at callsites)
-    private external fun runDiagnostic(): String
-    private external fun initQNN(modelPath: String): Boolean
-    private external fun detectObjects(imageData: ByteArray?, width: Int, height: Int): Array<Detection>?
-    private external fun cleanup()
+class MainActivity : AppCompatActivity(), CoreEngine.CoreListener {
 
-    private lateinit var cameraExecutor: ExecutorService
-    private val TAG = "XREAL_ROBUST"
+    
+    private val TAG = "XREAL_MainActivity"
     private val PERMISSION_REQUEST_CODE = 101
+    private val REQUIRED_PERMISSIONS = mutableListOf(
+        Manifest.permission.CAMERA,
+        Manifest.permission.RECORD_AUDIO,
+        Manifest.permission.ACCESS_FINE_LOCATION,
+        Manifest.permission.ACCESS_COARSE_LOCATION
+    ).apply {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
+            add(Manifest.permission.ACTIVITY_RECOGNITION)
+        }
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+            add(Manifest.permission.POST_NOTIFICATIONS)
+        }
+    }.toTypedArray()
+
+    private lateinit var coreEngine: CoreEngine
+    private lateinit var statusText: TextView
+    private lateinit var overlayView: OverlayView
+    
+    private var tapCount = 0
+    private var lastTapTime = 0L
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         
-        val statusText = findViewById<TextView>(R.id.statusText)
-        statusText.text = "Initializing Robust Mode..."
-        cameraExecutor = Executors.newSingleThreadExecutor()
+        statusText = findViewById(R.id.statusText)
+        overlayView = findViewById(R.id.overlayView)
+        statusText.text = "Initializing XREAL Native AR..."
 
-        // 1. SAFE Native Library Loading
-        try {
-            System.loadLibrary("xreal_native_ar")
-            nativeLibLoaded = true
-            Log.i(TAG, "✅ Native Library Loaded")
-        } catch (e: UnsatisfiedLinkError) {
-            nativeError = "❌ LIB LOAD FAILED: ${e.message}"
-            Log.e(TAG, nativeError)
-        } catch (e: Exception) {
-            nativeError = "❌ UNKNOWN ERROR: ${e.message}"
-            Log.e(TAG, nativeError)
-        }
+        // Initialize CoreEngine
+        coreEngine = CoreEngine(this, lifecycleScope, this)
 
-        // 2. Permission & Camera Setup (Always try regardless of native status)
         if (hasPermissions()) {
-            initializeApp()
+            startApp()
         } else {
-            ActivityCompat.requestPermissions(
-                this, arrayOf(Manifest.permission.CAMERA), PERMISSION_REQUEST_CODE
-            )
+            ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS, PERMISSION_REQUEST_CODE)
         }
     }
 
-    private fun initializeApp() {
-        val statusText = findViewById<TextView>(R.id.statusText)
-        statusText.text = "Copying Model & Initializing Native..."
-
-        // 1. Copy model from assets
-        val modelFile = File(filesDir, "yolov5s.dlc")
-        if (!modelFile.exists()) {
-            try {
-                assets.open("yolov5s.dlc").use { input ->
-                    modelFile.outputStream().use { output ->
-                        input.copyTo(output)
-                    }
-                }
-            } catch (e: Exception) {
-                statusText.text = "❌ Model Copy Failed: ${e.message}"
-                return
-            }
-        }
-
-        // 2. Try Native Init
-        if (nativeLibLoaded) {
-            val success = initQNN(modelFile.absolutePath)
-            if (success) {
-                Log.i(TAG, "✅ Native Pipeline Ready")
-                startCamera() // Keep CameraX active for phone screen preview
-                startNativeDetectionLoop()
-            } else {
-                statusText.text = "❌ Native Init Failed\nCheck Logcat for 'XREAL_ROBUST'"
-            }
-        } else {
-            statusText.text = "❌ Cannot Init: Native Lib Missing"
-        }
+    private fun startApp() {
+        com.xreal.nativear.nrsdk.MinimalNRSDK.initialize(this)
+        coreEngine.start()
+        startCamera()
+        startBackgroundService()
     }
 
-    private fun startNativeDetectionLoop() {
-        Thread {
-            while (!isDestroyed) {
-                try {
-                    val detections = detectObjects(null, 0, 0) // null triggers native camera path
-                    if (detections != null) {
-                        runOnUiThread {
-                            // Update UI status overlay with detections
-                            val statusText = findViewById<TextView>(R.id.statusText)
-                            statusText.text = "DETECTED: ${detections.size} objects"
-                        }
-                    }
-                } catch (e: Exception) {}
-                Thread.sleep(100)
-            }
-        }.start()
-    }
-
-    private fun hasPermissions() = ContextCompat.checkSelfPermission(
-        this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
-
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == PERMISSION_REQUEST_CODE && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            startCamera()
-        } else {
-            Toast.makeText(this, "Camera Permission Needed", Toast.LENGTH_LONG).show()
-        }
+    private fun startBackgroundService() {
+        val intent = Intent(this, AudioAnalysisService::class.java)
+        ContextCompat.startForegroundService(this, intent)
     }
 
     private fun startCamera() {
@@ -135,20 +87,105 @@ class MainActivity : AppCompatActivity() {
                 val preview = Preview.Builder().build().also {
                     it.setSurfaceProvider(findViewById<PreviewView>(R.id.cameraPreview).surfaceProvider)
                 }
+                
+                // Get VisionManager via Koin to bind its analyzer
+                val visionManager: VisionManager by org.koin.android.ext.android.inject()
+                
+                val imageAnalysis = androidx.camera.core.ImageAnalysis.Builder()
+                    .setBackpressureStrategy(androidx.camera.core.ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
+                    .setOutputImageFormat(androidx.camera.core.ImageAnalysis.OUTPUT_IMAGE_FORMAT_RGBA_8888)
+                    .build()
+                
+                imageAnalysis.setAnalyzer(Executors.newSingleThreadExecutor(), visionManager.analyzer)
+
                 cameraProvider.unbindAll()
-                cameraProvider.bindToLifecycle(this, CameraSelector.DEFAULT_BACK_CAMERA, preview)
+                cameraProvider.bindToLifecycle(this, CameraSelector.DEFAULT_BACK_CAMERA, preview, imageAnalysis)
             } catch (e: Exception) {
                 Log.e(TAG, "Camera Fail: ${e.message}")
             }
         }, ContextCompat.getMainExecutor(this))
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        cameraExecutor.shutdown()
-        if (nativeLibLoaded) {
-            try { cleanup() } catch (e: Exception) {}
+    private fun hasPermissions() = REQUIRED_PERMISSIONS.all {
+        ContextCompat.checkSelfPermission(this, it) == PackageManager.PERMISSION_GRANTED
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == PERMISSION_REQUEST_CODE && grantResults.all { it == PackageManager.PERMISSION_GRANTED }) {
+            startApp()
+        } else {
+            Toast.makeText(this, "Permissions required for AR features", Toast.LENGTH_LONG).show()
         }
     }
+
+
+    // --- CoreEngine.CoreListener ---
+    override fun onLog(message: String) { 
+        Log.d(TAG, message) 
+        runOnUiThread { overlayView.addLog(message) }
+    }
+    override fun onStatusUpdate(status: String) { runOnUiThread { statusText.text = status } }
+    override fun onAudioLevel(level: Float) { runOnUiThread { overlayView.setAudioLevel(level) } }
+    override fun onCentralMessage(text: String) { 
+        runOnUiThread { 
+            overlayView.setCentralMessage(text)
+            Toast.makeText(this, text, Toast.LENGTH_SHORT).show() 
+        } 
+    }
+    override fun onStabilityProgress(progress: Int) {
+        overlayView.setStabilityProgress(progress)
+    }
+
+    override fun onDetections(results: List<com.xreal.nativear.Detection>) {
+        runOnUiThread {
+            overlayView.setDetections(results)
+        }
+    }
+
+    override fun onQueryTriggered() {
+        runOnUiThread {
+            val intent = Intent(this, MemoryQueryActivity::class.java)
+            // Pass current location if available
+            val loc = coreEngine.locationManager.getCurrentLocation()
+            loc?.let {
+                intent.putExtra("extra_lat", it.latitude)
+                intent.putExtra("extra_lon", it.longitude)
+            }
+            startActivity(intent)
+        }
+    }
+
+
+
+    override fun onGeminiResponse(reply: String) { 
+        runOnUiThread { 
+            statusText.text = "Gemini: $reply"
+            overlayView.setCentralMessage(reply)
+        }
+    }
+
+    override fun onGetLatestBitmap(): android.graphics.Bitmap? {
+        return findViewById<androidx.camera.view.PreviewView>(R.id.cameraPreview).bitmap
+    }
+
+    override fun onIsFrozen(): Boolean = overlayView.isFrozen
+
+
+    override fun dispatchTouchEvent(ev: android.view.MotionEvent?): Boolean {
+        if (ev?.action == android.view.MotionEvent.ACTION_DOWN) {
+            coreEngine.onTouchTap()
+            return true
+        }
+        return super.dispatchTouchEvent(ev)
+    }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        com.xreal.nativear.nrsdk.MinimalNRSDK.shutdown()
+    }
+
 }
+
 

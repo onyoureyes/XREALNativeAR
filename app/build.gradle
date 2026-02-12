@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId "com.xreal.nativear"
-        minSdk 24  // Android 7.0 for Galaxy Fold 4
+        minSdk 26  // Required by whisper-standalone
         targetSdk 34
         versionCode 1
         versionName "1.0"
@@ -70,6 +70,60 @@ dependencies {
     implementation 'androidx.camera:camera-lifecycle:1.3.1'
     implementation 'androidx.camera:camera-view:1.3.1'
     
+    // Module dependencies
+    implementation project(':ai-common')
+    implementation project(':whisper-standalone')
+    implementation project(':xreal-hardware-standalone')
+    
+    // TensorFlow Lite
+    implementation 'com.google.android.gms:play-services-tflite-java:16.3.0'
+    implementation 'com.google.android.gms:play-services-tflite-gpu:16.2.0'
+    implementation 'org.tensorflow:tensorflow-lite:2.14.0'
+    
+    // ML Kit
+    implementation 'com.google.mlkit:text-recognition-korean:16.0.0'
+    implementation 'com.google.mlkit:translate:17.0.1'
+    
+    // Picovoice Porcupine
+    implementation 'ai.picovoice:porcupine-android:2.1.0'
+    
+    // Google Play Services Location
+    implementation 'com.google.android.gms:play-services-location:21.0.1'
+
+    
+    // Gemini AI
+    implementation 'com.google.ai.client.generativeai:generativeai:0.7.0'
+    
+    // Dependency Injection (Restored for Phase 3.1)
+    implementation "io.insert-koin:koin-core:3.5.0"
+    implementation "io.insert-koin:koin-android:3.5.0"
+    
+    // FFT for MelSpectrogram / Whisper
+    implementation 'com.github.wendykierp:JTransforms:3.1'
+    
+    // Coroutines
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3'
+
+    
     // Plan B: Direct Java wrapper (no AAR)
     // implementation fileTree(dir: 'libs', include: ['*.aar'])
+
+    // Networking (Restored for Phase 4)
+    implementation 'com.squareup.okhttp3:okhttp:4.12.0'
 }
+
+Properties properties = new Properties()
+if (project.rootProject.file('local.properties').exists()) {
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+}
+
+android {
+    defaultConfig {
+        buildConfigField "String", "NAVER_CLIENT_ID", "\"${properties.getProperty('NAVER_CLIENT_ID', '')}\""
+        buildConfigField "String", "NAVER_CLIENT_SECRET", "\"${properties.getProperty('NAVER_CLIENT_SECRET', '')}\""
+        buildConfigField "String", "NAVER_SEARCH_CLIENT_ID", "\"${properties.getProperty('NAVER_SEARCH_CLIENT_ID', '')}\""
+        buildConfigField "String", "NAVER_SEARCH_CLIENT_SECRET", "\"${properties.getProperty('NAVER_SEARCH_CLIENT_SECRET', '')}\""
+    }
+}
+
+

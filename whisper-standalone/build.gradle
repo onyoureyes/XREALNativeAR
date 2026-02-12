@@ -1,0 +1,59 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android {
+    namespace 'com.xreal.whisper'
+    compileSdk 34
+
+    defaultConfig {
+        minSdk 26
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+}
+
+dependencies {
+    implementation 'androidx.core:core-ktx:1.12.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.11.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+
+    // [AI ASSISTANT NOTE] TFLite Path A Strategy:
+    // We use play-services-tflite-java/gpu (Path A) because it's the official Google recommendation 
+    // for hardware acceleration on newer Samsung/Snapdragon devices.
+    // tensorflow-lite-gpu-api IS REQUIRED for compilation (GpuDelegate classes), 
+    // but the actual implementation is dynamic-loaded via Play Services at runtime.
+    implementation "org.tensorflow:tensorflow-lite:2.16.1"
+    implementation "org.tensorflow:tensorflow-lite-gpu-api:2.16.1"
+    implementation "com.google.android.gms:play-services-tflite-java:16.4.0"
+    implementation "com.google.android.gms:play-services-tflite-gpu:16.4.0"
+    implementation "org.tensorflow:tensorflow-lite-support:0.4.4"
+    
+    // JTransforms for FFT (Need to check if it's available or needs a repository)
+    // Looking at MelSpectrogram.kt, it uses org.jtransforms.fft.FloatFFT_1D
+    implementation 'com.github.wendykierp:JTransforms:3.1'
+
+    // Unified AI Engine Interface
+    implementation project(':ai-common')
+}

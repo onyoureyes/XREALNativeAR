@@ -1,0 +1,1000 @@
+﻿02-09 08:17:29.930  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:29.931  1668  1852 W SurfaceFlinger: onComposerHalVsync: HWVsync for 4626964470317753604, ActiveDisplay 4630946213010294403
+02-09 08:17:29.932  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:29.933  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:29.934  1612  3037 W CHIUSECASE: [WARN   ] chifeature2realtime.cpp:1808 PopulateSensorModeOnMetadataResult() FRO-URO:354_RealtimeFG:RealTime_0 Couldn't translate result metadata to initial crop values.pMetadata = 0xb4000073c135c990, pInSensorZoomInfo = 0x0, m_pRoiTranslator = 0x0, pCameraInfo = 0x730f050eb8
+02-09 08:17:29.935  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:29.937  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:29.937  1612  3037 W CHIUSECASE: [WARN   ] chifeature2graph.cpp:3743 ProcessResultMetadataMessage() pOutputLinkData->linkState in unexpected state: 1; expected OutputPending
+02-09 08:17:29.937  1612  3037 W CHIUSECASE: [WARN   ] chifeature2graph.cpp:3743 ProcessResultMetadataMessage() pOutputLinkData->linkState in unexpected state: 1; expected OutputPending
+02-09 08:17:29.939  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:29.940  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:29.942  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:29.944  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:29.946  1612  1612 W CHIUSECASE: [WARN   ] chifeature2usecaserequestobject.cpp:482 Initialize() pUsecaseSettings is NULL!!
+02-09 08:17:29.946  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:29.948  1668  1852 W SurfaceFlinger: onComposerHalVsync: HWVsync for 4626964470317753604, ActiveDisplay 4630946213010294403
+02-09 08:17:29.948  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:29.950  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:29.951  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:29.953  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:29.955  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:29.956  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:29.958  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:29.960  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:29.961  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:29.963  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:29.964  1668  1852 W SurfaceFlinger: onComposerHalVsync: HWVsync for 4626964470317753604, ActiveDisplay 4630946213010294403
+02-09 08:17:29.964  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:29.965  1612  3037 W CHIUSECASE: [WARN   ] chifeature2realtime.cpp:1808 PopulateSensorModeOnMetadataResult() FRO-URO:355_RealtimeFG:RealTime_0 Couldn't translate result metadata to initial crop values.pMetadata = 0xb4000073c1338450, pInSensorZoomInfo = 0x0, m_pRoiTranslator = 0x0, pCameraInfo = 0x730f050eb8
+02-09 08:17:29.966  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:29.968  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:29.969  1612  3037 W CHIUSECASE: [WARN   ] chifeature2graph.cpp:3743 ProcessResultMetadataMessage() pOutputLinkData->linkState in unexpected state: 1; expected OutputPending
+02-09 08:17:29.969  1612  3037 W CHIUSECASE: [WARN   ] chifeature2graph.cpp:3743 ProcessResultMetadataMessage() pOutputLinkData->linkState in unexpected state: 1; expected OutputPending
+02-09 08:17:29.970  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:29.972  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:29.974  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:29.976  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:29.976  1612  3109 W CHIUSECASE: [WARN   ] chifeature2usecaserequestobject.cpp:482 Initialize() pUsecaseSettings is NULL!!
+02-09 08:17:29.978  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:29.981  1668  1852 W SurfaceFlinger: onComposerHalVsync: HWVsync for 4626964470317753604, ActiveDisplay 4630946213010294403
+02-09 08:17:29.981  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:29.983  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:29.985  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:29.986  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:29.988  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:29.989  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:29.990  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:29.992  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:29.993  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:29.994  1612 30458 I snap_api::V4: AIAwbModel_v1.3.tflite:Session Execute time taken : 15.909 ms
+02-09 08:17:29.994  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:29.996  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:29.997  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:29.997  1612  3035 W CHIUSECASE: [WARN   ] chifeature2realtime.cpp:1808 PopulateSensorModeOnMetadataResult() FRO-URO:356_RealtimeFG:RealTime_0 Couldn't translate result metadata to initial crop values.pMetadata = 0xb4000073c1330110, pInSensorZoomInfo = 0x0, m_pRoiTranslator = 0x0, pCameraInfo = 0x730f050eb8
+02-09 08:17:29.998  1668  1852 W SurfaceFlinger: onComposerHalVsync: HWVsync for 4626964470317753604, ActiveDisplay 4630946213010294403
+02-09 08:17:29.998  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:29.999  1612  3035 W CHIUSECASE: [WARN   ] chifeature2graph.cpp:3743 ProcessResultMetadataMessage() pOutputLinkData->linkState in unexpected state: 1; expected OutputPending
+02-09 08:17:29.999  1612  3035 W CHIUSECASE: [WARN   ] chifeature2graph.cpp:3743 ProcessResultMetadataMessage() pOutputLinkData->linkState in unexpected state: 1; expected OutputPending
+02-09 08:17:30.000  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.001  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.003  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.004  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.005  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.006  1612  3113 W CHIUSECASE: [WARN   ] chifeature2usecaserequestobject.cpp:482 Initialize() pUsecaseSettings is NULL!!
+02-09 08:17:30.007  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.008  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.009  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.011  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.012  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.013  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.014  1668  1852 W SurfaceFlinger: onComposerHalVsync: HWVsync for 4626964470317753604, ActiveDisplay 4630946213010294403
+02-09 08:17:30.015  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.016  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.017  5894  5894 E gpustat : dataReady_ == false
+02-09 08:17:30.017  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.019  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.021  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.022  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.023  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.025  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.027  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.028  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.030  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.031  1668  1852 W SurfaceFlinger: onComposerHalVsync: HWVsync for 4626964470317753604, ActiveDisplay 4630946213010294403
+02-09 08:17:30.031  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.032  1612  3037 W CHIUSECASE: [WARN   ] chifeature2realtime.cpp:1808 PopulateSensorModeOnMetadataResult() FRO-URO:357_RealtimeFG:RealTime_0 Couldn't translate result metadata to initial crop values.pMetadata = 0xb4000073c134f1f0, pInSensorZoomInfo = 0x0, m_pRoiTranslator = 0x0, pCameraInfo = 0x730f050eb8
+02-09 08:17:30.033  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.034  1612  3037 W CHIUSECASE: [WARN   ] chifeature2graph.cpp:3743 ProcessResultMetadataMessage() pOutputLinkData->linkState in unexpected state: 1; expected OutputPending
+02-09 08:17:30.034  1612  3037 W CHIUSECASE: [WARN   ] chifeature2graph.cpp:3743 ProcessResultMetadataMessage() pOutputLinkData->linkState in unexpected state: 1; expected OutputPending
+02-09 08:17:30.034  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.036  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.037  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.039  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.040  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.042  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.042  1612  3109 W CHIUSECASE: [WARN   ] chifeature2usecaserequestobject.cpp:482 Initialize() pUsecaseSettings is NULL!!
+02-09 08:17:30.043  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.045  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.046  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.047  1668  1852 W SurfaceFlinger: onComposerHalVsync: HWVsync for 4626964470317753604, ActiveDisplay 4630946213010294403
+02-09 08:17:30.048  1535  1573 D BatteryDump: wait_for_battery_event : occurred : change@/devices/platform/samsung_mobile_device/samsung_mobile_device:battery/power_supply/battery 
+02-09 08:17:30.048  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.049  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.051  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.052  1535  1535 I android.hardware.health@2.1-service-samsung: updateLrpSysfs: write: 376
+02-09 08:17:30.053  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.054  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.055  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.057  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.058  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.059  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.060  1612  3032 W CHIUSECASE: [WARN   ] chifeature2realtime.cpp:1808 PopulateSensorModeOnMetadataResult() FRO-URO:358_RealtimeFG:RealTime_0 Couldn't translate result metadata to initial crop values.pMetadata = 0xb4000073c1362430, pInSensorZoomInfo = 0x0, m_pRoiTranslator = 0x0, pCameraInfo = 0x730f050eb8
+02-09 08:17:30.061  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.062  1612  3032 W CHIUSECASE: [WARN   ] chifeature2graph.cpp:3743 ProcessResultMetadataMessage() pOutputLinkData->linkState in unexpected state: 1; expected OutputPending
+02-09 08:17:30.062  1612  3032 W CHIUSECASE: [WARN   ] chifeature2graph.cpp:3743 ProcessResultMetadataMessage() pOutputLinkData->linkState in unexpected state: 1; expected OutputPending
+02-09 08:17:30.062  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.064  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.064  1668  1852 W SurfaceFlinger: onComposerHalVsync: HWVsync for 4626964470317753604, ActiveDisplay 4630946213010294403
+02-09 08:17:30.065  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.066  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.068  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.069  1612  1612 W CHIUSECASE: [WARN   ] chifeature2usecaserequestobject.cpp:482 Initialize() pUsecaseSettings is NULL!!
+02-09 08:17:30.069  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.071  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.072  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.074  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.075  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.076  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.078  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.079  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.081  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.081  1668  1852 W SurfaceFlinger: onComposerHalVsync: HWVsync for 4626964470317753604, ActiveDisplay 4630946213010294403
+02-09 08:17:30.082  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.083  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.085  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.086  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.088  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.089  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.090  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.092  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.093  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.095  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.096  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.098  1668  1852 W SurfaceFlinger: onComposerHalVsync: HWVsync for 4626964470317753604, ActiveDisplay 4630946213010294403
+02-09 08:17:30.098  1612  3037 W CHIUSECASE: [WARN   ] chifeature2realtime.cpp:1808 PopulateSensorModeOnMetadataResult() FRO-URO:359_RealtimeFG:RealTime_0 Couldn't translate result metadata to initial crop values.pMetadata = 0xb4000073c134d5d0, pInSensorZoomInfo = 0x0, m_pRoiTranslator = 0x0, pCameraInfo = 0x730f050eb8
+02-09 08:17:30.098  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.100  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.101  1612  3037 W CHIUSECASE: [WARN   ] chifeature2graph.cpp:3743 ProcessResultMetadataMessage() pOutputLinkData->linkState in unexpected state: 1; expected OutputPending
+02-09 08:17:30.101  1612  3037 W CHIUSECASE: [WARN   ] chifeature2graph.cpp:3743 ProcessResultMetadataMessage() pOutputLinkData->linkState in unexpected state: 1; expected OutputPending
+02-09 08:17:30.102  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.104  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.106  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.108  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.110  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.110  1612  3112 W CHIUSECASE: [WARN   ] chifeature2usecaserequestobject.cpp:482 Initialize() pUsecaseSettings is NULL!!
+02-09 08:17:30.111  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.113  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.114  1668  1852 W SurfaceFlinger: onComposerHalVsync: HWVsync for 4626964470317753604, ActiveDisplay 4630946213010294403
+02-09 08:17:30.115  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.115  1612 30458 I snap_api::V4: AIAwbModel_v1.3.tflite:Session Execute time taken : 4.925 ms
+02-09 08:17:30.116  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.118  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.119  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.121  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.122  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.123  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.125  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.126  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.127  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.128  1612  3033 W CHIUSECASE: [WARN   ] chifeature2realtime.cpp:1808 PopulateSensorModeOnMetadataResult() FRO-URO:360_RealtimeFG:RealTime_0 Couldn't translate result metadata to initial crop values.pMetadata = 0xb4000073c13ea650, pInSensorZoomInfo = 0x0, m_pRoiTranslator = 0x0, pCameraInfo = 0x730f050eb8
+02-09 08:17:30.129  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.130  1612  3033 W CHIUSECASE: [WARN   ] chifeature2graph.cpp:3743 ProcessResultMetadataMessage() pOutputLinkData->linkState in unexpected state: 1; expected OutputPending
+02-09 08:17:30.130  1612  3033 W CHIUSECASE: [WARN   ] chifeature2graph.cpp:3743 ProcessResultMetadataMessage() pOutputLinkData->linkState in unexpected state: 1; expected OutputPending
+02-09 08:17:30.130  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.131  1668  1852 W SurfaceFlinger: onComposerHalVsync: HWVsync for 4626964470317753604, ActiveDisplay 4630946213010294403
+02-09 08:17:30.132  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.134  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.135  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.137  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.137  1612  3109 W CHIUSECASE: [WARN   ] chifeature2usecaserequestobject.cpp:482 Initialize() pUsecaseSettings is NULL!!
+02-09 08:17:30.138  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.139  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.141  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.142  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.143  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.145  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.146  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.147  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.148  1668  1852 W SurfaceFlinger: onComposerHalVsync: HWVsync for 4626964470317753604, ActiveDisplay 4630946213010294403
+02-09 08:17:30.148  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.150  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.151  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.152  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.153  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.155  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.155  1612  3035 E IS_ALGO : IS0523: V3: is_valid_frame_time(1595): Gyro: frame_id 362: Last requested timestamp (253734576282) is larger than received timestamp (253734575302). Delta [usec] = 980
+02-09 08:17:30.156  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.157  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.159  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.160  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.161  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.162  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.163  1612  3032 W CHIUSECASE: [WARN   ] chifeature2realtime.cpp:1808 PopulateSensorModeOnMetadataResult() FRO-URO:361_RealtimeFG:RealTime_0 Couldn't translate result metadata to initial crop values.pMetadata = 0xb4000073c1446630, pInSensorZoomInfo = 0x0, m_pRoiTranslator = 0x0, pCameraInfo = 0x730f050eb8
+02-09 08:17:30.164  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.164  1668  1852 W SurfaceFlinger: onComposerHalVsync: HWVsync for 4626964470317753604, ActiveDisplay 4630946213010294403
+02-09 08:17:30.164  1612  3032 W CHIUSECASE: [WARN   ] chifeature2graph.cpp:3743 ProcessResultMetadataMessage() pOutputLinkData->linkState in unexpected state: 1; expected OutputPending
+02-09 08:17:30.164  1612  3032 W CHIUSECASE: [WARN   ] chifeature2graph.cpp:3743 ProcessResultMetadataMessage() pOutputLinkData->linkState in unexpected state: 1; expected OutputPending
+02-09 08:17:30.165  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.166  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.168  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.169  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.170  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.171  1612  3113 W CHIUSECASE: [WARN   ] chifeature2usecaserequestobject.cpp:482 Initialize() pUsecaseSettings is NULL!!
+02-09 08:17:30.172  1535  1573 E BatteryDump: !@new_battery_dump : 3554,-802,300,1022,7,361,347,417,361,0,376,405,355,Not-charging,NO_CHARGING,None,UnderVoltage,PDIC,0,Normal,0,0,11400,0x40018000,0x10000,0x0,0,0,0000,0000,00000000,3568,3580,-425,-385,402,3683,710,990,0,
+02-09 08:17:30.172  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.173  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.175  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.176  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.177  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.178  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.179  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.181  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.181  1668  1852 W SurfaceFlinger: onComposerHalVsync: HWVsync for 4626964470317753604, ActiveDisplay 4630946213010294403
+02-09 08:17:30.182  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.183  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.184  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.185  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.187  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.188  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.189  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.190  1612  3037 W CHIUSECASE: [WARN   ] chifeature2realtime.cpp:1808 PopulateSensorModeOnMetadataResult() FRO-URO:362_RealtimeFG:RealTime_0 Couldn't translate result metadata to initial crop values.pMetadata = 0xb4000073c136c6b0, pInSensorZoomInfo = 0x0, m_pRoiTranslator = 0x0, pCameraInfo = 0x730f050eb8
+02-09 08:17:30.190  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.191  1612  3037 W CHIUSECASE: [WARN   ] chifeature2graph.cpp:3743 ProcessResultMetadataMessage() pOutputLinkData->linkState in unexpected state: 1; expected OutputPending
+02-09 08:17:30.191  1612  3037 W CHIUSECASE: [WARN   ] chifeature2graph.cpp:3743 ProcessResultMetadataMessage() pOutputLinkData->linkState in unexpected state: 1; expected OutputPending
+02-09 08:17:30.192  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.193  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.194  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.196  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.197  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.197  1668  1852 W SurfaceFlinger: onComposerHalVsync: HWVsync for 4626964470317753604, ActiveDisplay 4630946213010294403
+02-09 08:17:30.198  1612  3112 W CHIUSECASE: [WARN   ] chifeature2usecaserequestobject.cpp:482 Initialize() pUsecaseSettings is NULL!!
+02-09 08:17:30.198  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.200  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.201  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.202  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.204  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.205  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.206  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.208  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.209  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.211  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.213  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.214  1668  1852 W SurfaceFlinger: onComposerHalVsync: HWVsync for 4626964470317753604, ActiveDisplay 4630946213010294403
+02-09 08:17:30.214  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.216  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.217  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.219  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.220  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.221  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.223  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.224  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.226  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.227  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.228  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.229  1979  4422 I NSLocationMonitor: getGPSUsingApps() called
+02-09 08:17:30.230  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.230 30836 30902 I NSLocationManager_FLP: getGPSUsingApps, No change
+02-09 08:17:30.231  1668  1852 W SurfaceFlinger: onComposerHalVsync: HWVsync for 4626964470317753604, ActiveDisplay 4630946213010294403
+02-09 08:17:30.231  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.232  1612  3036 W CHIUSECASE: [WARN   ] chifeature2realtime.cpp:1808 PopulateSensorModeOnMetadataResult() FRO-URO:363_RealtimeFG:RealTime_0 Couldn't translate result metadata to initial crop values.pMetadata = 0xb4000073c134bff0, pInSensorZoomInfo = 0x0, m_pRoiTranslator = 0x0, pCameraInfo = 0x730f050eb8
+02-09 08:17:30.232  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.233  1979  4422 W Binder  : Outgoing transactions from this process must be FLAG_ONEWAY
+02-09 08:17:30.233  1979  4422 W Binder  : java.lang.Throwable
+02-09 08:17:30.233  1979  4422 W Binder  : 	at android.os.BinderProxy.transact(BinderProxy.java:566)
+02-09 08:17:30.233  1979  4422 W Binder  : 	at android.bluetooth.IBluetoothGatt$Stub$Proxy.getAdvertisingSetUids(IBluetoothGatt.java:1678)
+02-09 08:17:30.233  1979  4422 W Binder  : 	at android.bluetooth.BluetoothAdapter.getAdvertisingSetUids(BluetoothAdapter.java:8476)
+02-09 08:17:30.233  1979  4422 W Binder  : 	at android.bluetooth.BluetoothAdapter.getHWUsingApps(BluetoothAdapter.java:1342)
+02-09 08:17:30.233  1979  4422 W Binder  : 	at com.android.server.am.mars.filter.filter.BlueToothConnectedFilter.updateBTUsingPackages(qb/105325040 15c01067a53b5071fcc375582311ffeb35410cf837b56533a4c56935b898b7bb:22)
+02-09 08:17:30.233  1979  4422 W Binder  : 	at com.android.server.am.FreecessController.freeze(qb/105325040 15c01067a53b5071fcc375582311ffeb35410cf837b56533a4c56935b898b7bb:117)
+02-09 08:17:30.233  1979  4422 W Binder  : 	at com.android.server.am.FreecessHandler$MainHandler.handleLcdOnFreeze(qb/105325040 15c01067a53b5071fcc375582311ffeb35410cf837b56533a4c56935b898b7bb:55)
+02-09 08:17:30.233  1979  4422 W Binder  : 	at com.android.server.am.FreecessHandler$MainHandler.handleMessage(qb/105325040 15c01067a53b5071fcc375582311ffeb35410cf837b56533a4c56935b898b7bb:793)
+02-09 08:17:30.233  1979  4422 W Binder  : 	at android.os.Handler.dispatchMessage(Handler.java:110)
+02-09 08:17:30.233  1979  4422 W Binder  : 	at android.os.Looper.loopOnce(Looper.java:273)
+02-09 08:17:30.233  1979  4422 W Binder  : 	at android.os.Looper.loop(Looper.java:363)
+02-09 08:17:30.233  1979  4422 W Binder  : 	at android.os.HandlerThread.run(HandlerThread.java:85)
+02-09 08:17:30.234  1612  3036 W CHIUSECASE: [WARN   ] chifeature2graph.cpp:3743 ProcessResultMetadataMessage() pOutputLinkData->linkState in unexpected state: 1; expected OutputPending
+02-09 08:17:30.234  1612  3036 W CHIUSECASE: [WARN   ] chifeature2graph.cpp:3743 ProcessResultMetadataMessage() pOutputLinkData->linkState in unexpected state: 1; expected OutputPending
+02-09 08:17:30.234  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.236  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.237  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.239  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.241  1537 25276 I sensors-hal: handle_sns_std_sensor_event:335, [SSC_LIGHT] P: 226(226),ch0:25632,ch1:48,c:6,w:20,l:222,m:2,br:99,c1:91,c2:100,i:1
+02-09 08:17:30.241  1612  1612 W CHIUSECASE: [WARN   ] chifeature2usecaserequestobject.cpp:482 Initialize() pUsecaseSettings is NULL!!
+02-09 08:17:30.243  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.244  1979  4422 D FreecessController: FZ : com.samsung.android.game.gamehome(10086) [31755] reason: Bg [cached:X
+02-09 08:17:30.244  1979  4422 D FreecessHandler: freeze com.samsung.android.game.gamehome(10086) result : 0
+02-09 08:17:30.244  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.245  1979  4422 W LocationManagerService: onFreezeStateChanged, uid[10086]=true
+02-09 08:17:30.245  1979  4422 I PowerManagerService: [PWL] SetWakeLockEnableDisable uid = 10086 , disable= true
+02-09 08:17:30.245  1979  4422 I PowerManagerService: [PWL] can not change uid =  10086
+02-09 08:17:30.246  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.247  1668  1852 W SurfaceFlinger: onComposerHalVsync: HWVsync for 4626964470317753604, ActiveDisplay 4630946213010294403
+02-09 08:17:30.248  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.249  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.251  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.253  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.254  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.256  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.256  1612 30458 I snap_api::V4: AIAwbModel_v1.3.tflite:Session Execute time taken : 10.047 ms
+02-09 08:17:30.257  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.259  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.260  1612  3033 W CHIUSECASE: [WARN   ] chifeature2realtime.cpp:1808 PopulateSensorModeOnMetadataResult() FRO-URO:364_RealtimeFG:RealTime_0 Couldn't translate result metadata to initial crop values.pMetadata = 0xb4000073c132fad0, pInSensorZoomInfo = 0x0, m_pRoiTranslator = 0x0, pCameraInfo = 0x730f050eb8
+02-09 08:17:30.261  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.263  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.263  1612  3033 W CHIUSECASE: [WARN   ] chifeature2graph.cpp:3743 ProcessResultMetadataMessage() pOutputLinkData->linkState in unexpected state: 1; expected OutputPending
+02-09 08:17:30.263  1612  3033 W CHIUSECASE: [WARN   ] chifeature2graph.cpp:3743 ProcessResultMetadataMessage() pOutputLinkData->linkState in unexpected state: 1; expected OutputPending
+02-09 08:17:30.264  3254  3795 D SatelliteController: isInCarrierRoamingNbIotNtn: satellite is disabled
+02-09 08:17:30.264  1668  1852 W SurfaceFlinger: onComposerHalVsync: HWVsync for 4626964470317753604, ActiveDisplay 4630946213010294403
+02-09 08:17:30.264  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.266  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.267  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.269  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.270  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.271  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.272  1612  3109 W CHIUSECASE: [WARN   ] chifeature2usecaserequestobject.cpp:482 Initialize() pUsecaseSettings is NULL!!
+02-09 08:17:30.273  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.274  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.276  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.277  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.278  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.280  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.281  1668  1852 W SurfaceFlinger: onComposerHalVsync: HWVsync for 4626964470317753604, ActiveDisplay 4630946213010294403
+02-09 08:17:30.281  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.282  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.284  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.285  5894  5894 E gpustat : dataReady_ == false
+02-09 08:17:30.285  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.286  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.288  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.289  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.291  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.292  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.294  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.295  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.297  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.297  1668  1852 W SurfaceFlinger: onComposerHalVsync: HWVsync for 4626964470317753604, ActiveDisplay 4630946213010294403
+02-09 08:17:30.298  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.299  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.301  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.303  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.305  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.306  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.308  1612  3036 W CHIUSECASE: [WARN   ] chifeature2realtime.cpp:1808 PopulateSensorModeOnMetadataResult() FRO-URO:365_RealtimeFG:RealTime_0 Couldn't translate result metadata to initial crop values.pMetadata = 0xb4000073c13539d0, pInSensorZoomInfo = 0x0, m_pRoiTranslator = 0x0, pCameraInfo = 0x730f050eb8
+02-09 08:17:30.308  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.310  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.311  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.312  1612  3036 W CHIUSECASE: [WARN   ] chifeature2graph.cpp:3743 ProcessResultMetadataMessage() pOutputLinkData->linkState in unexpected state: 1; expected OutputPending
+02-09 08:17:30.312  1612  3036 W CHIUSECASE: [WARN   ] chifeature2graph.cpp:3743 ProcessResultMetadataMessage() pOutputLinkData->linkState in unexpected state: 1; expected OutputPending
+02-09 08:17:30.313  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.314  1668  1852 W SurfaceFlinger: onComposerHalVsync: HWVsync for 4626964470317753604, ActiveDisplay 4630946213010294403
+02-09 08:17:30.315  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.317  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.319  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.320  1612  3112 W CHIUSECASE: [WARN   ] chifeature2usecaserequestobject.cpp:482 Initialize() pUsecaseSettings is NULL!!
+02-09 08:17:30.321  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.322  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.324  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.325  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.327  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.329  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.330  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.331  1668  1852 W SurfaceFlinger: onComposerHalVsync: HWVsync for 4626964470317753604, ActiveDisplay 4630946213010294403
+02-09 08:17:30.332  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.333  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.335  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.336  1612  3033 W CHIUSECASE: [WARN   ] chifeature2realtime.cpp:1808 PopulateSensorModeOnMetadataResult() FRO-URO:366_RealtimeFG:RealTime_0 Couldn't translate result metadata to initial crop values.pMetadata = 0xb4000073c135c350, pInSensorZoomInfo = 0x0, m_pRoiTranslator = 0x0, pCameraInfo = 0x730f050eb8
+02-09 08:17:30.336  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.338  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.338  1612  3033 W CHIUSECASE: [WARN   ] chifeature2graph.cpp:3743 ProcessResultMetadataMessage() pOutputLinkData->linkState in unexpected state: 1; expected OutputPending
+02-09 08:17:30.338  1612  3033 W CHIUSECASE: [WARN   ] chifeature2graph.cpp:3743 ProcessResultMetadataMessage() pOutputLinkData->linkState in unexpected state: 1; expected OutputPending
+02-09 08:17:30.340  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.341  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.343  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.345  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.346  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.348  1668  1852 W SurfaceFlinger: onComposerHalVsync: HWVsync for 4626964470317753604, ActiveDisplay 4630946213010294403
+02-09 08:17:30.348  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.349  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.351  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.353  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.353  1612  3112 W CHIUSECASE: [WARN   ] chifeature2usecaserequestobject.cpp:482 Initialize() pUsecaseSettings is NULL!!
+02-09 08:17:30.354  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.356  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.357  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.359  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.360  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.362  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.363  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.364  1668  1852 W SurfaceFlinger: onComposerHalVsync: HWVsync for 4626964470317753604, ActiveDisplay 4630946213010294403
+02-09 08:17:30.364  1612  3032 W CHIUSECASE: [WARN   ] chifeature2realtime.cpp:1808 PopulateSensorModeOnMetadataResult() FRO-URO:367_RealtimeFG:RealTime_0 Couldn't translate result metadata to initial crop values.pMetadata = 0xb4000073c1333c70, pInSensorZoomInfo = 0x0, m_pRoiTranslator = 0x0, pCameraInfo = 0x730f050eb8
+02-09 08:17:30.365  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.366  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.367  1612  3032 W CHIUSECASE: [WARN   ] chifeature2graph.cpp:3743 ProcessResultMetadataMessage() pOutputLinkData->linkState in unexpected state: 1; expected OutputPending
+02-09 08:17:30.367  1612  3032 W CHIUSECASE: [WARN   ] chifeature2graph.cpp:3743 ProcessResultMetadataMessage() pOutputLinkData->linkState in unexpected state: 1; expected OutputPending
+02-09 08:17:30.368  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.369  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.371  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.372  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.373  1612  3109 W CHIUSECASE: [WARN   ] chifeature2usecaserequestobject.cpp:482 Initialize() pUsecaseSettings is NULL!!
+02-09 08:17:30.374  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.376  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.377  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.379  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.381  1668  1852 W SurfaceFlinger: onComposerHalVsync: HWVsync for 4626964470317753604, ActiveDisplay 4630946213010294403
+02-09 08:17:30.384  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.388  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.390  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.390  1612 30458 I snap_api::V4: AIAwbModel_v1.3.tflite:Session Execute time taken : 12.503 ms
+02-09 08:17:30.391  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.393  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.394  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.396  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.397  1668  1852 W SurfaceFlinger: onComposerHalVsync: HWVsync for 4626964470317753604, ActiveDisplay 4630946213010294403
+02-09 08:17:30.397  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.399  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.400  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.401  1612  3033 W CHIUSECASE: [WARN   ] chifeature2realtime.cpp:1808 PopulateSensorModeOnMetadataResult() FRO-URO:368_RealtimeFG:RealTime_0 Couldn't translate result metadata to initial crop values.pMetadata = 0xb4000073c1359790, pInSensorZoomInfo = 0x0, m_pRoiTranslator = 0x0, pCameraInfo = 0x730f050eb8
+02-09 08:17:30.402  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.403  1612  3033 W CHIUSECASE: [WARN   ] chifeature2graph.cpp:3743 ProcessResultMetadataMessage() pOutputLinkData->linkState in unexpected state: 1; expected OutputPending
+02-09 08:17:30.403  1612  3033 W CHIUSECASE: [WARN   ] chifeature2graph.cpp:3743 ProcessResultMetadataMessage() pOutputLinkData->linkState in unexpected state: 1; expected OutputPending
+02-09 08:17:30.403  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.405  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.406  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.407  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.409  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.410  1612  1612 W CHIUSECASE: [WARN   ] chifeature2usecaserequestobject.cpp:482 Initialize() pUsecaseSettings is NULL!!
+02-09 08:17:30.411  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.412  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.413  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.414  1668  1852 W SurfaceFlinger: onComposerHalVsync: HWVsync for 4626964470317753604, ActiveDisplay 4630946213010294403
+02-09 08:17:30.415  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.416  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.417  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.418  1537  2492 D SensorsFlicker: Als_common::readEvents, enabled : 1, data : -1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000
+02-09 08:17:30.419  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.420  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.421  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.422  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.424  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.425  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.426  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.427  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.428  1612  3037 W CHIUSECASE: [WARN   ] chifeature2realtime.cpp:1808 PopulateSensorModeOnMetadataResult() FRO-URO:369_RealtimeFG:RealTime_0 Couldn't translate result metadata to initial crop values.pMetadata = 0xb4000073c13b60d0, pInSensorZoomInfo = 0x0, m_pRoiTranslator = 0x0, pCameraInfo = 0x730f050eb8
+02-09 08:17:30.429  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.430  1612  3037 W CHIUSECASE: [WARN   ] chifeature2graph.cpp:3743 ProcessResultMetadataMessage() pOutputLinkData->linkState in unexpected state: 1; expected OutputPending
+02-09 08:17:30.430  1612  3037 W CHIUSECASE: [WARN   ] chifeature2graph.cpp:3743 ProcessResultMetadataMessage() pOutputLinkData->linkState in unexpected state: 1; expected OutputPending
+02-09 08:17:30.430  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.431  1668  1852 W SurfaceFlinger: onComposerHalVsync: HWVsync for 4626964470317753604, ActiveDisplay 4630946213010294403
+02-09 08:17:30.431  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.432  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.434  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.435  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.436  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.436  1612  3112 W CHIUSECASE: [WARN   ] chifeature2usecaserequestobject.cpp:482 Initialize() pUsecaseSettings is NULL!!
+02-09 08:17:30.438  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.439  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.440  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.441  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.443  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.444  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.445  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.446  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.447  1668  1852 W SurfaceFlinger: onComposerHalVsync: HWVsync for 4626964470317753604, ActiveDisplay 4630946213010294403
+02-09 08:17:30.448  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.449  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.450  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.451  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.452  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.454  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.455  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.456  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.457  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.459  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.460  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.461  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.462  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.463  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.464  1612  3037 W CHIUSECASE: [WARN   ] chifeature2realtime.cpp:1808 PopulateSensorModeOnMetadataResult() FRO-URO:370_RealtimeFG:RealTime_0 Couldn't translate result metadata to initial crop values.pMetadata = 0xb4000073c1365630, pInSensorZoomInfo = 0x0, m_pRoiTranslator = 0x0, pCameraInfo = 0x730f050eb8
+02-09 08:17:30.464  1668  1852 W SurfaceFlinger: onComposerHalVsync: HWVsync for 4626964470317753604, ActiveDisplay 4630946213010294403
+02-09 08:17:30.465  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.465  1612  3037 W CHIUSECASE: [WARN   ] chifeature2graph.cpp:3743 ProcessResultMetadataMessage() pOutputLinkData->linkState in unexpected state: 1; expected OutputPending
+02-09 08:17:30.465  1612  3037 W CHIUSECASE: [WARN   ] chifeature2graph.cpp:3743 ProcessResultMetadataMessage() pOutputLinkData->linkState in unexpected state: 1; expected OutputPending
+02-09 08:17:30.466  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.467  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.468  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.469  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.471  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.472  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.472  1612  3109 W CHIUSECASE: [WARN   ] chifeature2usecaserequestobject.cpp:482 Initialize() pUsecaseSettings is NULL!!
+02-09 08:17:30.473  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.474  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.476  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.477  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.478  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.479  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.481  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.481  1668  1852 W SurfaceFlinger: onComposerHalVsync: HWVsync for 4626964470317753604, ActiveDisplay 4630946213010294403
+02-09 08:17:30.482  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.483  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.484  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.486  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.487  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.488  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.489  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.491  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.492  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.492  1612  3032 W CHIUSECASE: [WARN   ] chifeature2realtime.cpp:1808 PopulateSensorModeOnMetadataResult() FRO-URO:371_RealtimeFG:RealTime_0 Couldn't translate result metadata to initial crop values.pMetadata = 0xb4000073c138ab10, pInSensorZoomInfo = 0x0, m_pRoiTranslator = 0x0, pCameraInfo = 0x730f050eb8
+02-09 08:17:30.494  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.495  1612  3032 W CHIUSECASE: [WARN   ] chifeature2graph.cpp:3743 ProcessResultMetadataMessage() pOutputLinkData->linkState in unexpected state: 1; expected OutputPending
+02-09 08:17:30.495  1612  3032 W CHIUSECASE: [WARN   ] chifeature2graph.cpp:3743 ProcessResultMetadataMessage() pOutputLinkData->linkState in unexpected state: 1; expected OutputPending
+02-09 08:17:30.496  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.497  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.497  1668  1852 W SurfaceFlinger: onComposerHalVsync: HWVsync for 4626964470317753604, ActiveDisplay 4630946213010294403
+02-09 08:17:30.499  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.500  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.503  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.505  1612  3113 W CHIUSECASE: [WARN   ] chifeature2usecaserequestobject.cpp:482 Initialize() pUsecaseSettings is NULL!!
+02-09 08:17:30.506  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.508  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.509  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.511  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.512  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.513  1612 30458 I snap_api::V4: AIAwbModel_v1.3.tflite:Session Execute time taken : 4.302 ms
+02-09 08:17:30.513  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.514  1668  1852 W SurfaceFlinger: onComposerHalVsync: HWVsync for 4626964470317753604, ActiveDisplay 4630946213010294403
+02-09 08:17:30.515  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.516  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.518  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.519  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.521  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.522  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.524  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.527  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.529  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.530  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.530 30188 30288 I GeminiClient: Gemini Response: 諛붾떏怨?媛援щ뱾?댁슂.
+02-09 08:17:30.531  1668  1852 W SurfaceFlinger: onComposerHalVsync: HWVsync for 4626964470317753604, ActiveDisplay 4630946213010294403
+02-09 08:17:30.534  7938 30217 I GoogleTTSServiceImpl: Synthesis request for locale kor-KOR and name ko-KR-language
+02-09 08:17:30.539  1612  3033 W CHIUSECASE: [WARN   ] chifeature2realtime.cpp:1808 PopulateSensorModeOnMetadataResult() FRO-URO:372_RealtimeFG:RealTime_0 Couldn't translate result metadata to initial crop values.pMetadata = 0xb4000073c135c990, pInSensorZoomInfo = 0x0, m_pRoiTranslator = 0x0, pCameraInfo = 0x730f050eb8
+02-09 08:17:30.539  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.541  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.541 30188 30188 I View    : RoundedCornerOffset Pair{0 0}
+02-09 08:17:30.542  1612  3033 W CHIUSECASE: [WARN   ] chifeature2graph.cpp:3743 ProcessResultMetadataMessage() pOutputLinkData->linkState in unexpected state: 1; expected OutputPending
+02-09 08:17:30.542  1612  3033 W CHIUSECASE: [WARN   ] chifeature2graph.cpp:3743 ProcessResultMetadataMessage() pOutputLinkData->linkState in unexpected state: 1; expected OutputPending
+02-09 08:17:30.544  3254  4160 D PhoneInterfaceManager: setDataEnabledForReason() Reason=1 Pid=1979 App=system
+02-09 08:17:30.545  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.547  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.548  1668  1852 W SurfaceFlinger: onComposerHalVsync: HWVsync for 4626964470317753604, ActiveDisplay 4630946213010294403
+02-09 08:17:30.548  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.548  1612  3109 W CHIUSECASE: [WARN   ] chifeature2usecaserequestobject.cpp:482 Initialize() pUsecaseSettings is NULL!!
+02-09 08:17:30.549  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.550  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.552  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.553  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.554  5894  5894 E gpustat : dataReady_ == false
+02-09 08:17:30.554  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.556  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.557  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.558  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.558  1612  3032 W CHIUSECASE: [WARN   ] chifeature2realtime.cpp:1808 PopulateSensorModeOnMetadataResult() FRO-URO:373_RealtimeFG:RealTime_0 Couldn't translate result metadata to initial crop values.pMetadata = 0xb4000073c1338450, pInSensorZoomInfo = 0x0, m_pRoiTranslator = 0x0, pCameraInfo = 0x730f050eb8
+02-09 08:17:30.559  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.559  1612  3032 W CHIUSECASE: [WARN   ] chifeature2graph.cpp:3743 ProcessResultMetadataMessage() pOutputLinkData->linkState in unexpected state: 1; expected OutputPending
+02-09 08:17:30.559  1612  3032 W CHIUSECASE: [WARN   ] chifeature2graph.cpp:3743 ProcessResultMetadataMessage() pOutputLinkData->linkState in unexpected state: 1; expected OutputPending
+02-09 08:17:30.560  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.562  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.563  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.564  1668  1852 W SurfaceFlinger: onComposerHalVsync: HWVsync for 4626964470317753604, ActiveDisplay 4630946213010294403
+02-09 08:17:30.564  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.565  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.566  1612  3112 W CHIUSECASE: [WARN   ] chifeature2usecaserequestobject.cpp:482 Initialize() pUsecaseSettings is NULL!!
+02-09 08:17:30.567  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.568  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.569  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.570  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.572  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.573  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.574  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.576  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.577  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.579  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.580  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.581  1668  1852 W SurfaceFlinger: onComposerHalVsync: HWVsync for 4626964470317753604, ActiveDisplay 4630946213010294403
+02-09 08:17:30.581  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.582  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.583  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.585  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.586  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.587  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.588  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.589  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.591  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.592  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.593  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.594  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.595  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.597  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.597  1668  1852 W SurfaceFlinger: onComposerHalVsync: HWVsync for 4626964470317753604, ActiveDisplay 4630946213010294403
+02-09 08:17:30.598  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.598  1612  3032 W CHIUSECASE: [WARN   ] chifeature2realtime.cpp:1808 PopulateSensorModeOnMetadataResult() FRO-URO:374_RealtimeFG:RealTime_0 Couldn't translate result metadata to initial crop values.pMetadata = 0xb4000073c1330110, pInSensorZoomInfo = 0x0, m_pRoiTranslator = 0x0, pCameraInfo = 0x730f050eb8
+02-09 08:17:30.599  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.599  1612  3032 W CHIUSECASE: [WARN   ] chifeature2graph.cpp:3743 ProcessResultMetadataMessage() pOutputLinkData->linkState in unexpected state: 1; expected OutputPending
+02-09 08:17:30.599  1612  3032 W CHIUSECASE: [WARN   ] chifeature2graph.cpp:3743 ProcessResultMetadataMessage() pOutputLinkData->linkState in unexpected state: 1; expected OutputPending
+02-09 08:17:30.600  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.601  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.603  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.604  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.605  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.606  1612  1612 W CHIUSECASE: [WARN   ] chifeature2usecaserequestobject.cpp:482 Initialize() pUsecaseSettings is NULL!!
+02-09 08:17:30.606  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.608  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.609  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.610  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.611  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.612  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.614  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.614  1668  1852 W SurfaceFlinger: onComposerHalVsync: HWVsync for 4626964470317753604, ActiveDisplay 4630946213010294403
+02-09 08:17:30.614  7938 30217 I GoogleTTSServiceImpl: TTS dispatch: ko-kr-x-ism-seanet-embedded
+02-09 08:17:30.614  7938 30217 I LocalSynthesizer: Attempting to load synthesizer for voice: ko-kr-x-ism-seanet-embedded
+02-09 08:17:30.614  7938 30217 I LocalSynthesizer: Voice ko-kr-x-ism-seanet-embedded is already supported by loaded synthesizer ko-kr-x-multi.
+02-09 08:17:30.614  7938 30217 I ComposerWrapperImpl: Skipping initialization, can already run voice ko-kr-x-ism-seanet-embedded.
+02-09 08:17:30.615  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.616  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.617  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.618  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.620  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.621  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.622  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.623  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.624  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.626  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.626  1612  3037 W CHIUSECASE: [WARN   ] chifeature2realtime.cpp:1808 PopulateSensorModeOnMetadataResult() FRO-URO:375_RealtimeFG:RealTime_0 Couldn't translate result metadata to initial crop values.pMetadata = 0xb4000073c134f1f0, pInSensorZoomInfo = 0x0, m_pRoiTranslator = 0x0, pCameraInfo = 0x730f050eb8
+02-09 08:17:30.627  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.628  1612  3037 W CHIUSECASE: [WARN   ] chifeature2graph.cpp:3743 ProcessResultMetadataMessage() pOutputLinkData->linkState in unexpected state: 1; expected OutputPending
+02-09 08:17:30.628  1612  3037 W CHIUSECASE: [WARN   ] chifeature2graph.cpp:3743 ProcessResultMetadataMessage() pOutputLinkData->linkState in unexpected state: 1; expected OutputPending
+02-09 08:17:30.628  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.630  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.631  1668  1852 W SurfaceFlinger: onComposerHalVsync: HWVsync for 4626964470317753604, ActiveDisplay 4630946213010294403
+02-09 08:17:30.631  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.632  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.633  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.634  1612  3112 W CHIUSECASE: [WARN   ] chifeature2usecaserequestobject.cpp:482 Initialize() pUsecaseSettings is NULL!!
+02-09 08:17:30.634  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.636  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.637  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.638  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.639  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.640  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.642  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.643  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.644  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.646  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.647  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.647  1668  1852 W SurfaceFlinger: onComposerHalVsync: HWVsync for 4626964470317753604, ActiveDisplay 4630946213010294403
+02-09 08:17:30.648  1612 30458 I snap_api::V4: AIAwbModel_v1.3.tflite:Session Execute time taken : 5.949 ms
+02-09 08:17:30.648  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.649  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.651  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.652  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.653  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.654  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.656  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.657  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.658  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.659  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.661  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.662  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.663  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.664  1668  1852 W SurfaceFlinger: onComposerHalVsync: HWVsync for 4626964470317753604, ActiveDisplay 4630946213010294403
+02-09 08:17:30.665  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.665  1612  3036 W CHIUSECASE: [WARN   ] chifeature2realtime.cpp:1808 PopulateSensorModeOnMetadataResult() FRO-URO:376_RealtimeFG:RealTime_0 Couldn't translate result metadata to initial crop values.pMetadata = 0xb4000073c1362430, pInSensorZoomInfo = 0x0, m_pRoiTranslator = 0x0, pCameraInfo = 0x730f050eb8
+02-09 08:17:30.666  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.666  1612  3036 W CHIUSECASE: [WARN   ] chifeature2graph.cpp:3743 ProcessResultMetadataMessage() pOutputLinkData->linkState in unexpected state: 1; expected OutputPending
+02-09 08:17:30.666  1612  3036 W CHIUSECASE: [WARN   ] chifeature2graph.cpp:3743 ProcessResultMetadataMessage() pOutputLinkData->linkState in unexpected state: 1; expected OutputPending
+02-09 08:17:30.667  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.668  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.669  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.671  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.672  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.673  1612  3109 W CHIUSECASE: [WARN   ] chifeature2usecaserequestobject.cpp:482 Initialize() pUsecaseSettings is NULL!!
+02-09 08:17:30.674  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.675  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.676  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.678  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.679  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.680  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.681  1647  1800 V APM_AudioPolicyManager: selectOutput new bestOutput 13 criteria 0 100 0 0 0 0 0 2 
+02-09 08:17:30.681  1647  1800 V APM_AudioPolicyManager: selectOutput new bestOutput 21 criteria 0 100 0 0 0 1 0 0 
+02-09 08:17:30.681  1647  1800 V APM_AudioPolicyManager: getOutput() stream 3 selected devices {AUDIO_DEVICE_OUT_USB_HEADSET, @:card=1;device=0}, output 21
+02-09 08:17:30.681  1668  1852 W SurfaceFlinger: onComposerHalVsync: HWVsync for 4626964470317753604, ActiveDisplay 4630946213010294403
+02-09 08:17:30.681  1647  2888 V APM_AudioPolicyManager: selectOutput new bestOutput 13 criteria 0 100 0 0 0 0 0 2 
+02-09 08:17:30.681  1647  2888 V APM_AudioPolicyManager: selectOutput new bestOutput 21 criteria 0 100 0 0 0 1 0 0 
+02-09 08:17:30.681  1647  2888 V APM_AudioPolicyManager: getOutput() stream 3 selected devices {AUDIO_DEVICE_OUT_USB_HEADSET, @:card=1;device=0}, output 21
+02-09 08:17:30.681  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.682  1647 13172 V APM_AudioPolicyManager: selectOutput new bestOutput 13 criteria 0 100 0 0 0 0 0 2 
+02-09 08:17:30.682  1647 13172 V APM_AudioPolicyManager: selectOutput new bestOutput 21 criteria 0 100 0 0 0 1 0 0 
+02-09 08:17:30.682  1647 13172 V APM_AudioPolicyManager: getOutput() stream 3 selected devices {AUDIO_DEVICE_OUT_USB_HEADSET, @:card=1;device=0}, output 21
+02-09 08:17:30.683  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.683  1647  2887 D NativePermissionController: checkPermission: missing 1 for 10281
+02-09 08:17:30.683  1647  2887 D NativePermissionController: checkPermission: missing 3 for 10281
+02-09 08:17:30.683  1647  2887 D NativePermissionController: checkPermission: missing 5 for 10281
+02-09 08:17:30.683  1647  2887 V APM_AudioPolicyManager: getOutputForAttrInt() attributes={ Content type: AUDIO_CONTENT_TYPE_SPEECH Usage: AUDIO_USAGE_MEDIA Source: AUDIO_SOURCE_INVALID Flags: 0xa00 Tags:  } stream=AUDIO_STREAM_MUSIC session 33201 selectedDeviceId 0
+02-09 08:17:30.683  1647  2887 V APM_AudioPolicyManager: getOutputForAttrInt() device {AUDIO_DEVICE_OUT_USB_HEADSET, @:card=1;device=0}, sampling rate 24000, format 0x1, channel mask 0x1, flags 0x8 stream AUDIO_STREAM_MUSIC
+02-09 08:17:30.683  1647  2887 V APM_AudioPolicyManager: selectOutput new bestOutput 13 criteria 0 100 0 0 0 0 4 2 
+02-09 08:17:30.683  1647  2887 V APM_AudioPolicyManager: selectOutput new bestOutput 21 criteria 0 100 0 0 0 1 2 0 
+02-09 08:17:30.683  1647  2887 V APM_AudioPolicyManager: getOutputForAttrInt returns output 21 selectedDeviceIds 7380
+02-09 08:17:30.683  1647  2887 V APM_AudioPolicyManager: getOutputForAttr() returns output 21 requestedPortIds AUDIO_PORT_HANDLE_NONE selectedDeviceIds 7380 for port ID 7573
+02-09 08:17:30.683  1647  2887 I AudioFlinger: nonSecFlag 8, secFlag 0, outputFlags 8
+02-09 08:17:30.683  1647  2887 D AudioFlinger: Client defaulted notificationFrames to 1365 for frameCount 4096
+02-09 08:17:30.684  1647  2887 I AF::PthrPatchRecord: creating track with enforcement level 0
+02-09 08:17:30.684  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.685  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.685  1647  2887 I AF::Track: setMixerOutConfig expectKey 402
+02-09 08:17:30.686  1647  2887 I AF::Track: setMixerOutConfig select, mixer out f 5, s 48000, thread out f 4, s 48000
+02-09 08:17:30.687  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.688  7938 30219 D AudioTrack: setVolume(1.000000, 1.000000) pid : 7938
+02-09 08:17:30.689  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.689  1647  2887 I AF::Track: setMixerOutConfig expectKey 402
+02-09 08:17:30.689  1647  2887 I AF::Track: setMixerOutConfig select, mixer out f 5, s 48000, thread out f 4, s 48000
+02-09 08:17:30.689  1647  2887 I AudioPolicyEffectException: MySpaceHandler::checkDetachCondition media 1, ring 0, mp 0
+02-09 08:17:30.689  1647  2887 I AudioPolicyEffectException: MySpace detach value 1
+02-09 08:17:30.689  1647  2887 V APM_AudioPolicyManager: startOutput portId 7573
+02-09 08:17:30.689  1647  2887 V APM_AudioPolicyManager: startOutput() output 21, stream 3, session 33201
+02-09 08:17:30.689  1647  2887 V APM_AudioPolicyManager: setBeaconMute(1) mBeaconMuteRefCount=1 mBeaconPlayingRefCount=0
+02-09 08:17:30.689  1647  2887 V APM_AudioPolicyManager: selectOutputForMusicEffects activeOnly 1 output 21 flags 0x00000008
+02-09 08:17:30.689  1647  2887 W AudioFlinger: moveEffectChain_ll: effect chain for session 0 not on source thread 0xb4000072693e6fe8
+02-09 08:17:30.689  1647  2887 V APM_AudioPolicyManager: selectOutputForMusicEffects selected output 21
+02-09 08:17:30.689  1647  2887 V APM_AudioPolicyManager: getNewOutputDevices selected devices {AUDIO_DEVICE_OUT_USB_HEADSET, @:card=1;device=0}
+02-09 08:17:30.689  1647  2887 V APM_AudioPolicyManager: setOutputDevices caller startSource[[portId:5][io:21, deep_buffer]] device {AUDIO_DEVICE_OUT_USB_HEADSET, @:card=1;device=0} delayMs 0
+02-09 08:17:30.689  1647  2887 V APM_AudioPolicyManager: setOutputDevices: caller startSource[[portId:5][io:21, deep_buffer]] suppressing checkDeviceMuteStrategies
+02-09 08:17:30.689  1647  2887 V APM_AudioPolicyManager: setOutputDevices caller startSource[[portId:5][io:21, deep_buffer]] setting same device {AUDIO_DEVICE_OUT_USB_HEADSET, @:card=1;device=0} or null device, force=0, patch handle=7393
+02-09 08:17:30.690  1647  2887 V APM_AudioPolicyManager: checkAndSetVolume: output 21, stream 3, index 12, devices 0x4000000, volume 0.354813, delayMs 0, muted false
+02-09 08:17:30.690  1979  3076 D AS.SoundAliveUtils: notify dvfs state : 2, screen : true
+02-09 08:17:30.691  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.693  1529  2835 D AudioSAEffectOffload: send_custom_payload_effect: enter, tag: 0xc00000b, custom_data_sz: 28
+02-09 08:17:30.693  1529  2835 I PAL: ResourceManager: setParameter: 9390: PAL_PARAM_ID_UIEFFECT tagId(0xc00000b) paramId(0x10001f43)
+02-09 08:17:30.693  1529  2835 I PAL: ResourceManager: setParameter: 9390: PAL_PARAM_ID_UIEFFECT tagId(0xc00000b) paramId(0x10001f43)
+02-09 08:17:30.693  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.692  1979  1979 D AudioPlayerStateMonitor: Found a new active media playback. AudioPlaybackConfiguration piid:29055 deviceIds:[] type:android.media.AudioTrack u/pid:10281/7938 state:started attr:AudioAttributes: usage=USAGE_MEDIA content=CONTENT_TYPE_SPEECH flags=0xA00 tags= bundle=null sessionId:33201 mutedState:none  FormatInfo{isSpatialized=false, channelMask=0x0, sampleRate=0}
+02-09 08:17:30.693  1979  3076 I ActivityManager: Changes in 10155 19 to 5, 0 to 144
+02-09 08:17:30.693  1979  3132 D BackgroundInstallControlService: Package event received: 0
+02-09 08:17:30.695  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.696  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.697  3285  3974 D SoundCraft.PlayingAudioConditionHandler: onPlaybackConfigChanged : lastStartedPackageName=null, lastStartedUid=-1, newStartedUid=10281, newStartPackageName=com.google.android.tts, thread=Thread[RoutineHandlerThread,5,main]
+02-09 08:17:30.697  3285  3974 D SoundCraft.PlayingAudioConditionHandler: onPlaybackConfigChanged : notifyChanged
+02-09 08:17:30.697  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.698  1668  1852 W SurfaceFlinger: onComposerHalVsync: HWVsync for 4626964470317753604, ActiveDisplay 4630946213010294403
+02-09 08:17:30.699  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.700  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.701  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.700  1979  1979 D MediaSessionService: Audio playback is changed, config=AudioPlaybackConfiguration piid:29055 deviceIds:[] type:android.media.AudioTrack u/pid:10281/7938 state:started attr:AudioAttributes: usage=USAGE_MEDIA content=CONTENT_TYPE_SPEECH flags=0xA00 tags= bundle=null sessionId:33201 mutedState:none  FormatInfo{isSpatialized=false, channelMask=0x0, sampleRate=0}, removed=false
+02-09 08:17:30.702  1979  3127 D MediaRouterService: onAudioPlayerActiveStateChanged: uid=10281, active=true, restoreUid=10281
+02-09 08:17:30.702  1979  1979 D MediaSessionStack: updateMediaButtonSessionIfNeeded, callers=com.android.server.media.AudioPlayerStateMonitor$MessageHandler.handleMessage:19 android.os.Handler.dispatchMessage:110 
+02-09 08:17:30.702  1979  1979 D MediaSessionStack: updateMediaButtonSessionIfNeeded, skipping uid=10281
+02-09 08:17:30.702  1979  1979 D MediaSessionStack: updateMediaButtonSessionIfNeeded, skipping uid=10046
+02-09 08:17:30.702  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.702  1979  1979 D MediaSessionStack: updateMediaButtonSessionIfNeeded, skipping uid=10322
+02-09 08:17:30.702  1979  1979 D MediaSessionStack: updateMediaButtonSessionIfNeeded, skipping uid=10342
+02-09 08:17:30.704  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.705  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.706  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.707  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.708  1529  2835 E PAL: SessionAlsaUtils: getModuleInstanceId: 946: No matching MIID found for tag: 0xc00000b, error:-22
+02-09 08:17:30.708  1529  2835 E PAL: SessionAlsaPcm: setParameters: 2133: Failed to get tag info c00000b, status = -22
+02-09 08:17:30.708  1529  2835 E PAL: SessionAlsaPcm: setParameters: 2351: failed to get payload status -12
+02-09 08:17:30.708  1529  2835 E PAL: StreamPCM: setParameters: 1121: setParameters 4 failed with -12
+02-09 08:17:30.708  1529  2835 E PAL: ResourceManager: setParameter: 9410: failed to set param for pal_device_id=1 stream_type=2
+02-09 08:17:30.708  1529  2835 E PAL: API: pal_gef_rw_param: 910: Failed to set global parameter 4, status -12
+02-09 08:17:30.708  1529  2835 I PAL: ResourceManager: setParameter: 9390: PAL_PARAM_ID_UIEFFECT tagId(0xc00000b) paramId(0x10001f43)
+02-09 08:17:30.708  1529  2835 I PAL: ResourceManager: setParameter: 9390: PAL_PARAM_ID_UIEFFECT tagId(0xc00000b) paramId(0x10001f43)
+02-09 08:17:30.708  1529  2835 D AudioSAEffectOffload: send_custom_payload_effect: exit, tag: 0xc00000b, custom_data_sz: 28
+02-09 08:17:30.708  1529  2835 D AudioSAEffectOffload: update offload effect: VM,0,0,2,0,67108864,0,0
+02-09 08:17:30.708  1647  2297 D AudioFlinger: setParameters: filtered dev setParameters keyvalue l_stream_music_active=true
+02-09 08:17:30.708  1529  2835 V sec_audio_hw: sec_dev_set_parameters : l_stream_music_active=true
+02-09 08:17:30.708  1529  2835 D AHAL: AudioDevice: SetParameters: 1687: enter
+02-09 08:17:30.709  1529  2835 D AHAL: AudioVoice: VoiceSetParameters: 168: Enter
+02-09 08:17:30.709  1529  2835 D AHAL: AudioVoice: VoiceSetParameters: 412: Exit ret: 0
+02-09 08:17:30.709  1529  2835 E AHAL: AudioDevice: SetParameters: 1698: Error in SecSetParameters -2
+02-09 08:17:30.709  1529  2835 D AHAL: AudioDevice: SetParameters: 2386: exit: l_stream_music_active=true
+02-09 08:17:30.709  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.709  1529  2835 I Audio_a2dpsink_hw: adev_set_parameters: kevpairs=[l_stream_music_active=true]
+02-09 08:17:30.709  1647  2887 I AudioFlinger: updateStageIndex new -2108
+02-09 08:17:30.710  1647  2887 I AudioFlinger: monoMixMode[0] for haptic playback
+02-09 08:17:30.710  1647  2887 I AudioFlinger: setAmpLPower 1, from sensor 0
+02-09 08:17:30.710  1529  1529 V sec_audio_hw: sec_stream_set_parameters(13:0) : l_dual_speaker_amp_left_power_enable=true
+02-09 08:17:30.710  1529  1529 D AHAL: AudioStream: astream_out_set_parameters: 937: enter: usecase(1: primary-playback) kvpairs: l_dual_speaker_amp_left_power_enable=true
+02-09 08:17:30.710  1529  1529 D AHAL: AudioStream: SetParameters: 2737: enter 
+02-09 08:17:30.710  1529  1529 I AHAL: AudioStream: SetParameters: 2746: ret 0, plugin device cont 0 stream 0
+02-09 08:17:30.710  1529  1529 D AHAL: AudioStream: SetParameters: 2786: exit 0
+02-09 08:17:30.710  1529  1529 D AHAL: SecAudioStream: SecSetParameters: 60: Enter
+02-09 08:17:30.710  1529  1529 D AHAL: SecAudioStream: SetUpperAmpControl: 426: disabling upper-spk-amp-mute
+02-09 08:17:30.710  1529  1529 D AHAL: SecAudioStream: SecSetParameters: 225: exit: -2
+02-09 08:17:30.710  1529  1529 D AHAL: AudioStream: astream_out_set_parameters: 957: Exit ret: 0
+02-09 08:17:30.710  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.710  1647  2688 D DlbEffectContext: setParam() received parameter EFFECT_PARAM_SEEK
+02-09 08:17:30.710  1647  2688 D DlbEffectContext: handleSeek(seek operation ends, restore profile to 2)
+02-09 08:17:30.710  1647  2688 D DlbEffectContext: transformExternalGain() volume:0x5AD50C fVol:0.354813 extVal:-144
+02-09 08:17:30.710  1647  2688 D DlbEndpointParamCache: commitChangedParams()
+02-09 08:17:30.710  1647  2688 D DlbEndpointParamCache: commit() Applying parameters for device 0x40000000
+02-09 08:17:30.710  1647  2688 D DlbDap2Process: setParam(preg = #1[0])
+02-09 08:17:30.710  1647  2688 D DlbDap2Process: setSystemGain(vol = 0)
+02-09 08:17:30.710  1647  2688 D DlbDap2Process: setParam(svol = #1[-144])
+02-09 08:17:30.710  1647  2688 D DlbEndpointParamCache: doCommit() Committed 2 parameters out of 16.
+02-09 08:17:30.710  1647  2688 D DlbEndpointParamCache: commit() Overriding parameters for current device 0x00004000
+02-09 08:17:30.710  1647  2688 D DlbEndpointParamCache: doCommit() Committed 0 parameters out of 40.
+02-09 08:17:30.711  1647  1800 V APM_AudioPolicyManager: setAppState(portId:7571, state:2)
+02-09 08:17:30.711  1529  1529 D AHAL: AudioStream: out_update_source_metadata_v7: 1080: track count is 1 for usecase(0: deep-buffer-playback)
+02-09 08:17:30.711  1529  1529 D AHAL: AudioStream: out_update_source_metadata_v7: 1121: Source metadata usage:1 content_type:1
+02-09 08:17:30.711  1529  1529 D AHAL: AudioStream: SetAggregateSourceMetadata: 4284: Aggregated Source metadata usage:1 content_type:1
+02-09 08:17:30.711  1529  1529 D AHAL: AudioStream: SetAggregateSourceMetadata: 4284: Aggregated Source metadata usage:0 content_type:0
+02-09 08:17:30.711  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.711  1647  2688 I SoundAlive_Interface_a64: [ 3 ][ 48000 ]FlushBuffers()
+02-09 08:17:30.711  1529  1529 V sec_audio_hw: sec_stream_set_parameters(21:0) : l_dual_speaker_amp_left_power_enable=true
+02-09 08:17:30.711  1529  1529 D AHAL: AudioStream: astream_out_set_parameters: 937: enter: usecase(0: deep-buffer-playback) kvpairs: l_dual_speaker_amp_left_power_enable=true
+02-09 08:17:30.711  1529  1529 D AHAL: AudioStream: SetParameters: 2737: enter 
+02-09 08:17:30.711  1529  1529 I AHAL: AudioStream: SetParameters: 2746: ret 0, plugin device cont 0 stream 0
+02-09 08:17:30.711  1529  1529 D AHAL: AudioStream: SetParameters: 2786: exit 0
+02-09 08:17:30.711  1529  1529 D AHAL: SecAudioStream: SecSetParameters: 60: Enter
+02-09 08:17:30.711  1529  1529 D AHAL: SecAudioStream: SecSetParameters: 225: exit: -2
+02-09 08:17:30.711  1529  1529 D AHAL: AudioStream: astream_out_set_parameters: 957: Exit ret: 0
+02-09 08:17:30.711  1529  1529 V sec_audio_hw: sec_stream_set_parameters(29:0) : l_dual_speaker_amp_left_power_enable=true
+02-09 08:17:30.711  1529 25749 D AHAL: AudioStream: AutoPerfLock: 148: (Acquired) perf_lock_handle: 0x0, count: 1
+02-09 08:17:30.711  1529  1529 D AHAL: AudioStream: astream_out_set_parameters: 937: enter: usecase(2: low-latency-playback) kvpairs: l_dual_speaker_amp_left_power_enable=true
+02-09 08:17:30.711  1529  1529 D AHAL: AudioStream: SetParameters: 2737: enter 
+02-09 08:17:30.711  1529  1529 I AHAL: AudioStream: SetParameters: 2746: ret 0, plugin device cont 0 stream 0
+02-09 08:17:30.711  1529  1529 D AHAL: AudioStream: SetParameters: 2786: exit 0
+02-09 08:17:30.711  1529 25749 D AHAL: AudioStream: Open: 3136: Enter OutPrimary 
+02-09 08:17:30.711  1529  1529 D AHAL: SecAudioStream: SecSetParameters: 60: Enter
+02-09 08:17:30.711  1529  1529 D AHAL: SecAudioStream: SecSetParameters: 225: exit: -2
+02-09 08:17:30.711  1529  1529 D AHAL: AudioStream: astream_out_set_parameters: 957: Exit ret: 0
+02-09 08:17:30.711  1529 25749 D AHAL: AudioStream: Open: 3142: no_of_devices 1
+02-09 08:17:30.711  1529 25749 I AHAL: AudioStream: Open: 3156:  flags_:0x8, mAndroidOutDevices 67108864
+02-09 08:17:30.711  1529 25749 D AHAL: AudioStream: Open: 3220: halInputFormat 4 halOutputFormat 4 palformat 22
+02-09 08:17:30.711  1647  1800 V APM_AudioPolicyManager: setAppState(portId:7571, state:2)
+02-09 08:17:30.711  1529 25749 I PAL: ResourceManager: getParameter: 8154: get parameter for HIFI PCM Filter
+02-09 08:17:30.711  1529 25749 I PAL: ResourceManager: getParameter: 8103: Device 0 card = 1 palid=c
+02-09 08:17:30.711  1529  1529 V sec_audio_hw: sec_stream_set_parameters(37:0) : l_dual_speaker_amp_left_power_enable=true
+02-09 08:17:30.711  1529  1529 D AHAL: AudioStream: astream_out_set_parameters: 937: enter: usecase(13: audio-ull-playback) kvpairs: l_dual_speaker_amp_left_power_enable=true
+02-09 08:17:30.711  1529  1529 D AHAL: AudioStream: SetParameters: 2737: enter 
+02-09 08:17:30.711  1529  1529 I AHAL: AudioStream: SetParameters: 2746: ret 0, plugin device cont 0 stream 0
+02-09 08:17:30.711  1529  1529 D AHAL: AudioStream: SetParameters: 2786: exit 0
+02-09 08:17:30.711  1529  1529 D AHAL: SecAudioStream: SecSetParameters: 60: Enter
+02-09 08:17:30.711  1529  1529 D AHAL: SecAudioStream: SecSetParameters: 225: exit: -2
+02-09 08:17:30.711  1529  1529 D AHAL: AudioStream: astream_out_set_parameters: 957: Exit ret: 0
+02-09 08:17:30.712  1529  1529 V sec_audio_hw: sec_stream_set_parameters(45:0) : l_dual_speaker_amp_left_power_enable=true
+02-09 08:17:30.712  1529  1529 D AHAL: AudioStream: astream_out_set_parameters: 937: enter: usecase(15: audio-with-haptics-playback) kvpairs: l_dual_speaker_amp_left_power_enable=true
+02-09 08:17:30.712  1529  1529 D AHAL: AudioStream: SetParameters: 2737: enter 
+02-09 08:17:30.712  1529  1529 I AHAL: AudioStream: SetParameters: 2746: ret 0, plugin device cont 0 stream 0
+02-09 08:17:30.712  1529  1529 D AHAL: AudioStream: SetParameters: 2786: exit 0
+02-09 08:17:30.712  1529  1529 D AHAL: SecAudioStream: SecSetParameters: 60: Enter
+02-09 08:17:30.712  1529  1529 D AHAL: SecAudioStream: SecSetParameters: 225: exit: -2
+02-09 08:17:30.712  1529  1529 D AHAL: AudioStream: astream_out_set_parameters: 957: Exit ret: 0
+02-09 08:17:30.712  1529  1529 V sec_audio_hw: sec_stream_set_parameters(61:0) : l_dual_speaker_amp_left_power_enable=true
+02-09 08:17:30.712  1529  1529 D AHAL: AudioStream: astream_out_set_parameters: 937: enter: usecase(2: low-latency-playback) kvpairs: l_dual_speaker_amp_left_power_enable=true
+02-09 08:17:30.712  1529  1529 D AHAL: AudioStream: SetParameters: 2737: enter 
+02-09 08:17:30.712  1529  1529 I AHAL: AudioStream: SetParameters: 2746: ret 0, plugin device cont 0 stream 0
+02-09 08:17:30.712  1529  1529 D AHAL: AudioStream: SetParameters: 2786: exit 0
+02-09 08:17:30.712  1529  1529 D AHAL: SecAudioStream: SecSetParameters: 60: Enter
+02-09 08:17:30.712  1529  1529 D AHAL: SecAudioStream: SecSetParameters: 225: exit: -2
+02-09 08:17:30.712  1529  1529 D AHAL: AudioStream: astream_out_set_parameters: 957: Exit ret: 0
+02-09 08:17:30.712  1529  1529 V sec_audio_hw: sec_stream_set_parameters(69:0) : l_dual_speaker_amp_left_power_enable=true
+02-09 08:17:30.712  1529  1529 D AHAL: AudioStream: astream_out_set_parameters: 937: enter: usecase(31: audio-playback-voip) kvpairs: l_dual_speaker_amp_left_power_enable=true
+02-09 08:17:30.712  1529  1529 D AHAL: AudioStream: SetParameters: 2737: enter 
+02-09 08:17:30.712  1529  1529 I AHAL: AudioStream: SetParameters: 2746: ret 0, plugin device cont 0 stream 0
+02-09 08:17:30.712  1529 25749 I PAL: USB: isUsbAlive: 1412: usb card is accessible
+02-09 08:17:30.712  1529  1529 D AHAL: AudioStream: SetParameters: 2786: exit 0
+02-09 08:17:30.712  1529  1529 D AHAL: SecAudioStream: SecSetParameters: 60: Enter
+02-09 08:17:30.712  1529  1529 D AHAL: SecAudioStream: SecSetParameters: 225: exit: -2
+02-09 08:17:30.712  1529  1529 D AHAL: AudioStream: astream_out_set_parameters: 957: Exit ret: 0
+02-09 08:17:30.712  1529 25749 I PAL: USB: isUsbConnected: 1419: usb device is connected
+02-09 08:17:30.712  1529 25749 E PAL: USB: getDefaultConfig: 330: usb device is found.
+02-09 08:17:30.712  1529  1529 V sec_audio_hw: sec_stream_set_parameters(77:0) : l_dual_speaker_amp_left_power_enable=true
+02-09 08:17:30.712  1529  1529 D AHAL: AudioStream: astream_out_set_parameters: 937: enter: usecase(2: low-latency-playback) kvpairs: l_dual_speaker_amp_left_power_enable=true
+02-09 08:17:30.712  1529  1529 D AHAL: AudioStream: SetParameters: 2737: enter 
+02-09 08:17:30.712  1529  1529 I AHAL: AudioStream: SetParameters: 2746: ret 0, plugin device cont 0 stream 0
+02-09 08:17:30.712  1529  1529 D AHAL: AudioStream: SetParameters: 2786: exit 0
+02-09 08:17:30.712  1529  1529 D AHAL: SecAudioStream: SecSetParameters: 60: Enter
+02-09 08:17:30.712  1529  1529 D AHAL: SecAudioStream: SecSetParameters: 225: exit: -2
+02-09 08:17:30.712  1529  1529 D AHAL: AudioStream: astream_out_set_parameters: 957: Exit ret: 0
+02-09 08:17:30.712  1529  1529 V sec_audio_hw: sec_stream_set_parameters(189:0) : l_dual_speaker_amp_left_power_enable=true
+02-09 08:17:30.712  1529  1529 D AHAL: AudioStream: astream_out_set_parameters: 937: enter: usecase(5: compress-offload-playback2) kvpairs: l_dual_speaker_amp_left_power_enable=true
+02-09 08:17:30.712  1529  1529 D AHAL: AudioStream: SetParameters: 2737: enter 
+02-09 08:17:30.712  1529  1529 I AHAL: AudioStream: SetParameters: 2746: ret 0, plugin device cont 0 stream 0
+02-09 08:17:30.712  1529  1529 D AHAL: AudioStream: SetParameters: 2786: exit 0
+02-09 08:17:30.712  1529  1529 D AHAL: SecAudioStream: SecSetParameters: 60: Enter
+02-09 08:17:30.712  1529  1529 D AHAL: SecAudioStream: SecSetParameters: 225: exit: -2
+02-09 08:17:30.712  1529  1529 D AHAL: AudioStream: astream_out_set_parameters: 957: Exit ret: 0
+02-09 08:17:30.712  1647  2887 D NativePermissionController: checkPermission: missing 13 for 10281
+02-09 08:17:30.712  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.713  1647  1800 D NativePermissionController: checkPermission: missing 13 for 10281
+02-09 08:17:30.713  1529 25749 E PAL: USB: getJackConnectionStatus: 1445: Invalid mixer control
+02-09 08:17:30.713  1529 25749 I PAL: USB: readSupportedConfig: 916: config->jack_status = 1
+02-09 08:17:30.713  1529 25749 D AHAL: AudioStream: Open: 3299: channels 2 samplerate 48000 format id 22, stream type 2  stream bitwidth 32
+02-09 08:17:30.713  1529 25749 D AHAL: AudioStream: Open: 3300: msample_rate 0 mchannels 0
+02-09 08:17:30.713  1529 25749 D AHAL: AudioStream: Open: 3301: mNoOfOutDevices 1
+02-09 08:17:30.713  1529 25749 I PAL: API: pal_stream_open: 154: Enter, stream type:2
+02-09 08:17:30.713  1529 25749 I PAL: USB: selectBestConfig: 366: usb device is found. rm->isUHQAEnabled:48000 
+02-09 08:17:30.713  1647  1800 D NativePermissionController: checkPermission: missing 13 for 10281
+02-09 08:17:30.713  1529 25749 I PAL: USB: readBestConfig: 954: USB output uhqa = 48000
+02-09 08:17:30.714  1529 25749 I PAL: USB: readBestConfig: 969: USB output uhqa = 0
+02-09 08:17:30.714  1529 25749 I PAL: USB: readBestConfig: 982: Target bitwidth of 24 is not supported by USB. Use USB width of 16
+02-09 08:17:30.714  1529 25749 I PAL: USB: readBestConfig: 1006: found matching channels = 2
+02-09 08:17:30.714  1529 25749 I PAL: USB: readBestConfig: 1038: found matching SampleRate = 48000
+02-09 08:17:30.714  1529 25749 I PAL: ResourceManager: isStreamSupported: 2476: config suppported
+02-09 08:17:30.714  1647  2887 D NativePermissionController: checkPermission: missing 13 for 10281
+02-09 08:17:30.714  1529 25749 I PAL: ResourceManager: getActiveStream_l: 4999: no active streams found for device 12 ret -2
+02-09 08:17:30.714  1529 25749 I PAL: Device: setDeviceAttributes: 303: DeviceAttributes for Device Id 12 updated
+02-09 08:17:30.714  3285  3974 D SoundCraft.PlayingAudioConditionHandler: onPlaybackConfigChanged : lastStartedPackageName=com.google.android.tts, lastStartedUid=10281, newStartedUid=10281, newStartPackageName=com.google.android.tts, thread=Thread[RoutineHandlerThread,5,main]
+02-09 08:17:30.714  1529 25749 I PAL: ResourceManager: allocateFrontEndIds: 5736: allocateFrontEndIds: front end 124
+02-09 08:17:30.714  1529 25749 I PAL: PayloadBuilder: populateStreamKV: 2535: stream type 2
+02-09 08:17:30.714  1529 25749 I PAL: PayloadBuilder: getSelectorValues: 2363: Direction: 1
+02-09 08:17:30.714  1529 25749 I PAL: PayloadBuilder: getSelectorValues: 2379: Instance: 1
+02-09 08:17:30.714  1529 25749 I PAL: PayloadBuilder: findKVs: 2252: key: 0xa1000000 value: 0xa1000001
+02-09 08:17:30.714  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.714  1529 25749 I PAL: PayloadBuilder: findKVs: 2252: key: 0xab000000 value: 0x1
+02-09 08:17:30.714  1529 25749 I PAL: PayloadBuilder: populateStreamCkv: 2756: Entered default a4000000 f
+02-09 08:17:30.714  1668  1852 W SurfaceFlinger: onComposerHalVsync: HWVsync for 4626964470317753604, ActiveDisplay 4630946213010294403
+02-09 08:17:30.714  3285  3974 D SoundCraft.PlayingAudioConditionHandler: onPlaybackConfigChanged : lastStartedPackageName=com.google.android.tts, lastStartedUid=10281, newStartedUid=10281, newStartPackageName=com.google.android.tts, thread=Thread[RoutineHandlerThread,5,main]
+02-09 08:17:30.715  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.715  1529 25749 I PAL: PayloadBuilder: populateDeviceKV: 2599: Enter device id:12
+02-09 08:17:30.715  1529 25749 I PAL: PayloadBuilder: findKVs: 2265: key: 0xa2000000 value: 0xa2000005
+02-09 08:17:30.715  1529 25749 I PAL: PayloadBuilder: populateDeviceKV: 2627: Exit device id:12, status 0
+02-09 08:17:30.715  1529 25749 I PAL: PayloadBuilder: populateDevicePPKV: 2680: Rx device id:12
+02-09 08:17:30.715  1529 25749 I PAL: PayloadBuilder: getSelectorValues: 2433: stream type: 2
+02-09 08:17:30.715  1529 25749 I PAL: PayloadBuilder: findKVs: 2252: key: 0xa2000000 value: 0xa2000005
+02-09 08:17:30.715  1529 25749 I PAL: PayloadBuilder: findKVs: 2252: key: 0xac000000 value: 0xac000002
+02-09 08:17:30.716  1579  2379 D agm_server_wrapper: Aif id 13 already added to session list of 124
+02-09 08:17:30.716  1529 25749 I PAL: Device: open: 373: Enter. deviceCount 0 for device id 12 (PAL_DEVICE_OUT_USB_HEADSET)
+02-09 08:17:30.716  1529 25749 I PAL: SessionAlsaUtils: setDeviceMediaConfig: 797: USB_AUDIO-RX rate ch fmt data_fmt 48000 2 2 1
+02-09 08:17:30.716  1529 25749 D audio_route: Apply path: usb-headphones
+02-09 08:17:30.716  1529 25749 I PAL: Device: open: 408: Exit. deviceCount 1 for device id 12 (PAL_DEVICE_OUT_USB_HEADSET), exit status: 0
+02-09 08:17:30.716  1529 25749 I PAL: API: pal_stream_open: 190: Exit. Value of stream_handle 0xb400007a1c554e90K, status 0 : PAL_STREAM_DEEP_BUFFER(2)
+02-09 08:17:30.716  1529 25749 D AHAL: AudioStream: Open: 3331: (0:ret)
+02-09 08:17:30.716  1529 25749 D AHAL: AudioStream: GetBufferSize: 3081: type 2
+02-09 08:17:30.716  1529 25749 D AHAL: AudioStream: Open: 3492: fragment_size_ 7680 fragments_ 4
+02-09 08:17:30.716  1529 25749 D AHAL: AudioStream: Open: 3533: Exit ret: 0
+02-09 08:17:30.716  1529 25749 D AHAL: AudioStream: ~AutoPerfLock: 158: (release) perf_lock_handle: 0x0, count: 1
+02-09 08:17:30.716  1529 25749 D AHAL: AudioStream: ~AutoPerfLock: 162: Releasing perf_lock_handle: 0x0
+02-09 08:17:30.716  1529 25749 D AHAL: AudioStream: AutoPerfLock: 148: (Acquired) perf_lock_handle: 0x0, count: 1
+02-09 08:17:30.716  1529 25749 I PAL: API: pal_stream_start: 233: Enter. Stream handle 0xb400007a1c554e90K
+02-09 08:17:30.716  1529 25749 E PAL: PayloadBuilder: payloadUsbAudioConfig: 248: header params 
+02-09 08:17:30.716  1529 25749 E PAL: PayloadBuilder:  IID:4362 param_id:80010d6 error_code:0 param_size:8
+02-09 08:17:30.716  1529 25749 I PAL: Device: updateCustomPayload: 326: customPayloadSize = 24
+02-09 08:17:30.716  1529 25749 I PAL: SessionAlsaUtils: setDeviceMediaConfig: 797: USB_AUDIO-RX rate ch fmt data_fmt 48000 2 2 1
+02-09 08:17:30.716  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IOCTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+02-09 08:17:30.716  1529 25749 I PAL: ResourceManager: voteSleepMonitor: 1452: Enter for stream type 2
+02-09 08:17:30.716  1529 25749 I PAL: ResourceManager: voteSleepMonitor: 1504: Voting done for nlpi use case, lpi votes 0, nlpi votes : 2
+02-09 08:17:30.717  1529 25749 D agm_client_wrapper: agm_session_open called with handle = 7df0ed80 , *handle = 0
+02-09 08:17:30.718  1579 18680 D AGM: graph: graph_open: 562 entry
+02-09 08:17:30.718  1579 18680 D AGM: metadata: metadata_print: 77 *************************Metadata*************************
+02-09 08:17:30.718  1579 18680 D AGM: metadata: metadata_print: 78 GKV size:4
+02-09 08:17:30.718  1579 18680 D AGM: metadata: metadata_print: 81 key:0xa1000000, value:0xa1000001 
+02-09 08:17:30.718  1579 18680 D AGM: metadata: metadata_print: 81 key:0xab000000, value:0x1 
+02-09 08:17:30.718  1579 18680 D AGM: metadata: metadata_print: 81 key:0xa2000000, value:0xa2000005 
+02-09 08:17:30.718  1579 18680 D AGM: metadata: metadata_print: 81 key:0xac000000, value:0xac000002 
+02-09 08:17:30.718  1579 18680 D AGM: metadata: metadata_print: 85 
+02-09 08:17:30.718  1579 18680 D AGM: metadata: CKV count:1
+02-09 08:17:30.718  1579 18680 D AGM: metadata: metadata_print: 88 key:0xa4000000, value:0xf 
+02-09 08:17:30.718  1579 18680 D AGM: metadata: metadata_print: 90 
+02-09 08:17:30.718  1579 18680 D AGM: metadata: metadata_print: 92 Property ID:134217744
+02-09 08:17:30.718  1579 18680 D AGM: metadata: metadata_print: 93 property count:4
+02-09 08:17:30.718  1579 18680 D AGM: metadata: metadata_print: 96 Property Values: 
+02-09 08:17:30.718  1579 18680 D AGM: metadata: metadata_print: 98 0x1 
+02-09 08:17:30.718  1579 18680 D AGM: metadata: metadata_print: 98 0x3 
+02-09 08:17:30.718  1579 18680 D AGM: metadata: metadata_print: 98 0x2 
+02-09 08:17:30.718  1579 18680 D AGM: metadata: metadata_print: 98 0x5 
+02-09 08:17:30.718  1579 18680 D AGM: metadata: metadata_print: 100 
+02-09 08:17:30.718  1579 18680 D AGM: metadata: metadata_print: 101 ****************Metadata Done***************************
+02-09 08:17:30.718  1579 18680 D AGM: metadata: 
+02-09 08:17:30.718  1579 18680 E ACDB    : AcdbCmdGetGraphAlias:4153 Error[19]: Graph Alias chunk data does not exist. Is it enabled?.
+02-09 08:17:30.718  1579 18680 D AGM: graph: print_graph_alias: 2081 gsl_get_graph_alias failed: ret = 19
+02-09 08:17:30.718  1579 18680 D AGM: graph: graph_open: 635 miid 4001 mid 7001000 tag c0000002
+02-09 08:17:30.718  1579 18680 D AGM: graph: graph_open: 678 miid 4362 mid 700104f tag c0000004
+02-09 08:17:30.718  1579 18680 D AGM: graph: graph_open: 635 miid 4019 mid 7001019 tag c0000006
+02-09 08:17:30.718  1579 18680 D AGM: graph: graph_open: 635 miid 4003 mid 7001005 tag c000000e
+02-09 08:17:30.718  1579 18680 D AGM: graph: graph_open: 635 miid 4004 mid 7001003 tag c0000010
+02-09 08:17:30.718  1579 18680 D AGM: graph: graph_open: 635 miid 4163 mid 7001032 tag c0000013
+02-09 08:17:30.718  1579 18680 I GPR:    : __gpr_cmd_register_v2:902 GPR Register: Source Port is 8209 heap_index: 0
+02-09 08:17:30.718  1579 18680 I gsl     : gsl_graph_open_sgids_and_connections:2717 num_sgid= 4
+02-09 08:17:30.718  1579 18680 I gsl     : gsl_graph_open_sgids_and_connections:2718 sg list:
+02-09 08:17:30.718  1579 18680 I gsl     : gsl_graph_open_sgids_and_connections:2720 b0000097
+02-09 08:17:30.718  1579 18680 I gsl     : gsl_graph_open_sgids_and_connections:2720 b0000096
+02-09 08:17:30.718  1579 18680 I gsl     : gsl_graph_open_sgids_and_connections:2720 b000009b
+02-09 08:17:30.718  1579 18680 I gsl     : gsl_graph_open_sgids_and_connections:2720 b0000001
+02-09 08:17:30.718  1579 18680 I gsl     : gsl_print_sg_conn_info:180 num_sg_conn = 4
+02-09 08:17:30.718  1579 18680 I gsl     : gsl_print_sg_conn_info:182 sg b0000097 has 1 children:
+02-09 08:17:30.718  1579 18680 I gsl     : gsl_print_sg_conn_info:185 b0000001, 
+02-09 08:17:30.718  1579 18680 I gsl     : gsl_print_sg_conn_info:182 sg b0000096 has 1 children:
+02-09 08:17:30.718  1579 18680 I gsl     : gsl_print_sg_conn_info:185 b0000097, 
+02-09 08:17:30.718  1579 18680 I gsl     : gsl_print_sg_conn_info:182 sg b000009b has 1 children:
+02-09 08:17:30.718  1579 18680 I gsl     : gsl_print_sg_conn_info:185 b0000096, 

@@ -1,0 +1,10 @@
+﻿--------- beginning of crash
+02-06 20:57:55.343 14508 14508 E AndroidRuntime: FATAL EXCEPTION: main
+02-06 20:57:55.343 14508 14508 E AndroidRuntime: Process: com.xreal.nativear, PID: 14508
+02-06 20:57:55.343 14508 14508 E AndroidRuntime: java.lang.RuntimeException: Unable to start service com.xreal.nativear.AudioAnalysisService@17a85fc with Intent { xflg=0x4 cmp=com.xreal.nativear/.AudioAnalysisService }: java.lang.SecurityException: Starting FGS with type location callerApp=ProcessRecord{dbe12e 14508:com.xreal.nativear/u0a491} targetSDK=34 requires permissions: all of the permissions allOf=true [android.permission.FOREGROUND_SERVICE_LOCATION] any of the permissions allOf=false [android.permission.ACCESS_COARSE_LOCATION, android.permission.ACCESS_FINE_LOCATION]  and the app must be in the eligible state/exemptions to access the foreground only permission
+02-06 20:57:55.343 14508 14508 E AndroidRuntime: 	at android.app.ActivityThread.handleServiceArgs(ActivityThread.java:6105)
+02-06 20:57:55.343 14508 14508 E AndroidRuntime: 	at android.app.ActivityThread.-$$Nest$mhandleServiceArgs(Unknown Source:0)
+02-06 20:57:55.343 14508 14508 E AndroidRuntime: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:2974)
+02-06 20:57:55.343 14508 14508 E AndroidRuntime: 	at android.os.Handler.dispatchMessage(Handler.java:110)
+02-06 20:57:55.343 14508 14508 E AndroidRuntime: 	at android.os.Looper.loopOnce(Looper.java:273)
+02-06 20:57:55.343 14508 14508 E AndroidRuntime: 	at android.os.Looper.loop(Looper.java:363)

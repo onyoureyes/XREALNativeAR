@@ -1,0 +1,382 @@
+﻿Initialized native services in: C:\Users\User\.gradle\native
+Initialized jansi services in: C:\Users\User\.gradle\native
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.0-milestone-1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Received JVM installation metadata from 'C:\Program Files\Android\Android Studio\jbr': {JAVA_HOME=C:\Program Files\Android\Android Studio\jbr, JAVA_VERSION=21.0.8, JAVA_VENDOR=JetBrains s.r.o., RUNTIME_NAME=OpenJDK Runtime Environment, RUNTIME_VERSION=21.0.8+-14196175-b1038.72, VM_NAME=OpenJDK 64-Bit Server VM, VM_VERSION=21.0.8+-14196175-b1038.72, VM_VENDOR=JetBrains s.r.o., OS_ARCH=amd64}
+Starting process 'Gradle build daemon'. Working directory: C:\Users\User\.gradle\daemon\9.0-milestone-1 Command: C:\Program Files\Android\Android Studio\jbr\bin\java.exe --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.lang.invoke=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.prefs/java.util.prefs=ALL-UNNAMED --add-exports=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED --add-exports=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.prefs/java.util.prefs=ALL-UNNAMED --add-opens=java.base/java.nio.charset=ALL-UNNAMED --add-opens=java.base/java.net=ALL-UNNAMED --add-opens=java.base/java.util.concurrent.atomic=ALL-UNNAMED --add-opens=java.xml/javax.xml.namespace=ALL-UNNAMED --add-opens=jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED --add-opens=jdk.compiler/com.sun.tools.javac.comp=ALL-UNNAMED --add-opens=jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED --add-opens=jdk.compiler/com.sun.tools.javac.main=ALL-UNNAMED --add-opens=jdk.compiler/com.sun.tools.javac.model=ALL-UNNAMED --add-opens=jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED --add-opens=jdk.compiler/com.sun.tools.javac.processing=ALL-UNNAMED --add-opens=jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED --add-opens=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED -Xmx2048m -Dfile.encoding=UTF-8 -Duser.country=KR -Duser.language=ko -Duser.variant -cp C:\Users\User\.gradle\wrapper\dists\gradle-9.0-milestone-1-bin\3vdepk4s12bybhohyuvjcm1bd\gradle-9.0-milestone-1\lib\gradle-daemon-main-9.0.jar -javaagent:C:\Users\User\.gradle\wrapper\dists\gradle-9.0-milestone-1-bin\3vdepk4s12bybhohyuvjcm1bd\gradle-9.0-milestone-1\lib\agents\gradle-instrumentation-agent-9.0.jar org.gradle.launcher.daemon.bootstrap.GradleDaemon 9.0-milestone-1
+Successfully started process 'Gradle build daemon'
+An attempt to start the daemon took 2.229 secs.
+The client will now receive all logging from the daemon (pid: 20660). The daemon log file: C:\Users\User\.gradle\daemon\9.0-milestone-1\daemon-20660.out.log
+Daemon will be stopped at the end of the build 
+Using 8 worker leases.
+Received JVM installation metadata from 'C:\Program Files\Android\Android Studio\jbr': {JAVA_HOME=C:\Program Files\Android\Android Studio\jbr, JAVA_VERSION=21.0.8, JAVA_VENDOR=JetBrains s.r.o., RUNTIME_NAME=OpenJDK Runtime Environment, RUNTIME_VERSION=21.0.8+-14196175-b1038.72, VM_NAME=OpenJDK 64-Bit Server VM, VM_VERSION=21.0.8+-14196175-b1038.72, VM_VENDOR=JetBrains s.r.o., OS_ARCH=amd64}
+Watching the file system is configured to be enabled if available
+Now considering [C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR] as hierarchies to watch
+File system watching is active
+Starting Build
+Settings evaluated using settings file 'C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\settings.gradle'.
+Projects loaded. Root project using build file 'C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\build.gradle'.
+Included projects: [root project 'XREALNativeAR', project ':app', project ':whisper-standalone']
+
+> Configure project :
+Evaluating root project 'XREALNativeAR' using build file 'C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\build.gradle'.
+
+> Configure project :app
+Evaluating project ':app' using build file 'C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\app\build.gradle'.
+Resolved plugin [id: 'com.android.application']
+Resolved plugin [id: 'org.jetbrains.kotlin.android']
+Using default execution profile
+Using Kotlin Gradle Plugin gradle85 variant
+C/C++: android.ndkVersion from module build.gradle is [29.0.14206865]
+C/C++: android.ndkPath from module build.gradle is not set
+C/C++: ndk.dir in local.properties is not set
+C/C++: Not considering ANDROID_NDK_HOME because support was removed after deprecation period.
+C/C++: sdkFolder is C:\Users\User\AppData\Local\Android\Sdk
+C/C++: android.ndkVersion from module build.gradle is [29.0.14206865]
+C/C++: android.ndkPath from module build.gradle is not set
+C/C++: ndk.dir in local.properties is not set
+C/C++: Not considering ANDROID_NDK_HOME because support was removed after deprecation period.
+C/C++: sdkFolder is C:\Users\User\AppData\Local\Android\Sdk
+C/C++: android.ndkVersion from module build.gradle is [29.0.14206865]
+C/C++: android.ndkPath from module build.gradle is not set
+C/C++: ndk.dir in local.properties is not set
+C/C++: Not considering ANDROID_NDK_HOME because support was removed after deprecation period.
+C/C++: sdkFolder is C:\Users\User\AppData\Local\Android\Sdk
+C/C++: android.ndkVersion from module build.gradle is [29.0.14206865]
+C/C++: android.ndkPath from module build.gradle is not set
+C/C++: ndk.dir in local.properties is not set
+C/C++: Not considering ANDROID_NDK_HOME because support was removed after deprecation period.
+C/C++: sdkFolder is C:\Users\User\AppData\Local\Android\Sdk
+C/C++: android.ndkVersion from module build.gradle is [29.0.14206865]
+C/C++: android.ndkPath from module build.gradle is not set
+C/C++: ndk.dir in local.properties is not set
+C/C++: Not considering ANDROID_NDK_HOME because support was removed after deprecation period.
+C/C++: sdkFolder is C:\Users\User\AppData\Local\Android\Sdk
+C/C++: android.ndkVersion from module build.gradle is [29.0.14206865]
+C/C++: android.ndkPath from module build.gradle is not set
+C/C++: ndk.dir in local.properties is not set
+C/C++: Not considering ANDROID_NDK_HOME because support was removed after deprecation period.
+C/C++: sdkFolder is C:\Users\User\AppData\Local\Android\Sdk
+C/C++: android.ndkVersion from module build.gradle is [29.0.14206865]
+C/C++: android.ndkPath from module build.gradle is not set
+C/C++: ndk.dir in local.properties is not set
+C/C++: Not considering ANDROID_NDK_HOME because support was removed after deprecation period.
+C/C++: sdkFolder is C:\Users\User\AppData\Local\Android\Sdk
+C/C++: android.ndkVersion from module build.gradle is [29.0.14206865]
+C/C++: android.ndkPath from module build.gradle is not set
+C/C++: ndk.dir in local.properties is not set
+C/C++: Not considering ANDROID_NDK_HOME because support was removed after deprecation period.
+C/C++: sdkFolder is C:\Users\User\AppData\Local\Android\Sdk
+C/C++: android.ndkVersion from module build.gradle is [29.0.14206865]
+C/C++: android.ndkPath from module build.gradle is not set
+C/C++: ndk.dir in local.properties is not set
+C/C++: Not considering ANDROID_NDK_HOME because support was removed after deprecation period.
+C/C++: sdkFolder is C:\Users\User\AppData\Local\Android\Sdk
+C/C++: android.ndkVersion from module build.gradle is [29.0.14206865]
+C/C++: android.ndkPath from module build.gradle is not set
+C/C++: ndk.dir in local.properties is not set
+C/C++: Not considering ANDROID_NDK_HOME because support was removed after deprecation period.
+C/C++: sdkFolder is C:\Users\User\AppData\Local\Android\Sdk
+C/C++: android.ndkVersion from module build.gradle is [29.0.14206865]
+C/C++: android.ndkPath from module build.gradle is not set
+C/C++: ndk.dir in local.properties is not set
+C/C++: Not considering ANDROID_NDK_HOME because support was removed after deprecation period.
+C/C++: sdkFolder is C:\Users\User\AppData\Local\Android\Sdk
+C/C++: android.ndkVersion from module build.gradle is [29.0.14206865]
+C/C++: android.ndkPath from module build.gradle is not set
+C/C++: ndk.dir in local.properties is not set
+C/C++: Not considering ANDROID_NDK_HOME because support was removed after deprecation period.
+C/C++: sdkFolder is C:\Users\User\AppData\Local\Android\Sdk
+C/C++: android.ndkVersion from module build.gradle is [29.0.14206865]
+C/C++: android.ndkPath from module build.gradle is not set
+C/C++: ndk.dir in local.properties is not set
+C/C++: Not considering ANDROID_NDK_HOME because support was removed after deprecation period.
+C/C++: sdkFolder is C:\Users\User\AppData\Local\Android\Sdk
+
+> Configure project :whisper-standalone
+Evaluating project ':whisper-standalone' using build file 'C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\whisper-standalone\build.gradle'.
+Resolved plugin [id: 'com.android.application']
+Resolved plugin [id: 'org.jetbrains.kotlin.android']
+Using default execution profile
+Using Kotlin Gradle Plugin gradle85 variant
+All projects evaluated.
+Task path ':whisper-standalone:compileDebugKotlin' matched project ':whisper-standalone'
+Task name matched 'compileDebugKotlin'
+Adding -Xuse-inline-scopes-numbers Kotlin compiler flag for task :whisper-standalone:compileDebugKotlin
+Selected primary task 'compileDebugKotlin' from project :whisper-standalone
+Tasks to be executed: [task ':whisper-standalone:checkKotlinGradlePluginConfigurationErrors', task ':whisper-standalone:preBuild', task ':whisper-standalone:preDebugBuild', task ':whisper-standalone:checkDebugAarMetadata', task ':whisper-standalone:processDebugNavigationResources', task ':whisper-standalone:compileDebugNavigationResources', task ':whisper-standalone:generateDebugResValues', task ':whisper-standalone:mapDebugSourceSetPaths', task ':whisper-standalone:generateDebugResources', task ':whisper-standalone:mergeDebugResources', task ':whisper-standalone:packageDebugResources', task ':whisper-standalone:parseDebugLocalResources', task ':whisper-standalone:createDebugCompatibleScreenManifests', task ':whisper-standalone:extractDeepLinksDebug', task ':whisper-standalone:processDebugMainManifest', task ':whisper-standalone:processDebugManifest', task ':whisper-standalone:processDebugManifestForPackage', task ':whisper-standalone:processDebugResources', task ':whisper-standalone:compileDebugKotlin']
+Tasks that were excluded: []
+Resolve mutations for :whisper-standalone:checkKotlinGradlePluginConfigurationErrors (Thread[#85,included builds,5,main]) started.
+:whisper-standalone:checkKotlinGradlePluginConfigurationErrors (Thread[#85,included builds,5,main]) started.
+
+> Task :whisper-standalone:checkKotlinGradlePluginConfigurationErrors SKIPPED
+Skipping task ':whisper-standalone:checkKotlinGradlePluginConfigurationErrors' as task onlyIf 'errorDiagnostics are present' is false.
+Resolve mutations for :whisper-standalone:preBuild (Thread[#85,included builds,5,main]) started.
+:whisper-standalone:preBuild (Thread[#91,Execution worker Thread 6,5,main]) started.
+
+> Task :whisper-standalone:preBuild UP-TO-DATE
+Skipping task ':whisper-standalone:preBuild' as it has no actions.
+Resolve mutations for :whisper-standalone:preDebugBuild (Thread[#85,included builds,5,main]) started.
+:whisper-standalone:preDebugBuild (Thread[#88,Execution worker Thread 3,5,main]) started.
+
+> Task :whisper-standalone:preDebugBuild UP-TO-DATE
+Skipping task ':whisper-standalone:preDebugBuild' as it has no actions.
+Resolve mutations for :whisper-standalone:checkDebugAarMetadata (Thread[#88,Execution worker Thread 3,5,main]) started.
+:whisper-standalone:checkDebugAarMetadata (Thread[#88,Execution worker Thread 3,5,main]) started.
+
+> Task :whisper-standalone:checkDebugAarMetadata UP-TO-DATE
+Caching disabled for task ':whisper-standalone:checkDebugAarMetadata' because:
+  Build cache is disabled
+  Caching has been disabled for the task
+Skipping task ':whisper-standalone:checkDebugAarMetadata' as it is up-to-date.
+Resolve mutations for :whisper-standalone:processDebugNavigationResources (Thread[#88,Execution worker Thread 3,5,main]) started.
+:whisper-standalone:processDebugNavigationResources (Thread[#88,Execution worker Thread 3,5,main]) started.
+
+> Task :whisper-standalone:processDebugNavigationResources UP-TO-DATE
+Caching disabled for task ':whisper-standalone:processDebugNavigationResources' because:
+  Build cache is disabled
+Skipping task ':whisper-standalone:processDebugNavigationResources' as it is up-to-date.
+Resolve mutations for :whisper-standalone:compileDebugNavigationResources (Thread[#88,Execution worker Thread 3,5,main]) started.
+:whisper-standalone:compileDebugNavigationResources (Thread[#88,Execution worker Thread 3,5,main]) started.
+
+> Task :whisper-standalone:compileDebugNavigationResources UP-TO-DATE
+Caching disabled for task ':whisper-standalone:compileDebugNavigationResources' because:
+  Build cache is disabled
+Skipping task ':whisper-standalone:compileDebugNavigationResources' as it is up-to-date.
+Resolve mutations for :whisper-standalone:generateDebugResValues (Thread[#86,Execution worker,5,main]) started.
+:whisper-standalone:generateDebugResValues (Thread[#88,Execution worker Thread 3,5,main]) started.
+
+> Task :whisper-standalone:generateDebugResValues UP-TO-DATE
+Caching disabled for task ':whisper-standalone:generateDebugResValues' because:
+  Build cache is disabled
+Skipping task ':whisper-standalone:generateDebugResValues' as it is up-to-date.
+Resolve mutations for :whisper-standalone:mapDebugSourceSetPaths (Thread[#86,Execution worker,5,main]) started.
+:whisper-standalone:mapDebugSourceSetPaths (Thread[#86,Execution worker,5,main]) started.
+
+> Task :whisper-standalone:mapDebugSourceSetPaths UP-TO-DATE
+Caching disabled for task ':whisper-standalone:mapDebugSourceSetPaths' because:
+  Build cache is disabled
+  Caching has been disabled for the task
+Skipping task ':whisper-standalone:mapDebugSourceSetPaths' as it is up-to-date.
+Resolve mutations for :whisper-standalone:generateDebugResources (Thread[#87,Execution worker Thread 2,5,main]) started.
+:whisper-standalone:generateDebugResources (Thread[#87,Execution worker Thread 2,5,main]) started.
+
+> Task :whisper-standalone:generateDebugResources UP-TO-DATE
+Caching disabled for task ':whisper-standalone:generateDebugResources' because:
+  Build cache is disabled
+Skipping task ':whisper-standalone:generateDebugResources' as it is up-to-date.
+Resolve mutations for :whisper-standalone:mergeDebugResources (Thread[#86,Execution worker,5,main]) started.
+:whisper-standalone:mergeDebugResources (Thread[#87,Execution worker Thread 2,5,main]) started.
+
+> Task :whisper-standalone:mergeDebugResources UP-TO-DATE
+Caching disabled for task ':whisper-standalone:mergeDebugResources' because:
+  Build cache is disabled
+Skipping task ':whisper-standalone:mergeDebugResources' as it is up-to-date.
+Resolve mutations for :whisper-standalone:packageDebugResources (Thread[#86,Execution worker,5,main]) started.
+:whisper-standalone:packageDebugResources (Thread[#86,Execution worker,5,main]) started.
+
+> Task :whisper-standalone:packageDebugResources UP-TO-DATE
+Caching disabled for task ':whisper-standalone:packageDebugResources' because:
+  Build cache is disabled
+Skipping task ':whisper-standalone:packageDebugResources' as it is up-to-date.
+Resolve mutations for :whisper-standalone:parseDebugLocalResources (Thread[#87,Execution worker Thread 2,5,main]) started.
+:whisper-standalone:parseDebugLocalResources (Thread[#86,Execution worker,5,main]) started.
+
+> Task :whisper-standalone:parseDebugLocalResources UP-TO-DATE
+Caching disabled for task ':whisper-standalone:parseDebugLocalResources' because:
+  Build cache is disabled
+Skipping task ':whisper-standalone:parseDebugLocalResources' as it is up-to-date.
+Resolve mutations for :whisper-standalone:createDebugCompatibleScreenManifests (Thread[#87,Execution worker Thread 2,5,main]) started.
+:whisper-standalone:createDebugCompatibleScreenManifests (Thread[#87,Execution worker Thread 2,5,main]) started.
+
+> Task :whisper-standalone:createDebugCompatibleScreenManifests UP-TO-DATE
+Caching disabled for task ':whisper-standalone:createDebugCompatibleScreenManifests' because:
+  Build cache is disabled
+  Caching has been disabled for the task
+Skipping task ':whisper-standalone:createDebugCompatibleScreenManifests' as it is up-to-date.
+Resolve mutations for :whisper-standalone:extractDeepLinksDebug (Thread[#86,Execution worker,5,main]) started.
+:whisper-standalone:extractDeepLinksDebug (Thread[#86,Execution worker,5,main]) started.
+
+> Task :whisper-standalone:extractDeepLinksDebug UP-TO-DATE
+Caching disabled for task ':whisper-standalone:extractDeepLinksDebug' because:
+  Build cache is disabled
+Skipping task ':whisper-standalone:extractDeepLinksDebug' as it is up-to-date.
+Resolve mutations for :whisper-standalone:processDebugMainManifest (Thread[#86,Execution worker,5,main]) started.
+:whisper-standalone:processDebugMainManifest (Thread[#87,Execution worker Thread 2,5,main]) started.
+
+> Task :whisper-standalone:processDebugMainManifest UP-TO-DATE
+Caching disabled for task ':whisper-standalone:processDebugMainManifest' because:
+  Build cache is disabled
+Skipping task ':whisper-standalone:processDebugMainManifest' as it is up-to-date.
+Resolve mutations for :whisper-standalone:processDebugManifest (Thread[#89,Execution worker Thread 4,5,main]) started.
+:whisper-standalone:processDebugManifest (Thread[#89,Execution worker Thread 4,5,main]) started.
+
+> Task :whisper-standalone:processDebugManifest UP-TO-DATE
+Caching disabled for task ':whisper-standalone:processDebugManifest' because:
+  Build cache is disabled
+Skipping task ':whisper-standalone:processDebugManifest' as it is up-to-date.
+Resolve mutations for :whisper-standalone:processDebugManifestForPackage (Thread[#87,Execution worker Thread 2,5,main]) started.
+:whisper-standalone:processDebugManifestForPackage (Thread[#89,Execution worker Thread 4,5,main]) started.
+
+> Task :whisper-standalone:processDebugManifestForPackage UP-TO-DATE
+Custom actions are attached to task ':whisper-standalone:processDebugManifestForPackage'.
+Caching disabled for task ':whisper-standalone:processDebugManifestForPackage' because:
+  Build cache is disabled
+Skipping task ':whisper-standalone:processDebugManifestForPackage' as it is up-to-date.
+Resolve mutations for :whisper-standalone:processDebugResources (Thread[#87,Execution worker Thread 2,5,main]) started.
+:whisper-standalone:processDebugResources (Thread[#87,Execution worker Thread 2,5,main]) started.
+
+> Task :whisper-standalone:processDebugResources UP-TO-DATE
+Caching disabled for task ':whisper-standalone:processDebugResources' because:
+  Build cache is disabled
+Skipping task ':whisper-standalone:processDebugResources' as it is up-to-date.
+Resolve mutations for :whisper-standalone:compileDebugKotlin (Thread[#92,Execution worker Thread 7,5,main]) started.
+:whisper-standalone:compileDebugKotlin (Thread[#92,Execution worker Thread 7,5,main]) started.
+
+> Task :whisper-standalone:compileDebugKotlin
+Adding -Xuse-inline-scopes-numbers Kotlin compiler flag for task :whisper-standalone:compileDebugAndroidTestKotlin
+Caching disabled for task ':whisper-standalone:compileDebugKotlin' because:
+  Build cache is disabled
+Task ':whisper-standalone:compileDebugKotlin' is not up-to-date because:
+  Task has failed previously.
+The input changes require a full rebuild for incremental task ':whisper-standalone:compileDebugKotlin'.
+file or directory 'C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\whisper-standalone\src\debug\kotlin', not found
+file or directory 'C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\whisper-standalone\src\debug\java', not found
+file or directory 'C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\whisper-standalone\src\debug\kotlin', not found
+file or directory 'C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\whisper-standalone\src\debug\java', not found
+file or directory 'C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\whisper-standalone\src\debug\kotlin', not found
+file or directory 'C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\whisper-standalone\src\debug\java', not found
+file or directory 'C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\whisper-standalone\src\main\java', not found
+file or directory 'C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\whisper-standalone\src\main\java', not found
+file or directory 'C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\whisper-standalone\src\main\java', not found
+file or directory 'C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\whisper-standalone\src\main\java', not found
+file or directory 'C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\whisper-standalone\src\debug\java', not found
+file or directory 'C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\whisper-standalone\src\debug\kotlin', not found
+file or directory 'C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\whisper-standalone\src\debug\java', not found
+file or directory 'C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\whisper-standalone\src\debug\kotlin', not found
+file or directory 'C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\whisper-standalone\src\debug\java', not found
+file or directory 'C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\whisper-standalone\src\debug\kotlin', not found
+file or directory 'C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\whisper-standalone\src\debug\java', not found
+file or directory 'C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\whisper-standalone\src\debug\kotlin', not found
+file or directory 'C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\whisper-standalone\src\debug\java', not found
+file or directory 'C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\whisper-standalone\src\debug\kotlin', not found
+file or directory 'C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\whisper-standalone\src\debug\java', not found
+file or directory 'C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\whisper-standalone\src\debug\kotlin', not found
+file or directory 'C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\whisper-standalone\src\debug\java', not found
+file or directory 'C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\whisper-standalone\src\main\java', not found
+file or directory 'C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\whisper-standalone\src\main\java', not found
+file or directory 'C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\whisper-standalone\src\main\java', not found
+file or directory 'C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\whisper-standalone\src\main\java', not found
+file or directory 'C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\whisper-standalone\src\debug\java', not found
+file or directory 'C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\whisper-standalone\src\debug\kotlin', not found
+file or directory 'C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\whisper-standalone\src\debug\java', not found
+file or directory 'C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\whisper-standalone\src\debug\kotlin', not found
+file or directory 'C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\whisper-standalone\src\debug\java', not found
+file or directory 'C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\whisper-standalone\src\debug\kotlin', not found
+file or directory 'C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\whisper-standalone\src\debug\java', not found
+file or directory 'C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\whisper-standalone\src\main\java', not found
+file or directory 'C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\whisper-standalone\src\main\java', not found
+file or directory 'C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\whisper-standalone\src\main\java', not found
+file or directory 'C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\whisper-standalone\src\main\java', not found
+file or directory 'C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\whisper-standalone\src\debug\java', not found
+file or directory 'C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\whisper-standalone\src\debug\kotlin', not found
+file or directory 'C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\whisper-standalone\src\debug\java', not found
+file or directory 'C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\whisper-standalone\src\debug\kotlin', not found
+file or directory 'C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\whisper-standalone\src\debug\java', not found
+file or directory 'C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\whisper-standalone\src\debug\kotlin', not found
+file or directory 'C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\whisper-standalone\src\debug\java', not found
+file or directory 'C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\whisper-standalone\src\main\java', not found
+file or directory 'C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\whisper-standalone\src\main\java', not found
+file or directory 'C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\whisper-standalone\src\main\java', not found
+file or directory 'C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\whisper-standalone\src\main\java', not found
+file or directory 'C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\whisper-standalone\src\debug\java', not found
+Kotlin source files: C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\whisper-standalone\src\main\kotlin\com\xreal\whisper\AudioCircularBuffer.kt, C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\whisper-standalone\src\main\kotlin\com\xreal\whisper\MelSpectrogram.kt, C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\whisper-standalone\src\main\kotlin\com\xreal\whisper\SileroVAD.kt, C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\whisper-standalone\src\main\kotlin\com\xreal\whisper\WhisperEngine.kt, C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\whisper-standalone\src\main\kotlin\com\xreal\whisper\WhisperStandaloneActivity.kt
+Java source files: 
+Script source files: 
+Script file extensions: 
+Using Kotlin/JVM incremental compilation
+[KOTLIN] Kotlin compilation 'jdkHome' argument: null
+Options for KOTLIN DAEMON: IncrementalCompilationOptions(super=CompilationOptions(compilerMode=INCREMENTAL_COMPILER, targetPlatform=JVM, reportCategories=[0, 3], reportSeverity=2, requestedCompilationResults=[0], kotlinScriptExtensions=[]), areFileChangesKnown=false, modifiedFiles=null, deletedFiles=null, classpathChanges=NotAvailableForNonIncrementalRun, workingDir=C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\whisper-standalone\build\kotlin\compileDebugKotlin\cacheable, multiModuleICSettings=MultiModuleICSettings(buildHistoryFile=C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\whisper-standalone\build\kotlin\compileDebugKotlin\local-state\build-history.bin, useModuleDetection=true), usePreciseJavaTracking=true, icFeatures=IncrementalCompilationFeatures(withAbiSnapshot=false, preciseCompilationResultsBackup=true, keepIncrementalCompilationCachesInMemory=true, enableUnsafeIncrementalCompilationForMultiplatform=false), outputFiles=[C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\whisper-standalone\build\tmp\kotlin-classes\debug, C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\whisper-standalone\build\kotlin\compileDebugKotlin\cacheable, C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR\whisper-standalone\build\kotlin\compileDebugKotlin\local-state])
+./gradlew : e: file:///C:/Users/User/.gemini/antigravity/scratch/XREALNativeAR/whisper-standalone/src/main/kotlin/com/x
+real/whisper/SileroVAD.kt:5:19 Unresolved reference 'ai'.
+위치 줄:1 문자:107
++ ... $env:Path"; ./gradlew :whisper-standalone:compileDebugKotlin --no-dae ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (e: file:///C:/U...reference 'ai'.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+e: file:///C:/Users/User/.gemini/antigravity/scratch/XREALNativeAR/whisper-standalone/src/main/kotlin/com/xreal/whisper
+/SileroVAD.kt:6:19 Unresolved reference 'ai'.
+e: file:///C:/Users/User/.gemini/antigravity/scratch/XREALNativeAR/whisper-standalone/src/main/kotlin/com/xreal/whisper
+/SileroVAD.kt:17:30 Unresolved reference 'Interpreter'.
+e: file:///C:/Users/User/.gemini/antigravity/scratch/XREALNativeAR/whisper-standalone/src/main/kotlin/com/xreal/whisper
+/SileroVAD.kt:32:31 Unresolved reference 'FileUtil'.
+e: file:///C:/Users/User/.gemini/antigravity/scratch/XREALNativeAR/whisper-standalone/src/main/kotlin/com/xreal/whisper
+/SileroVAD.kt:37:31 Unresolved reference 'Interpreter'.
+e: file:///C:/Users/User/.gemini/antigravity/scratch/XREALNativeAR/whisper-standalone/src/main/kotlin/com/xreal/whisper
+/SileroVAD.kt:39:31 Unresolved reference 'Interpreter'.
+e: file:///C:/Users/User/.gemini/antigravity/scratch/XREALNativeAR/whisper-standalone/src/main/kotlin/com/xreal/whisper
+/SileroVAD.kt:76:26 Unresolved reference 'runForMultipleInputsOutputs'.
+e: file:///C:/Users/User/.gemini/antigravity/scratch/XREALNativeAR/whisper-standalone/src/main/kotlin/com/xreal/whisper
+/SileroVAD.kt:102:22 Unresolved reference 'close'.
+e: file:///C:/Users/User/.gemini/antigravity/scratch/XREALNativeAR/whisper-standalone/src/main/kotlin/com/xreal/whisper
+/WhisperEngine.kt:9:19 Unresolved reference 'ai'.
+e: file:///C:/Users/User/.gemini/antigravity/scratch/XREALNativeAR/whisper-standalone/src/main/kotlin/com/xreal/whisper
+/WhisperEngine.kt:10:19 Unresolved reference 'ai'.
+e: file:///C:/Users/User/.gemini/antigravity/scratch/XREALNativeAR/whisper-standalone/src/main/kotlin/com/xreal/whisper
+/WhisperEngine.kt:19:30 Unresolved reference 'Interpreter'.
+e: file:///C:/Users/User/.gemini/antigravity/scratch/XREALNativeAR/whisper-standalone/src/main/kotlin/com/xreal/whisper
+/WhisperEngine.kt:20:30 Unresolved reference 'GpuDelegate'.
+e: file:///C:/Users/User/.gemini/antigravity/scratch/XREALNativeAR/whisper-standalone/src/main/kotlin/com/xreal/whisper
+/WhisperEngine.kt:78:23 Unresolved reference 'Interpreter'.
+e: file:///C:/Users/User/.gemini/antigravity/scratch/XREALNativeAR/whisper-standalone/src/main/kotlin/com/xreal/whisper
+/WhisperEngine.kt:82:30 Unresolved reference 'GpuDelegate'.
+e: file:///C:/Users/User/.gemini/antigravity/scratch/XREALNativeAR/whisper-standalone/src/main/kotlin/com/xreal/whisper
+/WhisperEngine.kt:84:47 Unresolved reference 'GpuDelegate'.
+e: file:///C:/Users/User/.gemini/antigravity/scratch/XREALNativeAR/whisper-standalone/src/main/kotlin/com/xreal/whisper
+/WhisperEngine.kt:86:27 Unresolved reference 'GpuDelegate'.
+e: file:///C:/Users/User/.gemini/antigravity/scratch/XREALNativeAR/whisper-standalone/src/main/kotlin/com/xreal/whisper
+/WhisperEngine.kt:94:23 Unresolved reference 'Interpreter'.
+e: file:///C:/Users/User/.gemini/antigravity/scratch/XREALNativeAR/whisper-standalone/src/main/kotlin/com/xreal/whisper
+/WhisperEngine.kt:203:22 Unresolved reference 'close'.
+e: file:///C:/Users/User/.gemini/antigravity/scratch/XREALNativeAR/whisper-standalone/src/main/kotlin/com/xreal/whisper
+/WhisperEngine.kt:204:22 Unresolved reference 'close'.
+e: file:///C:/Users/User/.gemini/antigravity/scratch/XREALNativeAR/whisper-standalone/src/main/kotlin/com/xreal/whisper
+/WhisperEngine.kt:222:26 Cannot infer type for this parameter. Please specify it explicitly.
+e: file:///C:/Users/User/.gemini/antigravity/scratch/XREALNativeAR/whisper-standalone/src/main/kotlin/com/xreal/whisper
+/WhisperEngine.kt:222:30 Argument type mismatch: actual type is 'kotlin.Array<kotlin.Array<kotlin.FloatArray>>', but 'k
+otlin.Function1<T, R>' was expected.
+e: file:///C:/Users/User/.gemini/antigravity/scratch/XREALNativeAR/whisper-standalone/src/main/kotlin/com/xreal/whisper
+/WhisperEngine.kt:222:43 Too many arguments for 'fun <T, R> T.run(block: T.() -> R): R
+    [R|Contract description]
+     <
+        CallsInPlace(block, EXACTLY_ONCE)
+    >'.
+Finished executing kotlin compiler using DAEMON strategy
+
+> Task :whisper-standalone:compileDebugKotlin FAILED
+
+[Incubating] Problems report is available at: file:///C:/Users/User/.gemini/antigravity/scratch/XREALNativeAR/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':whisper-standalone:compileDebugKotlin'.
+> A failure occurred while executing org.jetbrains.kotlin.compilerRunner.GradleCompilerRunnerWithWorkers$GradleKotlinCo
+mpilerWorkAction
+   > Compilation error. See log for more details
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --debug option to get more log output.
+> Run with --scan to get full insights.
+> Get more help at https://help.gradle.org.
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+
+BUILD FAILED in 28s
+For more on this, please refer to https://docs.gradle.org/9.0-milestone-1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+16 actionable tasks: 1 executed, 15 up-to-date
+Watched directory hierarchies: [C:\Users\User\.gemini\antigravity\scratch\XREALNativeAR]

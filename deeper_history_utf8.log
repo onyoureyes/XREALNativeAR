@@ -1,0 +1,6 @@
+﻿
+02-09 08:17:23.844  1979  1979 D BatteryService: sendBroadcastToExplicitPackage: Intent { act=android.intent.action.ACT
+ION_POWER_DISCONNECTED flg=0x4000000 (has extras) } -> com.samsung.android.sm.devicesecurity
+02-09 08:17:30.530 30188 30288 I GeminiClient: Gemini Response: 諛붾떏怨?媛援щ뱾?댁슂.
+
+

@@ -1,0 +1,14 @@
+﻿
+  log_raw.txt:154541:02-09 08:17:30.522  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IO
+CTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+  log_raw.txt:154542:02-09 08:17:30.524  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IO
+CTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+  log_raw.txt:154543:02-09 08:17:30.527  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IO
+CTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+  log_raw.txt:154544:02-09 08:17:30.529  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IO
+CTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+  log_raw.txt:154545:02-09 08:17:30.530  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IO
+CTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+> log_raw.txt:154546:02-09 08:17:30.530 30188 30288 I GeminiClient: Gemini Response: 諛붾떏怨?媛援щ뱾?댁슂.
+
+

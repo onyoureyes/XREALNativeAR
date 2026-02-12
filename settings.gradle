@@ -16,3 +16,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "XREALNativeAR"
 include ':app'
+include ':ai-common'
+include ':whisper-standalone'
+include ':xreal-hardware-standalone'

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:constraint="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000">
+
+    <!-- Absolute Top Header -->
+    <TextView
+        android:id="@+id/calibrationTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="NATIVE STT (BOLD)"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:background="#333333"
+        android:gravity="center"
+        android:padding="4dp"
+        constraint:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Barometer anchored to top -->
+    <TextView
+        android:id="@+id/barometerText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="VOICE: [---]"
+        android:textColor="#00FF00"
+        android:textSize="32sp"
+        android:fontFamily="monospace"
+        android:gravity="center"
+        android:background="#111111"
+        constraint:layout_constraintTop_toBottomOf="@id/calibrationTitle" />
+
+    <TextView
+        android:id="@+id/amplitudeVal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="RMS: 0"
+        android:textColor="#FFFF00"
+        android:textSize="20sp"
+        android:gravity="center"
+        constraint:layout_constraintTop_toBottomOf="@id/barometerText" />
+
+    <!-- Transcription result - THE MOST IMPORTANT PART -->
+    <TextView
+        android:id="@+id/statusText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="WAITING FOR VOICE..."
+        android:textColor="#00FFFF"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:padding="16dp"
+        android:background="#222222"
+        constraint:layout_constraintTop_toBottomOf="@id/amplitudeVal" />
+
+    <!-- Heartbeat Tracker to prove UI is updating -->
+    <TextView
+        android:id="@+id/heartbeatText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="HB: 0"
+        android:textColor="#FF00FF"
+        android:textSize="12sp"
+        constraint:layout_constraintBottom_toBottomOf="parent"
+        constraint:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

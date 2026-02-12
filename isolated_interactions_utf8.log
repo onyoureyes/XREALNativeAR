@@ -1,0 +1,143 @@
+﻿
+02-09 08:17:28.861  8677  8705 I VRI[EdgeLightingWindow]@7ec43ba: mWNT: t=0xb40000798acb4c10 mBlastBufferQueue=0xb40000
+79aad5f170 fn= 66 HdrRenderState mRenderHdrSdrRatio=1.0 caller= android.view.ViewRootImpl$10.onFrameDraw:6536 android.v
+iew.ViewRootImpl$4.onFrameDraw:2489 android.view.ThreadedRenderer$1.onFrameDraw:718 
+02-09 08:17:28.862  1979  2788 I WindowManager: Relayout hash=1764782, pid=0, syncId=-1: mAttrs={(0,0)(fillxfill) gr=CE
+NTER sim={adjust=pan} layoutInDisplayCutoutMode=always ty=2227 fmt=TRANSLUCENT
+02-09 08:17:28.862  1979  2788 I WindowManager:   fl=1800508
+02-09 08:17:28.862  1979  2788 I WindowManager:   pfl=10008850
+02-09 08:17:28.862  1979  2788 I WindowManager:   vsysui=600
+02-09 08:17:28.862  1979  2788 I WindowManager:   apr=10
+02-09 08:17:28.862  1979  2788 I WindowManager:   bhv=2
+02-09 08:17:28.862  1979  2788 I WindowManager:   fitSides=0
+02-09 08:17:28.862  1979  2788 I WindowManager:   frameRateBoostOnTouch=true
+02-09 08:17:28.862  1979  2788 I WindowManager:   dvrrWindowFrameRateHint=true naviIconColor=0
+02-09 08:17:28.862  1979  2788 I WindowManager:   sfl=160000}
+02-09 08:17:28.919  1612 30458 I snap_api::V4: AIAwbModel_v1.3.tflite:Session Execute time taken : 9.722 ms
+02-09 08:17:28.935  1535  1573 E BatteryDump: !@new_battery_dump : 3543,-952,300,1022,7,361,347,419,360,0,371,405,355,N
+ot-charging,NO_CHARGING,None,UnderVoltage,PDIC,0,Normal,0,0,11400,0x40018000,0x10000,0x0,0,0,0000,0000,00000000,3568,35
+80,-317,-414,402,3683,711,990,0,
+02-09 08:17:28.952  5894  5894 E gpustat : dataReady_ == false
+02-09 08:17:29.014  1537  2492 D SensorsFlicker: Als_common::readEvents, enabled : 1, data : -1.000000, 0.000000, 0.000
+000, 0.000000, 0.000000, 0.000000, 0.000000
+02-09 08:17:29.049  1612 30458 I snap_api::V4: AIAwbModel_v1.3.tflite:Session Execute time taken : 5.900 ms
+02-09 08:17:29.079  1537 30331 I sensors-hal: handle_sns_client_event:530, [571] mag_sample_cal: ts=253728002229903 ns;
+ cal = [-15.147583, 52.376213, -32.990234], uncal = [65.113983, -87.752510, -236.440582], bias = [80.261566, -140.12872
+3, -203.450348], status=1
+02-09 08:17:29.081  1537 30325 I sensors-hal: handle_sns_client_event:661, [0][1181] Uncal_G [ 0.003, 0.004,-0.026] [ 0
+.004, 0.004,-0.025] 253728000859747
+02-09 08:17:29.133  1979  2996 D WifiStaIfaceHidlImpl: getCachedScanData is not implemented by HIDL
+02-09 08:17:29.138  1979 29705 D SemWifiUsabilityStatsMonitor: onWifiUsabilityStats - seqNum 28824, isSameBssidAndFreq 
+true
+02-09 08:17:29.141  1979  3157 I SemWifiLinkQualityMonitor: Link stat: 2819 / 885 / 1.07 (694) / 216 / -29.0 || 100.0 :
+ 216.00 / 0.5 : 0.93 / 0.55 : 0.31 / G (G) || 9e1d6a582437: 0.142 / 56.344 / N || N N / 0 0 / Y 2.0 / Y X 0 / 127223174
+ 0 || Invalid
+02-09 08:17:29.141  1537 30308 I sensors-hal: handle_sns_std_sensor_event:138, [113] Pressure 1018.127, cal 0.083, sw_o
+ffset 0.150
+02-09 08:17:29.182  1612 30458 I snap_api::V4: AIAwbModel_v1.3.tflite:Session Execute time taken : 5.950 ms
+02-09 08:17:29.193  1612  3037 E IS_ALGO : IS0523: V3: is_valid_frame_time(1595): Gyro: frame_id 333: Last requested ti
+mestamp (253733609944) is larger than received timestamp (253733608924). Delta [usec] = 1020
+02-09 08:17:29.218  5894  5894 E gpustat : dataReady_ == false
+02-09 08:17:29.316  1612 30458 I snap_api::V4: AIAwbModel_v1.3.tflite:Session Execute time taken : 7.486 ms
+02-09 08:17:29.334  1979  2788 D ActivityManager: Received SERVICE intent 0x1581eb Key{startService pkg=com.google.andr
+oid.gms/current_semantic_location intent=act=com.google.android.gms.semanticlocation.ACTION_LOCATION xflg=0x4 cmp=com.g
+oogle.android.gms/.semanticlocation.service.SemanticLocationService flags=0x2000000 u=0} requestCode=0 from uid 10273
+02-09 08:17:29.335  1979  5072 D ActivityManager: Received SERVICE intent 0xbf644af Key{startService pkg=com.google.and
+roid.gms/com.google.android.gms.findmydevice intent=act=com.google.android.gms.findmydevice.spot.locationreporting.ASSI
+GN_LOCATION cat=[targeted_intent_op_prefix:.findmydevice.spot.locationreporting.LocationAssigningIntentOperation,SelfLo
+cationUpdate] dat= typ=*/* xflg=0x4 pkg=com.google.android.gms cmp=com.google.android.gms/.chimera.PersistentIntentOper
+ationService clip={text/vnd.android.intent hasLabel(0) {I:xflg=0x4}} flags=0x2000000 u=0} requestCode=0 from uid 10273
+02-09 08:17:29.356  1979  3833 I ActivityManager: Changes in 10125 19 to 3, 0 to 184
+02-09 08:17:29.358  8677  8677 I EdgeLightingService: stopService by onDismissEdgeWindow
+02-09 08:17:29.359  8677  8677 D EdgeLightingScheduler: notifyEdgeLightingPackageList :[], empty = true
+02-09 08:17:29.359  1647  1800 V APM_AudioPolicyManager: setAppState(portId:7571, state:2)
+02-09 08:17:29.360 19333 19333 D BoundBrokerSvc: onBind: Intent { act=com.google.android.gms.onboardingconsent.api.Cons
+entManagerApiService.START dat=chimera-action:/... xflg=0x4 cmp=com.google.android.gms/.chimera.GmsApiService }
+02-09 08:17:29.360 19333 19333 D BoundBrokerSvc: Loading bound service for intent: Intent { act=com.google.android.gms.
+onboardingconsent.api.ConsentManagerApiService.START dat=chimera-action:/... xflg=0x4 cmp=com.google.android.gms/.chime
+ra.GmsApiService }
+02-09 08:17:29.361  4863  5623 V OsAgent : broadcastSystemEvent - 7
+02-09 08:17:29.367  8677  8677 I EdgeLightingDialog: dismissInternal 
+02-09 08:17:29.367  1979  3132 D BackgroundInstallControlService: Package event received: 0
+02-09 08:17:29.367  1979  3132 D BackgroundInstallControlService: Package event received: 0
+02-09 08:17:29.367  1979  3132 D BackgroundInstallControlService: Package event received: 0
+02-09 08:17:29.371 19333 19393 W ConsentManagerApiServic: Consent Manager API is not enabled. [CONTEXT service_id=460 ]
+02-09 08:17:29.371  8677  8677 I NotificationEffect:  onDetachedFromWindow Window remove Touch Insector : true, screen_
+on=true, aod_state=0
+02-09 08:17:29.373  8677  8677 I WindowManager: WindowManagerGlobal#removeView, ty=2227, view=com.android.internal.poli
+cy.DecorView{c441ce5 V.E...... R.....ID 0,0-2316,904}[EdgeLightingWindow], caller=android.view.WindowManagerGlobal.remo
+veView:654 android.view.WindowManagerImpl.removeViewImmediate:216 android.app.Dialog.dismissDialog:850 
+02-09 08:17:29.373  8677  8677 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=false callback=android.app.D
+ialog$$ExternalSyntheticLambda4@8a69b5e
+02-09 08:17:29.374  1979  2788 D CoreBackPreview: Window{1764782 u0 EdgeLightingWindow}: Setting back callback null
+02-09 08:17:29.378  8677  8706 D HWUI    : CacheManager::trimMemory(20)
+02-09 08:17:29.379  8677  8677 I VRI[EdgeLightingWindow]@7ec43ba: dispatchDetachedFromWindow
+02-09 08:17:29.381  1537 30247 I sensors-hal: handle_sns_client_event:552, [0][1225] accel_sample [-0.107, -0.021,  9.8
+83] 253728300667820
+02-09 08:17:29.381  1979  2788 D InputTransport: Input channel destroyed: '1764782', fd=876
+02-09 08:17:29.382  1979  2788 V WindowManager: Remove Window{1764782 u0 EdgeLightingWindow}: mSurfaceControl=Surface(n
+ame=EdgeLightingWindow$_8677)/@0x22969c3 mAnimatingExit=false mRemoveOnExit=false mHasSurface=true surfaceShowing=true 
+animating=false app-animation=false callers=com.android.server.wm.Session.remove:16 android.view.IWindowSession$Stub.on
+Transact:804 com.android.server.wm.Session.onTransact:1 android.os.Binder.execTransactInternal:1457 android.os.Binder.e
+xecTransact:1401 <bottom of call stack> 
+02-09 08:17:29.383  1979  2788 D SurfaceComposerClient: setCornerRadius ## 1db5957 com.xreal.nativear/com.xreal.nativea
+r.MainActivity#26298 cornerRadius=0.000000
+02-09 08:17:29.383  1979  2788 D SurfaceComposerClient: setCornerRadius ## 1db5957 com.xreal.nativear/com.xreal.nativea
+r.MainActivity#26298 cornerRadius=0.000000
+02-09 08:17:29.385  8677  8677 D InputTransport: Input channel destroyed: '1764782', fd=106
+02-09 08:17:29.388  8677  8677 D ScoverManager: unregisterListener
+02-09 08:17:29.395  8677  8677 I EdgeLightingDispatcher:  mDialog showing : false
+02-09 08:17:29.401  3285  3285 D SystemUIService: SYSUI_RAM_OPTIMIZATION onTrimMemory=20
+02-09 08:17:29.401  3285  3285 D CentralSurfaces: SYSUI_RAM_OPTIMIZATION onTrimMemory=20
+02-09 08:17:29.401  8677  8677 D SystemUIService: SYSUI_RAM_OPTIMIZATION onTrimMemory=40
+02-09 08:17:29.401  3285  3612 D HWUI    : CacheManager::trimMemory(20)
+02-09 08:17:29.402  8677  8706 D HWUI    : CacheManager::trimMemory(40)
+02-09 08:17:29.403  1668  1668 D Region  :   Region transparentRegionHint (this=0xb40000736c0d4910, count=1)
+02-09 08:17:29.403  1668  1668 D Region  :     [  0, -234, 1440,   0]
+02-09 08:17:29.403  1668  1668 D Region  :   Region transparentRegionHint (this=0xb40000736c073b70, count=1)
+02-09 08:17:29.403  1668  1668 D Region  :     [  0, -234, 1440,   0]
+02-09 08:17:29.419  1668  1668 I Layer   : id=26317 Destroyed WindowToken{cb832cd type=2227 android.os.BinderProxy@3eae
+064}#26317
+02-09 08:17:29.419  1668  1668 I Layer   : id=26319 Destroyed EdgeLightingWindow$_8677#26319
+02-09 08:17:29.419  1668  1668 I Layer   : id=26318 Destroyed 1764782 EdgeLightingWindow#26318
+02-09 08:17:29.420  1668  1668 D Region  :   Region transparentRegionHint (this=0xb40000736c0d4910, count=1)
+02-09 08:17:29.420  1668  1668 D Region  :     [  0, -234, 1440,   0]
+02-09 08:17:29.420  1668  1668 D Region  :   Region transparentRegionHint (this=0xb40000736c073b70, count=1)
+02-09 08:17:29.420  1668  1668 D Region  :     [  0, -234, 1440,   0]
+02-09 08:17:29.434  1551 30567 I HYPER-HAL: [RequestManager.cpp]releaseLocked(): Released ID : 3561446
+02-09 08:17:29.447  1612 30458 I snap_api::V4: AIAwbModel_v1.3.tflite:Session Execute time taken : 3.953 ms
+02-09 08:17:29.484  5894  5894 E gpustat : dataReady_ == false
+02-09 08:17:29.583  1156  1156 D io_stats: !@   8,0 r 3028871 70150671 w 2017725 225879560 d 678915 396075744 f 0 19516
+4 iot 2800260 0 th 0 0 0 pt 0 inp 0 0 127223.617
+02-09 08:17:29.583  1156  1156 D io_stats: !@ Read_top(KB): system_server(1979) 40 sung.android.ce(21360) 8
+02-09 08:17:29.583  1156  1156 D io_stats: !@ Write_top(KB): system_server(1979) 600 f2fs_ckpt-254:5(1233) 88 martsugge
+stions(30900) 68
+02-09 08:17:29.583  1612 30458 I snap_api::V4: AIAwbModel_v1.3.tflite:Session Execute time taken : 6.740 ms
+02-09 08:17:29.714  1537  2492 D SensorsFlicker: Als_common::readEvents, enabled : 1, data : -1.000000, 0.000000, 0.000
+000, 0.000000, 0.000000, 0.000000, 0.000000
+02-09 08:17:29.716  1612 30458 I snap_api::V4: AIAwbModel_v1.3.tflite:Session Execute time taken : 6.452 ms
+02-09 08:17:29.750  1653  1675 E HeatmapThread: ECT Thread time in milliseconds: 1770592649
+02-09 08:17:29.750  1653  1675 D HeatmapThread: !@ batteryplugType : 0
+02-09 08:17:29.750  1653  1675 D HeatmapThread: !@ batteryLevel : 0  batteryTemperature : 0 
+02-09 08:17:29.750  1653  1675 D HeatmapThread: !@ Heatmap currtime: 29509877
+02-09 08:17:29.750  1653  1675 D HeatmapThread: !@ Heatmap prevtime: 29509854
+02-09 08:17:29.750  1653  1675 D HeatmapThread: !@ Heatmap plugstarttime: 35791394
+02-09 08:17:29.750  1653  1675 D HeatmapThread: !@ Heatmap prevv_dsoh_update_time: 29505648
+02-09 08:17:29.750  1653  1675 E HeatmapThread: !@Could not open '/efs/FactoryApp/bsoh', errno = 13
+02-09 08:17:29.750  1653  1675 E HeatmapThread: !@ CAM Could not access BSOH EFS
+02-09 08:17:29.750  5894  5894 E gpustat : dataReady_ == false
+02-09 08:17:29.750  1653  1675 E HeatmapThread: !@ CAM New BSOH: 0
+02-09 08:17:29.852  1612 30458 I snap_api::V4: AIAwbModel_v1.3.tflite:Session Execute time taken : 8.782 ms
+02-09 08:17:29.891  1612  3035 E CamX    : [ERROR][SW_PROC] bitmlengine.cpp:332 BITMLEngineExecute() success executed! 
+clientID: 476, networkID: 8, 
+02-09 08:17:29.927  1979  3833 I EDMNativeHelperService: isCameraEnabled
+02-09 08:17:29.927  1979  3833 D EDMNativeHelper: isCameraEnabled
+02-09 08:17:29.927  1979  3833 D EDMNativeHelper: checking for camera in EnterpriseDeviceManagerService
+02-09 08:17:29.927  1979  3833 D EnterpriseDeviceManagerService: isCameraEnabledNative
+02-09 08:17:29.927  1979  3833 D EnterpriseDeviceManagerService: checking for camera in restriction policy
+02-09 08:17:29.927  1979  3833 D RestrictionPolicy: isCameraEnabled ret(true) userId(0) cxtInfo.mCallerUid(10491) cxtIn
+fo.mContainerId(0)
+02-09 08:17:29.994  1612 30458 I snap_api::V4: AIAwbModel_v1.3.tflite:Session Execute time taken : 15.909 ms
+02-09 08:17:30.017  5894  5894 E gpustat : dataReady_ == false
+
+

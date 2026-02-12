@@ -4,6 +4,13 @@
 
     <!-- Permissions -->
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MICROPHONE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION" />
     <uses-permission android:name="android.permission.USB_DEVICE" />
     
     <!-- Hardware features -->
@@ -11,6 +18,7 @@
     <uses-feature android:name="android.hardware.usb.host" android:required="false" />
 
     <application
+        android:name=".XREALApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher_fallback"
         android:label="@string/app_name"
@@ -36,6 +44,15 @@
                 android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED"
                 android:resource="@xml/device_filter" />
         </activity>
+
+        <activity android:name=".MemoryQueryActivity" android:exported="false" />
+        
+        <service 
+            android:name=".AudioAnalysisService"
+            android:foregroundServiceType="microphone|location"
+            android:exported="false" />
+            
     </application>
+
 
 </manifest>

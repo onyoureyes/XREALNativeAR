@@ -1,0 +1,427 @@
+﻿
+02-09 03:22:22.996  1979  1979 D BatteryService: sendBroadcastToExplicitPackage: Intent { act=android.intent.action.ACT
+ION_POWER_CONNECTED flg=0x4000000 (has extras) } -> com.samsung.android.sm.devicesecurity
+02-09 03:22:23.349  1979  2467 I DisplayBrightnessStrategySelector: Changing the DisplayBrightnessStrategy from ScreenO
+ffBrightnessStrategy to LastTargetBrightnessStrategy for display 0
+02-09 03:22:23.349  1979  2467 I DisplayPowerController[0]: BrightnessEvent: brt=0.0 (0.0%), nits= 1.0, lux=-1.0, reaso
+n=last_target, strat=LastTargetBrightnessStrategy, state=DOZE, stateReason=DRAW_WAKE_LOCK, policy=DOZE, flags=, initBrt
+=0.0, rcmdBrt=NaN, preBrt=NaN, preLux=0.0, wasShortTermModelActive=false, autoBrightness=true (default), unclampedBrt=0
+.0, hbmMax=1.0, hbmMode=off, thrmMax=1.0, rbcStrength=-1, powerFactor=1.0, physDisp=湲곕낯?쇰줈 ?쒓났?섎뒗 ?붾㈃(local:46309462130
+10294403), logicalId=0, slowChange=false, rampSpeed=0.0
+02-09 03:22:23.572  1979  2467 I DisplayBrightnessStrategySelector: Changing the DisplayBrightnessStrategy from LastTar
+getBrightnessStrategy to DozeBrightnessStrategy for display 0
+02-09 03:22:37.665  1979  5075 D SGM:GameManager: requestToRemoveRefreshRate(), jsonParam: {"package_name_list":"com.nh
+nent.HanBaduk,com.fun.lastwar.gp,com.os.airforce,com.monomob.jangki,jp.pokemon.pokemontcgp,com.popoko.janggi"}
+02-09 03:22:46.559  1979  2467 I DisplayBrightnessStrategySelector: Changing the DisplayBrightnessStrategy from DozeBri
+ghtnessStrategy to LastTargetBrightnessStrategy for display 0
+02-09 03:22:46.560  1979  2467 I DisplayPowerController[0]: BrightnessEvent: brt=0.0 (0.0%), nits= 1.0, lux=-1.0, reaso
+n=last_target, strat=LastTargetBrightnessStrategy, state=DOZE, stateReason=DEFAULT_POLICY, policy=BRIGHT, flags=, initB
+rt=0.0, rcmdBrt=NaN, preBrt=NaN, preLux=0.0, wasShortTermModelActive=false, autoBrightness=true (default), unclampedBrt
+=0.0, hbmMax=1.0, hbmMode=off, thrmMax=1.0, rbcStrength=-1, powerFactor=1.0, physDisp=湲곕낯?쇰줈 ?쒓났?섎뒗 ?붾㈃(local:463094621
+3010294403), logicalId=0, slowChange=false, rampSpeed=0.0
+02-09 03:22:46.584  1979  2467 I DisplayPowerController[0]: BrightnessEvent: brt=0.0 (0.0%), nits= 1.0, lux=-1.0, reaso
+n=last_target, strat=LastTargetBrightnessStrategy, state=ON, stateReason=DEFAULT_POLICY, policy=BRIGHT, flags=, initBrt
+=0.0, rcmdBrt=NaN, preBrt=NaN, preLux=0.0, wasShortTermModelActive=false, autoBrightness=true (default), unclampedBrt=0
+.0, hbmMax=1.0, hbmMode=off, thrmMax=1.0, rbcStrength=-1, powerFactor=1.0, physDisp=湲곕낯?쇰줈 ?쒓났?섎뒗 ?붾㈃(local:46309462130
+10294403), logicalId=0, slowChange=false, rampSpeed=0.0
+02-09 03:22:46.634  1979  2467 I DisplayBrightnessStrategySelector: Changing the DisplayBrightnessStrategy from LastTar
+getBrightnessStrategy to AutomaticBrightnessStrategy for display 0
+02-09 03:22:46.712  1979  1979 D BatteryService: sendBroadcastToExplicitPackage: Intent { act=android.intent.action.ACT
+ION_POWER_DISCONNECTED flg=0x4000000 (has extras) } -> com.samsung.android.sm.devicesecurity
+02-09 03:22:57.798  1979  4041 D WindowManager: Transition is created, t=TransitionRecord{1f19cbf id=-1 type=TO_FRONT f
+lags=0x8000}, caller=com.android.server.wm.Transition.<init>:182 com.android.server.wm.TransitionController.createTrans
+ition:17 com.android.server.wm.TransitionController.requestTransitionIfNeeded:48 com.android.server.wm.KeyguardControll
+er.setKeyguardShown:294 com.android.server.wm.ActivityTaskManagerService$$ExternalSyntheticLambda14.accept:13 
+02-09 03:22:57.798  1979  4041 D BLASTSyncEngine: SyncGroup is created, id=1426, name=Transition-TO_FRONT, caller=com.a
+ndroid.server.wm.BLASTSyncEngine$SyncGroup.<init>:52 com.android.server.wm.TransitionController.moveToCollecting:79 com
+.android.server.wm.TransitionController.createTransition:46 com.android.server.wm.TransitionController.requestTransitio
+nIfNeeded:48 com.android.server.wm.KeyguardController.setKeyguardShown:294 com.android.server.wm.ActivityTaskManagerSer
+vice$$ExternalSyntheticLambda14.accept:13 com.android.server.wm.RootWindowContainer.forAllDisplays:19 
+02-09 03:22:57.798  1979  4041 W BLASTSyncEngine: setSyncMethod, id=1426, method=0, caller=com.android.server.wm.Transi
+tionController.moveToCollecting:91 com.android.server.wm.TransitionController.createTransition:46 com.android.server.wm
+.TransitionController.requestTransitionIfNeeded:48 
+02-09 03:22:57.798  1979  4041 V WindowManager: Start collecting in Transition: TransitionRecord{1f19cbf id=1426 type=T
+O_FRONT flags=0x8000}, caller=com.android.server.wm.TransitionController.createTransition:46 com.android.server.wm.Tran
+sitionController.requestTransitionIfNeeded:48 com.android.server.wm.KeyguardController.setKeyguardShown:294 com.android
+.server.wm.ActivityTaskManagerService$$ExternalSyntheticLambda14.accept:13 com.android.server.wm.RootWindowContainer.fo
+rAllDisplays:19 
+02-09 03:22:57.798  1979  4041 V WindowManager: Requesting StartTransition: TransitionRecord{1f19cbf id=1426 type=TO_FR
+ONT flags=0x8000}, caller=com.android.server.wm.TransitionController.requestTransitionIfNeeded:56 com.android.server.wm
+.KeyguardController.setKeyguardShown:294 com.android.server.wm.ActivityTaskManagerService$$ExternalSyntheticLambda14.ac
+cept:13 com.android.server.wm.RootWindowContainer.forAllDisplays:19 com.android.server.wm.ActivityTaskManagerService.se
+tLockScreenShownLocked:64 
+02-09 03:27:49.077  1979  2787 D SGM:GameManager: requestToRemoveRefreshRate(), jsonParam: {"package_name_list":"com.nh
+nent.HanBaduk,com.fun.lastwar.gp,com.os.airforce,com.monomob.jangki,jp.pokemon.pokemontcgp,com.popoko.janggi"}
+02-09 05:25:10.915  1979  5342 D AASA_ASKSManager_SECURETIME: setTrustTimebyStatusChanged : 
+02-09 05:25:10.927 21723 21858 I BListToRemoveController: AASAIntentThread() : curASKSver = 20260112, compASKSver = 202
+60112
+02-09 05:25:10.927 21723 21858 E BListToRemoveController: AASAIntentThread() : jsonString is null
+02-09 06:04:39.683  1979  2467 I DisplayBrightnessStrategySelector: Changing the DisplayBrightnessStrategy from ScreenO
+ffBrightnessStrategy to LastTargetBrightnessStrategy for display 0
+02-09 06:04:39.685  1979  2467 I DisplayPowerController[0]: BrightnessEvent: brt=0.0 (0.0%), nits= 1.0, lux=-1.0, reaso
+n=last_target, strat=LastTargetBrightnessStrategy, state=DOZE, stateReason=DRAW_WAKE_LOCK, policy=DOZE, flags=, initBrt
+=0.0, rcmdBrt=NaN, preBrt=NaN, preLux=0.0, wasShortTermModelActive=false, autoBrightness=true (default), unclampedBrt=0
+.0, hbmMax=1.0, hbmMode=off, thrmMax=1.0, rbcStrength=-1, powerFactor=1.0, physDisp=湲곕낯?쇰줈 ?쒓났?섎뒗 ?붾㈃(local:46309462130
+10294403), logicalId=0, slowChange=false, rampSpeed=0.0
+02-09 06:04:39.720  1979  2467 I DisplayBrightnessStrategySelector: Changing the DisplayBrightnessStrategy from LastTar
+getBrightnessStrategy to DozeBrightnessStrategy for display 0
+02-09 06:04:44.258  1979  2467 I DisplayBrightnessStrategySelector: Changing the DisplayBrightnessStrategy from DozeBri
+ghtnessStrategy to LastTargetBrightnessStrategy for display 0
+02-09 06:04:44.258  1979  2467 I DisplayPowerController[0]: BrightnessEvent: brt=0.0 (0.0%), nits= 1.0, lux=-1.0, reaso
+n=last_target, strat=LastTargetBrightnessStrategy, state=DOZE, stateReason=UNKNOWN, policy=DOZE, flags=, initBrt=0.0, r
+cmdBrt=NaN, preBrt=NaN, preLux=0.0, wasShortTermModelActive=false, autoBrightness=true (default), unclampedBrt=0.0, hbm
+Max=1.0, hbmMode=off, thrmMax=1.0, rbcStrength=-1, powerFactor=1.0, physDisp=湲곕낯?쇰줈 ?쒓났?섎뒗 ?붾㈃(local:463094621301029440
+3), logicalId=0, slowChange=false, rampSpeed=0.0
+02-09 06:04:44.267  1979  2467 I DisplayBrightnessStrategySelector: Changing the DisplayBrightnessStrategy from LastTar
+getBrightnessStrategy to ScreenOffBrightnessStrategy for display 0
+02-09 07:26:20.000  1979  5073 D SGM:GameManager: requestToRemoveRefreshRate(), jsonParam: {"package_name_list":"com.nh
+nent.HanBaduk,com.fun.lastwar.gp,com.os.airforce,com.monomob.jangki,jp.pokemon.pokemontcgp,com.popoko.janggi"}
+02-09 07:33:21.404  1979  1979 D BatteryService: sendBroadcastToExplicitPackage: Intent { act=android.intent.action.ACT
+ION_POWER_CONNECTED flg=0x4000000 (has extras) } -> com.samsung.android.sm.devicesecurity
+02-09 07:33:21.741  1979  2467 I DisplayBrightnessStrategySelector: Changing the DisplayBrightnessStrategy from ScreenO
+ffBrightnessStrategy to LastTargetBrightnessStrategy for display 0
+02-09 07:33:21.741  1979  2467 I DisplayPowerController[0]: BrightnessEvent: brt=0.0 (0.0%), nits= 1.0, lux=-1.0, reaso
+n=last_target, strat=LastTargetBrightnessStrategy, state=DOZE, stateReason=DRAW_WAKE_LOCK, policy=DOZE, flags=, initBrt
+=0.0, rcmdBrt=NaN, preBrt=NaN, preLux=0.0, wasShortTermModelActive=false, autoBrightness=true (default), unclampedBrt=0
+.0, hbmMax=1.0, hbmMode=off, thrmMax=1.0, rbcStrength=-1, powerFactor=1.0, physDisp=湲곕낯?쇰줈 ?쒓났?섎뒗 ?붾㈃(local:46309462130
+10294403), logicalId=0, slowChange=false, rampSpeed=0.0
+02-09 07:33:22.207  1979  2467 I DisplayBrightnessStrategySelector: Changing the DisplayBrightnessStrategy from LastTar
+getBrightnessStrategy to DozeBrightnessStrategy for display 0
+02-09 07:36:23.087  1979  3014 D SGM:GameManager: requestToRemoveRefreshRate(), jsonParam: {"package_name_list":"com.nh
+nent.HanBaduk,com.fun.lastwar.gp,com.os.airforce,com.monomob.jangki,jp.pokemon.pokemontcgp,com.popoko.janggi"}
+02-09 07:50:01.082  1979  5075 D SGM:GameManager: requestToRemoveRefreshRate(), jsonParam: {"package_name_list":"com.nh
+nent.HanBaduk,com.fun.lastwar.gp,com.os.airforce,com.monomob.jangki,jp.pokemon.pokemontcgp,com.popoko.janggi"}
+02-09 07:53:50.935  1979  2467 I DisplayBrightnessStrategySelector: Changing the DisplayBrightnessStrategy from DozeBri
+ghtnessStrategy to LastTargetBrightnessStrategy for display 0
+02-09 07:53:50.936  1979  2467 I DisplayPowerController[0]: BrightnessEvent: brt=0.11372549 (57.0%), nits= 30.56, lux=-
+1.0, reason=last_target, strat=LastTargetBrightnessStrategy, state=DOZE, stateReason=DEFAULT_POLICY, policy=BRIGHT, fla
+gs=, initBrt=0.11372549, rcmdBrt=NaN, preBrt=NaN, preLux=0.0, wasShortTermModelActive=false, autoBrightness=true (defau
+lt), unclampedBrt=0.11372549, hbmMax=1.0, hbmMode=off, thrmMax=1.0, rbcStrength=-1, powerFactor=1.0, physDisp=湲곕낯?쇰줈 ?쒓
+났?섎뒗 ?붾㈃(local:4630946213010294403), logicalId=0, slowChange=false, rampSpeed=0.0
+02-09 07:53:50.969  1979  2467 I DisplayPowerController[0]: BrightnessEvent: brt=0.11372549 (57.0%), nits= 30.56, lux=-
+1.0, reason=last_target, strat=LastTargetBrightnessStrategy, state=ON, stateReason=DEFAULT_POLICY, policy=BRIGHT, flags
+=, initBrt=0.11372549, rcmdBrt=NaN, preBrt=NaN, preLux=0.0, wasShortTermModelActive=false, autoBrightness=true (default
+), unclampedBrt=0.11372549, hbmMax=1.0, hbmMode=off, thrmMax=1.0, rbcStrength=-1, powerFactor=1.0, physDisp=湲곕낯?쇰줈 ?쒓났?
+섎뒗 ?붾㈃(local:4630946213010294403), logicalId=0, slowChange=false, rampSpeed=0.0
+02-09 07:53:51.022  1979  2467 I DisplayBrightnessStrategySelector: Changing the DisplayBrightnessStrategy from LastTar
+getBrightnessStrategy to AutomaticBrightnessStrategy for display 0
+02-09 07:55:08.725  1979  2423 D WindowManager: requestTransientBars: swipeTarget=Window{2063175 u0 StatusBar}, control
+Target=Window{4ed28c9 u0 com.sec.android.app.launcher/com.sec.android.app.launcher.activities.LauncherActivity}, canSho
+wTransient=true, restorePositionTypes=0x3, from=com.android.server.wm.DisplayPolicy$1.onSwipeFromTop:51 com.android.ser
+ver.wm.SystemGesturesPointerEventListener.onPointerEvent:537 
+02-09 07:55:10.032  3285  3396 V WindowManagerShell: Transition requested (#1428): android.os.BinderProxy@f883aa4 Trans
+itionRequestInfo { type = OPEN, triggerTask = TaskInfo{userId=0 taskId=275 effectiveUid=1000 displayId=0 isRunning=true
+ baseIntent=Intent { act=android.settings.SETTINGS flg=0x14000000 cmp=com.android.settings/.homepage.SettingsHomepageAc
+tivity } baseActivity=ComponentInfo{com.android.settings/com.android.settings.homepage.SettingsHomepageActivity} topAct
+ivity=ComponentInfo{com.android.settings/com.android.settings.homepage.SettingsHomepageActivity} origActivity=null real
+Activity=ComponentInfo{com.android.settings/com.android.settings.homepage.SettingsHomepageActivity} numActivities=1 las
+tActiveTime=252388956 supportsMultiWindow=true resizeMode=1 isResizeable=true minWidth=-1 minHeight=-1 maxWidth=-1 maxH
+eight=-1 defaultMinSize=220 desktopDefaultMinSize=304 token=WCT{android.window.IWindowContainerToken$Stub$Proxy@db7200d
+} topActivityType=1 pictureInPictureParams=null shouldDockBigOverlays=false launchIntoPipHostTaskId=-1 lastParentTaskId
+BeforePip=-1 displayCutoutSafeInsets=Rect(0, 87 - 0, 0) topActivityInfo=ActivityInfo{9cacbc2 com.android.settings.homep
+age.SettingsHomepageActivity} launchCookies=[] positionInParent=Point(0, 0) parentTaskId=-1 isFocused=false isVisible=f
+alse isVisibleRequested=false isTopActivityNoDisplay=false isSleeping=false locusId=null displayAreaFeatureId=1 isTopAc
+tivityTransparent=false isActivityStackTransparent=false lastNonFullscreenBounds=Rect(71, 681 - 833, 1596) capturedLink
+=null capturedLinkTimestamp=0 requestedVisibleTypes=-9 topActivityRequestOpenInBrowserEducationTimestamp=0 appCompatTas
+kInfo=AppCompatTaskInfo { topActivityInSizeCompat=false eligibleForLetterboxEducation= false isLetterboxEducationEnable
+d= false isLetterboxDoubleTapEnabled= false eligibleForUserAspectRatioButton= false topActivityBoundsLetterboxed= false
+ isFromLetterboxDoubleTap= false topActivityLetterboxVerticalPosition= -1 topActivityLetterboxHorizontalPosition= -1 to
+pActivityLetterboxWidth=-1 topActivityLetterboxHeight=-1 topActivityAppBounds=Rect(0, 0 - 904, 2316) isUserFullscreenOv
+errideEnabled=false isSystemFullscreenOverrideEnabled=false hasMinAspectRatioOverride=false topActivityLetterboxBounds=
+null cameraCompatTaskInfo=CameraCompatTaskInfo { freeformCameraCompatMode=inactive} topActivityBounds=null topActivityI
+nDisplayCompat=false singleTapFromLetterbox=false} topActivityMainWindowFrame=null originallySupportedMultiWindow=true 
+hasWallpaper=false rootAffinity=1000:com.android.settings.root isTopTaskInStage=false CoverLauncherWidgetTask=false Lau
+nchedFromAppsCoverLauncherTask=false LaunchedFromMultistarCoverLauncherTask=false isAllowedSeamlessRotation=false isTop
+TransparentActivity=false isAliasManaged=false hasConfigChanged=false snappingGuideBounds=null isAiKeyRemoveAppTask=fal
+se lastDesktopWindowingBounds=null lastExternalDesktopWindowingBounds=null isTopFullScreenWindow=true isFullSizeWindow=
+true safeCutoutInsets=null}, pipChange = null, remoteTransition = null, displayChange = null, flags = 0, debugId = 1428
+ }
+02-09 07:55:10.062  1979  2422 V WindowManager: Sent Transition (#1428) createdAt=02-09 07:55:10.018 via request=Transi
+tionRequestInfo { type = OPEN, triggerTask = TaskInfo{userId=0 taskId=275 effectiveUid=1000 displayId=0 isRunning=true 
+baseIntent=Intent { act=android.settings.SETTINGS flg=0x14000000 cmp=com.android.settings/.homepage.SettingsHomepageAct
+ivity } baseActivity=ComponentInfo{com.android.settings/com.android.settings.homepage.SettingsHomepageActivity} topActi
+vity=ComponentInfo{com.android.settings/com.android.settings.homepage.SettingsHomepageActivity} origActivity=null realA
+ctivity=ComponentInfo{com.android.settings/com.android.settings.homepage.SettingsHomepageActivity} numActivities=1 last
+ActiveTime=252388956 supportsMultiWindow=true resizeMode=1 isResizeable=true minWidth=-1 minHeight=-1 maxWidth=-1 maxHe
+ight=-1 defaultMinSize=220 desktopDefaultMinSize=304 token=WCT{RemoteToken{8c22680 Task{2776069 #275 type=standard A=10
+00:com.android.settings.root}}} topActivityType=1 pictureInPictureParams=null shouldDockBigOverlays=false launchIntoPip
+HostTaskId=-1 lastParentTaskIdBeforePip=-1 displayCutoutSafeInsets=Rect(0, 87 - 0, 0) topActivityInfo=ActivityInfo{9659
+4b9 com.android.settings.homepage.SettingsHomepageActivity} launchCookies=[] positionInParent=Point(0, 0) parentTaskId=
+-1 isFocused=false isVisible=false isVisibleRequested=false isTopActivityNoDisplay=false isSleeping=false locusId=null 
+displayAreaFeatureId=1 isTopActivityTransparent=false isActivityStackTransparent=false lastNonFullscreenBounds=Rect(71,
+ 681 - 833, 1596) capturedLink=null capturedLinkTimestamp=0 requestedVisibleTypes=-9 topActivityRequestOpenInBrowserEdu
+cationTimestamp=0 appCompatTaskInfo=AppCompatTaskInfo { topActivityInSizeCompat=false eligibleForLetterboxEducation= fa
+lse isLetterboxEducationEnabled= false isLetterboxDoubleTapEnabled= false eligibleForUserAspectRatioButton= false topAc
+tivityBoundsLetterboxed= false isFromLetterboxDoubleTap= false topActivityLetterboxVerticalPosition= -1 topActivityLett
+erboxHorizontalPosition= -1 topActivityLetterboxWidth=-1 topActivityLetterboxHeight=-1 topActivityAppBounds=Rect(0, 0 -
+ 904, 2316) isUserFullscreenOverrideEnabled=false isSystemFullscreenOverrideEnabled=false hasMinAspectRatioOverride=fal
+se topActivityLetterboxBounds=null cameraCompatTaskInfo=CameraCompatTaskInfo { freeformCameraCompatMode=inactive} topAc
+tivityBounds=null topActivityInDisplayCompat=false singleTapFromLetterbox=false} topActivityMainWindowFrame=null origin
+allySupportedMultiWindow=true hasWallpaper=false rootAffinity=1000:com.android.settings.root isTopTaskInStage=false Cov
+erLauncherWidgetTask=false LaunchedFromAppsCoverLauncherTask=false LaunchedFromMultistarCoverLauncherTask=false isAllow
+edSeamlessRotation=false isTopTransparentActivity=false isAliasManaged=false hasConfigChanged=false snappingGuideBounds
+=null isAiKeyRemoveAppTask=false lastDesktopWindowingBounds=null lastExternalDesktopWindowingBounds=null isTopFullScree
+nWindow=true isFullSizeWindow=true safeCutoutInsets=null}, pipChange = null, remoteTransition = null, displayChange = n
+ull, flags = 0, debugId = 1428 }
+02-09 07:55:17.666  3285  3396 V WindowManagerShell: Transition requested (#1430): android.os.BinderProxy@5029ba9 Trans
+itionRequestInfo { type = OPEN, triggerTask = TaskInfo{userId=0 taskId=275 effectiveUid=1000 displayId=0 isRunning=true
+ baseIntent=Intent { act=android.settings.SETTINGS flg=0x14000000 cmp=com.android.settings/.homepage.SettingsHomepageAc
+tivity } baseActivity=ComponentInfo{com.android.settings/com.android.settings.homepage.SettingsHomepageActivity} topAct
+ivity=ComponentInfo{com.android.settings/com.android.settings.SubSettings} origActivity=null realActivity=ComponentInfo
+{com.android.settings/com.android.settings.homepage.SettingsHomepageActivity} numActivities=3 lastActiveTime=252396589 
+supportsMultiWindow=true resizeMode=1 isResizeable=true minWidth=-1 minHeight=-1 maxWidth=-1 maxHeight=-1 defaultMinSiz
+e=220 desktopDefaultMinSize=304 token=WCT{android.window.IWindowContainerToken$Stub$Proxy@b3ff52e} topActivityType=1 pi
+ctureInPictureParams=null shouldDockBigOverlays=false launchIntoPipHostTaskId=-1 lastParentTaskIdBeforePip=-1 displayCu
+toutSafeInsets=Rect(0, 0 - 0, 0) topActivityInfo=ActivityInfo{68398cf com.android.settings.SubSettings} launchCookies=[
+] positionInParent=Point(0, 0) parentTaskId=-1 isFocused=true isVisible=true isVisibleRequested=true isTopActivityNoDis
+play=false isSleeping=false locusId=null displayAreaFeatureId=1 isTopActivityTransparent=false isActivityStackTranspare
+nt=false lastNonFullscreenBounds=Rect(71, 681 - 833, 1596) capturedLink=null capturedLinkTimestamp=0 requestedVisibleTy
+pes=-9 topActivityRequestOpenInBrowserEducationTimestamp=0 appCompatTaskInfo=AppCompatTaskInfo { topActivityInSizeCompa
+t=false eligibleForLetterboxEducation= false isLetterboxEducationEnabled= false isLetterboxDoubleTapEnabled= false elig
+ibleForUserAspectRatioButton= false topActivityBoundsLetterboxed= false isFromLetterboxDoubleTap= false topActivityLett
+erboxVerticalPosition= -1 topActivityLetterboxHorizontalPosition= -1 topActivityLetterboxWidth=-1 topActivityLetterboxH
+eight=-1 topActivityAppBounds=Rect(0, 0 - 904, 2316) isUserFullscreenOverrideEnabled=false isSystemFullscreenOverrideEn
+abled=false hasMinAspectRatioOverride=false topActivityLetterboxBounds=null cameraCompatTaskInfo=CameraCompatTaskInfo {
+ freeformCameraCompatMode=inactive} topActivityBounds=null topActivityInDisplayCompat=false singleTapFromLetterbox=fals
+e} topActivityMainWindowFrame=null originallySupportedMultiWindow=true hasWallpaper=false rootAffinity=1000:com.android
+.settings.root isTopTaskInStage=false CoverLauncherWidgetTask=false LaunchedFromAppsCoverLauncherTask=false LaunchedFro
+mMultistarCoverLauncherTask=false isAllowedSeamlessRotation=false isTopTransparentActivity=false isAliasManaged=false h
+asConfigChanged=false snappingGuideBounds=null isAiKeyRemoveAppTask=false lastDesktopWindowingBounds=null lastExternalD
+esktopWindowingBounds=null isTopFullScreenWindow=true isFullSizeWindow=true safeCutoutInsets=null}, pipChange = null, r
+emoteTransition = null, displayChange = null, flags = 0, debugId = 1430 }
+02-09 07:55:17.785  1979  2422 V WindowManager: Sent Transition (#1430) createdAt=02-09 07:55:17.656 via request=Transi
+tionRequestInfo { type = OPEN, triggerTask = TaskInfo{userId=0 taskId=275 effectiveUid=1000 displayId=0 isRunning=true 
+baseIntent=Intent { act=android.settings.SETTINGS flg=0x14000000 cmp=com.android.settings/.homepage.SettingsHomepageAct
+ivity } baseActivity=ComponentInfo{com.android.settings/com.android.settings.homepage.SettingsHomepageActivity} topActi
+vity=ComponentInfo{com.android.settings/com.android.settings.SubSettings} origActivity=null realActivity=ComponentInfo{
+com.android.settings/com.android.settings.homepage.SettingsHomepageActivity} numActivities=3 lastActiveTime=252396589 s
+upportsMultiWindow=true resizeMode=1 isResizeable=true minWidth=-1 minHeight=-1 maxWidth=-1 maxHeight=-1 defaultMinSize
+=220 desktopDefaultMinSize=304 token=WCT{RemoteToken{8c22680 Task{2776069 #275 type=standard A=1000:com.android.setting
+s.root}}} topActivityType=1 pictureInPictureParams=null shouldDockBigOverlays=false launchIntoPipHostTaskId=-1 lastPare
+ntTaskIdBeforePip=-1 displayCutoutSafeInsets=Rect(0, 0 - 0, 0) topActivityInfo=ActivityInfo{5c75e84 com.android.setting
+s.SubSettings} launchCookies=[] positionInParent=Point(0, 0) parentTaskId=-1 isFocused=true isVisible=true isVisibleReq
+uested=true isTopActivityNoDisplay=false isSleeping=false locusId=null displayAreaFeatureId=1 isTopActivityTransparent=
+false isActivityStackTransparent=false lastNonFullscreenBounds=Rect(71, 681 - 833, 1596) capturedLink=null capturedLink
+Timestamp=0 requestedVisibleTypes=-9 topActivityRequestOpenInBrowserEducationTimestamp=0 appCompatTaskInfo=AppCompatTas
+kInfo { topActivityInSizeCompat=false eligibleForLetterboxEducation= false isLetterboxEducationEnabled= false isLetterb
+oxDoubleTapEnabled= false eligibleForUserAspectRatioButton= false topActivityBoundsLetterboxed= false isFromLetterboxDo
+ubleTap= false topActivityLetterboxVerticalPosition= -1 topActivityLetterboxHorizontalPosition= -1 topActivityLetterbox
+Width=-1 topActivityLetterboxHeight=-1 topActivityAppBounds=Rect(0, 0 - 904, 2316) isUserFullscreenOverrideEnabled=fals
+e isSystemFullscreenOverrideEnabled=false hasMinAspectRatioOverride=false topActivityLetterboxBounds=null cameraCompatT
+askInfo=CameraCompatTaskInfo { freeformCameraCompatMode=inactive} topActivityBounds=null topActivityInDisplayCompat=fal
+se singleTapFromLetterbox=false} topActivityMainWindowFrame=null originallySupportedMultiWindow=true hasWallpaper=false
+ rootAffinity=1000:com.android.settings.root isTopTaskInStage=false CoverLauncherWidgetTask=false LaunchedFromAppsCover
+LauncherTask=false LaunchedFromMultistarCoverLauncherTask=false isAllowedSeamlessRotation=false isTopTransparentActivit
+y=false isAliasManaged=false hasConfigChanged=false snappingGuideBounds=null isAiKeyRemoveAppTask=false lastDesktopWind
+owingBounds=null lastExternalDesktopWindowingBounds=null isTopFullScreenWindow=true isFullSizeWindow=true safeCutoutIns
+ets=null}, pipChange = null, remoteTransition = null, displayChange = null, flags = 0, debugId = 1430 }
+02-09 07:56:39.709  1979  2423 D WindowManager: onDisplayAdded, displayId=10 display=Display id 10: DisplayInfo{"HDMI ?
+붾㈃", displayId 10, displayGroupId 0, FLAG_SECURE, FLAG_SUPPORTS_PROTECTED_BUFFERS, FLAG_PRESENTATION, FLAG_TRUSTED, FLA
+G_ALLOWS_CONTENT_MODE_SWITCH, real 1920 x 1080, largest app 1920 x 1920, smallest app 1080 x 1080, appVsyncOff 16666666
+, presDeadline 17666666, mode 20, renderFrameRate 60.000004, hasArrSupport false, frameRateCategoryRate FrameRateCatego
+ryRate {normal=60.0, high=90.0}, supportedRefreshRates [60.000004], defaultMode 20, REFRESH_RATE_MODE_SEAMLESS, userPre
+ferredModeId -1, supportedModes [{id=20, width=1920, height=1080, fps=60.000004, vsync=60.000004, synthetic=false, alte
+rnativeRefreshRates=[], supportedHdrTypes=[2, 3]}], appsSupportedModes [{id=20, width=1920, height=1080, fps=60.000004,
+ vsync=60.000004, synthetic=false, alternativeRefreshRates=[], supportedHdrTypes=[2, 3]}], hdrCapabilities HdrCapabilit
+ies{mSupportedHdrTypes=[2, 3], mMaxLuminance=500.0, mMaxAverageLuminance=250.0, mMinLuminance=0.0}, isForceSdr false, u
+serDisabledHdrTypes [], minimalPostProcessingSupported false, rotation 0, state OFF, committedState OFF, type EXTERNAL,
+ uniqueId "local:4626964470317753604", app 1920 x 1080, density 213 (25.4 x 25.4) dpi, layerStack 10, colorMode 0, supp
+ortedColorModes [0], address {port=4, model=0x403647abc9a4a5}, deviceProductInfo DeviceProductInfo{name=Light, manufact
+urerPnpId=MRG, productId=12593, modelYear=null, manufactureDate=ManufactureDate{week=32, year=2018}, connectionToSinkTy
+pe=0}, removeMode 0, refreshRateOverride 60.000004, brightnessMinimum 0.0, brightnessMaximum 1.0, brightnessDefault 0.5
+, brightnessDim -1.0, installOrientation ROTATION_0, layoutLimitedRefreshRate null, hdrSdrRatio not_available, thermalR
+efreshRateThrottling {}, thermalBrightnessThrottlingDataId default, canHostTasks false}, DisplayMetrics{density=1.33125
+01, width=1920, height=1080, scaledDensity=1.3312501, xdpi=25.4, ydpi=25.4}, isValid=true
+02-09 08:02:29.276  3285  3396 V WindowManagerShell: Transition requested (#1431): android.os.BinderProxy@5d1068f Trans
+itionRequestInfo { type = OPEN, triggerTask = TaskInfo{userId=0 taskId=13 effectiveUid=10162 displayId=0 isRunning=true
+ baseIntent=Intent { act=android.intent.action.MAIN cat=[android.intent.category.HOME] flg=0x10000100 cmp=com.sec.andro
+id.app.launcher/.activities.LauncherActivity } baseActivity=ComponentInfo{com.sec.android.app.launcher/com.sec.android.
+app.launcher.Launcher} topActivity=ComponentInfo{com.sec.android.app.launcher/com.sec.android.app.launcher.Launcher} or
+igActivity=ComponentInfo{com.sec.android.app.launcher/com.sec.android.app.launcher.activities.LauncherActivity} realAct
+ivity=ComponentInfo{com.sec.android.app.launcher/com.sec.android.app.launcher.Launcher} numActivities=1 lastActiveTime=
+252828178 supportsMultiWindow=true resizeMode=2 isResizeable=true minWidth=-1 minHeight=-1 maxWidth=-1 maxHeight=-1 def
+aultMinSize=220 desktopDefaultMinSize=304 token=WCT{android.window.IWindowContainerToken$Stub$Proxy@b998d1c} topActivit
+yType=2 pictureInPictureParams=null shouldDockBigOverlays=false launchIntoPipHostTaskId=-1 lastParentTaskIdBeforePip=-1
+ displayCutoutSafeInsets=Rect(0, 0 - 0, 0) topActivityInfo=ActivityInfo{907cd25 com.sec.android.app.launcher.activities
+.LauncherActivity} launchCookies=[] positionInParent=Point(0, 0) parentTaskId=-1 isFocused=true isVisible=false isVisib
+leRequested=true isTopActivityNoDisplay=false isSleeping=false locusId=null displayAreaFeatureId=1 isTopActivityTranspa
+rent=false isActivityStackTransparent=false lastNonFullscreenBounds=Rect(71, 681 - 833, 1596) capturedLink=null capture
+dLinkTimestamp=0 requestedVisibleTypes=-9 topActivityRequestOpenInBrowserEducationTimestamp=0 appCompatTaskInfo=AppComp
+atTaskInfo { topActivityInSizeCompat=false eligibleForLetterboxEducation= false isLetterboxEducationEnabled= false isLe
+tterboxDoubleTapEnabled= false eligibleForUserAspectRatioButton= false topActivityBoundsLetterboxed= false isFromLetter
+boxDoubleTap= false topActivityLetterboxVerticalPosition= -1 topActivityLetterboxHorizontalPosition= -1 topActivityLett
+erboxWidth=-1 topActivityLetterboxHeight=-1 topActivityAppBounds=Rect(0, 0 - 904, 2316) isUserFullscreenOverrideEnabled
+=false isSystemFullscreenOverrideEnabled=false hasMinAspectRatioOverride=false topActivityLetterboxBounds=null cameraCo
+mpatTaskInfo=CameraCompatTaskInfo { freeformCameraCompatMode=inactive} topActivityBounds=null topActivityInDisplayCompa
+t=false singleTapFromLetterbox=false} topActivityMainWindowFrame=null originallySupportedMultiWindow=true hasWallpaper=
+false rootAffinity=null isTopTaskInStage=false CoverLauncherWidgetTask=false LaunchedFromAppsCoverLauncherTask=false La
+unchedFromMultistarCoverLauncherTask=false isAllowedSeamlessRotation=false isTopTransparentActivity=true isAliasManaged
+=false hasConfigChanged=false snappingGuideBounds=null isAiKeyRemoveAppTask=false lastDesktopWindowingBounds=null lastE
+xternalDesktopWindowingBounds=null isFullSizeWindow=true safeCutoutInsets=null}, pipChange = null, remoteTransition = n
+ull, displayChange = null, flags = 0, debugId = 1431 }
+02-09 08:02:29.328  1979  2422 V WindowManager: Sent Transition (#1431) createdAt=02-09 08:02:29.244 via request=Transi
+tionRequestInfo { type = OPEN, triggerTask = TaskInfo{userId=0 taskId=13 effectiveUid=10162 displayId=0 isRunning=true 
+baseIntent=Intent { act=android.intent.action.MAIN cat=[android.intent.category.HOME] flg=0x10000100 cmp=com.sec.androi
+d.app.launcher/.activities.LauncherActivity } baseActivity=ComponentInfo{com.sec.android.app.launcher/com.sec.android.a
+pp.launcher.Launcher} topActivity=ComponentInfo{com.sec.android.app.launcher/com.sec.android.app.launcher.Launcher} ori
+gActivity=ComponentInfo{com.sec.android.app.launcher/com.sec.android.app.launcher.activities.LauncherActivity} realActi
+vity=ComponentInfo{com.sec.android.app.launcher/com.sec.android.app.launcher.Launcher} numActivities=1 lastActiveTime=2
+52828178 supportsMultiWindow=true resizeMode=2 isResizeable=true minWidth=-1 minHeight=-1 maxWidth=-1 maxHeight=-1 defa
+ultMinSize=220 desktopDefaultMinSize=304 token=WCT{RemoteToken{21ac8a5 Task{525d208 #13 type=home I=com.sec.android.app
+.launcher/.activities.LauncherActivity}}} topActivityType=2 pictureInPictureParams=null shouldDockBigOverlays=false lau
+nchIntoPipHostTaskId=-1 lastParentTaskIdBeforePip=-1 displayCutoutSafeInsets=Rect(0, 0 - 0, 0) topActivityInfo=Activity
+Info{327e47a com.sec.android.app.launcher.activities.LauncherActivity} launchCookies=[] positionInParent=Point(0, 0) pa
+rentTaskId=-1 isFocused=true isVisible=false isVisibleRequested=true isTopActivityNoDisplay=false isSleeping=false locu
+sId=null displayAreaFeatureId=1 isTopActivityTransparent=false isActivityStackTransparent=false lastNonFullscreenBounds
+=Rect(71, 681 - 833, 1596) capturedLink=null capturedLinkTimestamp=0 requestedVisibleTypes=-9 topActivityRequestOpenInB
+rowserEducationTimestamp=0 appCompatTaskInfo=AppCompatTaskInfo { topActivityInSizeCompat=false eligibleForLetterboxEduc
+ation= false isLetterboxEducationEnabled= false isLetterboxDoubleTapEnabled= false eligibleForUserAspectRatioButton= fa
+lse topActivityBoundsLetterboxed= false isFromLetterboxDoubleTap= false topActivityLetterboxVerticalPosition= -1 topAct
+ivityLetterboxHorizontalPosition= -1 topActivityLetterboxWidth=-1 topActivityLetterboxHeight=-1 topActivityAppBounds=Re
+ct(0, 0 - 904, 2316) isUserFullscreenOverrideEnabled=false isSystemFullscreenOverrideEnabled=false hasMinAspectRatioOve
+rride=false topActivityLetterboxBounds=null cameraCompatTaskInfo=CameraCompatTaskInfo { freeformCameraCompatMode=inacti
+ve} topActivityBounds=null topActivityInDisplayCompat=false singleTapFromLetterbox=false} topActivityMainWindowFrame=nu
+ll originallySupportedMultiWindow=true hasWallpaper=false rootAffinity=null isTopTaskInStage=false CoverLauncherWidgetT
+ask=false LaunchedFromAppsCoverLauncherTask=false LaunchedFromMultistarCoverLauncherTask=false isAllowedSeamlessRotatio
+n=false isTopTransparentActivity=true isAliasManaged=false hasConfigChanged=false snappingGuideBounds=null isAiKeyRemov
+eAppTask=false lastDesktopWindowingBounds=null lastExternalDesktopWindowingBounds=null isFullSizeWindow=true safeCutout
+Insets=null}, pipChange = null, remoteTransition = null, displayChange = null, flags = 0, debugId = 1431 }
+02-09 08:02:31.508  3285  3396 V WindowManagerShell: Transition requested (#1432): android.os.BinderProxy@169acd4 Trans
+itionRequestInfo { type = OPEN, triggerTask = TaskInfo{userId=0 taskId=276 effectiveUid=10491 displayId=0 isRunning=tru
+e baseIntent=Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=com.xrea
+l.nativear/.MainActivity } baseActivity=ComponentInfo{com.xreal.nativear/com.xreal.nativear.MainActivity} topActivity=C
+omponentInfo{com.xreal.nativear/com.xreal.nativear.MainActivity} origActivity=null realActivity=ComponentInfo{com.xreal
+.nativear/com.xreal.nativear.MainActivity} numActivities=1 lastActiveTime=252830417 supportsMultiWindow=true resizeMode
+=1 isResizeable=true minWidth=-1 minHeight=-1 maxWidth=-1 maxHeight=-1 defaultMinSize=220 desktopDefaultMinSize=304 tok
+en=WCT{android.window.IWindowContainerToken$Stub$Proxy@c9f5e7d} topActivityType=1 pictureInPictureParams=null shouldDoc
+kBigOverlays=false launchIntoPipHostTaskId=-1 lastParentTaskIdBeforePip=-1 displayCutoutSafeInsets=Rect(0, 87 - 0, 0) t
+opActivityInfo=ActivityInfo{538172 com.xreal.nativear.MainActivity} launchCookies=[android.os.BinderProxy@52b09c3] posi
+tionInParent=Point(0, 0) parentTaskId=-1 isFocused=false isVisible=false isVisibleRequested=false isTopActivityNoDispla
+y=false isSleeping=false locusId=null displayAreaFeatureId=1 isTopActivityTransparent=false isActivityStackTransparent=
+false lastNonFullscreenBounds=Rect(71, 681 - 833, 1596) capturedLink=null capturedLinkTimestamp=0 requestedVisibleTypes
+=-9 topActivityRequestOpenInBrowserEducationTimestamp=0 appCompatTaskInfo=AppCompatTaskInfo { topActivityInSizeCompat=f
+alse eligibleForLetterboxEducation= false isLetterboxEducationEnabled= false isLetterboxDoubleTapEnabled= false eligibl
+eForUserAspectRatioButton= false topActivityBoundsLetterboxed= false isFromLetterboxDoubleTap= false topActivityLetterb
+oxVerticalPosition= -1 topActivityLetterboxHorizontalPosition= -1 topActivityLetterboxWidth=-1 topActivityLetterboxHeig
+ht=-1 topActivityAppBounds=Rect(0, 87 - 904, 2190) isUserFullscreenOverrideEnabled=false isSystemFullscreenOverrideEnab
+led=false hasMinAspectRatioOverride=false topActivityLetterboxBounds=null cameraCompatTaskInfo=CameraCompatTaskInfo { f
+reeformCameraCompatMode=inactive} topActivityBounds=null topActivityInDisplayCompat=false singleTapFromLetterbox=false}
+ topActivityMainWindowFrame=null originallySupportedMultiWindow=true hasWallpaper=false rootAffinity=10491:com.xreal.na
+tivear isTopTaskInStage=false CoverLauncherWidgetTask=false LaunchedFromAppsCoverLauncherTask=false LaunchedFromMultist
+arCoverLauncherTask=false isAllowedSeamlessRotation=false isTopTransparentActivity=false isAliasManaged=false hasConfig
+Changed=false snappingGuideBounds=null isAiKeyRemoveAppTask=false lastDesktopWindowingBounds=null lastExternalDesktopWi
+ndowingBounds=null isTopFullScreenWindow=true isFullSizeWindow=true safeCutoutInsets=null}, pipChange = null, remoteTra
+nsition = RemoteTransition { remoteTransition = android.window.IRemoteTransition$Stub$Proxy@1ec240, appThread = android
+.app.IApplicationThread$Stub$Proxy@9c86579, debugName = QuickstepLaunchflags =NONE }, displayChange = null, flags = 0, 
+debugId = 1432 }
+02-09 08:02:31.539  1979  2422 V WindowManager: Sent Transition (#1432) createdAt=02-09 08:02:31.480 via request=Transi
+tionRequestInfo { type = OPEN, triggerTask = TaskInfo{userId=0 taskId=276 effectiveUid=10491 displayId=0 isRunning=true
+ baseIntent=Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=com.xreal
+.nativear/.MainActivity } baseActivity=ComponentInfo{com.xreal.nativear/com.xreal.nativear.MainActivity} topActivity=Co
+mponentInfo{com.xreal.nativear/com.xreal.nativear.MainActivity} origActivity=null realActivity=ComponentInfo{com.xreal.
+nativear/com.xreal.nativear.MainActivity} numActivities=1 lastActiveTime=252830417 supportsMultiWindow=true resizeMode=
+1 isResizeable=true minWidth=-1 minHeight=-1 maxWidth=-1 maxHeight=-1 defaultMinSize=220 desktopDefaultMinSize=304 toke
+n=WCT{RemoteToken{af12ab7 Task{915c082 #276 type=standard A=10491:com.xreal.nativear}}} topActivityType=1 pictureInPict
+ureParams=null shouldDockBigOverlays=false launchIntoPipHostTaskId=-1 lastParentTaskIdBeforePip=-1 displayCutoutSafeIns
+ets=Rect(0, 87 - 0, 0) topActivityInfo=ActivityInfo{73c3c90 com.xreal.nativear.MainActivity} launchCookies=[android.os.
+BinderProxy@679d989] positionInParent=Point(0, 0) parentTaskId=-1 isFocused=false isVisible=false isVisibleRequested=fa
+lse isTopActivityNoDisplay=false isSleeping=false locusId=null displayAreaFeatureId=1 isTopActivityTransparent=false is
+ActivityStackTransparent=false lastNonFullscreenBounds=Rect(71, 681 - 833, 1596) capturedLink=null capturedLinkTimestam
+p=0 requestedVisibleTypes=-9 topActivityRequestOpenInBrowserEducationTimestamp=0 appCompatTaskInfo=AppCompatTaskInfo { 
+topActivityInSizeCompat=false eligibleForLetterboxEducation= false isLetterboxEducationEnabled= false isLetterboxDouble
+TapEnabled= false eligibleForUserAspectRatioButton= false topActivityBoundsLetterboxed= false isFromLetterboxDoubleTap=
+ false topActivityLetterboxVerticalPosition= -1 topActivityLetterboxHorizontalPosition= -1 topActivityLetterboxWidth=-1
+ topActivityLetterboxHeight=-1 topActivityAppBounds=Rect(0, 87 - 904, 2190) isUserFullscreenOverrideEnabled=false isSys
+temFullscreenOverrideEnabled=false hasMinAspectRatioOverride=false topActivityLetterboxBounds=null cameraCompatTaskInfo
+=CameraCompatTaskInfo { freeformCameraCompatMode=inactive} topActivityBounds=null topActivityInDisplayCompat=false sing
+leTapFromLetterbox=false} topActivityMainWindowFrame=null originallySupportedMultiWindow=true hasWallpaper=false rootAf
+finity=10491:com.xreal.nativear isTopTaskInStage=false CoverLauncherWidgetTask=false LaunchedFromAppsCoverLauncherTask=
+false LaunchedFromMultistarCoverLauncherTask=false isAllowedSeamlessRotation=false isTopTransparentActivity=false isAli
+asManaged=false hasConfigChanged=false snappingGuideBounds=null isAiKeyRemoveAppTask=false lastDesktopWindowingBounds=n
+ull lastExternalDesktopWindowingBounds=null isTopFullScreenWindow=true isFullSizeWindow=true safeCutoutInsets=null}, pi
+pChange = null, remoteTransition = RemoteTransition { remoteTransition = android.window.IRemoteTransition$Stub$Proxy@b1
+f8d8e, appThread = android.app.IApplicationThread$Stub$Proxy@ed091bc, debugName = QuickstepLaunchflags =NONE }, display
+Change = null, flags = 0, debugId = 1432 }
+02-09 08:02:37.495  1979  1979 D BatteryService: sendBroadcastToExplicitPackage: Intent { act=android.intent.action.ACT
+ION_POWER_DISCONNECTED flg=0x4000000 (has extras) } -> com.samsung.android.sm.devicesecurity
+02-09 08:03:42.916  3285  3396 V WindowManagerShell: Transition requested (#1434): android.os.BinderProxy@4ced693 Trans
+itionRequestInfo { type = OPEN, triggerTask = TaskInfo{userId=0 taskId=276 effectiveUid=10491 displayId=0 isRunning=tru
+e baseIntent=Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=com.xrea
+l.nativear/.MainActivity } baseActivity=ComponentInfo{com.xreal.nativear/com.xreal.nativear.MainActivity} topActivity=C
+omponentInfo{com.xreal.nativear/com.xreal.nativear.MainActivity} origActivity=null realActivity=ComponentInfo{com.xreal
+.nativear/com.xreal.nativear.MainActivity} numActivities=2 lastActiveTime=252901833 supportsMultiWindow=true resizeMode
+=1 isResizeable=true minWidth=-1 minHeight=-1 maxWidth=-1 maxHeight=-1 defaultMinSize=220 desktopDefaultMinSize=304 tok
+en=WCT{android.window.IWindowContainerToken$Stub$Proxy@a2456d0} topActivityType=1 pictureInPictureParams=null shouldDoc
+kBigOverlays=false launchIntoPipHostTaskId=-1 lastParentTaskIdBeforePip=-1 displayCutoutSafeInsets=Rect(87, 0 - 0, 0) t
+opActivityInfo=ActivityInfo{8cc86c9 com.xreal.nativear.MainActivity} launchCookies=[android.os.BinderProxy@52b09c3] pos
+itionInParent=Point(0, 0) parentTaskId=-1 isFocused=true isVisible=true isVisibleRequested=true isTopActivityNoDisplay=
+false isSleeping=false locusId=null displayAreaFeatureId=1 isTopActivityTransparent=false isActivityStackTransparent=fa
+lse lastNonFullscreenBounds=Rect(685, 150 - 1505, 833) capturedLink=null capturedLinkTimestamp=0 requestedVisibleTypes=
+-9 topActivityRequestOpenInBrowserEducationTimestamp=0 appCompatTaskInfo=AppCompatTaskInfo { topActivityInSizeCompat=fa
+lse eligibleForLetterboxEducation= false isLetterboxEducationEnabled= false isLetterboxDoubleTapEnabled= false eligible
+ForUserAspectRatioButton= false topActivityBoundsLetterboxed= false isFromLetterboxDoubleTap= false topActivityLetterbo
+xVerticalPosition= -1 topActivityLetterboxHorizontalPosition= -1 topActivityLetterboxWidth=-1 topActivityLetterboxHeigh
+t=-1 topActivityAppBounds=Rect(87, 0 - 2190, 904) isUserFullscreenOverrideEnabled=false isSystemFullscreenOverrideEnabl
+ed=false hasMinAspectRatioOverride=false topActivityLetterboxBounds=null cameraCompatTaskInfo=CameraCompatTaskInfo { fr
+eeformCameraCompatMode=inactive} topActivityBounds=null topActivityInDisplayCompat=false singleTapFromLetterbox=false} 
+topActivityMainWindowFrame=null originallySupportedMultiWindow=true hasWallpaper=false rootAffinity=10491:com.xreal.nat
+ivear isTopTaskInStage=false CoverLauncherWidgetTask=false LaunchedFromAppsCoverLauncherTask=false LaunchedFromMultista
+rCoverLauncherTask=false isAllowedSeamlessRotation=false isTopTransparentActivity=true isAliasManaged=false hasConfigCh
+anged=false snappingGuideBounds=null isAiKeyRemoveAppTask=false lastDesktopWindowingBounds=null lastExternalDesktopWind
+owingBounds=null isTopFullScreenWindow=true isFullSizeWindow=true safeCutoutInsets=null}, pipChange = null, remoteTrans
+ition = null, displayChange = null, flags = 0, debugId = 1434 }
+02-09 08:03:43.045  1979  2422 V WindowManager: Sent Transition (#1434) createdAt=02-09 08:03:42.898 via request=Transi
+tionRequestInfo { type = OPEN, triggerTask = TaskInfo{userId=0 taskId=276 effectiveUid=10491 displayId=0 isRunning=true
+ baseIntent=Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=com.xreal
+.nativear/.MainActivity } baseActivity=ComponentInfo{com.xreal.nativear/com.xreal.nativear.MainActivity} topActivity=Co
+mponentInfo{com.xreal.nativear/com.xreal.nativear.MainActivity} origActivity=null realActivity=ComponentInfo{com.xreal.
+nativear/com.xreal.nativear.MainActivity} numActivities=2 lastActiveTime=252901833 supportsMultiWindow=true resizeMode=
+1 isResizeable=true minWidth=-1 minHeight=-1 maxWidth=-1 maxHeight=-1 defaultMinSize=220 desktopDefaultMinSize=304 toke
+n=WCT{RemoteToken{af12ab7 Task{915c082 #276 type=standard A=10491:com.xreal.nativear}}} topActivityType=1 pictureInPict
+ureParams=null shouldDockBigOverlays=false launchIntoPipHostTaskId=-1 lastParentTaskIdBeforePip=-1 displayCutoutSafeIns
+ets=Rect(87, 0 - 0, 0) topActivityInfo=ActivityInfo{c7c5b25 com.xreal.nativear.MainActivity} launchCookies=[android.os.
+BinderProxy@679d989] positionInParent=Point(0, 0) parentTaskId=-1 isFocused=true isVisible=true isVisibleRequested=true
+ isTopActivityNoDisplay=false isSleeping=false locusId=null displayAreaFeatureId=1 isTopActivityTransparent=false isAct
+ivityStackTransparent=false lastNonFullscreenBounds=Rect(685, 150 - 1505, 833) capturedLink=null capturedLinkTimestamp=
+0 requestedVisibleTypes=-9 topActivityRequestOpenInBrowserEducationTimestamp=0 appCompatTaskInfo=AppCompatTaskInfo { to
+pActivityInSizeCompat=false eligibleForLetterboxEducation= false isLetterboxEducationEnabled= false isLetterboxDoubleTa
+pEnabled= false eligibleForUserAspectRatioButton= false topActivityBoundsLetterboxed= false isFromLetterboxDoubleTap= f
+alse topActivityLetterboxVerticalPosition= -1 topActivityLetterboxHorizontalPosition= -1 topActivityLetterboxWidth=-1 t
+opActivityLetterboxHeight=-1 topActivityAppBounds=Rect(87, 0 - 2190, 904) isUserFullscreenOverrideEnabled=false isSyste
+mFullscreenOverrideEnabled=false hasMinAspectRatioOverride=false topActivityLetterboxBounds=null cameraCompatTaskInfo=C
+ameraCompatTaskInfo { freeformCameraCompatMode=inactive} topActivityBounds=null topActivityInDisplayCompat=false single
+TapFromLetterbox=false} topActivityMainWindowFrame=null originallySupportedMultiWindow=true hasWallpaper=false rootAffi
+nity=10491:com.xreal.nativear isTopTaskInStage=false CoverLauncherWidgetTask=false LaunchedFromAppsCoverLauncherTask=fa
+lse LaunchedFromMultistarCoverLauncherTask=false isAllowedSeamlessRotation=false isTopTransparentActivity=true isAliasM
+anaged=false hasConfigChanged=false snappingGuideBounds=null isAiKeyRemoveAppTask=false lastDesktopWindowingBounds=null
+ lastExternalDesktopWindowingBounds=null isTopFullScreenWindow=true isFullSizeWindow=true safeCutoutInsets=null}, pipCh
+ange = null, remoteTransition = null, displayChange = null, flags = 0, debugId = 1434 }
+02-09 08:06:02.873  3285  3396 V WindowManagerShell: Transition requested (#1436): android.os.BinderProxy@6911d57 Trans
+itionRequestInfo { type = OPEN, triggerTask = TaskInfo{userId=0 taskId=13 effectiveUid=10162 displayId=0 isRunning=true
+ baseIntent=Intent { act=android.intent.action.MAIN cat=[android.intent.category.HOME] flg=0x10000100 cmp=com.sec.andro
+id.app.launcher/.activities.LauncherActivity } baseActivity=ComponentInfo{com.sec.android.app.launcher/com.sec.android.
+app.launcher.Launcher} topActivity=ComponentInfo{com.sec.android.app.launcher/com.sec.android.app.launcher.Launcher} or
+igActivity=ComponentInfo{com.sec.android.app.launcher/com.sec.android.app.launcher.activities.LauncherActivity} realAct
+ivity=ComponentInfo{com.sec.android.app.launcher/com.sec.android.app.launcher.Launcher} numActivities=1 lastActiveTime=
+253041796 supportsMultiWindow=true resizeMode=2 isResizeable=true minWidth=-1 minHeight=-1 maxWidth=-1 maxHeight=-1 def
+aultMinSize=220 desktopDefaultMinSize=304 token=WCT{android.window.IWindowContainerToken$Stub$Proxy@b043044} topActivit
+yType=2 pictureInPictureParams=null shouldDockBigOverlays=false launchIntoPipHostTaskId=-1 lastParentTaskIdBeforePip=-1
+ displayCutoutSafeInsets=Rect(0, 0 - 1412, 0) topActivityInfo=ActivityInfo{15752d com.sec.android.app.launcher.activiti
+es.LauncherActivity} launchCookies=[] positionInParent=Point(0, 0) parentTaskId=-1 isFocused=true isVisible=false isVis
+ibleRequested=true isTopActivityNoDisplay=false isSleeping=false locusId=null displayAreaFeatureId=1 isTopActivityTrans
+parent=false isActivityStackTransparent=false lastNonFullscreenBounds=Rect(685, 150 - 1505, 833) capturedLink=null capt
+uredLinkTimestamp=0 requestedVisibleTypes=-9 topActivityRequestOpenInBrowserEducationTimestamp=0 appCompatTaskInfo=AppC
+ompatTaskInfo { topActivityInSizeCompat=false eligibleForLetterboxEducation= false isLetterboxEducationEnabled= false i
+sLetterboxDoubleTapEnabled= false eligibleForUserAspectRatioButton= false topActivityBoundsLetterboxed= false isFromLet
+terboxDoubleTap= false topActivityLetterboxVerticalPosition= -1 topActivityLetterboxHorizontalPosition= -1 topActivityL
+etterboxWidth=-1 topActivityLetterboxHeight=-1 topActivityAppBounds=Rect(0, 0 - 2316, 904) isUserFullscreenOverrideEnab
+led=false isSystemFullscreenOverrideEnabled=false hasMinAspectRatioOverride=false topActivityLetterboxBounds=null camer
+aCompatTaskInfo=CameraCompatTaskInfo { freeformCameraCompatMode=inactive} topActivityBounds=null topActivityInDisplayCo
+mpat=false singleTapFromLetterbox=false} topActivityMainWindowFrame=null originallySupportedMultiWindow=true hasWallpap
+er=false rootAffinity=null isTopTaskInStage=false CoverLauncherWidgetTask=false LaunchedFromAppsCoverLauncherTask=false
+ LaunchedFromMultistarCoverLauncherTask=false isAllowedSeamlessRotation=false isTopTransparentActivity=true isAliasMana
+ged=false hasConfigChanged=false snappingGuideBounds=null isAiKeyRemoveAppTask=false lastDesktopWindowingBounds=null la
+stExternalDesktopWindowingBounds=null isFullSizeWindow=trueisHandleImmersive=true safeCutoutInsets=null}, pipChange = n
+ull, remoteTransition = null, displayChange = null, flags = 0, debugId = 1436 }
+
+

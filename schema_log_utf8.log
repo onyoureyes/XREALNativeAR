@@ -1,0 +1,19 @@
+﻿
+log_raw.txt:147569:02-09 08:17:23.992 23417 23426 I SCS@AiSearch user 0: (SearchProvider) update by  uri : content://co
+m.samsung.android.scs.ai.search/v2/com.samsung.android.app.routines.schema_condition, uriCode : 200, callingPackage : c
+om.samsung.android.app.routines
+log_raw.txt:147570:02-09 08:17:23.992 23417 23426 I SCS@AiSearch user 0: (PublicProviderHelper) [UPDATE]  called with: 
+uri = [content://com.samsung.android.scs.ai.search/v2/com.samsung.android.app.routines.schema_condition], selection = [
+54], selectionArgs = [4], callingPackage = [com.samsung.android.app.routines]
+log_raw.txt:147587:02-09 08:17:23.999 23417 23426 I SCS@AiSearch user 0: (IndexManager) [UPDATE] index=com.samsung.andr
+oid.app.routines.schema_condition, size=1, documents=[11]
+log_raw.txt:147588:02-09 08:17:23.999 23417 23426 I SCS@AiSearch user 0: (IndexManager) [binder:23417_2] entering in up
+dateDocumentList():  index: com.samsung.android.app.routines.schema_condition, updateList.size:1
+log_raw.txt:147590:02-09 08:17:23.999 23417 23426 I SCS@AiSearch user 0: (IndexManager) getIndexWriter(): indexName com
+.samsung.android.app.routines.schema_condition
+log_raw.txt:147600:02-09 08:17:24.008 23417 23426 I SCS@AiSearch user 0: (IndexManager) [UPDATE] Done indexName: com.sa
+msung.android.app.routines.schema_condition updateList.size():1
+log_raw.txt:147601:02-09 08:17:24.008 23417 23426 I SCS@AiSearch user 0: (IndexSearcherManager) [binder:23417_2] enteri
+ng in refreshSearcherManager():  refreshSearcherManager for com.samsung.android.app.routines.schema_condition
+
+

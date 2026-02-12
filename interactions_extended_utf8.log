@@ -1,0 +1,98 @@
+﻿
+  log_raw.txt:166623:02-09 08:17:41.085  7938  7996 I FinalS3RespProcessor: Received a final result for a segment, 1 hy
+pothesis
+  log_raw.txt:166624:02-09 08:17:41.086  7938  7996 I FinalS3RespProcessor: Received the final result for the recogniti
+on
+  log_raw.txt:166625:02-09 08:17:41.086  7938  7984 I RecognitionClient: #onResults withSpeech: true
+  log_raw.txt:166626:02-09 08:17:41.086  7938  8002 I cn_CronetUrlRequestContext: destroyNativeStreamLocked org.chromiu
+m.net.impl.CronetBidirectionalStream@4963772
+  log_raw.txt:166627:02-09 08:17:41.086  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IO
+CTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+  log_raw.txt:166628:02-09 08:17:41.087  7938  7984 I RecognitionClient: #onRecognitionFinished
+  log_raw.txt:166629:02-09 08:17:41.087  7938  7984 I RecognitionServiceImpl: RecognitionService#onEndRecognitionSessio
+n
+  log_raw.txt:166630:02-09 08:17:41.087  7938  7980 I SodaSpeechRecognizer: Offline recognizer - stop detection
+  log_raw.txt:166631:02-09 08:17:41.088  7938  7980 I ConcurrentSodaManager: #stopDetection
+  log_raw.txt:166632:02-09 08:17:41.090  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IO
+CTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+> log_raw.txt:166633:02-09 08:17:41.090 30188 30188 I MAIN_AR : STT Result: ??듬졊? ??쒕?援?쓽 ??듬졊? ?꾧뎄吏
+  log_raw.txt:184451:02-09 08:17:58.143  7938  7984 I RecognitionClient: #onResults withSpeech: true
+  log_raw.txt:184452:02-09 08:17:58.143  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IO
+CTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+  log_raw.txt:184453:02-09 08:17:58.144  7938  8002 I cn_CronetUrlRequestContext: destroyNativeStreamLocked org.chromiu
+m.net.impl.CronetBidirectionalStream@d13bc7f
+  log_raw.txt:184454:02-09 08:17:58.144  7938  7984 I RecognitionClient: #onRecognitionFinished
+  log_raw.txt:184455:02-09 08:17:58.144  7938  7984 I RecognitionServiceImpl: RecognitionService#onEndRecognitionSessio
+n
+  log_raw.txt:184456:02-09 08:17:58.145  7938  7973 I SodaSpeechRecognizer: Offline recognizer - stop detection
+  log_raw.txt:184457:02-09 08:17:58.145  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IO
+CTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+  log_raw.txt:184458:02-09 08:17:58.145  7938  7974 I ConcurrentSodaManager: #stopDetection
+  log_raw.txt:184459:02-09 08:17:58.147  1612  3113 W CHIUSECASE: [WARN   ] chifeature2usecaserequestobject.cpp:482 Ini
+tialize() pUsecaseSettings is NULL!!
+  log_raw.txt:184460:02-09 08:17:58.148  1668  1852 W SurfaceFlinger: onComposerHalVsync: HWVsync for 46269644703177536
+04, ActiveDisplay 4630946213010294403
+> log_raw.txt:184461:02-09 08:17:58.147 30188 30188 I MAIN_AR : STT Result: ???꾩옱 湲곗???紐???硫곗튌濡??덈땲
+  log_raw.txt:209862:02-09 08:18:24.350  1979  5341 D MediaFocusControl: selectFocusStack, uid = 10281, appDevice = 0, 
+device = 2
+  log_raw.txt:209863:02-09 08:18:24.350  1979  5341 I MediaFocusControl: removeFocusStackEntry client:android.media.Aud
+ioManager@3e2e57efot@75ac36f
+  log_raw.txt:209864:02-09 08:18:24.350  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IO
+CTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+  log_raw.txt:209865:02-09 08:18:24.351  7938 30800 I native  : I0000 00:00:1770592704.351535   30800 greco_session.cc:
+749] Flushing pending events ..
+  log_raw.txt:209866:02-09 08:18:24.351  7938  7981 I SodaSpeechRecognizer: Audio process finished, transcription compl
+eted.
+  log_raw.txt:209867:02-09 08:18:24.352  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IO
+CTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+  log_raw.txt:209868:02-09 08:18:24.352  7938  7985 I AudioLibraryAudioContro: Audio focus releasing status: RELEASED
+  log_raw.txt:209869:02-09 08:18:24.352  7938  7985 I ALT.AudioEventsHolder: #audio# audio focus session(token(93)) rel
+ease status(RELEASED)
+  log_raw.txt:209870:02-09 08:18:24.353  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IO
+CTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+  log_raw.txt:209871:02-09 08:18:24.353  7938 30597 W AudioInputStreamProduce: #audio# read failed: read EOF from Audio
+Accessor.
+> log_raw.txt:209872:02-09 08:18:24.354 30188 30188 I MAIN_AR : STT Result: 留먯씠 ???섏옏???ㅼ꽍????듬졊 已볤꺼?쒖?媛 ?몄젨???꾩쭅???ㅼ
+꽍?댁씠 ??듬졊?대씪 留먰븯硫??대뼞?섎땲
+  log_raw.txt:243711:02-09 08:18:59.128  1647 23939 D AudioFlinger: Client defaulted notificationFrames to 2262 for fra
+meCount 6788
+  log_raw.txt:243712:02-09 08:18:59.128  1647 23939 I AF::PthrPatchRecord: creating track with enforcement level 0
+  log_raw.txt:243713:02-09 08:18:59.128  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IO
+CTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+  log_raw.txt:243714:02-09 08:18:59.130  1647 23939 I AF::Track: setMixerOutConfig expectKey 202
+  log_raw.txt:243715:02-09 08:18:59.130  1647 23939 I AF::Track: setMixerOutConfig select, mixer out f 5, s 48000, thre
+ad out f 1, s 48000
+  log_raw.txt:243716:02-09 08:18:59.130  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IO
+CTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+  log_raw.txt:243717:02-09 08:18:59.131  1668  1852 W SurfaceFlinger: onComposerHalVsync: HWVsync for 46269644703177536
+04, ActiveDisplay 4630946213010294403
+  log_raw.txt:243718:02-09 08:18:59.131  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IO
+CTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+  log_raw.txt:243719:02-09 08:18:59.133  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IO
+CTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+  log_raw.txt:243720:02-09 08:18:59.133  1612  3037 W CHIUSECASE: [WARN   ] chifeature2realtime.cpp:1808 PopulateSensor
+ModeOnMetadataResult() FRO-URO:3026_RealtimeFG:RealTime_0 Couldn't translate result metadata to initial crop values.pMe
+tadata = 0xb4000073c136c6b0, pInSensorZoomInfo = 0x0, m_pRoiTranslator = 0x0, pCameraInfo = 0x730f050eb8
+> log_raw.txt:243721:02-09 08:18:59.134 30188 30188 I MAIN_AR : STT Result: 2024?꾩쑝濡?寃?됲뻽?쇰땲源??뱀뿰?섍쿋援щ굹 洹쇰뜲 吏湲덉? 2026
+??2?붿씤???닿구
+  log_raw.txt:287559:02-09 08:19:43.845  1612  3037 W CHIUSECASE: [WARN   ] chifeature2realtime.cpp:1808 PopulateSensor
+ModeOnMetadataResult() FRO-URO:4275_RealtimeFG:RealTime_0 Couldn't translate result metadata to initial crop values.pMe
+tadata = 0xb4000073c13b60d0, pInSensorZoomInfo = 0x0, m_pRoiTranslator = 0x0, pCameraInfo = 0x730f050eb8
+  log_raw.txt:287560:02-09 08:19:43.846  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IO
+CTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+  log_raw.txt:287561:02-09 08:19:43.846  7938  7984 I FinalS3RespProcessor: Received a final result for a segment, 1 hy
+pothesis
+  log_raw.txt:287562:02-09 08:19:43.847  7938  7984 I FinalS3RespProcessor: Received the final result for the recogniti
+on
+  log_raw.txt:287563:02-09 08:19:43.847  7938  7985 I RecognitionClient: #onResults withSpeech: true
+  log_raw.txt:287564:02-09 08:19:43.848  1668  1852 W SurfaceFlinger: onComposerHalVsync: HWVsync for 46269644703177536
+04, ActiveDisplay 4630946213010294403
+  log_raw.txt:287565:02-09 08:19:43.848  7938  7985 I RecognitionClient: #onRecognitionFinished
+  log_raw.txt:287566:02-09 08:19:43.848  7938  7985 I RecognitionServiceImpl: RecognitionService#onEndRecognitionSessio
+n
+  log_raw.txt:287567:02-09 08:19:43.848  5945  5945 W Adreno-GSL: <gsl_ldd_control:553>: ioctl fd 7 code 0xc018093b (IO
+CTL_KGSL_PERFCOUNTER_READ) failed: errno 1 Operation not permitted
+  log_raw.txt:287568:02-09 08:19:43.849  7938  7979 I SodaSpeechRecognizer: Offline recognizer - stop detection
+> log_raw.txt:287569:02-09 08:19:43.849 30188 30188 I MAIN_AR : STT Result: 2026??2??湲곗??쇰줈 ?ㅼ떆 寃?됲빐???뚮젮 以?
+
+
