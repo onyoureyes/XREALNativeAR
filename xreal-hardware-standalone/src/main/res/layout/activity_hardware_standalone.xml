@@ -27,13 +27,40 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btnActivate"
+    <TextView
+        android:id="@+id/imuDataText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:text="ACTIVATE GLASSES"
+        android:background="#80000000"
+        android:padding="8dp"
+        android:text="IMU: Q(0, 0, 0, 1)"
+        android:textColor="#00FF00"
+        android:fontFamily="monospace"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/btnActivate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ACTIVATE GLASSES" />
+
+        <Button
+            android:id="@+id/btnToggleIMU"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="START IMU"
+            android:enabled="false" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

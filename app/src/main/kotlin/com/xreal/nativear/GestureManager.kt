@@ -1,28 +1,41 @@
 package com.xreal.nativear
 
 import android.util.Log
+import com.xreal.nativear.core.GlobalEventBus
+import com.xreal.nativear.core.XRealEvent
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 
 /**
- * GestureManager: Detects multi-tap gestures on the XREAL glasses side button.
+ * GestureManager: Detects multi-tap gestures and head gestures, publishing them to GlobalEventBus.
  */
-class GestureManager(private val listener: GestureListener) {
+class GestureManager(private val eventBus: GlobalEventBus) {
     private val TAG = "GestureManager"
     private var tapCount = 0
     private var lastTapTime = 0L
     private val TAP_TIMEOUT = 500L // 500ms
+    private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
 
-    interface GestureListener {
-        fun onDoubleTap()
-        fun onTripleTap()
-        fun onQuadTap()
-        fun onNod()
-        fun onShake()
+    init {
+        subscribeToEvents()
     }
 
-    private var lastEulerX = 0f
-    private var lastEulerY = 0f
-    private var lastNodTime = 0L
-    private var lastShakeTime = 0L
+    private fun subscribeToEvents() {
+        scope.launch {
+            eventBus.events.collect { event ->
+                when (event) {
+                    is XRealEvent.PerceptionEvent.HeadPoseUpdated -> {
+                        processPose(com.xreal.nativear.nrsdk.XRealPose(
+                            qx = event.qx, qy = event.qy, qz = event.qz, qw = event.qw
+                        ))
+                    }
+                    else -> {}
+                }
+            }
+        }
+    }
 
     fun onTap() {
         val currentTime = System.currentTimeMillis()
@@ -35,9 +48,9 @@ class GestureManager(private val listener: GestureListener) {
 
         Log.d(TAG, "Tap Count: $tapCount")
         when (tapCount) {
-            2 -> listener.onDoubleTap()
-            3 -> listener.onTripleTap()
-            4 -> listener.onQuadTap()
+            2 -> publishGesture(GestureType.DOUBLE_TAP)
+            3 -> publishGesture(GestureType.TRIPLE_TAP)
+            4 -> publishGesture(GestureType.QUAD_TAP)
         }
     }
 
@@ -56,7 +69,7 @@ class GestureManager(private val listener: GestureListener) {
         val deltaPitch = Math.abs(pitch - lastEulerX)
         if (deltaPitch > 15.0f && now - lastNodTime > 1000) {
             Log.i(TAG, "Head Nod Detected | DeltaPitch: $deltaPitch")
-            listener.onNod()
+            publishGesture(GestureType.NOD)
             lastNodTime = now
         }
 
@@ -64,12 +77,19 @@ class GestureManager(private val listener: GestureListener) {
         val deltaYaw = Math.abs(yaw - lastEulerY)
         if (deltaYaw > 20.0f && now - lastShakeTime > 1000) {
             Log.i(TAG, "Head Shake Detected | DeltaYaw: $deltaYaw")
-            listener.onShake()
+            publishGesture(GestureType.SHAKE)
             lastShakeTime = now
         }
 
         lastEulerX = pitch
         lastEulerY = yaw
+    }
+    
+    private fun publishGesture(type: GestureType) {
+        scope.launch {
+            eventBus.publish(XRealEvent.InputEvent.Gesture(type))
+            Log.d(TAG, "Published Gesture Event: $type")
+        }
     }
 }
 

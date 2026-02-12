@@ -16,10 +16,12 @@ import java.util.concurrent.Executors
 class VisionManager(
     private val context: Context,
     private val cameraExecutor: ExecutorService = Executors.newSingleThreadExecutor(),
-    private val callback: VisionCallback,
     private val ocrModel: OCRModel,
     private val poseModel: PoseEstimationModel,
-    private val liteRTWrapper: LiteRTWrapper
+    private val liteRTWrapper: LiteRTWrapper,
+    private val imageEmbedder: ImageEmbedder,
+    private val eventBus: com.xreal.nativear.core.GlobalEventBus,
+    private val locationService: ILocationService
 ) : IVisionService {
 
     private val TAG = "VisionManager"
@@ -28,24 +30,34 @@ class VisionManager(
     private var isDetectionEnabled = true 
     private var isSceneCaptureEnabled = false
     private var latestBitmap: Bitmap? = null
+    private var isFrozen = false
 
     private var lastOcrTime = 0L
     private var lastPoseTime = 0L
     private var lastDetectionTime = 0L
+    private var lastEmbeddingTime = 0L
+    
+    private val scope = kotlinx.coroutines.CoroutineScope(kotlinx.coroutines.SupervisorJob() + kotlinx.coroutines.Dispatchers.Default)
 
-    interface VisionCallback {
-        fun onOcrResults(results: List<OverlayView.OcrResult>, width: Int, height: Int)
-        fun onDetections(results: List<Detection>)
-        fun onSnapshotReady(bitmap: Bitmap?, ocrText: String)
+    init {
+        subscribeToEvents()
+    }
 
-
-        fun isConversing(): Boolean
-        fun isFrozen(): Boolean
-        fun onUpdateFps(fps: Double)
+    private fun subscribeToEvents() {
+        scope.launch {
+            eventBus.events.collect { event ->
+                when (event) {
+                    is com.xreal.nativear.core.XRealEvent.SystemEvent.VisionStateChanged -> {
+                        isFrozen = event.isFrozen
+                    }
+                    else -> {}
+                }
+            }
+        }
     }
 
     val analyzer = ImageAnalysis.Analyzer { imageProxy ->
-        if (callback.isFrozen()) {
+        if (isFrozen) {
             imageProxy.close()
             return@Analyzer
         }
@@ -62,7 +74,7 @@ class VisionManager(
                     lastOcrTime = currentTs
                     val bitmapCopy = bitmap.copy(Bitmap.Config.ARGB_8888, false)
                     ocrModel.process(bitmapCopy) { results, width, height ->
-                        callback.onOcrResults(results, width, height)
+                        eventBus.publish(com.xreal.nativear.core.XRealEvent.PerceptionEvent.OcrDetected(results, width, height))
                         bitmapCopy.recycle()
                     }
                 }
@@ -79,7 +91,10 @@ class VisionManager(
                     val bitmapCopy = bitmap.copy(Bitmap.Config.ARGB_8888, false)
                     val detections = liteRTWrapper.detect(bitmapCopy)
                     if (detections.isNotEmpty()) {
-                        callback.onDetections(detections)
+                        eventBus.publish(com.xreal.nativear.core.XRealEvent.PerceptionEvent.ObjectsDetected(detections))
+                        
+                        // Generate and publish visual embedding
+                        publishVisualEmbedding(bitmapCopy, detections.firstOrNull()?.label ?: "scene")
                     }
                     bitmapCopy.recycle()
                 }
@@ -143,10 +158,13 @@ class VisionManager(
     }
 
     override fun captureSceneSnapshot() {
-        Log.i(TAG, "Capturing scene snapshot...")
-        // We'll leave the actual bitmap retrieval to the CoreEngine to handle from the PreviewView,
-        // as VisionManager is the analyzer.
-        callback.onSnapshotReady(null, "") // Trigger callback, CoreEngine will fill bitmap
+        Log.i(TAG, "Capturing scene snapshot (Event Triggered)")
+        // In a fully decoupled system, we might need a signal to actually grab the bitmap.
+        // For now, we signal that a snapshot is ready/requested.
+        eventBus.publish(com.xreal.nativear.core.XRealEvent.PerceptionEvent.SceneCaptured(
+            bitmap = latestBitmap ?: Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888),
+            ocrText = "Decoupled Snapshot"
+        ))
     }
 
     override fun translate(text: String, onResult: (String) -> Unit) {
@@ -164,6 +182,44 @@ class VisionManager(
     override fun cycleCamera() {
         Log.i(TAG, "Cycling camera...")
     }
-
+    
+    private fun publishVisualEmbedding(bitmap: Bitmap, label: String) {
+        val currentTime = System.currentTimeMillis()
+        if (currentTime - lastEmbeddingTime < 5000) {
+            return // Throttle to once every 5 seconds
+        }
+        lastEmbeddingTime = currentTime
+        
+        scope.launch {
+            try {
+                val embedding = imageEmbedder.embed(bitmap)
+                if (embedding != null) {
+                    val location = locationService.getCurrentLocation()
+                    val embeddingBytes = floatArrayToByteArray(embedding)
+                    
+                    eventBus.publish(com.xreal.nativear.core.XRealEvent.PerceptionEvent.VisualEmbedding(
+                        bitmap = bitmap.copy(Bitmap.Config.ARGB_8888, false),
+                        embedding = embeddingBytes,
+                        label = label,
+                        timestamp = currentTime,
+                        latitude = location?.latitude,
+                        longitude = location?.longitude
+                    ))
+                    Log.d(TAG, "Published VisualEmbedding event: $label")
+                }
+            } catch (e: Exception) {
+                Log.e(TAG, "Failed to publish visual embedding", e)
+            }
+        }
+    }
+    
+    private fun floatArrayToByteArray(floats: FloatArray): ByteArray {
+        val buffer = java.nio.ByteBuffer.allocate(floats.size * 4)
+        buffer.order(java.nio.ByteOrder.nativeOrder())
+        for (f in floats) {
+            buffer.putFloat(f)
+        }
+        return buffer.array()
+    }
 }
 

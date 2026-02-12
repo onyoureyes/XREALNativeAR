@@ -13,7 +13,8 @@ val appModule = module {
     single { MemoryCompressor(get(), get()) }
 
     single { MemorySearcher(androidContext(), get()) }
-    single { MemoryRepository(androidContext(), get(), get(), get(), get()) }
+    single { MemoryRepository(androidContext(), get(), get(), get(), get(), get()) }
+    single<IMemoryService> { get<MemoryRepository>() }
 
     single { GeminiClient("AIzaSyAQbpllbZGGrBNjgbt8T96ZqGCeEsvn3cU") }
     single { UnifiedAIOrchestrator(androidContext()) }
@@ -43,15 +44,16 @@ val appModule = module {
         model
     }
     single { ImageEmbedder(androidContext()) }
-    single<IMemoryService> { MemoryRepository(androidContext(), get()) }
     single { CloudBackupManager(androidContext()) }
+    single { EmotionClassifier() }
+    single { EmotionTTSService(androidContext(), get()) }
 
     
     // Services
     single { NaverService() }
     single<ISearchService> { get<NaverService>() }
     single<INavigationService> { get<NaverService>() }
-    single { WeatherService() }
+    single { WeatherService(androidContext()) }
     single<IWeatherService> { get<WeatherService>() }
     
     // Models
@@ -71,22 +73,22 @@ val appModule = module {
         model
     }
     // Managers
-    factory { (context: android.content.Context, cameraExecutor: java.util.concurrent.ExecutorService, callback: VisionManager.VisionCallback) ->
-        VisionManager(context, cameraExecutor, callback, get(), get(), get())
+    factory { (context: android.content.Context, cameraExecutor: java.util.concurrent.ExecutorService) ->
+        VisionManager(context, cameraExecutor, get(), get(), get(), get(), get(), get())
     }
-    factory<IVisionService> { (context: android.content.Context, cameraExecutor: java.util.concurrent.ExecutorService, callback: VisionManager.VisionCallback) ->
-        get<VisionManager> { org.koin.core.parameter.parametersOf(context, cameraExecutor, callback) }
-    }
-
-    factory { (context: android.content.Context, callback: VoiceManager.VoiceCallback) ->
-        VoiceManager(context, get(), callback)
-    }
-    factory<IVoiceService> { (context: android.content.Context, callback: VoiceManager.VoiceCallback) ->
-        get<VoiceManager> { org.koin.core.parameter.parametersOf(context, callback) }
+    factory<IVisionService> { (context: android.content.Context, cameraExecutor: java.util.concurrent.ExecutorService) ->
+        get<VisionManager> { org.koin.core.parameter.parametersOf(context, cameraExecutor) }
     }
 
-    factory { (context: android.content.Context, scope: androidx.lifecycle.LifecycleCoroutineScope, callback: HardwareManager.HardwareCallback) ->
-        HardwareManager(context, scope, callback, get())
+    factory { 
+        VoiceManager(androidContext(), get(), get())
+    }
+    factory<IVoiceService> { 
+        get<VoiceManager>()
+    }
+
+    factory { (context: android.content.Context, scope: kotlinx.coroutines.CoroutineScope) ->
+        HardwareManager(context, scope, get(), get())
     }
 
     factory { (context: android.content.Context, scope: androidx.lifecycle.LifecycleCoroutineScope, callback: AIAgentManager.AIAgentCallback) ->
@@ -102,20 +104,52 @@ val appModule = module {
             aiOrchestrator = get(),
             locationService = get(),
             cloudBackupManager = get(),
+            eventBus = get(),
             callback = callback
-
         )
     }
 
 
 
 
-    
+    // Bootstrapper
+    factory { (scope: kotlinx.coroutines.CoroutineScope) ->
+        AppBootstrapper(
+            context = androidContext(),
+            scope = scope,
+            hardwareManager = get(),
+            voiceManager = get(),
+            visionManager = get(),
+            locationManager = get(),
+            aiOrchestrator = get(),
+            imageEmbedder = get(),
+            eventBus = get()
+        )
+    }
+
     // Core Objects
     single { GlobalEventBus() }
-    single { GestureHandler { action -> /* Handled in CoreEngine */ } }
-    single { VisionServiceDelegate { null /* Placeholder, set by CoreEngine */ } }
+    
+    // Coordinators
+    single { com.xreal.nativear.core.InputCoordinator(get()) }
+    
+    single { VisionServiceDelegate { null } }
+    
+    single { 
+        com.xreal.nativear.core.OutputCoordinator(
+            context = androidContext(),
+            eventBus = get(),
+            voiceManager = get()
+        )
+    }
 
+    single { 
+        com.xreal.nativear.core.VisionCoordinator(
+            eventBus = get(),
+            visionManager = get(),
+            aiAgentManager = get()
+        )
+    }
 }
 
 

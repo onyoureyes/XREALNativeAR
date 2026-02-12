@@ -52,6 +52,11 @@
             android:foregroundServiceType="microphone|location"
             android:exported="false" />
             
+        <service
+            android:name=".WhisperLifelogService"
+            android:foregroundServiceType="microphone|location"
+            android:exported="false" />
+            
     </application>
 
 

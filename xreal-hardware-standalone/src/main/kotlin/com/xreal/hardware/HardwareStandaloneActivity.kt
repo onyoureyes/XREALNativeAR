@@ -12,21 +12,33 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 
-class HardwareStandaloneActivity : AppCompatActivity() {
+class HardwareStandaloneActivity : AppCompatActivity(), XRealHardwareManager.IMUListener {
     private lateinit var hwManager: XRealHardwareManager
     private lateinit var textureView: TextureView
     private lateinit var statusText: TextView
+    private lateinit var imuDataText: TextView
+    private lateinit var btnToggleIMU: Button
+    
+    private var isImuRunning = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_hardware_standalone)
 
         hwManager = XRealHardwareManager(this)
+        hwManager.setIMUListener(this)
+
         textureView = findViewById(R.id.cameraTextureView)
         statusText = findViewById(R.id.statusOverlay)
+        imuDataText = findViewById(R.id.imuDataText)
+        btnToggleIMU = findViewById(R.id.btnToggleIMU)
 
         findViewById<Button>(R.id.btnActivate).setOnClickListener {
             checkPermissionsAndRun()
+        }
+
+        btnToggleIMU.setOnClickListener {
+            toggleIMU()
         }
     }
 
@@ -39,10 +51,29 @@ class HardwareStandaloneActivity : AppCompatActivity() {
         statusText.text = "Status: Searching for hardware..."
         hwManager.findAndActivate {
             runOnUiThread {
-                statusText.text = "Status: Activated! Waiting for Surface..."
+                statusText.text = "Status: Activated! Enabling controls..."
+                btnToggleIMU.isEnabled = true
                 setupSurface()
             }
         }
+    }
+
+    private fun toggleIMU() {
+        if (isImuRunning) {
+            hwManager.stopIMU()
+            btnToggleIMU.text = "START IMU"
+            statusText.text = "Status: IMU Stopped"
+        } else {
+            hwManager.startIMU()
+            btnToggleIMU.text = "STOP IMU"
+            statusText.text = "Status: IMU Tracking..."
+        }
+        isImuRunning = !isImuRunning
+    }
+
+    override fun onOrientationUpdate(qx: Float, qy: Float, qz: Float, qw: Float) {
+        val data = String.format("IMU Q:\nX: %.4f\nY: %.4f\nZ: %.4f\nW: %.4f", qx, qy, qz, qw)
+        imuDataText.text = data
     }
 
     private fun setupSurface() {
@@ -66,9 +97,17 @@ class HardwareStandaloneActivity : AppCompatActivity() {
         statusText.text = "Status: Camera Streaming"
     }
 
+    override fun onPause() {
+        super.onPause()
+        if (isImuRunning) {
+            toggleIMU()
+        }
+        hwManager.stopCamera()
+    }
+
     override fun onDestroy() {
         super.onDestroy()
-        hwManager.stopCamera()
+        hwManager.release()
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {

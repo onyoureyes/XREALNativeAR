@@ -27,18 +27,43 @@ class XRealHardwareManager(private val context: Context) {
     private external fun nativeStartIMU(fd: Int): Int
     private external fun nativeStopIMU()
 
+    private val usbPermissionReceiver = object : android.content.BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            if (ACTION_USB_PERMISSION == intent.action) {
+                synchronized(this) {
+                    val device: UsbDevice? = intent.getParcelableExtra(UsbManager.EXTRA_DEVICE)
+                    if (intent.getBooleanExtra(UsbManager.EXTRA_PERMISSION_GRANTED, false)) {
+                        device?.let { activate(it, lastOnReady) }
+                    } else {
+                        Log.e(TAG, "Permission denied for device $device")
+                    }
+                }
+            }
+        }
+    }
+
+    private var lastOnReady: () -> Unit = {}
+    private var usbConnection: android.hardware.usb.UsbDeviceConnection? = null
+
     fun findAndActivate(onReady: () -> Unit) {
+        lastOnReady = onReady
         val deviceList = usbManager.deviceList
-        val device = deviceList.values.find { it.vendorId == 0x0486 } // Nreal Light
+        // Support Nreal Light (0x5731) and Nreal Air (0x5732)
+        val device = deviceList.values.find { 
+            it.vendorId == 0x0486 && (it.productId == 0x5731 || it.productId == 0x5732)
+        }
         
         if (device == null) {
-            Log.e(TAG, "Nreal Light not found!")
+            Log.e(TAG, "XREAL device not found!")
             return
         }
 
         if (usbManager.hasPermission(device)) {
             activate(device, onReady)
         } else {
+            val filter = android.content.IntentFilter(ACTION_USB_PERMISSION)
+            context.registerReceiver(usbPermissionReceiver, filter)
+            
             val permissionIntent = PendingIntent.getBroadcast(
                 context, 0, Intent(ACTION_USB_PERMISSION), PendingIntent.FLAG_IMMUTABLE
             )
@@ -59,7 +84,8 @@ class XRealHardwareManager(private val context: Context) {
     }
 
     private fun activate(device: UsbDevice, onReady: () -> Unit) {
-        val connection = usbManager.openDevice(device)
+        usbConnection = usbManager.openDevice(device)
+        val connection = usbConnection
         if (connection == null) {
             Log.e(TAG, "Failed to open USB device")
             return
@@ -73,13 +99,15 @@ class XRealHardwareManager(private val context: Context) {
             onReady()
         } else {
             Log.e(TAG, "XREAL Activation Failed: $result")
+            connection.close() // Close if activation fails
+            usbConnection = null
         }
-        // Connection stays open or closed depending on if we need HID data, 
-        // but for magic packet we can close if camera doesn't need it.
-        // Usually, the glasses stay active once packet is sent.
     }
 
+    fun isActivated(): Boolean = activeFd != -1
+
     fun startCamera(surface: Surface) {
+        if (!isActivated()) return
         nativeStartCamera(surface)
     }
 
@@ -95,6 +123,19 @@ class XRealHardwareManager(private val context: Context) {
 
     fun stopIMU() {
         nativeStopIMU()
+    }
+
+    fun release() {
+        try {
+            context.unregisterReceiver(usbPermissionReceiver)
+        } catch (e: Exception) {
+            // Might not be registered
+        }
+        stopIMU()
+        stopCamera()
+        usbConnection?.close()
+        usbConnection = null
+        activeFd = -1
     }
 
     // Called from Native code via JNI

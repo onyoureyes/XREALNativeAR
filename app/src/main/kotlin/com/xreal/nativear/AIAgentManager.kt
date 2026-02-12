@@ -21,6 +21,7 @@ class AIAgentManager(
     private val aiOrchestrator: UnifiedAIOrchestrator,
     private val locationService: ILocationService,
     private val cloudBackupManager: CloudBackupManager,
+    private val eventBus: com.xreal.nativear.core.GlobalEventBus,
     private val callback: AIAgentCallback
 ) {
 
@@ -37,14 +38,10 @@ class AIAgentManager(
     private val INDEX_THROTTLE_MS = 60000L // 1 minute
 
     interface AIAgentCallback {
-
-        fun onSpeak(text: String, isResponse: Boolean)
         fun onCentralMessage(text: String)
         fun onGeminiResponse(reply: String)
         fun onSearchResults(resultsJson: String)
         fun showSnapshotFeedback()
-        fun startWakeWordDetection()
-        fun setConversing(isConversing: Boolean)
         fun onGetLatestBitmap(): Bitmap?
     }
 
@@ -97,7 +94,7 @@ class AIAgentManager(
             memoryService.saveMemory(reply, "AI")
             
             callback.onGeminiResponse(reply)
-            callback.onSpeak(reply, true)
+            eventBus.publish(com.xreal.nativear.core.XRealEvent.ActionRequest.SpeakTTS(reply))
 
             
             // Async Task Extraction
@@ -221,7 +218,7 @@ class AIAgentManager(
             }
             
             callback.onGeminiResponse("Scene: $reply")
-            callback.onSpeak(reply, true)
+            eventBus.publish(com.xreal.nativear.core.XRealEvent.ActionRequest.SpeakTTS(reply))
         }
     }
 

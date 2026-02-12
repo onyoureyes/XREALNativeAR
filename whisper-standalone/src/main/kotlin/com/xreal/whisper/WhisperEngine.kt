@@ -24,6 +24,7 @@ class WhisperEngine(private val context: Context) {
 
     private var onResultListener: ((String) -> Unit)? = null
     private var onVadStatusListener: ((Boolean) -> Unit)? = null
+    private var onAudioSegmentListener: ((ShortArray) -> Unit)? = null
 
     init {
         // Wire up callbacks
@@ -32,12 +33,17 @@ class WhisperEngine(private val context: Context) {
         }
 
         audioCapture.setOnAudioSegmentReadyListener { audioData ->
+            onAudioSegmentListener?.invoke(audioData)
             processAudio(audioData)
         }
     }
 
     fun setOnResultListener(l: (String) -> Unit) {
         onResultListener = l
+    }
+
+    fun setOnAudioSegmentListener(l: (ShortArray) -> Unit) {
+        onAudioSegmentListener = l
     }
 
     fun setOnVadStatusListener(l: (Boolean) -> Unit) {
@@ -96,6 +102,16 @@ class WhisperEngine(private val context: Context) {
 
     fun release() {
         close()
+    }
+
+    /**
+     * Extract audio embedding from raw PCM audio.
+     * Uses the inference engine's embedding extraction capability.
+     * @param audioData: Raw PCM audio data
+     * @return FloatArray embedding (80-dim for Single, 384-dim for Split), or null if extraction fails
+     */
+    fun extractEmbedding(audioData: ShortArray): FloatArray? {
+        return inference?.getEmbedding(audioData)
     }
 
     fun close() {

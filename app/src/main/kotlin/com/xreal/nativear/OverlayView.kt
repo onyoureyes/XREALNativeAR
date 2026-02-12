@@ -154,6 +154,38 @@ class OverlayView @JvmOverloads constructor(
             }
         }
 
+        // Draw Log Messages (Left Side)
+        if (logMessages.isNotEmpty()) {
+            var yPos = 200f
+            for (msg in logMessages.takeLast(10)) {
+                canvas.drawText(msg, 20f, yPos, debugPaint)
+                yPos += 45f
+            }
+        }
+
+        // Draw Audio Level (Right Side)
+        if (audioLevel > 0f) {
+            val barWidth = 30f
+            val barHeight = 200f
+            val fillHeight = barHeight * audioLevel
+            val x = width - 60f
+            val y = 200f
+            
+            // Background
+            canvas.drawRect(x, y, x + barWidth, y + barHeight, boxPaint)
+            
+            // Level
+            val levelPaint = Paint().apply {
+                color = when {
+                    audioLevel > 0.7f -> Color.RED
+                    audioLevel > 0.4f -> Color.YELLOW
+                    else -> Color.GREEN
+                }
+                style = Paint.Style.FILL
+            }
+            canvas.drawRect(x, y + barHeight - fillHeight, x + barWidth, y + barHeight, levelPaint)
+        }
+
         // 5. CENTRAL DEBUG MESSAGE
         if (centralMessage.isNotEmpty()) {
             val paint = Paint().apply {
@@ -205,11 +237,26 @@ class OverlayView @JvmOverloads constructor(
     }
 
     private var centralMessage: String = ""
+    private val logMessages = mutableListOf<String>()
+    private var audioLevel: Float = 0f
 
     fun setCentralMessage(msg: String) {
         centralMessage = msg
         postInvalidate()
         
         // Auto-clear after 5 seconds if it's just "Listening..."? No, user wants to see it.
+    }
+
+    fun addLog(message: String) {
+        logMessages.add(message)
+        if (logMessages.size > 10) {
+            logMessages.removeAt(0)
+        }
+        postInvalidate()
+    }
+
+    fun setAudioLevel(level: Float) {
+        audioLevel = level.coerceIn(0f, 1f)
+        postInvalidate()
     }
 }

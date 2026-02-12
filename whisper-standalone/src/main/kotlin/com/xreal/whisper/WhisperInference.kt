@@ -16,6 +16,7 @@ enum class ModelType {
 interface WhisperInference {
     fun initialize(options: Interpreter.Options)
     fun transcribe(audioData: ShortArray): IntArray
+    fun getEmbedding(audioData: ShortArray): FloatArray?
     fun close()
 }
 
@@ -69,6 +70,44 @@ class WhisperSingleInference(
         currentInterpreter.runForMultipleInputsOutputs(arrayOf(currentInputBuffer), outputs)
         
         return outputBuffer
+    }
+
+    override fun getEmbedding(audioData: ShortArray): FloatArray? {
+        return try {
+            // Return mel spectrogram as embedding (80 * 3000 = 240,000 dim)
+            // For more compact representation, could average over time dimension
+            val melData = melSpectrogram.process(audioData)
+            
+            // Average pooling over time to get 80-dim vector
+            val embedding = FloatArray(80)
+            for (i in 0 until 80) {
+                var sum = 0f
+                for (j in 0 until 3000) {
+                    sum += melData[i * 3000 + j]
+                }
+                embedding[i] = sum / 3000f
+            }
+            
+            l2Normalize(embedding)
+        } catch (e: Exception) {
+            Log.e(TAG, "Embedding extraction failed: ${e.message}")
+            null
+        }
+    }
+    
+    private fun l2Normalize(vector: FloatArray): FloatArray {
+        var sumSquares = 0f
+        for (value in vector) {
+            sumSquares += value * value
+        }
+        val magnitude = kotlin.math.sqrt(sumSquares)
+        
+        if (magnitude == 0f) return vector
+        
+        for (i in vector.indices) {
+            vector[i] /= magnitude
+        }
+        return vector
     }
 
     override fun close() {
@@ -150,6 +189,64 @@ class WhisperSplitInference(
         
         // 2. Decoder Loop (Placeholder)
         return intArrayOf(50259, 50359, 220, 50257) 
+    }
+
+    override fun getEmbedding(audioData: ShortArray): FloatArray? {
+        val encoder = encoderInterpreter ?: return null
+        val mInputBuffer = inputBuffer ?: return null
+        
+        return try {
+            // Pre-processing
+            val melData = melSpectrogram.process(audioData)
+            
+            mInputBuffer.rewind()
+            for (i in 0 until 80) {
+                for (j in 0 until 3000) mInputBuffer.putFloat(melData[i * 3000 + j])
+            }
+            mInputBuffer.rewind()
+            
+            // Run encoder to get cross-attention tensor
+            val encoderOutputSize = 1 * 1500 * 384
+            val encoderOutputBuffer = ByteBuffer.allocateDirect(encoderOutputSize * 4).apply {
+                order(ByteOrder.nativeOrder())
+            }
+            
+            encoder.run(mInputBuffer, encoderOutputBuffer)
+            
+            // Average pooling over time dimension (1500) to get 384-dim vector
+            encoderOutputBuffer.rewind()
+            val embedding = FloatArray(384)
+            val tempBuffer = FloatArray(encoderOutputSize)
+            encoderOutputBuffer.asFloatBuffer().get(tempBuffer)
+            
+            for (i in 0 until 384) {
+                var sum = 0f
+                for (j in 0 until 1500) {
+                    sum += tempBuffer[j * 384 + i]
+                }
+                embedding[i] = sum / 1500f
+            }
+            
+            l2Normalize(embedding)
+        } catch (e: Exception) {
+            Log.e(TAG, "Embedding extraction failed: ${e.message}", e)
+            null
+        }
+    }
+    
+    private fun l2Normalize(vector: FloatArray): FloatArray {
+        var sumSquares = 0f
+        for (value in vector) {
+            sumSquares += value * value
+        }
+        val magnitude = kotlin.math.sqrt(sumSquares)
+        
+        if (magnitude == 0f) return vector
+        
+        for (i in vector.indices) {
+            vector[i] /= magnitude
+        }
+        return vector
     }
 
     override fun close() {

@@ -22,7 +22,10 @@ import org.koin.android.ext.android.inject
 import java.util.concurrent.Executors
 import java.util.concurrent.ExecutorService
 
-class MainActivity : AppCompatActivity(), CoreEngine.CoreListener {
+class MainActivity : AppCompatActivity(), 
+    com.xreal.nativear.core.InputCoordinator.InputListener,
+    com.xreal.nativear.core.OutputCoordinator.OutputListener,
+    com.xreal.nativear.core.VisionCoordinator.VisionListener {
 
     
     private val TAG = "XREAL_MainActivity"
@@ -41,12 +44,28 @@ class MainActivity : AppCompatActivity(), CoreEngine.CoreListener {
         }
     }.toTypedArray()
 
-    private lateinit var coreEngine: CoreEngine
+    private val eventBus: com.xreal.nativear.core.GlobalEventBus by inject()
+    private val bootstrapper: com.xreal.nativear.core.AppBootstrapper by inject { org.koin.core.parameter.parametersOf(lifecycleScope) }
+    private val inputCoordinator: com.xreal.nativear.core.InputCoordinator by inject()
+    private val outputCoordinator: com.xreal.nativear.core.OutputCoordinator by inject()
+    private val visionCoordinator: com.xreal.nativear.core.VisionCoordinator by inject()
+    private val aiAgentManager: AIAgentManager by inject { org.koin.core.parameter.parametersOf(lifecycleScope, object : AIAgentManager.AIAgentCallback {
+        override fun onLog(message: String) { Log.d(TAG, "[AI] $message") }
+        override fun onStatusUpdate(status: String) { runOnUiThread { statusText.text = status } }
+        override fun onAudioLevel(level: Float) {}
+        override fun onCentralMessage(text: String) { runOnUiThread { overlayView.setCentralMessage(text) } }
+        override fun onGeminiResponse(reply: String) { runOnUiThread { statusText.text = "Gemini: $reply"; overlayView.setCentralMessage(reply) } }
+        override fun onSearchResults(resultsJson: String) {}
+        override fun showSnapshotFeedback() { eventBus.publish(com.xreal.nativear.core.XRealEvent.PerceptionEvent.SceneCaptured(Bitmap.createBitmap(1,1,Bitmap.Config.ARGB_8888), "")) }
+        override fun onGetLatestBitmap() = findViewById<PreviewView>(R.id.cameraPreview).bitmap
+    }) }
+
     private lateinit var statusText: TextView
     private lateinit var overlayView: OverlayView
     
     private var tapCount = 0
     private var lastTapTime = 0L
+    private val locationManager: LocationManager by inject()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,8 +76,10 @@ class MainActivity : AppCompatActivity(), CoreEngine.CoreListener {
         overlayView = findViewById(R.id.overlayView)
         statusText.text = "Initializing XREAL Native AR..."
 
-        // Initialize CoreEngine
-        coreEngine = CoreEngine(this, lifecycleScope, this)
+        // Attach listeners to coordinators
+        inputCoordinator.setListener(this)
+        outputCoordinator.setListener(this)
+        visionCoordinator.setListener(this)
 
         if (hasPermissions()) {
             startApp()
@@ -69,7 +90,7 @@ class MainActivity : AppCompatActivity(), CoreEngine.CoreListener {
 
     private fun startApp() {
         com.xreal.nativear.nrsdk.MinimalNRSDK.initialize(this)
-        coreEngine.start()
+        bootstrapper.start()
         startCamera()
         startBackgroundService()
     }
@@ -120,61 +141,48 @@ class MainActivity : AppCompatActivity(), CoreEngine.CoreListener {
     }
 
 
-    // --- CoreEngine.CoreListener ---
+    // --- Coordinator Listeners ---
     override fun onLog(message: String) { 
         Log.d(TAG, message) 
         runOnUiThread { overlayView.addLog(message) }
     }
     override fun onStatusUpdate(status: String) { runOnUiThread { statusText.text = status } }
     override fun onAudioLevel(level: Float) { runOnUiThread { overlayView.setAudioLevel(level) } }
-    override fun onCentralMessage(text: String) { 
+    
+    override fun onShowMessage(text: String) {
         runOnUiThread { 
             overlayView.setCentralMessage(text)
             Toast.makeText(this, text, Toast.LENGTH_SHORT).show() 
         } 
     }
-    override fun onStabilityProgress(progress: Int) {
-        overlayView.setStabilityProgress(progress)
-    }
 
     override fun onDetections(results: List<com.xreal.nativear.Detection>) {
-        runOnUiThread {
-            overlayView.setDetections(results)
-        }
+        runOnUiThread { overlayView.setDetections(results) }
     }
 
-    override fun onQueryTriggered() {
+    // Input Actions
+    override fun onCycleCamera() { /* Already handled by NRSDK or visionManager directly? */ }
+    override fun onDailySummary() { aiAgentManager.processWithGemini("Give me a daily summary") }
+    override fun onSyncMemory() { aiAgentManager.processWithGemini("Sync my memories to cloud") }
+    override fun onOpenMemQuery() {
         runOnUiThread {
             val intent = Intent(this, MemoryQueryActivity::class.java)
-            // Pass current location if available
-            val loc = coreEngine.locationManager.getCurrentLocation()
-            loc?.let {
+            locationManager.getCurrentLocation()?.let {
                 intent.putExtra("extra_lat", it.latitude)
                 intent.putExtra("extra_lon", it.longitude)
             }
             startActivity(intent)
         }
     }
-
-
-
-    override fun onGeminiResponse(reply: String) { 
-        runOnUiThread { 
-            statusText.text = "Gemini: $reply"
-            overlayView.setCentralMessage(reply)
-        }
-    }
-
-    override fun onGetLatestBitmap(): android.graphics.Bitmap? {
-        return findViewById<androidx.camera.view.PreviewView>(R.id.cameraPreview).bitmap
-    }
-
-    override fun onIsFrozen(): Boolean = overlayView.isFrozen
-
+    override fun onConfirmAction(message: String) { onShowMessage(message); aiAgentManager.processWithGemini("Yes, please continue.") }
+    override fun onCancelAction(message: String) { onShowMessage(message); aiAgentManager.processWithGemini("No, stop.") }
+    override fun processGeminiCommand(command: String) { aiAgentManager.processWithGemini(command) }
 
     override fun dispatchTouchEvent(ev: android.view.MotionEvent?): Boolean {
         if (ev?.action == android.view.MotionEvent.ACTION_DOWN) {
-            coreEngine.onTouchTap()
+            // Publish a generic tap event or handle it here
+            // For now, trigger a snapshot request as a direct action for debugging
+            eventBus.publish(com.xreal.nativear.core.XRealEvent.ActionRequest.TriggerSnapshot)
             return true
         }
         return super.dispatchTouchEvent(ev)
@@ -183,6 +191,7 @@ class MainActivity : AppCompatActivity(), CoreEngine.CoreListener {
 
     override fun onDestroy() {
         super.onDestroy()
+        bootstrapper.release()
         com.xreal.nativear.nrsdk.MinimalNRSDK.shutdown()
     }
 

@@ -17,6 +17,15 @@ sealed class XRealEvent {
         data class Gesture(val type: GestureType) : InputEvent()
         data class Touch(val x: Float, val y: Float) : InputEvent()
         data class AudioLevel(val level: Float) : InputEvent()
+        
+        // Audio Embedding Event for Whisper-based lifelog
+        data class AudioEmbedding(
+            val transcript: String,
+            val audioEmbedding: ByteArray,
+            val timestamp: Long,
+            val latitude: Double?,
+            val longitude: Double?
+        ) : InputEvent()
     }
 
     /**
@@ -24,9 +33,21 @@ sealed class XRealEvent {
      */
     sealed class PerceptionEvent : XRealEvent() {
         data class ObjectsDetected(val results: List<Detection>) : PerceptionEvent()
+        data class OcrDetected(val results: List<OverlayView.OcrResult>, val width: Int, val height: Int) : PerceptionEvent()
         data class SceneCaptured(val bitmap: Bitmap, val ocrText: String) : PerceptionEvent()
         data class LocationUpdated(val lat: Double, val lon: Double, val address: String?) : PerceptionEvent()
         data class HeadPoseUpdated(val qx: Float, val qy: Float, val qz: Float, val qw: Float) : PerceptionEvent()
+        data class FpsUpdated(val fps: Double) : PerceptionEvent()
+        
+        // Visual Embedding Event for Image-based lifelog
+        data class VisualEmbedding(
+            val bitmap: Bitmap,
+            val embedding: ByteArray,
+            val label: String,
+            val timestamp: Long,
+            val latitude: Double?,
+            val longitude: Double?
+        ) : PerceptionEvent()
     }
 
     /**
@@ -38,6 +59,8 @@ sealed class XRealEvent {
         data class NetworkStatus(val isConnected: Boolean) : SystemEvent()
         data class DebugLog(val message: String) : SystemEvent()
         data class VoiceActivity(val isSpeaking: Boolean) : SystemEvent()
+        data class VisionStateChanged(val isFrozen: Boolean) : SystemEvent()
+        data class Error(val code: String, val message: String, val throwable: Throwable? = null) : SystemEvent()
     }
 
     /**
@@ -53,5 +76,5 @@ sealed class XRealEvent {
 }
 
 enum class GestureType {
-    NOD, SHAKE, DOUBLE_TAP, TRIPLE_TAP, QUAD_TAP
+    TAP, NOD, SHAKE, DOUBLE_TAP, TRIPLE_TAP, QUAD_TAP
 }
