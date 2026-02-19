@@ -14,15 +14,19 @@ import kotlinx.coroutines.launch
  */
 class GlobalEventBus {
 
-    private val _events = MutableSharedFlow<XRealEvent>(extraBufferCapacity = 64)
+    private val _events = MutableSharedFlow<XRealEvent>(
+        replay = 0,
+        extraBufferCapacity = 64,
+        onBufferOverflow = kotlinx.coroutines.channels.BufferOverflow.DROP_OLDEST
+    )
     val events: SharedFlow<XRealEvent> = _events.asSharedFlow()
 
     private val scope = CoroutineScope(Dispatchers.Default + SupervisorJob())
 
     fun publish(event: XRealEvent) {
-        scope.launch {
-            _events.emit(event)
-        }
+        // Non-blocking emit. If buffer is full, drops oldest.
+        // Zero allocation of new coroutines.
+        _events.tryEmit(event)
     }
 
     // Direct synchronous emit for high-frequency events (e.g. HeadPose) if needed

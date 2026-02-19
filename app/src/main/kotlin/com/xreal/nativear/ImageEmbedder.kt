@@ -18,9 +18,16 @@ import java.io.FileOutputStream
 import java.net.URL
 import java.nio.ByteBuffer
 
-class ImageEmbedder(private val context: Context) {
+class ImageEmbedder(private val context: Context) : com.xreal.ai.IAIModel {
     private var interpreter: Interpreter? = null
     private val TAG = "ImageEmbedder"
+    
+    override val priority: Int = 4 // Medium
+    
+    override var isReady: Boolean = false
+        private set
+    override var isLoaded: Boolean = false
+        private set
     
     // MobileNetV3 Small (Feature Vector)
     // Input: 224x224 RGB
@@ -64,16 +71,18 @@ class ImageEmbedder(private val context: Context) {
 
     private var embeddingSize: Int = 1024
 
-    fun initialize(): Boolean {
-        try {
-            val file = File(context.filesDir, MODEL_NAME)
-            if (!file.exists()) {
-                Log.e(TAG, "Model file not found at ${file.absolutePath}")
-                return false
-            }
+    override suspend fun prepare(options: Interpreter.Options): Boolean {
+        if (isLoaded) return true
+        
+        // 1. Ensure Model exists
+        if (!isModelReady()) {
+            val downloaded = downloadModel()
+            if (!downloaded) return false
+        }
 
-            val options = Interpreter.Options()
-            options.setNumThreads(4)
+        // 2. Initialize
+        return try {
+            val file = File(context.filesDir, MODEL_NAME)
             val interp = Interpreter(file, options)
             interpreter = interp
             
@@ -81,10 +90,13 @@ class ImageEmbedder(private val context: Context) {
             val outputShape = interp.getOutputTensor(0).shape() // [1, size]
             embeddingSize = outputShape[1]
             Log.i(TAG, "Embedder Initialized with Size: $embeddingSize")
-            return true
+            
+            isLoaded = true
+            isReady = true
+            true
         } catch (e: Exception) {
             Log.e(TAG, "Init Failed: ${e.message}")
-            return false
+            false
         }
     }
 

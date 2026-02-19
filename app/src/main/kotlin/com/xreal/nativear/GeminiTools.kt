@@ -113,6 +113,24 @@ object GeminiTools {
         """.trimIndent())
     }
 
+    val queryEmotionMemory = defineFunction(
+        "query_emotion_memory",
+        "Search audio memories by detected emotion (angry, happy, sad, excited, neutral)."
+    ) {
+        JSONObject("""
+            {
+                "type": "OBJECT",
+                "properties": {
+                    "emotion": { 
+                        "type": "STRING", 
+                        "description": "The emotion to search for (e.g., 'angry', 'happy')."
+                    }
+                },
+                "required": ["emotion"]
+            }
+        """.trimIndent())
+    }
+
     val getDirections = defineFunction(
         "get_directions",
         "Get navigation directions to a destination."
@@ -169,7 +187,8 @@ object GeminiTools {
             takeSnapshot,
             getCurrentLocation,
             syncMemory,
-            queryVisualMemory
+            queryVisualMemory,
+            queryEmotionMemory
         )
     }
 

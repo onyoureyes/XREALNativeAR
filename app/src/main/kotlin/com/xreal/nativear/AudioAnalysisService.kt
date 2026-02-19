@@ -32,7 +32,19 @@ class AudioAnalysisService : Service() {
     private val memoryRepo: MemoryRepository by inject()
     private val locationManager: LocationManager by inject()
     private val whisperEngine: WhisperEngine by inject()
-    private val aiAgentManager: AIAgentManager by inject()
+    private val aiAgentManager: AIAgentManager by inject { 
+        org.koin.core.parameter.parametersOf(
+            this@AudioAnalysisService, 
+            serviceScope, 
+            object : AIAgentManager.AIAgentCallback {
+                override fun onCentralMessage(text: String) { Log.d(TAG, "AI Agent: $text") }
+                override fun onGeminiResponse(reply: String) { Log.d(TAG, "Gemini Reply: $reply") }
+                override fun onSearchResults(resultsJson: String) {}
+                override fun showSnapshotFeedback() {}
+                override fun onGetLatestBitmap(): android.graphics.Bitmap? = null
+            }
+        ) 
+    }
     
     override fun onCreate() {
         super.onCreate()

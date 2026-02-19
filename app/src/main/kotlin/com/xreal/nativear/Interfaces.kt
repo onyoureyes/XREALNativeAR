@@ -39,6 +39,7 @@ interface IMemoryService {
     suspend fun querySpatial(lat: Double, lon: Double, radiusKm: Double): String
     suspend fun queryKeyword(keyword: String): String
     suspend fun queryVisual(bitmap: android.graphics.Bitmap): String
+    suspend fun queryEmotion(emotion: String): String
 }
 
 interface ILocationService {

@@ -7,8 +7,25 @@ import android.util.Log
  * Uses simple heuristics on embedding vector patterns.
  * For production, use a trained ML model.
  */
-class EmotionClassifier {
+class EmotionClassifier : com.xreal.ai.IAIModel {
     private val TAG = "EmotionClassifier"
+    
+    override val priority: Int = 1 // Low
+    override var isReady: Boolean = false
+        private set
+    override var isLoaded: Boolean = false
+        private set
+
+    override suspend fun prepare(options: org.tensorflow.lite.Interpreter.Options): Boolean {
+        // Heuristic-based, always ready
+        isLoaded = true
+        isReady = true
+        return true
+    }
+
+    override fun release() {
+        // No native resources to release
+    }
     
     data class EmotionResult(
         val emotion: String,

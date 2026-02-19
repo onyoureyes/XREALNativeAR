@@ -20,6 +20,7 @@ class OverlayView @JvmOverloads constructor(
 
     var ocrResults: List<OcrResult> = emptyList()
     var detections: List<Detection> = emptyList()
+    var poseResults: List<PoseEstimationModel.Keypoint> = emptyList()
     var isFrozen: Boolean = false
 
         private set
@@ -70,6 +71,17 @@ class OverlayView @JvmOverloads constructor(
         setShadowLayer(5f, 0f, 0f, Color.BLACK)
     }
 
+    private val jointPaint = Paint().apply {
+        color = Color.MAGENTA
+        style = Paint.Style.FILL
+    }
+    
+    private val bonePaint = Paint().apply {
+        color = Color.WHITE
+        style = Paint.Style.STROKE
+        strokeWidth = 3f
+    }
+
     private var debugLog: String = ""
 
     fun setOcrResults(results: List<OcrResult>, width: Int, height: Int) {
@@ -81,6 +93,11 @@ class OverlayView @JvmOverloads constructor(
 
     fun setDetections(results: List<Detection>) {
         detections = results
+        postInvalidate()
+    }
+
+    fun setPoseResults(results: List<PoseEstimationModel.Keypoint>) {
+        poseResults = results
         postInvalidate()
     }
 
@@ -140,9 +157,10 @@ class OverlayView @JvmOverloads constructor(
         val stepCountRaw = (stepProgress / 100.0 * 15).toInt()
         canvas.drawText("Steps: $stepCountRaw / 15", 40f, topMargin + 60f, textPaint)
 
-        // 3. Object Detections & OCR
+        // 3. Object Detections & OCR & Pose
         drawDetections(canvas)
         drawOcr(canvas)
+        drawPose(canvas)
 
         // Draw Transcript Log (Bottom)
         if (debugLog.isNotEmpty()) {
@@ -234,6 +252,39 @@ class OverlayView @JvmOverloads constructor(
             // OCR text is usually drawn smaller or in a specific place, but here we just show the box 
             // to keep it clean. Labels are primarily for object detection.
         }
+    }
+
+    private fun drawPose(canvas: Canvas) {
+        if (poseResults.isEmpty()) return
+        
+        val scaleX = width.toFloat() / imageWidth
+        val scaleY = height.toFloat() / imageHeight
+        val threshold = 0.3f
+        
+        // Keypoints to draw circles
+        for (kp in poseResults) {
+            if (kp.score > threshold) {
+                canvas.drawCircle(kp.x * scaleX, kp.y * scaleY, 8f, jointPaint)
+            }
+        }
+        
+        // Helper to draw a bone between two keypoints
+        fun drawBone(id1: Int, id2: Int) {
+            val p1 = poseResults.find { it.id == id1 }
+            val p2 = poseResults.find { it.id == id2 }
+            if (p1 != null && p2 != null && p1.score > threshold && p2.score > threshold) {
+                canvas.drawLine(p1.x * scaleX, p1.y * scaleY, p2.x * scaleX, p2.y * scaleY, bonePaint)
+            }
+        }
+
+        // Draw Skeleton Arms/Torso
+        drawBone(5, 6)   // Shoulders
+        drawBone(5, 7);  drawBone(7, 9)   // Left Arm
+        drawBone(6, 8);  drawBone(8, 10)  // Right Arm
+        drawBone(11, 12) // Hips
+        drawBone(5, 11); drawBone(6, 12)  // Torso
+        drawBone(11, 13); drawBone(13, 15) // Left Leg
+        drawBone(12, 14); drawBone(14, 16) // Right Leg
     }
 
     private var centralMessage: String = ""

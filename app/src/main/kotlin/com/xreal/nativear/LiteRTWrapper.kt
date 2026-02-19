@@ -60,10 +60,16 @@ class LiteRTWrapper(private val context: Context) : com.xreal.ai.IAIModel {
     private var canvas: android.graphics.Canvas? = null
     private val matrix = android.graphics.Matrix()
 
-    // Old initialize method removed in favor of IAIModel.initialize
-    override fun initialize(interpreterOptions: Interpreter.Options) {
+    override var isReady: Boolean = false
+        private set
+    override var isLoaded: Boolean = false
+        private set
+
+    // Old initialize method removed in favor of IAIModel.prepare
+    override suspend fun prepare(interpreterOptions: Interpreter.Options): Boolean {
+        if (isLoaded) return true
         try {
-            Log.i(TAG, "Initializing LiteRTWrapper with Orchestrator Options...")
+            Log.i(TAG, "Preparing LiteRTWrapper (YOLOv8) with Orchestrator Options...")
 
             val modelBuffer = FileUtil.loadMappedFile(context, MODEL_NAME)
             interpreter = Interpreter(modelBuffer, interpreterOptions)
@@ -92,10 +98,14 @@ class LiteRTWrapper(private val context: Context) : com.xreal.ai.IAIModel {
             scaledBitmap = Bitmap.createBitmap(inputImageWidth, inputImageHeight, Bitmap.Config.ARGB_8888)
             canvas = android.graphics.Canvas(scaledBitmap!!)
 
-            Log.i(TAG, "Initialized: $MODEL_NAME ($inputImageWidth x $inputImageHeight $inputDataType)")
+            Log.i(TAG, "Prepared: $MODEL_NAME ($inputImageWidth x $inputImageHeight $inputDataType)")
+            isLoaded = true
+            isReady = true
+            return true
             
         } catch (e: Exception) {
-            Log.e(TAG, "LiteRT Initialization Failed: ${e.message}")
+            Log.e(TAG, "LiteRT Preparation Failed: ${e.message}")
+            return false
         }
     }
 

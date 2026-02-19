@@ -28,4 +28,8 @@ class VisionServiceDelegate(
     override fun cycleCamera() {
         getVisionManager()?.cycleCamera()
     }
+
+    override fun setDetectionEnabled(enabled: Boolean) {
+        getVisionManager()?.setDetectionEnabled(enabled)
+    }
 }

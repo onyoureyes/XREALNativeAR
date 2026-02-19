@@ -6,6 +6,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.cancel
 
 /**
  * InputCoordinator: Subscribes to InputEvent.Gesture and executes corresponding actions.
@@ -13,26 +14,50 @@ import kotlinx.coroutines.launch
  */
 class InputCoordinator(
     private val eventBus: GlobalEventBus,
-    private val onCycleCamera: () -> Unit,
-    private val onDailySummary: () -> Unit,
-    private val onSyncMemory: () -> Unit,
-    private val onOpenMemQuery: () -> Unit,
-    private val onConfirmAction: () -> Unit,
-    private val onCancelAction: () -> Unit
+    private val aiAgentManager: AIAgentManager
 ) {
+    interface InputListener {
+        fun onCycleCamera()
+        fun onDailySummary()
+        fun onSyncMemory()
+        fun onOpenMemQuery()
+        fun onConfirmAction(message: String)
+        fun onCancelAction(message: String)
+        fun processGeminiCommand(command: String)
+        fun onLog(message: String)
+    }
+
+    private var listener: InputListener? = null
+
+    fun setListener(l: InputListener) {
+        this.listener = l
+    }
     private val TAG = "InputCoordinator"
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
     
     init {
-        subscribeToGestures()
-        Log.i(TAG, "InputCoordinator initialized and subscribed to gesture events")
+        subscribeToEvents()
+        Log.i(TAG, "InputCoordinator initialized and subscribed to events")
     }
     
-    private fun subscribeToGestures() {
+    private fun subscribeToEvents() {
         scope.launch {
             eventBus.events.collect { event ->
                 when (event) {
                     is XRealEvent.InputEvent.Gesture -> handleGesture(event.type)
+                    is XRealEvent.InputEvent.VoiceCommand -> {
+                        Log.i(TAG, "Handling voice command: ${event.text}")
+                        aiAgentManager.processWithGemini(event.text)
+                    }
+                    is XRealEvent.InputEvent.EnrichedVoiceCommand -> {
+                        Log.i(TAG, "Handling enriched voice command: ${event.text} (Speaker: ${event.speaker}, Emotion: ${event.emotion})")
+                        val enrichedContext = """
+                            [Auditory Context]
+                            Speaker: ${event.speaker}
+                            Emotion: ${event.emotion} (Score: ${String.format("%.2f", event.emotionScore)})
+                        """.trimIndent()
+                        aiAgentManager.processWithGemini(event.text, enrichedContext)
+                    }
                     else -> {} // Ignore other events
                 }
             }
@@ -42,11 +67,12 @@ class InputCoordinator(
     private fun handleGesture(type: GestureType) {
         Log.i(TAG, "Handling gesture: $type")
         when (type) {
-            GestureType.DOUBLE_TAP -> onCycleCamera()
-            GestureType.TRIPLE_TAP -> onOpenMemQuery()
-            GestureType.QUAD_TAP -> onSyncMemory()
-            GestureType.NOD -> onConfirmAction()
-            GestureType.SHAKE -> onCancelAction()
+            GestureType.DOUBLE_TAP -> listener?.onCycleCamera()
+            GestureType.TRIPLE_TAP -> listener?.onOpenMemQuery()
+            GestureType.QUAD_TAP -> listener?.onSyncMemory()
+            GestureType.NOD -> listener?.onConfirmAction("Confirmed via nod")
+            GestureType.SHAKE -> listener?.onCancelAction("Cancelled via shake")
+            else -> {} // Handle other gestures or future additions
         }
     }
     

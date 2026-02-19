@@ -3,6 +3,7 @@ package com.xreal.nativear.core
 import android.graphics.Bitmap
 import com.xreal.nativear.Detection
 import com.xreal.nativear.OverlayView
+import com.xreal.nativear.PoseEstimationModel
 
 /**
  * XRealEvent: The base sealed class for all events in the distributed system.
@@ -26,6 +27,13 @@ sealed class XRealEvent {
             val latitude: Double?,
             val longitude: Double?
         ) : InputEvent()
+
+        data class EnrichedVoiceCommand(
+            val text: String,
+            val speaker: String,
+            val emotion: String,
+            val emotionScore: Float = 1.0f
+        ) : InputEvent()
     }
 
     /**
@@ -38,6 +46,7 @@ sealed class XRealEvent {
         data class LocationUpdated(val lat: Double, val lon: Double, val address: String?) : PerceptionEvent()
         data class HeadPoseUpdated(val qx: Float, val qy: Float, val qz: Float, val qw: Float) : PerceptionEvent()
         data class FpsUpdated(val fps: Double) : PerceptionEvent()
+        data class PoseDetected(val keypoints: List<PoseEstimationModel.Keypoint>) : PerceptionEvent()
         
         // Visual Embedding Event for Image-based lifelog
         data class VisualEmbedding(

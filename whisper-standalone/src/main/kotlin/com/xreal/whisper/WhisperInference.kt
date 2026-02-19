@@ -10,7 +10,7 @@ import java.nio.ByteOrder
 import java.nio.channels.FileChannel
 
 enum class ModelType {
-    TINY, BASE
+    TINY, BASE, SMALL
 }
 
 interface WhisperInference {
@@ -135,9 +135,20 @@ class WhisperSplitInference(
     override fun initialize(options: Interpreter.Options) {
         Log.i(TAG, "Initializing Split Inference ($modelType) with injected options...")
         
-        val suffix = if (modelType == ModelType.BASE) "base" else "tiny"
-        val encPath = "whisper_encoder_$suffix.tflite"
-        val decPath = "whisper_decoder_$suffix.tflite"
+        val suffix = when(modelType) {
+            ModelType.TINY -> "tiny"
+            ModelType.BASE -> "base"
+            ModelType.SMALL -> "small"
+        }
+
+        // Search for Qualcomm proxy files first, then fallback to standard naming
+        val assetList = context.assets.list("") ?: emptyArray()
+        
+        val encPath = assetList.find { it.startsWith("whisper_$suffix") && it.contains("encoder") }
+            ?: "whisper_encoder_$suffix.tflite"
+            
+        val decPath = assetList.find { it.startsWith("whisper_$suffix") && it.contains("decoder") }
+            ?: "whisper_decoder_$suffix.tflite"
 
         Log.i(TAG, "Loading models: $encPath, $decPath")
 
@@ -159,7 +170,11 @@ class WhisperSplitInference(
         // Allocate Buffers
         inputBuffer = ByteBuffer.allocateDirect(1 * 80 * 3000 * 4).order(ByteOrder.nativeOrder())
         
-        val dModel = if (modelType == ModelType.BASE) 512 else 384
+        val dModel = when(modelType) {
+            ModelType.TINY -> 384
+            ModelType.BASE -> 512
+            ModelType.SMALL -> 768
+        }
         Log.i(TAG, "Buffer Allocation: d_model=$dModel")
         crossAttnBuffer = ByteBuffer.allocateDirect(1 * 1500 * dModel * 4).order(ByteOrder.nativeOrder())
 

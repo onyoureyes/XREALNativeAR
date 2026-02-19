@@ -149,6 +149,24 @@ class MemoryRepository(
         return formatNodesAsJson(results.map { it.node })
     }
 
+    override suspend fun queryEmotion(emotion: String): String {
+        val logs = sceneDatabase.getVoiceLogsByEmotion(emotion)
+        val array = org.json.JSONArray()
+        val sdf = java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss", java.util.Locale.getDefault())
+        
+        for (log in logs) {
+            val obj = org.json.JSONObject()
+            obj.put("id", log.id)
+            obj.put("time", sdf.format(java.util.Date(log.timestamp)))
+            obj.put("role", "USER_AUDIO")
+            obj.put("content", log.transcript)
+            obj.put("emotion", log.emotion)
+            obj.put("score", log.emotionScore)
+            array.put(obj)
+        }
+        return array.toString()
+    }
+
     private fun formatNodesAsJson(nodes: List<UnifiedMemoryDatabase.MemoryNode>): String {
         val sdf = java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss", java.util.Locale.getDefault())
         val array = org.json.JSONArray()

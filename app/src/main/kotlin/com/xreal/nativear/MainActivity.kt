@@ -63,9 +63,14 @@ class MainActivity : AppCompatActivity(),
     private lateinit var statusText: TextView
     private lateinit var overlayView: OverlayView
     
+    private var cameraProvider: ProcessCameraProvider? = null
+    private var imageAnalysis: androidx.camera.core.ImageAnalysis? = null
+    private var preview: Preview? = null
+    
     private var tapCount = 0
     private var lastTapTime = 0L
     private val locationManager: LocationManager by inject()
+    private val visionManager: VisionManager by inject()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -81,10 +86,71 @@ class MainActivity : AppCompatActivity(),
         outputCoordinator.setListener(this)
         visionCoordinator.setListener(this)
 
+        // Vision State Machine (Replaces VisionStateListener)
+        lifecycleScope.launchWhenStarted {
+            visionManager.visionMode.collect { mode ->
+                handleVisionMode(mode)
+            }
+        }
+
         if (hasPermissions()) {
             startApp()
         } else {
             ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS, PERMISSION_REQUEST_CODE)
+        }
+
+        setupVisionToggles()
+    }
+
+    private fun handleVisionMode(mode: VisionMode) {
+        val shouldEnableVision = when (mode) {
+            VisionMode.Active, VisionMode.Standby, VisionMode.Frozen -> true
+            VisionMode.Idle -> false
+        }
+
+        if (shouldEnableVision) {
+            if (imageAnalysis == null) {
+                Log.i(TAG, "Enabling Hardware Vision (ISP Data Transfer Start) - Mode: $mode")
+                val builder = androidx.camera.core.ImageAnalysis.Builder()
+                    .setBackpressureStrategy(androidx.camera.core.ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
+                    .setOutputImageFormat(androidx.camera.core.ImageAnalysis.OUTPUT_IMAGE_FORMAT_RGBA_8888)
+                
+                val extender = androidx.camera.camera2.interop.Camera2Interop.Extender(builder)
+                extender.setCaptureRequestOption(
+                    android.hardware.camera2.CaptureRequest.CONTROL_AE_TARGET_FPS_RANGE, 
+                    android.util.Range(5, 15)
+                )
+
+                imageAnalysis = builder.build().also {
+                    it.setAnalyzer(Executors.newSingleThreadExecutor(), visionManager.analyzer)
+                }
+                rebindCamera()
+            }
+        } else {
+            if (imageAnalysis != null) {
+                Log.i(TAG, "Disabling Hardware Vision (ISP Data Transfer Stop) - Mode: $mode")
+                imageAnalysis = null
+                rebindCamera()
+            }
+        }
+    }
+
+    private fun setupVisionToggles() {
+        
+        findViewById<androidx.appcompat.widget.SwitchCompat>(R.id.toggleOcr).setOnCheckedChangeListener { _, isChecked ->
+            visionManager.setOcrEnabled(isChecked)
+        }
+        
+        findViewById<androidx.appcompat.widget.SwitchCompat>(R.id.togglePose).setOnCheckedChangeListener { _, isChecked ->
+            visionManager.setPoseEnabled(isChecked)
+        }
+        
+        findViewById<androidx.appcompat.widget.SwitchCompat>(R.id.toggleScene).setOnCheckedChangeListener { _, isChecked ->
+            visionManager.setDetectionEnabled(isChecked)
+        }
+        
+        findViewById<android.widget.Button>(R.id.btnCapture).setOnClickListener {
+            visionManager.captureSceneSnapshot()
         }
     }
 
@@ -104,27 +170,64 @@ class MainActivity : AppCompatActivity(),
         val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
         cameraProviderFuture.addListener({
             try {
-                val cameraProvider = cameraProviderFuture.get()
-                val preview = Preview.Builder().build().also {
+                cameraProvider = cameraProviderFuture.get()
+                preview = Preview.Builder().build().also {
                     it.setSurfaceProvider(findViewById<PreviewView>(R.id.cameraPreview).surfaceProvider)
                 }
                 
-                // Get VisionManager via Koin to bind its analyzer
-                val visionManager: VisionManager by org.koin.android.ext.android.inject()
                 
-                val imageAnalysis = androidx.camera.core.ImageAnalysis.Builder()
-                    .setBackpressureStrategy(androidx.camera.core.ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
-                    .setOutputImageFormat(androidx.camera.core.ImageAnalysis.OUTPUT_IMAGE_FORMAT_RGBA_8888)
-                    .build()
                 
-                imageAnalysis.setAnalyzer(Executors.newSingleThreadExecutor(), visionManager.analyzer)
+                // visionManager.setVisionStateListener(this) // Deprecated: Using StateFlow
 
-                cameraProvider.unbindAll()
-                cameraProvider.bindToLifecycle(this, CameraSelector.DEFAULT_BACK_CAMERA, preview, imageAnalysis)
+                rebindCamera()
             } catch (e: Exception) {
                 Log.e(TAG, "Camera Fail: ${e.message}")
             }
         }, ContextCompat.getMainExecutor(this))
+    }
+
+    private fun rebindCamera() {
+        try {
+            cameraProvider?.unbindAll()
+            val useCases = mutableListOf<androidx.camera.core.UseCase>()
+            preview?.let { useCases.add(it) }
+            imageAnalysis?.let { useCases.add(it) }
+            
+            if (useCases.isNotEmpty()) {
+                cameraProvider?.bindToLifecycle(this, CameraSelector.DEFAULT_BACK_CAMERA, *useCases.toTypedArray())
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Rebind Fail: ${e.message}")
+        }
+    }
+
+    override fun onVisionStateChanged(anyFeatureEnabled: Boolean) {
+        if (anyFeatureEnabled) {
+            if (imageAnalysis == null) {
+                Log.i(TAG, "Enabling Hardware Vision (ISP Data Transfer Start)")
+                val builder = androidx.camera.core.ImageAnalysis.Builder()
+                    .setBackpressureStrategy(androidx.camera.core.ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
+                    .setOutputImageFormat(androidx.camera.core.ImageAnalysis.OUTPUT_IMAGE_FORMAT_RGBA_8888)
+                
+                // [Hardware-Level Optimization] Cap the ISP to 15 FPS to save battery
+                val extender = androidx.camera.camera2.interop.Camera2Interop.Extender(builder)
+                extender.setCaptureRequestOption(
+                    android.hardware.camera2.CaptureRequest.CONTROL_AE_TARGET_FPS_RANGE, 
+                    android.util.Range(5, 15)
+                )
+
+                imageAnalysis = builder.build().also {
+                    it.setAnalyzer(Executors.newSingleThreadExecutor(), visionManager.analyzer)
+                }
+                rebindCamera()
+            }
+        } else {
+            if (imageAnalysis != null) {
+                Log.i(TAG, "Disabling Hardware Vision (ISP Data Transfer Stop)")
+                imageAnalysis = null
+                rebindCamera()
+            }
+        }
     }
 
     private fun hasPermissions() = REQUIRED_PERMISSIONS.all {
@@ -158,6 +261,10 @@ class MainActivity : AppCompatActivity(),
 
     override fun onDetections(results: List<com.xreal.nativear.Detection>) {
         runOnUiThread { overlayView.setDetections(results) }
+    }
+
+    override fun onPoseDetected(results: List<com.xreal.nativear.PoseEstimationModel.Keypoint>) {
+        runOnUiThread { overlayView.setPoseResults(results) }
     }
 
     // Input Actions

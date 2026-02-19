@@ -23,6 +23,7 @@ class VisionCoordinator(
     interface VisionListener {
         fun onStatusUpdate(status: String)
         fun onDetections(results: List<com.xreal.nativear.Detection>)
+        fun onPoseDetected(results: List<com.xreal.nativear.PoseEstimationModel.Keypoint>)
     }
     
     private var listener: VisionListener? = null
@@ -50,8 +51,8 @@ class VisionCoordinator(
                     is XRealEvent.PerceptionEvent.SceneCaptured -> {
                         aiAgentManager.interpretScene(event.bitmap, event.ocrText)
                     }
-                    is XRealEvent.ActionRequest.TriggerSnapshot -> {
-                        visionManager.captureSceneSnapshot()
+                    is XRealEvent.PerceptionEvent.PoseDetected -> {
+                        listener?.onPoseDetected(event.keypoints)
                     }
                     else -> {}
                 }

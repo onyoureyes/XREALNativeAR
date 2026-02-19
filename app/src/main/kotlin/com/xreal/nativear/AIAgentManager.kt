@@ -5,13 +5,18 @@ import android.graphics.Bitmap
 import android.util.Log
 import androidx.lifecycle.LifecycleCoroutineScope
 import com.google.ai.client.generativeai.type.content
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.delay
 
 /**
  * AIAgentManager: Orchestrates AI interactions, tool calling, and memory.
  */
 class AIAgentManager(
     private val context: Context,
-    private val scope: LifecycleCoroutineScope,
+    private val scope: kotlinx.coroutines.CoroutineScope,
     private val geminiClient: GeminiClient,
     private val memoryService: IMemoryService,
     private val searchService: ISearchService,
@@ -57,13 +62,11 @@ class AIAgentManager(
             
             // Context Building
             val loc = locationService.getCurrentLocation()
-            val contextInfo = externalContext ?: """
-                [Context]
-                Time: ${java.text.SimpleDateFormat("HH:mm", java.util.Locale.getDefault()).format(java.util.Date())}
-                Location: ${if (loc != null) "${loc.latitude}, ${loc.longitude}" else "Unknown"}
-            """.trimIndent()
-            
-            val fullPrompt = "$contextInfo\n\nUser: $userText"
+            val fullPrompt = if (externalContext != null) {
+                "$externalContext\n\nContext: $contextInfo\nUser: $userText"
+            } else {
+                "$contextInfo\n\nUser: $userText"
+            }
             memoryService.saveMemory(userText, "USER")
 
             
@@ -100,7 +103,7 @@ class AIAgentManager(
             // Async Task Extraction
             extractTasksInBackground(userText + "\n" + reply)
             
-            isGeminiBusy = false
+            // isGeminiBusy = false // Replaced by flow update above
         }
     }
 
@@ -181,6 +184,10 @@ class AIAgentManager(
             name == "query_keyword_memory" -> {
                 val keyword = args["keyword"] as? String ?: ""
                 memoryService.queryKeyword(keyword)
+            }
+            name == "query_emotion_memory" -> {
+                val emotion = args["emotion"] as? String ?: ""
+                memoryService.queryEmotion(emotion)
             }
 
             else -> "Unknown tool: $name"

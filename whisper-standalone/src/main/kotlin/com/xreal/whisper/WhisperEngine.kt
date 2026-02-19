@@ -60,22 +60,26 @@ class WhisperEngine(private val context: Context) {
             val modelList = assetManager.list("") ?: emptyArray()
 
             // Strategy Selection: Split vs Single
-            // Logic: If SPLIT suffix exists, force SplitInference
-            val typeSuffix = if(modelType == ModelType.BASE) "base" else "tiny"
-            val encName = "whisper_encoder_$typeSuffix.tflite"
+            val typeSuffix = when(modelType) {
+                ModelType.TINY -> "tiny"
+                ModelType.BASE -> "base"
+                ModelType.SMALL -> "small"
+            }
+            
+            val hasSplit = modelList.any { it.startsWith("whisper_$typeSuffix") && it.contains("encoder") }
 
-            if (modelList.contains(encName)) {
+            if (hasSplit) {
                 Log.i(TAG, "🚀 Strategy: Split Model ($modelType)")
                 inference = WhisperSplitInference(context, modelType)
             } else {
-                // Fallback / Legacy Single Model Logic (Tiny only usually)
+                // Fallback / Legacy Single Model Logic
                  val modelFile = when {
-                    modelList.contains("whisper-tiny.tflite") -> "whisper-tiny.tflite"
-                    modelList.contains("whisper-tiny-fp16.tflite") -> "whisper-tiny-fp16.tflite"
+                    modelList.contains("whisper-$typeSuffix-en.tflite") -> "whisper-$typeSuffix-en.tflite"
+                    modelList.contains("whisper-$typeSuffix.tflite") -> "whisper-$typeSuffix.tflite"
                     modelList.contains("whisper-tiny-en.tflite") -> "whisper-tiny-en.tflite"
-                    else -> throw IllegalStateException("No Whisper model found in assets!")
+                    else -> throw IllegalStateException("No Whisper model found in assets for $modelType!")
                 }
-                Log.i(TAG, "🚀 Strategy: Single Model ($modelFile) - Type ignored")
+                Log.i(TAG, "🚀 Strategy: Single Model ($modelFile)")
                 inference = WhisperSingleInference(context, modelFile)
             }
 

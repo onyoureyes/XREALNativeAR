@@ -26,20 +26,17 @@ class AppBootstrapper(
     fun start() {
         Log.i(TAG, "🚀 AppBootstrapper: Starting system services...")
 
-        // 1. Model Initialization
+        // 1. Model Initialization (AI Model Warehouse Phase)
         scope.launch(Dispatchers.IO) {
-            if (!imageEmbedder.isModelReady()) {
-                Log.i(TAG, "Downloading Visual AI Model...")
-                val success = imageEmbedder.downloadModel()
-                if (success) {
-                    imageEmbedder.initialize()
-                }
-            } else {
-                imageEmbedder.initialize()
-            }
+            Log.i(TAG, "📦 AI Model Warehouse: Preparing critical models...")
+            val criticalModels = listOf("OCR", "SystemTTS", "LiteRT_YOLO", "Whisper", "ImageEmbedder", "TextEmbedder", "PoseEstimation")
+            val success = aiOrchestrator.ensureModelsReady(criticalModels)
             
-            // Warmup critical models
-            aiOrchestrator.warmupModels(listOf("OCR", "SystemTTS"))
+            if (success) {
+                Log.i(TAG, "✅ All critical AI models are ready.")
+            } else {
+                Log.e(TAG, "⚠️ Some AI models failed to initialize.")
+            }
         }
 
         // 2. Hardware and Sensors

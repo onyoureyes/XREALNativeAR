@@ -18,13 +18,12 @@ class VoiceManager(
     private val eventBus: GlobalEventBus
 ) : IVoiceService {
 
-    private val TAG = "VoiceManager"
-    private var porcupineManager: ai.picovoice.porcupine.PorcupineManager? = null
-    private var speechRecognizer: android.speech.SpeechRecognizer? = null
-    private val ACCESS_KEY = "GmdWaVcq/Ut1VhjmSbongouOmbErpDnK0bk8ZzWzqm0e+IrxOlsDqQ=="
-    
-    // Removed VoiceCallback support
-    // private val callback: VoiceCallback
+    private val wavLM: WavLMAdapter by org.koin.core.component.KoinComponent.inject()
+    private val emotionClassifier: EmotionClassifier by org.koin.core.component.KoinComponent.inject()
+    private var isConversing = false
+    private var audioBuffer = mutableListOf<Short>()
+    private var captureJob: kotlinx.coroutines.Job? = null
+    private val scope = kotlinx.coroutines.CoroutineScope(kotlinx.coroutines.Dispatchers.IO + kotlinx.coroutines.SupervisorJob())
 
     init {
         initializeWhisper()
@@ -34,12 +33,10 @@ class VoiceManager(
     private fun initializeWhisper() {
         Log.i(TAG, "Initializing Whisper Engine...")
         try {
-            whisperEngine = WhisperEngine(context)
-            // whisperEngine?.initialize(org.tensorflow.lite.Interpreter.Options())
-            eventBus.publish(XRealEvent.SystemEvent.DebugLog("✅ Whisper Engine Ready"))
+            // whisperEngine = WhisperEngine(context) // Already registered in AIModelWarehouse
+            eventBus.publish(XRealEvent.SystemEvent.DebugLog("✅ Voice Manager Ready (Whisper + WavLM)"))
         } catch (e: Exception) {
-            Log.e(TAG, "❌ Whisper Init Failed: ${e.message}")
-            eventBus.publish(XRealEvent.SystemEvent.DebugLog("❌ Whisper Init Failed"))
+            Log.e(TAG, "❌ Init Failed: ${e.message}")
         }
     }
 
@@ -68,6 +65,10 @@ class VoiceManager(
         isConversing = true
         porcupineManager?.stop()
         
+        // Parallel Audio Capture for WavLM
+        audioBuffer.clear()
+        startParallelCapture()
+
         val intent = android.content.Intent(android.speech.RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
             putExtra(android.speech.RecognizerIntent.EXTRA_LANGUAGE_MODEL, android.speech.RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
             putExtra(android.speech.RecognizerIntent.EXTRA_LANGUAGE, "ko-KR")
@@ -75,9 +76,30 @@ class VoiceManager(
         
         speechRecognizer?.setRecognitionListener(object : android.speech.RecognitionListener {
             override fun onResults(results: android.os.Bundle?) {
+                stopParallelCapture()
                 val data = results?.getStringArrayList(android.speech.SpeechRecognizer.RESULTS_RECOGNITION)
                 if (!data.isNullOrEmpty()) {
-                    eventBus.publish(XRealEvent.InputEvent.VoiceCommand(data[0]))
+                    val promptText = data[0]
+                    
+                    // Perform WavLM Analysis on the captured buffer
+                    scope.launch {
+                        val finalBuffer = audioBuffer.toShortArray()
+                        val embedding = wavLM.extractEmbedding(finalBuffer)
+                        val emotionResult = embedding?.let { emotionClassifier.classifyEmotion(it) }
+                        
+                        val speaker = "USER" // For now, we can add Speaker ID logic here later
+                        val emotion = emotionResult?.emotion ?: "neutral"
+                        val score = emotionResult?.confidence ?: 1.0f
+                        
+                        Log.i(TAG, "Enriched Command: $promptText | Emotion: $emotion ($score)")
+                        
+                        eventBus.publish(XRealEvent.InputEvent.EnrichedVoiceCommand(
+                            text = promptText,
+                            speaker = speaker,
+                            emotion = emotion,
+                            emotionScore = score
+                        ))
+                    }
                 }
                 isConversing = false
                 startPorcupine()
@@ -90,6 +112,7 @@ class VoiceManager(
             override fun onBufferReceived(buffer: ByteArray?) {}
             override fun onEndOfSpeech() {}
             override fun onError(error: Int) { 
+                stopParallelCapture()
                 isConversing = false
                 startPorcupine() 
             }
@@ -97,6 +120,45 @@ class VoiceManager(
             override fun onEvent(eventType: Int, params: android.os.Bundle?) {}
         })
         speechRecognizer?.startListening(intent)
+    }
+
+    private fun startParallelCapture() {
+        captureJob = scope.launch {
+            val sampleRate = 16000
+            val bufferSize = android.media.AudioRecord.getMinBufferSize(
+                sampleRate, 
+                android.media.AudioFormat.CHANNEL_IN_MONO, 
+                android.media.AudioFormat.ENCODING_PCM_16BIT
+            )
+            
+            val audioRecord = android.media.AudioRecord(
+                android.media.MediaRecorder.AudioSource.VOICE_RECOGNITION,
+                sampleRate, 
+                android.media.AudioFormat.CHANNEL_IN_MONO, 
+                android.media.AudioFormat.ENCODING_PCM_16BIT, 
+                bufferSize
+            )
+
+            if (audioRecord.state == android.media.AudioRecord.STATE_INITIALIZED) {
+                audioRecord.startRecording()
+                val tempBuffer = ShortArray(1024)
+                while (isActive) {
+                    val read = audioRecord.read(tempBuffer, 0, tempBuffer.size)
+                    if (read > 0) {
+                        synchronized(audioBuffer) {
+                            for (i in 0 until read) audioBuffer.add(tempBuffer[i])
+                        }
+                    }
+                }
+                audioRecord.stop()
+                audioRecord.release()
+            }
+        }
+    }
+
+    private fun stopParallelCapture() {
+        captureJob?.cancel()
+        captureJob = null
     }
 
     fun stopListening() {

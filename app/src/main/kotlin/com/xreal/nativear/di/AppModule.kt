@@ -36,49 +36,62 @@ val appModule = module {
 
 
     
-    // Engine Components (Restored Phase 4+)
-    single { WhisperEngine(androidContext()) }
+    // Engine Components
+    single { 
+        val model = WhisperEngine(androidContext())
+        get<UnifiedAIOrchestrator>().registerModel("Whisper", model)
+        model
+    }
     single { 
         val model = LiteRTWrapper(androidContext())
         get<UnifiedAIOrchestrator>().registerModel("LiteRT_YOLO", model)
         model
     }
-    single { ImageEmbedder(androidContext()) }
-    single { CloudBackupManager(androidContext()) }
-    single { EmotionClassifier() }
-    single { EmotionTTSService(androidContext(), get()) }
-
-    
-    // Services
-    single { NaverService() }
-    single<ISearchService> { get<NaverService>() }
-    single<INavigationService> { get<NaverService>() }
-    single { WeatherService(androidContext()) }
-    single<IWeatherService> { get<WeatherService>() }
-    
-    // Models
     single { 
-        val model = SystemTTSAdapter(androidContext())
-        get<UnifiedAIOrchestrator>().registerModel("SystemTTS", model)
+        val model = ImageEmbedder(androidContext())
+        get<UnifiedAIOrchestrator>().registerModel("ImageEmbedder", model)
         model
     }
+    single { CloudBackupManager(androidContext()) }
     single { 
-        val model = OCRModel() 
+        val model = EmotionClassifier()
+        get<UnifiedAIOrchestrator>().registerModel("Emotion", model)
+        model
+    }
+    single {
+        val model = OCRModel()
         get<UnifiedAIOrchestrator>().registerModel("OCR", model)
         model
     }
     single { 
-        val model = PoseEstimationModel(androidContext())
-        get<UnifiedAIOrchestrator>().registerModel("PoseEstimation", model)
+        val model = WavLMAdapter(androidContext())
+        get<UnifiedAIOrchestrator>().registerModel("WavLM", model)
         model
     }
-    // Managers
-    factory { (context: android.content.Context, cameraExecutor: java.util.concurrent.ExecutorService) ->
-        VisionManager(context, cameraExecutor, get(), get(), get(), get(), get(), get())
+    single { 
+        val model = PoseEstimationModel(androidContext())
+        get<UnifiedAIOrchestrator>().registerModel("Pose", model)
+        model
     }
-    factory<IVisionService> { (context: android.content.Context, cameraExecutor: java.util.concurrent.ExecutorService) ->
-        get<VisionManager> { org.koin.core.parameter.parametersOf(context, cameraExecutor) }
+    single { EmotionTTSService(get()) }
+
+    // Helpers
+    single { 
+        val model = TextEmbedder(androidContext())
+        get<UnifiedAIOrchestrator>().registerModel("TextEmbedder", model)
+        model
     }
+    single { 
+        // Create a dedicated scope for VisionManager
+        val scope = kotlinx.coroutines.CoroutineScope(kotlinx.coroutines.Dispatchers.Default + kotlinx.coroutines.SupervisorJob())
+        VisionManager(
+            androidContext(), 
+            Executors.newSingleThreadExecutor(), // Use internal executor
+            get(), get(), get(), get(), get(), get(),
+            scope
+        )
+    }
+    single<IVisionService> { get<VisionManager>() }
 
     factory { 
         VoiceManager(androidContext(), get(), get())
@@ -91,7 +104,7 @@ val appModule = module {
         HardwareManager(context, scope, get(), get())
     }
 
-    factory { (context: android.content.Context, scope: androidx.lifecycle.LifecycleCoroutineScope, callback: AIAgentManager.AIAgentCallback) ->
+    factory { (context: android.content.Context, scope: kotlinx.coroutines.CoroutineScope, callback: AIAgentManager.AIAgentCallback) ->
         AIAgentManager(
             context = context,
             scope = scope,
@@ -100,7 +113,7 @@ val appModule = module {
             searchService = get(),
             weatherService = get(),
             navigationService = get(),
-            visionService = get { org.koin.core.parameter.parametersOf(context, java.util.concurrent.Executors.newSingleThreadExecutor(), callback) },
+            visionService = get(),
             aiOrchestrator = get(),
             locationService = get(),
             cloudBackupManager = get(),
@@ -131,7 +144,7 @@ val appModule = module {
     single { GlobalEventBus() }
     
     // Coordinators
-    single { com.xreal.nativear.core.InputCoordinator(get()) }
+    single { com.xreal.nativear.core.InputCoordinator(get(), get()) }
     
     single { VisionServiceDelegate { null } }
     

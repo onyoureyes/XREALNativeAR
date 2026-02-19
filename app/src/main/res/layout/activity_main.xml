@@ -40,5 +40,47 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Control Panel for Vision Toggles -->
+    <LinearLayout
+        android:id="@+id/controlPanel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:orientation="vertical"
+        android:background="#AA000000"
+        android:padding="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/toggleOcr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="OCR  "
+            android:textColor="#FFFFFF" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/togglePose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pose "
+            android:textColor="#FFFFFF" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/toggleScene"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Scene"
+            android:textColor="#FFFFFF"
+            android:checked="true" />
+            
+        <Button
+            android:id="@+id/btnCapture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Capture"
+            android:textSize="12sp"
+            android:layout_marginTop="4dp" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

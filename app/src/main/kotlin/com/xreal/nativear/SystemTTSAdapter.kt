@@ -12,15 +12,17 @@ import java.util.*
  */
 class SystemTTSAdapter(context: Context) : IAIModel {
     private val TAG = "SystemTTSAdapter"
-    private var tts: TextToSpeech? = null
-    private var isReady = false
+    override var isReady: Boolean = false
+        get() = isReadyInternal
+    override var isLoaded: Boolean = false
+        get() = isReadyInternal
     
-    override val priority: Int = 10 // High
+    private var isReadyInternal = false
     
     init {
         tts = TextToSpeech(context) { status ->
             if (status == TextToSpeech.SUCCESS) {
-                isReady = true
+                isReadyInternal = true
                 tts?.language = Locale.KOREAN
             } else {
                 Log.e(TAG, "TTS Initialization Failed")
@@ -28,8 +30,9 @@ class SystemTTSAdapter(context: Context) : IAIModel {
         }
     }
     
-    override fun initialize(interpreterOptions: Interpreter.Options) {
-        // Already initialized in constructor
+    override suspend fun prepare(options: Interpreter.Options): Boolean {
+        // System TTS is managed by Android, we just wait for its ready state
+        return isReadyInternal
     }
     
     fun setProgressListener(listener: android.speech.tts.UtteranceProgressListener) {

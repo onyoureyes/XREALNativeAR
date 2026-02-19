@@ -10,17 +10,32 @@ import java.nio.channels.FileChannel
 /**
  * TextEmbedder: Generates vector embeddings for memory text using TFLite.
  */
-class TextEmbedder(private val context: Context) {
+class TextEmbedder(private val context: Context) : com.xreal.ai.IAIModel {
     private val TAG = "TextEmbedder"
     private var interpreter: Interpreter? = null
 
+    override val priority: Int = 2 // Low-Medium
+    override var isReady: Boolean = false
+        private set
+    override var isLoaded: Boolean = false
+        private set
+
     init {
-        try {
+        // Initialization moved to prepare()
+    }
+
+    override suspend fun prepare(options: Interpreter.Options): Boolean {
+        if (isLoaded) return true
+        return try {
             val modelBuffer = loadModelFile("text_embedder.tflite")
-            interpreter = Interpreter(modelBuffer)
+            interpreter = Interpreter(modelBuffer, options)
             Log.i(TAG, "✅ TextEmbedder Ready")
+            isLoaded = true
+            isReady = true
+            true
         } catch (e: Exception) {
             Log.e(TAG, "❌ TextEmbedder Init Failed: ${e.message}")
+            false
         }
     }
 

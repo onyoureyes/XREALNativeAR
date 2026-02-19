@@ -10,36 +10,42 @@ import java.nio.ByteOrder
 import java.nio.channels.FileChannel
 import org.json.JSONObject
 
-class WhisperEngine(private val context: Context) {
+class WhisperEngine(private val context: Context) : com.xreal.ai.IAIModel {
     private val TAG = "WhisperEngine"
     private var interpreter: Interpreter? = null
     private val melSpectrogram = MelSpectrogram()
     private var vocab: Map<Int, String>? = null
     
+    override val priority: Int = 7 // Medium-High
+    override var isReady: Boolean = false
+        private set
+    override var isLoaded: Boolean = false
+        private set
+
     private val engineScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
     private var isListening = false
     private var onResultListener: ((String) -> Unit)? = null
 
     init {
-        initialize()
+        // Initialization moved to prepare()
     }
 
-    private fun initialize() {
-        try {
-            // 1. Load Whisper-Tiny Model (Back to Basics)
-            loadModel("whisper-tiny-en.tflite")
+    override suspend fun prepare(options: Interpreter.Options): Boolean {
+        if (isLoaded) return true
+        return try {
+            // 1. Load Whisper-Tiny Model
+            loadModel("whisper-tiny-en.tflite", options)
             
-            // 2. Load Filters (Asset)
+            // 2. Load Filters
             context.assets.open("filters.bin").use { stream ->
                 val bytes = stream.readBytes()
                 val floatBuffer = ByteBuffer.wrap(bytes).order(ByteOrder.nativeOrder()).asFloatBuffer()
                 val filters = FloatArray(floatBuffer.remaining())
                 floatBuffer.get(filters)
                 melSpectrogram.loadFilters(filters)
-                Log.i(TAG, "Mel Filters Loaded: ${filters.size} floats")
             }
 
-            // 3. Load Vocab (Asset)
+            // 3. Load Vocab
             context.assets.open("vocab.json").use { stream ->
                 val jsonStr = stream.bufferedReader().use { it.readText() }
                 val json = JSONObject(jsonStr)
@@ -51,15 +57,19 @@ class WhisperEngine(private val context: Context) {
                     map[id] = key
                 }
                 vocab = map
-                Log.i(TAG, "Vocab Loaded: ${map.size} tokens")
             }
 
+            Log.i(TAG, "WhisperEngine Prepared Successfully")
+            isLoaded = true
+            isReady = true
+            true
         } catch (e: Exception) {
-            Log.e(TAG, "Init Failed: ${e.message}")
+            Log.e(TAG, "Whisper Preparation Failed: ${e.message}")
+            false
         }
     }
 
-    private fun loadModel(fileName: String) {
+    private fun loadModel(fileName: String, options: Interpreter.Options) {
         val assetFileDescriptor = context.assets.openFd(fileName)
         val fileInputStream = FileInputStream(assetFileDescriptor.fileDescriptor)
         val fileChannel = fileInputStream.channel
@@ -67,8 +77,6 @@ class WhisperEngine(private val context: Context) {
         val declaredLength = assetFileDescriptor.declaredLength
         val modelBuffer = fileChannel.map(FileChannel.MapMode.READ_ONLY, startOffset, declaredLength)
         
-        val options = Interpreter.Options()
-        options.setNumThreads(4)
         interpreter = Interpreter(modelBuffer, options)
         Log.i(TAG, "Model Loaded: $fileName")
         logTensorShapes()

@@ -14,7 +14,12 @@ class WhisperStandaloneActivity : AppCompatActivity() {
     private lateinit var tvResult: TextView
     private lateinit var tvVadStatus: TextView
     private lateinit var btnListen: Button
+    private lateinit var btnTiny: Button
+    private lateinit var btnBase: Button
+    private lateinit var btnSmall: Button
+    
     private var isListening = false
+    private var currentModel = ModelType.TINY
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,19 +28,15 @@ class WhisperStandaloneActivity : AppCompatActivity() {
         tvResult = findViewById(R.id.tvResult)
         tvVadStatus = findViewById(R.id.tvVadStatus)
         btnListen = findViewById(R.id.btnListen)
+        btnTiny = findViewById(R.id.btnTiny)
+        btnBase = findViewById(R.id.btnBase)
+        btnSmall = findViewById(R.id.btnSmall)
 
-        whisperEngine = WhisperEngine(this)
-        whisperEngine.setOnResultListener { text ->
-            val currentText = tvResult.text.toString()
-            tvResult.text = "Detected: $text\n\n$currentText"
-        }
+        initEngine(ModelType.TINY)
 
-        whisperEngine.setOnVadStatusListener { isSpeaking ->
-            runOnUiThread {
-                tvVadStatus.text = if (isSpeaking) "VAD Status: SPEECH DETECTED 🎤" else "VAD Status: Listening/Silence..."
-                tvVadStatus.setTextColor(if (isSpeaking) android.graphics.Color.RED else android.graphics.Color.GRAY)
-            }
-        }
+        btnTiny.setOnClickListener { switchModel(ModelType.TINY) }
+        btnBase.setOnClickListener { switchModel(ModelType.BASE) }
+        btnSmall.setOnClickListener { switchModel(ModelType.SMALL) }
 
         btnListen.setOnClickListener {
             if (checkPermissions()) {
@@ -44,6 +45,31 @@ class WhisperStandaloneActivity : AppCompatActivity() {
                 requestPermissions()
             }
         }
+    }
+
+    private fun initEngine(modelType: ModelType) {
+        currentModel = modelType
+        
+        // Let WhisperEngine (delegating to Play Services) handle the best acceleration
+        val options = org.tensorflow.lite.Interpreter.Options().apply {
+            setNumThreads(4)
+            // Note: Automatic acceleration is handled by the Play Services TFLite loader
+        }
+        
+        whisperEngine.initialize(options, modelType)
+        tvResult.text = "Model Loaded: $modelType (Auto-Acceleration)\n"
+        updateButtonStyles()
+    }
+
+    private fun switchModel(modelType: ModelType) {
+        if (isListening) toggleListening()
+        initEngine(modelType)
+    }
+
+    private fun updateButtonStyles() {
+        btnTiny.alpha = if (currentModel == ModelType.TINY) 1.0f else 0.5f
+        btnBase.alpha = if (currentModel == ModelType.BASE) 1.0f else 0.5f
+        btnSmall.alpha = if (currentModel == ModelType.SMALL) 1.0f else 0.5f
     }
 
     private fun toggleListening() {
