@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Nreal Light MCU (STMicroelectronics STM32F4) -->
+    <!-- Handles: Display, buttons, heartbeat, ASCII status -->
+    <usb-device vendor-id="1158" product-id="22332" /> <!-- 0x0486 / 0x573C -->
+
+    <!-- Nreal Light OV580 (OmniVision Camera DSP) -->
+    <!-- Handles: Stereo cameras AND IMU (the actual sensor data!) -->
+    <usb-device vendor-id="1449" product-id="1664" /> <!-- 0x05A9 / 0x0680 -->
+
+    <!-- Nreal Light Audio (Nreal-B) -->
+    <usb-device vendor-id="3034" product-id="19319" /> <!-- 0x0BDA / 0x4B77 -->
+</resources>
