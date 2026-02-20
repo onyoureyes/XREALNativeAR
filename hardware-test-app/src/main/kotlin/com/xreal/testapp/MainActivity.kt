@@ -83,16 +83,37 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnStartImu.setOnClickListener {
-            log("Starting IMU...")
+            log("Starting IMU with AHRS sensor fusion...")
             hardwareManager.setIMUListener(object : XRealHardwareManager.IMUListener {
+                var frameCount = 0
                 override fun onOrientationUpdate(qx: Float, qy: Float, qz: Float, qw: Float) {
-                    runOnUiThread {
-                       tvStatus.text = "IMU: [%.3f, %.3f, %.3f, %.3f]".format(qx, qy, qz, qw)
+                    frameCount++
+                    // Convert quaternion to Euler angles for display
+                    val roll = Math.toDegrees(
+                        kotlin.math.atan2(
+                            2.0 * (qw * qx + qy * qz),
+                            1.0 - 2.0 * (qx * qx + qy * qy)
+                        )
+                    )
+                    val sinP = 2.0 * (qw * qy - qz * qx)
+                    val pitch = if (kotlin.math.abs(sinP) >= 1.0)
+                        Math.copySign(90.0, sinP) else Math.toDegrees(kotlin.math.asin(sinP))
+                    val yaw = Math.toDegrees(
+                        kotlin.math.atan2(
+                            2.0 * (qw * qz + qx * qy),
+                            1.0 - 2.0 * (qy * qy + qz * qz)
+                        )
+                    )
+                    // Update at 10Hz to avoid UI spam (every 100th frame at 1kHz)
+                    if (frameCount % 100 == 0) {
+                        runOnUiThread {
+                            tvStatus.text = "R:%.1f° P:%.1f° Y:%.1f°".format(roll, pitch, yaw)
+                        }
                     }
                 }
             })
             hardwareManager.startIMU()
-            log("IMU Started.")
+            log("IMU Started with Madgwick AHRS filter.")
         }
 
         btnStopImu.setOnClickListener {

@@ -334,6 +334,12 @@ class XRealHardwareManager(private val context: Context) {
             var imuEventCount = 0
             var cmdResponseCount = 0
 
+            // Madgwick AHRS filter for sensor fusion
+            // beta=0.05 is a good balance: responsive but stable
+            // sampleFreq=1000 matches OV580's ~1kHz output rate
+            val ahrs = MadgwickAHRS(beta = 0.05f, sampleFreq = 1000f)
+            sLog("AHRS Madgwick filter initialized (beta=0.05)")
+
             try {
                 while (ov580Connection != null) {
                     val bytesRead = capturedConn.bulkTransfer(capturedEpIn, buf, buf.size, 200)
@@ -369,31 +375,37 @@ class XRealHardwareManager(private val context: Context) {
                                 val gyroScale = if (gyroDivisor != 0f) gyroMul / gyroDivisor else 0f
                                 val accScale = if (accDiv != 0f) accMul / accDiv else 0f
 
-                                val gx = gyroX * gyroScale * PI / 180f  // rad/s
-                                val gy = gyroY * gyroScale * PI / 180f
-                                val gz = gyroZ * gyroScale * PI / 180f
-                                val ax = accX * accScale * 9.81f  // m/s²
-                                val ay = accY * accScale * 9.81f
-                                val az = accZ * accScale * 9.81f
+                                // Apply axis corrections from ar-drivers-rs:
+                                // Gyro: X as-is, Y negated, Z negated
+                                // Accel: X as-is, Y negated, Z negated
+                                val gx =  gyroX * gyroScale * PI / 180f  // rad/s
+                                val gy = -(gyroY * gyroScale * PI / 180f)
+                                val gz = -(gyroZ * gyroScale * PI / 180f)
+                                val ax =  accX * accScale * 9.81f  // m/s²
+                                val ay = -(accY * accScale * 9.81f)
+                                val az = -(accZ * accScale * 9.81f)
+
+                                // Feed into Madgwick AHRS filter
+                                ahrs.update(gx, gy, gz, ax, ay, az, gyroTs)
 
                                 // Log first 10 packets and every 500th for debugging
                                 if (imuEventCount <= 10 || imuEventCount % 500 == 0) {
+                                    val euler = ahrs.getEulerDegrees()
                                     sLog("IMU #$imuEventCount ts=${gyroTs/1000}ms")
-                                    sLog("  Gyro: [%.4f, %.4f, %.4f] rad/s (mul=%.0f div=%.0f raw=[%.0f,%.0f,%.0f])".format(
-                                        gx, gy, gz, gyroMul, gyroDivisor, gyroX, gyroY, gyroZ))
-                                    sLog("  Accel: [%.4f, %.4f, %.4f] m/s² (mul=%.0f div=%.0f raw=[%.0f,%.0f,%.0f])".format(
-                                        ax, ay, az, accMul, accDiv, accX, accY, accZ))
+                                    sLog("  Gyro: [%.4f, %.4f, %.4f] rad/s".format(gx, gy, gz))
+                                    sLog("  Accel: [%.4f, %.4f, %.4f] m/s²".format(ax, ay, az))
+                                    sLog("  Quat: [%.4f, %.4f, %.4f, %.4f]".format(
+                                        ahrs.q0, ahrs.q1, ahrs.q2, ahrs.q3))
+                                    sLog("  Euler: roll=%.1f° pitch=%.1f° yaw=%.1f°".format(
+                                        euler[0], euler[1], euler[2]))
                                 }
 
-                                // Also log hex of bytes 44-100 for first 3 packets
-                                if (imuEventCount <= 3) {
-                                    val dataHex = buf.slice(44..99).joinToString(" ") { String.format("%02X", it) }
-                                    sLog("  HEX[44-99]: $dataHex")
-                                }
-
-                                // TODO: Implement AHRS sensor fusion here
-                                // For now, pass raw values to listener
-                                imuListener?.onOrientationUpdate(gx, gy, gz, 1.0f)
+                                // Pass quaternion to listener (on main thread)
+                                val qw = ahrs.q0
+                                val qx = ahrs.q1
+                                val qy = ahrs.q2
+                                val qz = ahrs.q3
+                                imuListener?.onOrientationUpdate(qx, qy, qz, qw)
                             } else {
                                 // Short packet - log for debugging
                                 if (imuEventCount <= 5) {
