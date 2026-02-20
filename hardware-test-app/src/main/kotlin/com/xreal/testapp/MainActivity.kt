@@ -121,6 +121,38 @@ class MainActivity : AppCompatActivity() {
             hardwareManager.stopIMU()
             tvStatus.text = "Status: IMU Stopped"
         }
+
+        // SLAM Camera controls
+        val btnStartCam = findViewById<Button>(R.id.btnStartCam)
+        val btnStopCam = findViewById<Button>(R.id.btnStopCam)
+
+        btnStartCam.setOnClickListener {
+            log("Starting SLAM Camera (stereo 640x480)...")
+            hardwareManager.slamCameraListener = object : com.xreal.hardware.OV580SlamCamera.SlamFrameListener {
+                var lastFpsUpdate = System.currentTimeMillis()
+                var fpsCount = 0
+                override fun onFrame(frame: com.xreal.hardware.OV580SlamCamera.SlamFrame) {
+                    fpsCount++
+                    val now = System.currentTimeMillis()
+                    if (now - lastFpsUpdate >= 1000) {
+                        val fps = fpsCount * 1000.0 / (now - lastFpsUpdate)
+                        fpsCount = 0
+                        lastFpsUpdate = now
+                        runOnUiThread {
+                            tvStatus.text = "SLAM: #${frame.frameNumber} %.1f FPS".format(fps)
+                        }
+                    }
+                }
+            }
+            hardwareManager.startSlamCamera()
+            log("SLAM Camera command sent.")
+        }
+
+        btnStopCam.setOnClickListener {
+            log("Stopping SLAM Camera...")
+            hardwareManager.stopSlamCamera()
+            tvStatus.text = "Status: Camera Stopped"
+        }
     }
     
     private fun connectHardware() {
