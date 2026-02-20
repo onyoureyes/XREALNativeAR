@@ -11,7 +11,7 @@ import android.view.Surface
  * Thin facade for Nreal Light hardware — delegates to focused managers.
  *
  * Architecture:
- *   XRealHardwareManager (this class, ~120 lines)
+ *   XRealHardwareManager (this class)
  *     ├── USBDeviceRouter  → permission & discovery
  *     ├── OV580Manager     → IMU + SLAM camera
  *     └── MCUManager       → display, buttons, heartbeat
@@ -62,43 +62,41 @@ class XRealHardwareManager(private val context: Context) {
 
     fun findAndActivate(onReady: () -> Unit) {
         sLog("=== XRealHardwareManager findAndActivate ===")
-        var ov580Done = false
-        var mcuDone = false
 
         router.scanAndOpen { type, device, connection ->
+            sLog(">>> Device delivered: ${type.name} <<<")
+
             when (type) {
                 NrealDeviceType.OV580 -> {
+                    sLog("Creating OV580Manager...")
                     ov580Connection = connection
-                    ov580 = OV580Manager(device, connection, ::sLog).also {
-                        it.imuListener = imuListener?.let { listener ->
-                            object : OV580Manager.IMUListener {
-                                override fun onOrientationUpdate(qx: Float, qy: Float, qz: Float, qw: Float) {
-                                    listener.onOrientationUpdate(qx, qy, qz, qw)
-                                }
+                    val mgr = OV580Manager(device, connection, ::sLog)
+                    mgr.imuListener = imuListener?.let { listener ->
+                        object : OV580Manager.IMUListener {
+                            override fun onOrientationUpdate(qx: Float, qy: Float, qz: Float, qw: Float) {
+                                listener.onOrientationUpdate(qx, qy, qz, qw)
                             }
                         }
-                        it.slamCameraListener = slamCameraListener
-                        it.activateIMU()
                     }
-                    ov580Done = true
-                    if (mcuDone) onReady()
+                    mgr.slamCameraListener = slamCameraListener
+                    mgr.activateIMU()
+                    ov580 = mgr
+                    sLog("OV580Manager ready (ov580 != null: ${ov580 != null})")
                 }
 
                 NrealDeviceType.MCU -> {
+                    sLog("Creating MCUManager...")
                     mcuConnection = connection
                     activeFd = connection.fileDescriptor
                     sLog("MCU FD: $activeFd")
                     val result = nativeActivate(activeFd)
                     sLog("nativeActivate: $result")
 
-                    mcu = MCUManager(device, connection, ::sLog).also {
-                        it.activate {
-                            mcuDone = true
-                            if (ov580Done) onReady()
-                        }
+                    val mcuMgr = MCUManager(device, connection, ::sLog)
+                    mcuMgr.activate {
+                        sLog("MCU activate callback fired")
                     }
-                    // If no OV580, MCU completes alone
-                    if (ov580Done) onReady()
+                    mcu = mcuMgr
                 }
 
                 NrealDeviceType.AUDIO -> {
@@ -107,14 +105,19 @@ class XRealHardwareManager(private val context: Context) {
                 }
             }
         }
+
+        // Call onReady after scanAndOpen has processed all devices synchronously
+        // The router processes sequentially: OV580 first, then MCU
+        sLog("findAndActivate complete. OV580=${ov580 != null}, MCU=${mcu != null}")
+        onReady()
     }
 
     // ── Public API (delegates) ──
 
-    fun isActivated(): Boolean = activeFd != -1
+    fun isActivated(): Boolean = activeFd != -1 || ov580 != null
 
     fun startCamera(surface: Surface) {
-        if (!isActivated()) return
+        if (activeFd == -1) return
         nativeStartCamera(surface)
     }
 
@@ -129,7 +132,7 @@ class XRealHardwareManager(private val context: Context) {
     fun startSlamCamera() {
         val mgr = ov580
         if (mgr == null) {
-            sLog("SLAM: OV580 not activated yet!")
+            sLog("SLAM: OV580 not activated yet! Call 'Find & Activate XREAL' first.")
             return
         }
         mgr.slamCameraListener = slamCameraListener
