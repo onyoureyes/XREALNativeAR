@@ -12,6 +12,10 @@ import com.xreal.hardware.XRealHardwareManager
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import java.util.concurrent.Executors
+import android.widget.ImageView
+import org.opencv.android.OpenCVLoader
+import com.xreal.hardware.StereoDepthEngine
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,6 +25,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var btnConnect: Button
     private lateinit var btnStartImu: Button
     private lateinit var btnStopImu: Button
+    private lateinit var ivDepthMap: ImageView
+
+    private val depthExecutor = Executors.newSingleThreadExecutor()
+    private val depthEngine by lazy { StereoDepthEngine() }
 
     private val logDateFormat = SimpleDateFormat("HH:mm:ss.SSS", Locale.getDefault())
     private val CAMERA_PERMISSION_CODE = 101
@@ -34,6 +42,7 @@ class MainActivity : AppCompatActivity() {
         btnConnect = findViewById(R.id.btnConnect)
         btnStartImu = findViewById(R.id.btnStartImu)
         btnStopImu = findViewById(R.id.btnStopImu)
+        ivDepthMap = findViewById(R.id.ivDepthMap)
 
         hardwareManager = XRealHardwareManager(this)
         hardwareManager.setScreenLogCallback { msg -> log("[HW] $msg") }
@@ -45,6 +54,12 @@ class MainActivity : AppCompatActivity() {
         val versionCode = packageManager.getPackageInfo(packageName, 0).longVersionCode
         log("=== XREAL Test App v$versionName (build $versionCode) ===")
         log("App initialized. Ready to connect.")
+        
+        if (OpenCVLoader.initDebug()) {
+            log("OpenCV initialized successfully.")
+        } else {
+            log("ERROR: OpenCV initialization failed!")
+        }
         
         // Request CAMERA permission upfront - needed for OV580 (UVC camera device)
         // Android 9+ won't show USB permission dialog for camera-class devices
@@ -131,6 +146,8 @@ class MainActivity : AppCompatActivity() {
             hardwareManager.slamCameraListener = object : com.xreal.hardware.OV580SlamCamera.SlamFrameListener {
                 var lastFpsUpdate = System.currentTimeMillis()
                 var fpsCount = 0
+                @Volatile var isProcessingDepth = false
+                
                 override fun onFrame(frame: com.xreal.hardware.OV580SlamCamera.SlamFrame) {
                     fpsCount++
                     val now = System.currentTimeMillis()
@@ -140,6 +157,25 @@ class MainActivity : AppCompatActivity() {
                         lastFpsUpdate = now
                         runOnUiThread {
                             tvStatus.text = "SLAM: #${frame.frameNumber} %.1f FPS".format(fps)
+                        }
+                    }
+
+                    // Drop frames if depth engine is busy to avoid OOM
+                    if (!isProcessingDepth) {
+                        isProcessingDepth = true
+                        depthExecutor.execute {
+                            try {
+                                val bmp = depthEngine.computeDisparityMap(frame.left, frame.right)
+                                if (bmp != null) {
+                                    runOnUiThread {
+                                        ivDepthMap.setImageBitmap(bmp)
+                                    }
+                                }
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            } finally {
+                                isProcessingDepth = false
+                            }
                         }
                     }
                 }
