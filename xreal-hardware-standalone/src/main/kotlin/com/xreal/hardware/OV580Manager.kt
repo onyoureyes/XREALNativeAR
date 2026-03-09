@@ -25,7 +25,15 @@ class OV580Manager(
         fun onOrientationUpdate(qx: Float, qy: Float, qz: Float, qw: Float)
     }
 
+    /** Raw IMU data listener for VIO pipeline (pre-AHRS, calibrated SI units). */
+    interface RawIMUListener {
+        fun onRawIMU(gx: Float, gy: Float, gz: Float,
+                     ax: Float, ay: Float, az: Float,
+                     timestampUs: Long)
+    }
+
     var imuListener: IMUListener? = null
+    var rawImuListener: RawIMUListener? = null
 
     @Volatile private var imuRunning = false
     private var imuThread: Thread? = null
@@ -170,6 +178,9 @@ class OV580Manager(
         val az = -(accZ * aScale * 9.81f)
 
         ahrs.update(gx, gy, gz, ax, ay, az, gyroTs)
+
+        // Forward raw calibrated IMU to VIO pipeline
+        rawImuListener?.onRawIMU(gx, gy, gz, ax, ay, az, gyroTs)
 
         // Periodic logging
         if (count <= 10 || count % 500 == 0) {

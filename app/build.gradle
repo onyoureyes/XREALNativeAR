@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace 'com.xreal.nativear'
-    compileSdk 34
+    compileSdk 35
     ndkVersion "29.0.14206865"
 
     defaultConfig {
@@ -21,10 +21,23 @@ android {
 
         externalNativeBuild {
             cmake {
-                cppFlags "-std=c++17 -frtti -fexceptions"
-                arguments "-DANDROID_STL=c++_shared"
+                cppFlags '-std=c++17'
+                arguments '-DANDROID_STL=c++_shared'
             }
         }
+    }
+
+    packagingOptions {
+        pickFirst 'lib/arm64-v8a/libc++_shared.so'
+        pickFirst 'lib/armeabi-v7a/libc++_shared.so'
+        pickFirst 'lib/x86/libc++_shared.so'
+        pickFirst 'lib/x86_64/libc++_shared.so'
+        // ★ sherpa-onnx jniLibs와 silero VAD의 onnxruntime Maven 충돌 해결
+        // sherpa-onnx v1.12.28은 onnxruntime 1.23.x 필요 → jniLibs 버전 우선
+        pickFirst 'lib/arm64-v8a/libonnxruntime.so'
+        // ★ libvec0.so (SQLite vector extension) — SQLiteCustomExtension은 dlopen() 경로 필요
+        // useLegacyPackaging=true로 .so 파일을 APK에서 /data/app/.../lib/arm64/ 에 추출
+        jniLibs.useLegacyPackaging = true
     }
 
     buildTypes {
@@ -39,8 +52,8 @@ android {
 
     externalNativeBuild {
         cmake {
-            path file('src/main/cpp/CMakeLists.txt')
-            // version '3.22.1' // Using default or cmake.dir from local.properties
+            path "src/main/cpp/CMakeLists.txt"
+            version "3.22.1"
         }
     }
 
@@ -51,6 +64,9 @@ android {
 
     kotlinOptions {
         jvmTarget = '17'
+        // 일부 의존성이 Kotlin 2.2.0 stdlib을 끌고 들어옴 (프로젝트는 1.9.x)
+        // 런타임 동작에 영향 없음 — 메타데이터 버전 체크만 스킵
+        freeCompilerArgs += ['-Xskip-metadata-version-check']
     }
 
     buildFeatures {
@@ -59,7 +75,20 @@ android {
     }
 }
 
+// Global exclusion: remove old TFLite artifacts that conflict with LiteRT V1
+configurations.all {
+    exclude group: 'org.tensorflow', module: 'tensorflow-lite-support-api'
+    exclude group: 'org.tensorflow', module: 'tensorflow-lite'
+    exclude group: 'org.tensorflow', module: 'tensorflow-lite-api'
+    exclude group: 'org.tensorflow', module: 'tensorflow-lite-gpu-api'
+}
+
 dependencies {
+    // ★ 모듈 의존성
+    api project(':output')  // api: 전이적 노출 (:output → :core → :core-models 전이 포함)
+    api project(':input')   // api: 비전 모델 + 케이던스 (:input → :core → :core-models 전이 포함)
+    api project(':spatial') // api: 공간 앵커 + 경로 + 드리프트 보정
+
     implementation 'androidx.core:core-ktx:1.12.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.11.0'
@@ -75,23 +104,44 @@ dependencies {
     implementation project(':ai-common')
     implementation project(':whisper-standalone')
     implementation project(':xreal-hardware-standalone')
+    // implementation project(':vulkan-renderer')  // Replaced by Filament
+
+    // Google Filament 3D Rendering Engine
+    def filament_version = '1.69.4'
+    implementation "com.google.android.filament:filament-android:${filament_version}"
+    implementation "com.google.android.filament:gltfio-android:${filament_version}"
+    implementation "com.google.android.filament:filament-utils-android:${filament_version}"
+    implementation "com.google.android.filament:filamat-android:${filament_version}"
     
-    // TensorFlow Lite
-    implementation 'com.google.android.gms:play-services-tflite-java:16.3.0'
-    implementation 'com.google.android.gms:play-services-tflite-gpu:16.2.0'
-    implementation 'org.tensorflow:tensorflow-lite:2.14.0'
-    
+    // LiteRT (formerly TFLite) — V1 drop-in replacement, same Interpreter API
+    implementation 'com.google.ai.edge.litert:litert:1.4.0'
+    implementation 'com.google.ai.edge.litert:litert-gpu:1.4.0'
+    implementation 'com.google.ai.edge.litert:litert-support:1.4.0'
+
+    // 엣지 LLM: llama.cpp CPU 모드 (JNI)
+    // LiteRT-LM → llama.cpp 교체: Galaxy Fold 4 NPU 미지원, CPU GGUF 추론
+    // 네이티브 라이브러리: app/src/main/cpp/llama_bridge.cpp (xreal_native_ar.so에 포함)
+
+    // QNN LiteRT Delegate v2.34.0 — Hexagon NPU (NNAPI Android 15 deprecated 대체)
+    // RESEARCH.md §3 참조: HTP_BACKEND + skelLibraryDir 필수
+    // UnifiedAIOrchestrator는 리플렉션으로 접근 → 런타임 graceful degradation
+    // implementation 'com.qualcomm.qti:qnn-litert-delegate:2.34.0'  // TODO: Qualcomm repo 설정 후 활성화
+    // implementation 'com.qualcomm.qti:qnn-runtime:2.34.0'  // TODO: Qualcomm repo 설정 후 활성화
+
+    // MediaPipe Text Embedder (semantic search)
+    implementation 'com.google.mediapipe:tasks-text:0.10.32'
+
     // ML Kit
     implementation 'com.google.mlkit:text-recognition-korean:16.0.0'
     implementation 'com.google.mlkit:text-recognition-japanese:16.0.0'
     implementation 'com.google.mlkit:text-recognition-chinese:16.0.0'
     implementation 'com.google.mlkit:translate:17.0.1'
     
-    // Picovoice Porcupine
-    implementation 'ai.picovoice:porcupine-android:2.1.0'
-    
     // Google Play Services Location
     implementation 'com.google.android.gms:play-services-location:21.0.1'
+
+    // Nearby Connections (컴패니언 기기 P2P 연결 — CompanionDeviceManager)
+    implementation 'com.google.android.gms:play-services-nearby:19.3.0'
 
     
     // Gemini AI
@@ -104,15 +154,30 @@ dependencies {
     // FFT for MelSpectrogram / Whisper
     implementation 'com.github.wendykierp:JTransforms:3.1'
     
-    // Coroutines
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3'
+    // Coroutines (1.8.1 — latest compatible with Kotlin 1.9.x, Dispatchers.IO improvements)
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.8.1'
 
-    
     // Plan B: Direct Java wrapper (no AAR)
     // implementation fileTree(dir: 'libs', include: ['*.aar'])
 
     // Networking (Restored for Phase 4)
     implementation 'com.squareup.okhttp3:okhttp:4.12.0'
+
+    // WorkManager for background sync
+    implementation 'androidx.work:work-runtime-ktx:2.9.0'
+
+    // Encrypted SharedPreferences for API key storage
+    implementation 'androidx.security:security-crypto:1.1.0-alpha06'
+
+    // SQLite with extension loading support (for sqlite-vec)
+    implementation 'com.github.requery:sqlite-android:3.49.0'
+
+    // Wear OS Data Layer (receive watch sensor data)
+    implementation 'com.google.android.gms:play-services-wearable:18.1.0'
+
+    // Google Drive OAuth2 (DriveTrainingScheduler — decision_log → Drive 업로드)
+    implementation 'com.google.android.gms:play-services-auth:21.2.0'
 }
 
 Properties properties = new Properties()
@@ -126,6 +191,12 @@ android {
         buildConfigField "String", "NAVER_CLIENT_SECRET", "\"${properties.getProperty('NAVER_CLIENT_SECRET', '')}\""
         buildConfigField "String", "NAVER_SEARCH_CLIENT_ID", "\"${properties.getProperty('NAVER_SEARCH_CLIENT_ID', '')}\""
         buildConfigField "String", "NAVER_SEARCH_CLIENT_SECRET", "\"${properties.getProperty('NAVER_SEARCH_CLIENT_SECRET', '')}\""
+        // Google Drive OAuth2 (ML 학습 파이프라인)
+        buildConfigField "String", "GOOGLE_DRIVE_CLIENT_ID", "\"${properties.getProperty('GOOGLE_DRIVE_CLIENT_ID', '')}\""
+        buildConfigField "String", "GOOGLE_DRIVE_CLIENT_SECRET", "\"${properties.getProperty('GOOGLE_DRIVE_CLIENT_SECRET', '')}\""
+        // Google Maps API (지오코딩, 길찾기 — NaverService 대체)
+        buildConfigField "String", "GOOGLE_MAPS_API_KEY", "\"${properties.getProperty('GOOGLE_MAPS_API_KEY', '')}\""
+        resValue "string", "google_maps_key", "${properties.getProperty('GOOGLE_MAPS_API_KEY', '')}"
     }
 }
 

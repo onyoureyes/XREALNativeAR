@@ -1,6 +1,6 @@
 $env:JAVA_HOME = "C:\Program Files\Android\Android Studio\jbr"
 $ADB = "C:\Users\User\AppData\Local\Android\Sdk\platform-tools\adb.exe"
-$IP = "10.230.170.207:45427" 
+$IP = "192.168.0.188:45553" 
 
 Write-Host "🔗 Connecting to Device via Wireless Debugging..."
 & $ADB connect $IP

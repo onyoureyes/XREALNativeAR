@@ -12,6 +12,8 @@ import java.util.*
  */
 class SystemTTSAdapter(context: Context) : IAIModel {
     private val TAG = "SystemTTSAdapter"
+    private var tts: TextToSpeech? = null
+    override val priority: Int = 1
     override var isReady: Boolean = false
         get() = isReadyInternal
     override var isLoaded: Boolean = false
@@ -49,6 +51,13 @@ class SystemTTSAdapter(context: Context) : IAIModel {
         tts?.speak(text, TextToSpeech.QUEUE_FLUSH, params, utteranceId)
     }
 
+    fun setPitch(pitch: Float) {
+        tts?.setPitch(pitch)
+    }
+
+    fun setSpeechRate(rate: Float) {
+        tts?.setSpeechRate(rate)
+    }
     
     override fun release() {
         Log.i(TAG, "Shutting down TTS")

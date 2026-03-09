@@ -14,6 +14,13 @@ object GeminiPrompts {
         - AR 디스플레이 환경을 고려해 한 문장 단위로 짧고 명확하게 답변하세요.
         - 사용자가 말하는 내용뿐만 아니라 OCR로 추출된 텍스트와 카메라 장면을 함께 고려해 맥락을 파악하세요.
         - 필요한 경우 도구(검색, 날씨, 메모리 쿼리)를 적극적으로 활용하세요.
+
+        시각 도구:
+        - draw_element로 화면에 텍스트, 박스, 원, 선, 화살표, 하이라이트를 그릴 수 있습니다.
+        - get_screen_objects로 현재 보이는 객체/텍스트의 위치를 확인한 후 정확한 좌표에 그리세요.
+        - 좌표는 퍼센트(0-100)입니다. 예: x=50, y=50은 화면 중앙.
+        - 무언가를 설명할 때 화살표와 하이라이트로 시각적 프레젠테이션을 하세요.
+        - 한자나 외국어 간판을 볼 때, 하이라이트로 강조하고 화살표와 텍스트로 뜻을 설명하세요.
     """
     
     fun getSceneInterpretationPrompt(ocrText: String): String {
@@ -73,18 +80,15 @@ object GeminiPrompts {
         """.trimIndent()
     }
 
-    /**
-     * 대화 내용에서 할 일(Action Item)을 추출하기 위한 프롬프트입니다.
-     */
-    fun getTaskExtractionPrompt(conversation: String): String {
-        return """
-            다음 대화 내용에서 사용자가 나중에 해야 할 일(할 일 목록)이 있다면 추출해주세요.
-            
-            대화: $conversation
-            
-            - 할 일이 있다면 "[할 일] 내용" 형식으로 한 문장씩 나열하세요.
-            - 할 일이 없다면 "추출된 할 일이 없습니다"라고 대답하세요.
-        """.trimIndent()
-    }
+
+    fun getRunningCoachExtension(): String = """
+
+    추가 컨텍스트: 사용자가 러닝 모드를 사용 중입니다.
+    - get_running_stats: 현재 러닝 통계 확인
+    - control_running_session: 러닝 세션 제어 (start/stop/pause/resume/lap)
+    - get_running_advice: 현재 자세 기반 코칭 조언
+
+    러닝 중에는 매우 짧고 간결하게 응답하세요 (5-10자).
+    """.trimIndent()
 }
 

@@ -14,13 +14,13 @@ import org.json.JSONObject
  * CloudBackupManager: Handles cloud backup operations.
  * Enhanced to support JSON-based memory synchronization.
  */
-class CloudBackupManager(private val context: Context) {
+class CloudBackupManager(private val context: Context, private val memoryService: IMemoryService) {
     private val TAG = "CloudBackupManager"
-    
-    suspend fun syncToCloud(repository: MemoryRepository): String {
+
+    suspend fun syncToCloud(): String {
         Log.i(TAG, "Starting cloud synchronization...")
         return try {
-            val nodes = repository.database.getAllNodes()
+            val nodes = memoryService.getAllMemories()
             val jsonArray = JSONArray()
             
             for (node in nodes) {
@@ -48,27 +48,25 @@ class CloudBackupManager(private val context: Context) {
         }
     }
     
-    suspend fun restoreFromCloud(repository: MemoryRepository): String {
+    suspend fun restoreFromCloud(): String {
         Log.i(TAG, "Starting cloud restoration...")
         return try {
             val backupFile = File(context.filesDir, "cloud_backup.json")
             if (!backupFile.exists()) return "No backup found in cloud."
-            
+
             val jsonStr = backupFile.readText()
             val jsonArray = JSONArray(jsonStr)
-            
+
             var restoredCount = 0
             for (i in 0 until jsonArray.length()) {
                 val json = jsonArray.getJSONObject(i)
-                val node = UnifiedMemoryDatabase.MemoryNode(
-                    timestamp = json.getLong("timestamp"),
-                    role = json.getString("role"),
+                memoryService.saveMemory(
                     content = json.getString("content"),
-                    latitude = if (json.isNull("latitude")) null else json.getDouble("latitude"),
-                    longitude = if (json.isNull("longitude")) null else json.getDouble("longitude"),
-                    metadata = if (json.isNull("metadata")) null else json.getString("metadata")
+                    role = json.getString("role"),
+                    metadata = if (json.isNull("metadata")) null else json.getString("metadata"),
+                    lat = if (json.isNull("latitude")) null else json.getDouble("latitude"),
+                    lon = if (json.isNull("longitude")) null else json.getDouble("longitude")
                 )
-                repository.database.insertNode(node)
                 restoredCount++
             }
             

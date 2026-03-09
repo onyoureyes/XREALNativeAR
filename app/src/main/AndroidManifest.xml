@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.xreal.nativear">
 
     <!-- Permissions -->
@@ -12,7 +13,30 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MICROPHONE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION" />
     <uses-permission android:name="android.permission.USB_DEVICE" />
-    
+    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <!-- Nearby Connections (갤폴드3 컴패니언 P2P) -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- Bluetooth (Android < 12) -->
+    <uses-permission android:name="android.permission.BLUETOOTH"
+        android:maxSdkVersion="30" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"
+        android:maxSdkVersion="30" />
+    <!-- Bluetooth (Android 12+) -->
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN"
+        android:usesPermissionFlags="neverForLocation"
+        tools:targetApi="s" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <!-- Wi-Fi Direct (Android 13+) -->
+    <uses-permission android:name="android.permission.NEARBY_WIFI_DEVICES"
+        android:usesPermissionFlags="neverForLocation"
+        tools:targetApi="tiramisu" />
+
     <!-- Hardware features -->
     <uses-feature android:name="android.hardware.camera.any" android:required="true" />
     <uses-feature android:name="android.hardware.usb.host" android:required="false" />
@@ -24,7 +48,8 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/ic_launcher_fallback"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.Light">
+        android:theme="@style/Theme.AppCompat.Light"
+        android:networkSecurityConfig="@xml/network_security_config">
         
         <activity
             android:name=".MainActivity"
@@ -46,6 +71,10 @@
         </activity>
 
         <activity android:name=".MemoryQueryActivity" android:exported="false" />
+        <activity
+            android:name=".HardwareTestActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
         
         <service 
             android:name=".AudioAnalysisService"
@@ -56,7 +85,16 @@
             android:name=".WhisperLifelogService"
             android:foregroundServiceType="microphone|location"
             android:exported="false" />
-            
+
+        <!-- ChaosMonkey ADB 트리거 리시버 (디버그 전용) -->
+        <receiver
+            android:name=".core.ChaosReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.xreal.nativear.CHAOS" />
+            </intent-filter>
+        </receiver>
+
     </application>
 
 

@@ -2,21 +2,26 @@ package com.xreal.nativear
 
 import android.content.Context
 import android.util.Log
+import com.xreal.nativear.memory.IMemoryAccess
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.cancel
 
 /**
  * MemoryRepository: High-level repository for managing memories using UnifiedMemoryDatabase.
  */
 class MemoryRepository(
     private val context: Context,
+    private val database: UnifiedMemoryDatabase,
+    private val sceneDatabase: SceneDatabase,
     private val memorySearcher: MemorySearcher,
     private val memoryCompressor: MemoryCompressor,
     private val locationService: ILocationService,
     private val textEmbedder: TextEmbedder,
-    private val eventBus: com.xreal.nativear.core.GlobalEventBus
+    private val eventBus: com.xreal.nativear.core.GlobalEventBus,
+    private val emotionClassifier: EmotionClassifier,
+    private val memorySaveHelper: IMemoryAccess
 ) : IMemoryService {
     private val TAG = "MemoryRepository"
-    val database = UnifiedMemoryDatabase(context)
-    private val sceneDatabase = SceneDatabase(context)
     private val scope = kotlinx.coroutines.CoroutineScope(kotlinx.coroutines.SupervisorJob() + kotlinx.coroutines.Dispatchers.IO)
     
     init {
@@ -32,9 +37,11 @@ class MemoryRepository(
                         storeVisualEmbedding(event)
                     }
                     is com.xreal.nativear.core.XRealEvent.InputEvent.AudioEmbedding -> {
+                        // SceneDB only — text memory is saved by AudioAnalysisService via saveMemory()
                         storeAudioEmbedding(event)
-                        // Also save text memory
-                        saveMemory(event.transcript, "user", null, event.latitude, event.longitude)
+                    }
+                    is com.xreal.nativear.core.XRealEvent.PerceptionEvent.AudioEnvironment -> {
+                        storeAudioEnvironment(event)
                     }
                     else -> {
                         // Ignore other events
@@ -67,8 +74,7 @@ class MemoryRepository(
                 // Convert ByteArray to FloatArray for emotion classification
                 val embedding = byteArrayToFloatArray(event.audioEmbedding)
                 
-                // Classify emotion
-                val emotionClassifier = EmotionClassifier()
+                // Classify emotion (using injected singleton)
                 val (emotion, emotionScore) = emotionClassifier.classifyEmotion(embedding)
                 
                 sceneDatabase.insertVoiceLog(
@@ -86,7 +92,28 @@ class MemoryRepository(
             }
         }
     }
-    
+
+    private suspend fun storeAudioEnvironment(event: com.xreal.nativear.core.XRealEvent.PerceptionEvent.AudioEnvironment) {
+        kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+            try {
+                val labelsJson = org.json.JSONArray(event.events.map { it.first }).toString()
+                val scoresJson = org.json.JSONArray(event.events.map { it.second.toDouble() }).toString()
+
+                sceneDatabase.insertAudioEvent(
+                    timestamp = event.timestamp,
+                    labels = labelsJson,
+                    scores = scoresJson,
+                    embedding = event.embedding,
+                    lat = event.latitude,
+                    lon = event.longitude
+                )
+                Log.d(TAG, "✅ Stored audio environment: $labelsJson")
+            } catch (e: Exception) {
+                Log.e(TAG, "❌ Failed to store audio environment", e)
+            }
+        }
+    }
+
     private fun byteArrayToFloatArray(bytes: ByteArray): FloatArray {
         val buffer = java.nio.ByteBuffer.wrap(bytes)
         buffer.order(java.nio.ByteOrder.nativeOrder())
@@ -97,33 +124,14 @@ class MemoryRepository(
     
     override suspend fun saveMemory(content: String, role: String, metadata: String?, lat: Double?, lon: Double?) {
         Log.i(TAG, "Saving memory: $content")
-        
-        // 1. Resolve Location if missing
-        var finalLat = lat
-        var finalLon = lon
-        if (finalLat == null || finalLon == null) {
-            val currentLoc = locationService.getCurrentLocation()
-            if (currentLoc != null) {
-                finalLat = currentLoc.latitude
-                finalLon = currentLoc.longitude
-            }
-        }
-
-        // 2. Generate Text Embedding (Future/Partial)
-        // val embedding = textEmbedder.getEmbedding(content) 
-        // For now, let's keep embedding optional/null to avoid blocking on main thread if textEmbedder is heavy
-        
-        val node = UnifiedMemoryDatabase.MemoryNode(
-            timestamp = System.currentTimeMillis(),
-            role = role,
+        memorySaveHelper.saveMemory(
             content = content,
+            role = role,
             metadata = metadata,
-            latitude = finalLat,
-            longitude = finalLon
+            personaId = null,
+            lat = lat,
+            lon = lon
         )
-        database.insertNode(node)
-        
-        // Trigger hierarchical compression
         memoryCompressor.checkAndCompress()
     }
 
@@ -140,6 +148,20 @@ class MemoryRepository(
     }
 
     override suspend fun queryKeyword(keyword: String): String {
+        // Try semantic search first via vec0 KNN
+        if (textEmbedder.isReady) {
+            try {
+                val queryEmbedding = textEmbedder.getEmbedding(keyword)
+                val vecResults = database.searchByTextEmbedding(queryEmbedding, 20)
+                if (vecResults.isNotEmpty()) {
+                    val nodes = database.getNodesByIds(vecResults.map { it.first })
+                    return formatNodesAsJson(nodes)
+                }
+            } catch (e: Exception) {
+                Log.w(TAG, "Semantic search failed, falling back to keyword: ${e.message}")
+            }
+        }
+        // Fallback to LIKE keyword search
         val results = memorySearcher.search(keyword)
         return formatNodesAsJson(results.map { it.node })
     }
@@ -183,8 +205,16 @@ class MemoryRepository(
         return array.toString()
     }
 
-    fun getMemories(limit: Int = 10): List<UnifiedMemoryDatabase.MemoryNode> {
+    override fun getMemoryCount(level: Int): Int {
+        return database.getCount(level)
+    }
+
+    override fun getRecentMemories(limit: Int): List<UnifiedMemoryDatabase.MemoryNode> {
         return database.getUnsummarizedNodes(0, limit)
+    }
+
+    override fun getAllMemories(): List<UnifiedMemoryDatabase.MemoryNode> {
+        return database.getAllNodes()
     }
     
     // Scene Database Query Methods

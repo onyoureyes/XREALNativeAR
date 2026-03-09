@@ -6,9 +6,9 @@
     android:layout_height="match_parent"
     android:background="#000000">
 
-    <!-- Camera Preview -->
-    <androidx.camera.view.PreviewView
-        android:id="@+id/cameraPreview"
+    <!-- Filament 3D Renderer (최하단 레이어) -->
+    <SurfaceView
+        android:id="@+id/filamentSurface"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -16,7 +16,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Overlay View for AR markers and logs -->
+    <!-- Camera Preview (Vulkan 미사용 시 폴백) -->
+    <androidx.camera.view.PreviewView
+        android:id="@+id/cameraPreview"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Overlay View for AR markers and logs (최상단 레이어, 투명 배경) -->
     <com.xreal.nativear.OverlayView
         android:id="@+id/overlayView"
         android:layout_width="0dp"
@@ -39,6 +50,21 @@
         android:padding="12dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Camera Source + AI Provider info -->
+    <TextView
+        android:id="@+id/cameraSourceText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginStart="16dp"
+        android:text="CAM: -- | AI: --"
+        android:textColor="#00E5FF"
+        android:textSize="13sp"
+        android:background="#AA000000"
+        android:padding="6dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/statusText" />
 
     <!-- Control Panel for Vision Toggles -->
     <LinearLayout
@@ -67,13 +93,20 @@
             android:textColor="#FFFFFF" />
 
         <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/toggleScene"
+            android:id="@+id/toggleDetection"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Scene"
-            android:textColor="#FFFFFF"
+            android:text="Detect"
+            android:textColor="#00E5FF"
             android:checked="true" />
-            
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/toggleHand"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hand "
+            android:textColor="#FFAB40" />
+
         <Button
             android:id="@+id/btnCapture"
             android:layout_width="wrap_content"
@@ -81,6 +114,15 @@
             android:text="Capture"
             android:textSize="12sp"
             android:layout_marginTop="4dp" />
+
+        <Button
+            android:id="@+id/btnHardwareTest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="HW Test"
+            android:textSize="12sp"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="#FF6D00" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

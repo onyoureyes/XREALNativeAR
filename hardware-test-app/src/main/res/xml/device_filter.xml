@@ -10,4 +10,7 @@
 
     <!-- Nreal Light Audio (Nreal-B) -->
     <usb-device vendor-id="3034" product-id="19319" /> <!-- 0x0BDA / 0x4B77 -->
+
+    <!-- Nreal Light RGB Center Camera -->
+    <usb-device vendor-id="2071" product-id="2313" /> <!-- 0x0817 / 0x0909 -->
 </resources>

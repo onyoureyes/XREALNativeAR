@@ -8,6 +8,7 @@ import com.xreal.nativear.core.GlobalEventBus
 import com.xreal.nativear.core.XRealEvent
 import com.xreal.whisper.WhisperEngine
 import kotlinx.coroutines.*
+import org.koin.android.ext.android.inject
 import org.tensorflow.lite.Interpreter
 
 /**
@@ -26,9 +27,10 @@ class WhisperLifelogService : Service() {
     
     private lateinit var whisperEngine: WhisperEngine
     private lateinit var emotionClassifier: EmotionClassifier
-    private lateinit var eventBus: GlobalEventBus
-    private lateinit var locationService: ILocationService
     
+    private val locationService: ILocationService by inject()
+    private val eventBus: GlobalEventBus by inject()
+
     private val serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
     
     private var lastAudioSegment: ShortArray? = null
@@ -40,8 +42,6 @@ class WhisperLifelogService : Service() {
         
         // Initialize components
         emotionClassifier = EmotionClassifier()
-        eventBus = GlobalEventBus
-        locationService = LocationManager(this)
         
         // Initialize WhisperEngine
         whisperEngine = WhisperEngine(this)
@@ -88,7 +88,7 @@ class WhisperLifelogService : Service() {
                     // GPU delegate will be added by AIModelOrchestrator if available
                 }
                 
-                whisperEngine.initialize(options, com.xreal.whisper.ModelType.TINY)
+                whisperEngine.initialize(options, com.xreal.whisper.ModelType.BASE)
                 
                 // Start continuous listening
                 whisperEngine.startListening()

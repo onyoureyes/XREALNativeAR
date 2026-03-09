@@ -17,6 +17,7 @@ interface IVisionService {
     fun setPoseEnabled(enabled: Boolean)
     fun setSceneCaptureEnabled(enabled: Boolean)
     fun setDetectionEnabled(enabled: Boolean)
+    fun setHandTrackingEnabled(enabled: Boolean)
     fun translate(text: String, onResult: (String) -> Unit)
     fun captureSceneSnapshot()
     fun cycleCamera()
@@ -40,6 +41,10 @@ interface IMemoryService {
     suspend fun queryKeyword(keyword: String): String
     suspend fun queryVisual(bitmap: android.graphics.Bitmap): String
     suspend fun queryEmotion(emotion: String): String
+
+    fun getMemoryCount(level: Int = 0): Int
+    fun getRecentMemories(limit: Int = 10): List<UnifiedMemoryDatabase.MemoryNode>
+    fun getAllMemories(): List<UnifiedMemoryDatabase.MemoryNode>
 }
 
 interface ILocationService {

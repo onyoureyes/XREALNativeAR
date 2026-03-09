@@ -11,12 +11,21 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven { url 'https://jitpack.io' }
     }
 }
 
 rootProject.name = "XREALNativeAR"
+include ':core-models'
+include ':core'
+include ':output'
+include ':input'
+include ':spatial'
 include ':app'
+include ':wear'
 include ':ai-common'
 include ':whisper-standalone'
 include ':xreal-hardware-standalone'
 include ':hardware-test-app'
+include ':relay'
+// include ':vulkan-renderer'  // Replaced by Filament (app module내 renderer/ 패키지)

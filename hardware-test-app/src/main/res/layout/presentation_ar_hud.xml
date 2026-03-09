@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- AR HUD Layout for Nreal Light Presentation (1920x1080 native) -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/hudRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    android:keepScreenOn="true">
+
+    <!-- Center crosshair -->
+    <View
+        android:id="@+id/hudCrosshair"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_gravity="center"
+        android:background="@drawable/crosshair_ring" />
+
+    <!-- Center label (OCR/Gemini result) -->
+    <TextView
+        android:id="@+id/hudTvCenterLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="56dp"
+        android:text=""
+        android:textColor="#FFFFFF"
+        android:textSize="48sp"
+        android:textStyle="bold"
+        android:shadowColor="#000000"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="6"
+        android:visibility="gone" />
+
+    <!-- Top-left status -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|start"
+        android:layout_margin="40dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/hudTvStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="XREAL AR"
+            android:textColor="#88FFFFFF"
+            android:textSize="36sp"
+            android:fontFamily="monospace" />
+
+        <TextView
+            android:id="@+id/hudTvFps"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="#6600FF88"
+            android:textSize="28sp"
+            android:fontFamily="monospace" />
+    </LinearLayout>
+
+    <!-- Bottom-center orientation -->
+    <TextView
+        android:id="@+id/hudTvOrientation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="48dp"
+        android:text="R:0° P:0° Y:0°"
+        android:textColor="#6600AAFF"
+        android:textSize="32sp"
+        android:fontFamily="monospace" />
+
+    <!-- Anchored labels container -->
+    <FrameLayout
+        android:id="@+id/hudAnchorContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</FrameLayout>

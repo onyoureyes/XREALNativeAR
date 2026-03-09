@@ -35,3 +35,23 @@ tunnel_output.txt
 build_log.txt
 bashupload_log.txt
 upload_res.txt
+
+# Large binary files (GitHub 100MB limit)
+*.tflite
+*.gguf
+*.onnx
+*.dlc
+*.bin
+archive/
+log_raw.txt
+log_stuck.txt
+alt_log_discovery.log
+
+# Native prebuilt libs (rebuild from source)
+app/src/main/cpp/llama_cpp/lib/
+app/libs/snpe_extracted/
+
+# Temp build artifacts
+compile_error*.txt
+build_error*.txt
+app_dependencies*.txt

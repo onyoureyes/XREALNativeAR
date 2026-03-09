@@ -76,8 +76,9 @@ class USBDeviceRouter(
             return
         }
 
-        // Priority: OV580 first (has IMU), then MCU
-        val ordered = listOf(NrealDeviceType.OV580, NrealDeviceType.MCU)
+        // Priority: OV580 first (has IMU), then MCU, then RGB Camera
+        // RGB_CAMERA: USB Host API claims interface (detaches kernel UVC driver)
+        val ordered = listOf(NrealDeviceType.OV580, NrealDeviceType.MCU, NrealDeviceType.RGB_CAMERA)
         for (type in ordered) {
             val device = found[type] ?: continue
             pendingDevices.add(device)
@@ -155,6 +156,49 @@ class USBDeviceRouter(
             log("ERROR opening ${type.name}: ${e.message}")
         }
         processNextPending()
+    }
+
+    /**
+     * Scan specifically for a single device type.
+     * Used for delayed RGB camera detection after MCU activation.
+     */
+    fun scanForDevice(
+        targetType: NrealDeviceType,
+        onReady: (NrealDeviceType, UsbDevice, UsbDeviceConnection) -> Unit
+    ) {
+        val deviceList = usbManager.deviceList
+        log("Re-scan for ${targetType.name}: checking ${deviceList.size} USB devices")
+
+        // Log all VID/PID for diagnostics
+        for ((name, device) in deviceList) {
+            val vid = device.vendorId
+            val pid = device.productId
+            val type = NrealDeviceType.identify(vid)
+            log("  Re-scan: $name VID=0x${"%04X".format(vid)} PID=0x${"%04X".format(pid)} -> ${type?.name ?: "UNKNOWN"}")
+        }
+
+        for ((_, device) in deviceList) {
+            val type = NrealDeviceType.identify(device.vendorId)
+            if (type == targetType) {
+                log("Re-scan: Found ${type.name}!")
+                try {
+                    val conn = usbManager.openDevice(device)
+                    if (conn != null) {
+                        log("Re-scan: ${type.name} opened successfully")
+                        onReady(type, device, conn)
+                        return
+                    } else {
+                        log("Re-scan: ${type.name} openDevice returned null")
+                    }
+                } catch (e: SecurityException) {
+                    log("Re-scan: ${type.name} SecurityException - requesting permission...")
+                    requestPermission(device)
+                } catch (e: Exception) {
+                    log("Re-scan: ${type.name} error: ${e.message}")
+                }
+            }
+        }
+        log("Re-scan: ${targetType.name} not found among ${deviceList.size} devices")
     }
 
     /**

@@ -8,6 +8,8 @@ import android.location.Location
 import android.util.Log
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.*
+import com.xreal.nativear.core.ErrorReporter
+import com.xreal.nativear.core.ErrorSeverity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -20,16 +22,108 @@ import java.util.*
 class LocationManager(
     private val context: Context,
     private val scope: CoroutineScope,
-    private val memoryDatabase: UnifiedMemoryDatabase,
-    private val naverService: NaverService // Injected
+    private val naverService: NaverService,
+    private val eventBus: com.xreal.nativear.core.GlobalEventBus
 ) : ILocationService {
 
+    // Lazy inject to break circular dependency: MemoryRepository → ILocationService → LocationManager → IMemoryService
+    private val memoryService: IMemoryService by org.koin.java.KoinJavaComponent.inject(IMemoryService::class.java)
 
     private val TAG = "LocationManager"
     private val fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
-    // private val geocoder = Geocoder(context, Locale.KOREAN) // Replaced by NaverService
+    private val geocoder = Geocoder(context, Locale.KOREAN)
     
-    // ... (rest of the class)
+    private var lastCapturedLocation: Location? = null
+    private val THRESHOLD_WALKING = 10.0f
+    private val THRESHOLD_CYCLING = 30.0f
+    private val THRESHOLD_DRIVING = 100.0f
+    
+    // Journey Tracking Variables
+    private var isJourneyActive = false
+    private var journeyStartLocation: Location? = null
+    private var journeyStartTime = 0L
+    private var journeyTotalDistance = 0f
+    private var lastStationaryStartTime = 0L
+
+    override fun getCurrentLocation(): Location? {
+        return lastCapturedLocation
+    }
+
+    override fun updatePdr(dx: Float, dy: Float) {
+        // PDR tracking not fully implemented, logging for now
+        Log.d(TAG, "PDR Update: dx=$dx, dy=$dy")
+    }
+
+    private var locationCallback: LocationCallback? = null
+
+    /**
+     * Start GPS location updates. Calls [onSpatialTrigger] when the user has
+     * moved beyond the speed-dependent distance threshold.
+     */
+    fun startLocationUpdates(onSpatialTrigger: () -> Unit) {
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            Log.w(TAG, "Location permission not granted — skipping GPS tracking")
+            return
+        }
+
+        val request = LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 10_000L)
+            .setMinUpdateIntervalMillis(5_000L)
+            .build()
+
+        locationCallback = object : LocationCallback() {
+            override fun onLocationResult(result: LocationResult) {
+                val location = result.lastLocation ?: return
+                lastCapturedLocation = location
+
+                // Publish PhoneGps event for position fusion engine
+                scope.launch {
+                    eventBus.publish(com.xreal.nativear.core.XRealEvent.PerceptionEvent.PhoneGps(
+                        latitude = location.latitude,
+                        longitude = location.longitude,
+                        altitude = location.altitude,
+                        accuracy = location.accuracy,
+                        speed = location.speed,
+                        timestamp = System.currentTimeMillis()
+                    ))
+                }
+
+                // Journey tracking
+                if (!isJourneyActive) {
+                    isJourneyActive = true
+                    journeyStartLocation = location
+                    journeyStartTime = System.currentTimeMillis()
+                    journeyTotalDistance = 0f
+                } else {
+                    val prev = journeyStartLocation
+                    if (prev != null) {
+                        journeyTotalDistance += location.distanceTo(prev)
+                    }
+                }
+
+                // Spatial trigger (distance-based scene capture)
+                checkSpatialTrigger(location, onSpatialTrigger)
+
+                // Passive location log (every update)
+                logPassiveLocation(location)
+            }
+        }
+
+        fusedLocationClient.requestLocationUpdates(request, locationCallback!!, android.os.Looper.getMainLooper())
+        Log.i(TAG, "📍 GPS location tracking started (10s interval)")
+    }
+
+    fun stopLocationUpdates() {
+        locationCallback?.let {
+            fusedLocationClient.removeLocationUpdates(it)
+            Log.i(TAG, "📍 GPS location tracking stopped")
+        }
+        locationCallback = null
+        if (isJourneyActive && lastCapturedLocation != null) {
+            finalizeJourney(lastCapturedLocation!!)
+        }
+    }
 
     private fun finalizeJourney(endLocation: Location) {
         val now = System.currentTimeMillis()
@@ -54,20 +148,13 @@ class LocationManager(
                     put("start_address", startAddress)
 
                     put("end_address", endAddress)
-                    put("distance_km", distanceKm)
-                    put("duration_min", durationMin)
+                    put("distance_km", distanceKm.toDouble())
+                    put("duration_min", durationMin.toLong())
                 }.toString()
 
-                memoryDatabase.insertNode(UnifiedMemoryDatabase.MemoryNode(
-                    timestamp = now,
-                    role = "SYSTEM_LOG",
-                    content = content,
-                    latitude = endLocation.latitude,
-                    longitude = endLocation.longitude,
-                    metadata = metadata
-                ))
+                memoryService.saveMemory(content, "SYSTEM_LOG", metadata, endLocation.latitude, endLocation.longitude)
             } catch (e: Exception) {
-                Log.e(TAG, "Failed to finalize journey", e)
+                ErrorReporter.report(TAG, "여정 완료 기록 실패", e, ErrorSeverity.WARNING)
             }
         }
     }
@@ -97,30 +184,23 @@ class LocationManager(
 
 
     private fun logPassiveLocation(loc: Location) {
-        Thread {
+        scope.launch(Dispatchers.IO) {
             try {
                 val addresses = geocoder.getFromLocation(loc.latitude, loc.longitude, 1)
                 val addressStr = addresses?.get(0)?.getAddressLine(0) ?: "Unknown Location"
-                
-                Log.d(TAG, "📍 Passive Location Logged: $addressStr")
-                
+
+                Log.d(TAG, "Passive Location Logged: $addressStr")
+
                 val metadata = JSONObject().apply {
                     put("type", "LOCATION_TRACE")
                     put("address", addressStr)
                     put("source", "GPS_PASSIVE")
                 }.toString()
 
-                memoryDatabase.insertNode(UnifiedMemoryDatabase.MemoryNode(
-                    timestamp = System.currentTimeMillis(),
-                    role = "SYSTEM_LOG",
-                    content = "User Location Update: $addressStr",
-                    latitude = loc.latitude,
-                    longitude = loc.longitude,
-                    metadata = metadata
-                ))
+                memoryService.saveMemory("User Location Update: $addressStr", "SYSTEM_LOG", metadata, loc.latitude, loc.longitude)
             } catch (e: Exception) {
-                Log.e(TAG, "Failed to log location", e)
+                ErrorReporter.report(TAG, "위치 로그 기록 실패", e, ErrorSeverity.INFO)
             }
-        }.start()
+        }
     }
 }

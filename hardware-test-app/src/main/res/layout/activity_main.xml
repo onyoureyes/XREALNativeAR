@@ -22,14 +22,25 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <Button
+            android:id="@+id/btnLaunchHud"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="🥽 Launch AR HUD"
+            android:backgroundTint="#0D47A1"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@id/tvStatus" />
+
+        <Button
             android:id="@+id/btnDeepScan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Deep Scan USB Devices"
             android:backgroundTint="#6750A4"
             android:textColor="#FFFFFF"
-            android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@id/tvStatus" />
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@id/btnLaunchHud" />
 
         <Button
             android:id="@+id/btnConnect"
@@ -93,14 +104,90 @@
                 android:layout_marginStart="4dp" />
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/layoutPassthroughControls"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@id/layoutCamControls">
+
+            <Button
+                android:id="@+id/btnPassthrough"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Passthrough: OFF"
+                android:backgroundTint="#1565C0"
+                android:textColor="#FFFFFF"
+                android:layout_marginEnd="4dp" />
+
+            <Button
+                android:id="@+id/btnCaptureFrame"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Capture Frame"
+                android:layout_marginStart="4dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutRgbControls"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@id/layoutPassthroughControls">
+
+            <Button
+                android:id="@+id/btnStartRgb"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Start RGB Cam"
+                android:backgroundTint="#E65100"
+                android:textColor="#FFFFFF"
+                android:layout_marginEnd="4dp" />
+
+            <Button
+                android:id="@+id/btnStopRgb"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Stop RGB Cam"
+                android:backgroundTint="#BF360C"
+                android:textColor="#FFFFFF"
+                android:layout_marginStart="4dp" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/ivRgbPreview"
+            android:layout_width="match_parent"
+            android:layout_height="280dp"
+            android:layout_marginTop="8dp"
+            android:scaleType="fitCenter"
+            android:background="#000000"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/layoutRgbControls" />
+
+        <ImageView
+            android:id="@+id/ivPassthrough"
+            android:layout_width="match_parent"
+            android:layout_height="240dp"
+            android:layout_marginTop="8dp"
+            android:scaleType="fitCenter"
+            android:background="#000000"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/ivRgbPreview" />
+
         <ImageView
             android:id="@+id/ivDepthMap"
             android:layout_width="match_parent"
             android:layout_height="240dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:scaleType="fitCenter"
             android:background="#000000"
-            app:layout_constraintTop_toBottomOf="@id/layoutCamControls" />
+            app:layout_constraintTop_toBottomOf="@id/ivPassthrough" />
 
         <TextView
             android:id="@+id/tvLogs"

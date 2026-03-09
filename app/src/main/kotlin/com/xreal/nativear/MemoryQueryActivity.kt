@@ -20,18 +20,12 @@ class MemoryQueryActivity : AppCompatActivity() {
     private val TAG = "MemoryQuery"
     
     // Injected dependencies
-    private val geminiClient: GeminiClient by inject()
-    private val repository: MemoryRepository by inject()
+    private val memoryService: IMemoryService by inject()
     
-    // Lazy injection with parameters for AIAgentManager
-    private val aiAgentManager: AIAgentManager by org.koin.android.ext.android.inject { 
-        org.koin.core.parameter.parametersOf(this, androidx.lifecycle.lifecycleScope, aiCallback) 
-    }
+    // Lazy injection for AIAgentManager (now a singleton)
+    private val aiAgentManager: AIAgentManager by inject()
     
     private val aiCallback = object : AIAgentManager.AIAgentCallback {
-        override fun onSpeak(text: String, isResponse: Boolean) {
-            // TTS can be handled here if needed
-        }
         
         override fun onCentralMessage(text: String) {
             runOnUiThread {
@@ -66,9 +60,9 @@ class MemoryQueryActivity : AppCompatActivity() {
             }
         }
 
-        override fun startWakeWordDetection() {}
-        override fun setConversing(isConversing: Boolean) {}
-        override fun onGetLatestBitmap(): android.graphics.Bitmap? = null // Activity doesn't have camera
+        override fun showSnapshotFeedback() {}
+        override fun onGetLatestBitmap(): android.graphics.Bitmap? = null
+        override fun onGetScreenObjects(): String = "[]"
     }
 
     
@@ -81,6 +75,9 @@ class MemoryQueryActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_memory_query)
+
+        // Set callback on the shared AIAgentManager singleton
+        aiAgentManager.setCallback(aiCallback)
 
         logDisplay = findViewById(R.id.memoryLog)
         queryInput = findViewById(R.id.queryInput)
@@ -95,7 +92,7 @@ class MemoryQueryActivity : AppCompatActivity() {
         
         // Show DB status on start
         lifecycleScope.launch(Dispatchers.IO) {
-            val count = repository.database.getCount()
+            val count = memoryService.getMemoryCount()
             runOnUiThread {
                 logDisplay.append("[System] Total Memories in DB: $count\n")
                 if (count == 0) {

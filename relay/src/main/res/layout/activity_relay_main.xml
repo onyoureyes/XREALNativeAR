@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:gravity="center_horizontal"
+    android:background="#1A1A2E">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="XREAL Relay"
+        android:textSize="28sp"
+        android:textColor="#E0E0E0"
+        android:textStyle="bold"
+        android:layout_marginTop="32dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fold 3 → Fold 4 데이터 릴레이"
+        android:textSize="14sp"
+        android:textColor="#888888"
+        android:layout_marginTop="4dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#333333"
+        android:layout_marginVertical="24dp" />
+
+    <!-- 서버 주소 -->
+    <TextView
+        android:id="@+id/tv_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="서버 주소: ..."
+        android:textSize="16sp"
+        android:textColor="#4FC3F7"
+        android:fontFamily="monospace" />
+
+    <!-- 상태 -->
+    <TextView
+        android:id="@+id/tv_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="준비됨"
+        android:textSize="18sp"
+        android:textColor="#E0E0E0"
+        android:layout_marginTop="16dp" />
+
+    <!-- 시작/중지 버튼 -->
+    <Button
+        android:id="@+id/btn_toggle"
+        android:layout_width="200dp"
+        android:layout_height="56dp"
+        android:text="시작"
+        android:textSize="18sp"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="#4CAF50" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#333333"
+        android:layout_marginVertical="24dp" />
+
+    <!-- 통계 -->
+    <TextView
+        android:id="@+id/tv_stats"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="13sp"
+        android:textColor="#AAAAAA"
+        android:fontFamily="monospace"
+        android:lineSpacingExtra="4dp" />
+
+</LinearLayout>

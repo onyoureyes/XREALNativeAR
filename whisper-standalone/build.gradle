@@ -7,6 +7,18 @@ android {
     namespace 'com.xreal.whisper'
     compileSdk 34
 
+    // ★ jniLibs: sherpa-onnx / whisper.cpp Android NDK .so 파일 배치 경로
+    // whisper-standalone/src/main/jniLibs/arm64-v8a/ 에 .so 파일 복사하면 자동 패키징됨.
+    // sherpa-onnx: libonnxruntime.so + libsherpa-onnx-jni.so
+    //   → https://github.com/k2-fsa/sherpa-onnx/releases/download/v1.12.28/sherpa-onnx-v1.12.28-android.tar.bz2
+    // whisper.cpp: libggml.so + libggml-base.so + libggml-cpu.so + libwhisper.so
+    //   → https://github.com/ggml-org/whisper.cpp (NDK 직접 빌드 필요)
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['src/main/jniLibs']
+        }
+    }
+
     defaultConfig {
         minSdk 26
         targetSdk 34
@@ -30,6 +42,9 @@ android {
 
     kotlinOptions {
         jvmTarget = '17'
+        // ★ Phase W: whisper-jni:1.7.1은 Kotlin 2.2.0으로 컴파일됨 → 1.9.0 컴파일러 메타데이터 경고 우회
+        // app/build.gradle과 동일한 패턴 (LiteRT-LM 대응용으로 이미 검증됨)
+        freeCompilerArgs += ['-Xskip-metadata-version-check']
     }
 }
 
@@ -57,4 +72,36 @@ dependencies {
 
     // Unified AI Engine Interface
     implementation project(':ai-common')
+
+    // ★ 멀티백엔드 ASR (Phase W)
+
+    // [A] whisper.cpp JNI API (Java wrapper만 사용 — Android .so 별도 필요)
+    // ⚠️  whisper-jni:1.7.1 JAR 내장 .so는 Linux GLIBC 전용 → Android에서 작동 안 함.
+    //    Android에서 작동하려면:
+    //    1. whisper.cpp Android NDK 빌드 (https://github.com/ggml-org/whisper.cpp/examples/whisper.android)
+    //    2. libggml.so + libggml-base.so + libggml-cpu.so + libwhisper.so
+    //       → whisper-standalone/src/main/jniLibs/arm64-v8a/ 에 복사
+    //    3. models/ 에 ggml-*.bin 배치 (예: ggml-base-q5_1.bin 57MB)
+    implementation 'io.github.givimad:whisper-jni:1.7.1'
+
+    // [B] sherpa-onnx Korean+English ASR (SenseVoice int8, 226MB)
+    // ⚠️  sherpa-onnx .so 파일 필요 (Bionic arm64, ~18MB):
+    //    1. https://github.com/k2-fsa/sherpa-onnx/releases/download/v1.12.28/sherpa-onnx-v1.12.28-android.tar.bz2
+    //    2. 압축 해제 → jniLibs/arm64-v8a/libonnxruntime.so + libsherpa-onnx-jni.so 복사
+    //    3. models/ 에 sherpa-onnx-sense-voice-zh-en-ja-ko-yue-int8-*/ 디렉터리 배치
+    //    4. AAR가 있으면 아래 주석 해제 (리플렉션 없이 compile-time 안전):
+    // implementation fileTree(dir: 'libs', include: ['*.aar'])
+
+    // [C] VAD: Silero VAD ONNX (~2MB 내장) — 깨진 silero_vad.tflite 교체 완료
+    // ★ onnxruntime-android 제외: Silero가 끌고 오는 1.22.0은 sherpa-onnx 1.12.28과 호환 안 됨
+    //   (OrtGetApiBase 심볼 불일치 → NoClassDefFoundError)
+    //   sherpa-onnx jniLibs의 libonnxruntime.so (1.23.x 호환)만 사용
+    implementation('com.github.gkonovalov.android-vad:silero:2.0.10') {
+        exclude group: 'com.microsoft.onnxruntime', module: 'onnxruntime-android'
+    }
+    // ★ onnxruntime Java API — compileOnly: 컴파일만 허용, APK에 미포함
+    //   sherpa-onnx 패치 libonnxruntime.so(VERS_1.17.1)와 Maven libonnxruntime4j_jni.so(VERS_1.23.2) 심볼 버전 충돌
+    //   → Maven .so 제외, Silero VAD는 에너지 기반 폴백으로 동작
+    //   → SenseVoice/Speaker는 sherpa-onnx 패치 libonnxruntime.so로 정상 동작
+    compileOnly 'com.microsoft.onnxruntime:onnxruntime-android:1.22.0'
 }

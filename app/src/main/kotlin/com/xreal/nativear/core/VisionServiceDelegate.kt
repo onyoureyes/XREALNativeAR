@@ -32,4 +32,16 @@ class VisionServiceDelegate(
     override fun setDetectionEnabled(enabled: Boolean) {
         getVisionManager()?.setDetectionEnabled(enabled)
     }
+
+    override fun setHandTrackingEnabled(enabled: Boolean) {
+        getVisionManager()?.setHandTrackingEnabled(enabled)
+    }
+
+    override fun translate(text: String, onResult: (String) -> Unit) {
+        getVisionManager()?.translate(text, onResult)
+    }
+
+    override fun getLatestBitmap(): android.graphics.Bitmap? {
+        return getVisionManager()?.getLatestBitmap()
+    }
 }

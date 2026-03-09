@@ -24,12 +24,15 @@ android {
 
 dependencies {
     implementation 'androidx.core:core-ktx:1.12.0'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1'
 
-    // TFLite Path A Strategy (Unified for all modules)
-    implementation "org.tensorflow:tensorflow-lite:2.16.1"
-    implementation "org.tensorflow:tensorflow-lite-gpu-api:2.16.1"
-    implementation "com.google.android.gms:play-services-tflite-java:16.4.0"
-    implementation "com.google.android.gms:play-services-tflite-gpu:16.4.0"
-    implementation "com.google.android.gms:play-services-tflite-acceleration-service:16.0.0-beta01"
+    // LiteRT (formerly TFLite) — V1 drop-in, same Interpreter API
+    implementation 'com.google.ai.edge.litert:litert:1.4.0'
+    implementation 'com.google.ai.edge.litert:litert-gpu:1.4.0'
+
+    // QNN LiteRT Delegate v2.34.0 — Hexagon NPU (NNAPI Android 15 deprecated 대체)
+    // RESEARCH.md §3 참조: HTP_BACKEND + skelLibraryDir 필수
+    // UnifiedAIOrchestrator는 리플렉션으로 접근 → 런타임 graceful degradation
+    // implementation 'com.qualcomm.qti:qnn-litert-delegate:2.34.0'  // TODO: Qualcomm repo 설정 후 활성화
+    // implementation 'com.qualcomm.qti:qnn-runtime:2.34.0'  // TODO: Qualcomm repo 설정 후 활성화
 }

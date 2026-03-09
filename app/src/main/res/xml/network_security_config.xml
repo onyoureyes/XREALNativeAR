@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <!-- Tailscale VPN (100.x.x.x) + LAN HTTP 허용 -->
+    <domain-config cleartextTrafficPermitted="true">
+        <!-- PC 서버 (데스크톱) -->
+        <domain includeSubdomains="true">100.101.127.124</domain>
+        <!-- 스팀덱 LLM -->
+        <domain includeSubdomains="true">100.98.177.14</domain>
+        <!-- Fold 3 릴레이 -->
+        <domain includeSubdomains="true">100.92.243.78</domain>
+        <!-- PC 웹캠 -->
+        <domain includeSubdomains="true">100.64.88.46</domain>
+        <!-- STT 서버 (RX570 PC) -->
+        <domain includeSubdomains="true">100.121.84.80</domain>
+        <!-- LAN 대역 -->
+        <domain includeSubdomains="true">192.168.0.0</domain>
+        <domain includeSubdomains="true">10.0.0.0</domain>
+    </domain-config>
+</network-security-config>
