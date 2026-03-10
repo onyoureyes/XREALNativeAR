@@ -33,6 +33,11 @@ from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field
 import uvicorn
 
+from mem0_service import Mem0Service
+from prediction_engine import DigitalTwinPredictor
+from episode_store import EpisodeStore
+from semantic_card_store import SemanticCardStore
+
 # ─── Config ───
 
 VISION_URL = os.getenv("VISION_URL", "http://127.0.0.1:8080")
@@ -50,10 +55,44 @@ log = logging.getLogger("orchestrator")
 
 http_client: httpx.AsyncClient = None
 
+mem0_svc: Mem0Service = None
+predictor: DigitalTwinPredictor = None
+episode_db: EpisodeStore = None
+card_store: SemanticCardStore = None
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    global http_client
+    global http_client, mem0_svc
     http_client = httpx.AsyncClient(timeout=httpx.Timeout(60.0, connect=5.0))
+
+    # Mem0 초기화 (실패해도 서버는 기동 — 나중에 재시도 가능)
+    try:
+        mem0_svc = Mem0Service()
+        log.info("Mem0 서비스 초기화 완료")
+    except Exception as e:
+        log.warning(f"Mem0 초기화 실패 (서버는 계속 가동): {e}")
+
+    # 예측 엔진 초기화
+    try:
+        predictor = DigitalTwinPredictor()
+        log.info("예측 엔진 초기화 완료")
+    except Exception as e:
+        log.warning(f"예측 엔진 초기화 실패: {e}")
+
+    # 에피소드 영속 저장소 초기화 (L2)
+    try:
+        episode_db = EpisodeStore()
+        log.info(f"에피소드 DB 초기화 완료 (기존 {episode_db.count()}건)")
+    except Exception as e:
+        log.warning(f"에피소드 DB 초기화 실패: {e}")
+
+    # 시맨틱 카드 저장소 초기화 (L3)
+    try:
+        card_store = SemanticCardStore()
+        log.info(f"시맨틱 카드 초기화 완료 (기존 {card_store.count()}장)")
+    except Exception as e:
+        log.warning(f"시맨틱 카드 초기화 실패: {e}")
+
     log.info(f"Orchestrator starting on {HOST}:{PORT}")
     log.info(f"  Vision:  {VISION_URL}")
     log.info(f"  Speech:  {SPEECH_STT_URL}")
@@ -104,6 +143,47 @@ class EpisodeEvent(BaseModel):
     timestamp: float = Field(default_factory=time.time)
     metadata: Optional[dict] = None
 
+class Mem0AddRequest(BaseModel):
+    """Mem0에 사실/관찰 추가"""
+    content: str
+    user_id: str = "teacher"
+    event_type: str = "observation"  # vision, speech, sensor, interaction, reflection
+    extra_context: str = ""
+
+class Mem0SearchRequest(BaseModel):
+    """Mem0 시맨틱 검색"""
+    query: str
+    user_id: str = "teacher"
+    limit: int = 5
+
+class CardAddRequest(BaseModel):
+    """시맨틱 카드 추가"""
+    card_id: Optional[str] = None  # 미지정 시 자동 생성
+    content: str
+    event_type: str = "observation"
+    user_id: str = "teacher"
+    person: Optional[str] = None
+    location: Optional[str] = None
+    emotion: Optional[str] = None  # positive, negative, neutral, mixed
+    tags: Optional[list[str]] = None
+    metadata: Optional[dict] = None
+
+class CardSearchRequest(BaseModel):
+    """시맨틱 카드 하이브리드 검색"""
+    query: str
+    n_results: int = 10
+    event_type: Optional[str] = None
+    user_id: Optional[str] = None
+    person: Optional[str] = None
+    location: Optional[str] = None
+    emotion: Optional[str] = None
+    date: Optional[str] = None  # YYYY-MM-DD
+    date_from: Optional[str] = None
+    date_to: Optional[str] = None
+    hour_min: Optional[int] = None  # 0-23
+    hour_max: Optional[int] = None
+    has_tag: Optional[str] = None
+
 class HealthResponse(BaseModel):
     status: str
     uptime_seconds: float
@@ -128,6 +208,11 @@ async def health():
             services[name] = "ok" if r.status_code == 200 else f"error:{r.status_code}"
         except Exception as e:
             services[name] = f"unreachable:{type(e).__name__}"
+
+    services["mem0"] = "ok" if mem0_svc is not None else "not_initialized"
+    services["predictor"] = "ok" if predictor is not None else "not_initialized"
+    services["episode_db"] = f"ok ({episode_db.count()} episodes)" if episode_db is not None else "not_initialized"
+    services["card_store"] = f"ok ({card_store.count()} cards)" if card_store is not None else "not_initialized"
 
     return HealthResponse(
         status="ok",
@@ -273,14 +358,430 @@ async def get_context_summary():
     }
 
 
+# ─── Mem0 Endpoints ───
+
+@app.post("/v1/mem0/add")
+async def mem0_add(req: Mem0AddRequest):
+    """Mem0에 사실 추가 → A.U.D.N. 자동 수행"""
+    if mem0_svc is None:
+        raise HTTPException(503, "Mem0 서비스 미초기화")
+    result = mem0_svc.add_episode(
+        event_type=req.event_type,
+        content=req.content,
+        user_id=req.user_id,
+        extra_context=req.extra_context,
+    )
+    return result
+
+
+@app.post("/v1/mem0/search")
+async def mem0_search(req: Mem0SearchRequest):
+    """Mem0 시맨틱 검색"""
+    if mem0_svc is None:
+        raise HTTPException(503, "Mem0 서비스 미초기화")
+    results = mem0_svc.search(
+        query=req.query,
+        user_id=req.user_id,
+        limit=req.limit,
+    )
+    return {"results": results, "count": len(results)}
+
+
+@app.get("/v1/mem0/all")
+async def mem0_get_all(user_id: str = "teacher"):
+    """Mem0 전체 기억 조회"""
+    if mem0_svc is None:
+        raise HTTPException(503, "Mem0 서비스 미초기화")
+    results = mem0_svc.get_all(user_id=user_id)
+    return {"results": results, "count": len(results)}
+
+
+@app.delete("/v1/mem0/{memory_id}")
+async def mem0_delete(memory_id: str):
+    """Mem0 특정 기억 삭제"""
+    if mem0_svc is None:
+        raise HTTPException(503, "Mem0 서비스 미초기화")
+    ok = mem0_svc.delete(memory_id)
+    return {"deleted": ok, "memory_id": memory_id}
+
+
+@app.get("/v1/mem0/context")
+async def mem0_context(situation: str = "", user_id: str = "teacher", limit: int = 10):
+    """이야기꾼용 컨텍스트 — 현재 상황 관련 기억 요약"""
+    if mem0_svc is None:
+        raise HTTPException(503, "Mem0 서비스 미초기화")
+    context = mem0_svc.get_context_for_storyteller(
+        situation=situation, user_id=user_id, limit=limit
+    )
+    return {"context": context, "situation": situation}
+
+
+@app.get("/v1/episode/history")
+async def get_episode_history(date: str = None, limit: int = 50):
+    """에피소드 이력 조회 (L2 SQLite, 서버 재시작 후에도 유지)"""
+    if episode_db is None:
+        raise HTTPException(503, "에피소드 DB 미초기화")
+    if date:
+        episodes = episode_db.get_by_date(date)
+    else:
+        episodes = episode_db.get_recent(limit)
+    return {"episodes": episodes, "count": len(episodes)}
+
+
+@app.get("/v1/episode/stats")
+async def get_episode_stats(days: int = 7):
+    """에피소드 일별 통계"""
+    if episode_db is None:
+        raise HTTPException(503, "에피소드 DB 미초기화")
+    return {"stats": episode_db.get_daily_stats(days), "total": episode_db.count()}
+
+
+@app.post("/v1/episode/flush-to-mem0")
+async def flush_episodes_to_mem0(limit: int = 10):
+    """최근 에피소드를 Mem0에 일괄 저장 (L1 → L3 플러시)"""
+    if mem0_svc is None:
+        raise HTTPException(503, "Mem0 서비스 미초기화")
+
+    recent = episode_buffer[-limit:]
+    results = []
+    for ep in recent:
+        r = mem0_svc.add_episode(
+            event_type=ep.event_type,
+            content=ep.content,
+            extra_context=json.dumps(ep.metadata) if ep.metadata else "",
+        )
+        results.append({
+            "event_type": ep.event_type,
+            "facts_extracted": len(r.get("results", [])),
+        })
+
+    return {"flushed": len(results), "details": results}
+
+
+# ─── Prediction Endpoints ───
+
+@app.get("/v1/predict/daily")
+async def predict_daily():
+    """일일 예측 (회복, 부상위험, 수면, 최적페이스)"""
+    if predictor is None:
+        raise HTTPException(503, "예측 엔진 미초기화")
+    return predictor.build_daily_predictions()
+
+
+@app.get("/v1/predict/weekly-profile")
+async def predict_weekly():
+    """주간 디지털트윈 프로파일"""
+    if predictor is None:
+        raise HTTPException(503, "예측 엔진 미초기화")
+    return predictor.build_weekly_profile()
+
+
+@app.get("/v1/predict/optimal-pace")
+async def predict_pace(distance_km: float = 5.0):
+    """목표 거리별 최적 페이스"""
+    if predictor is None:
+        raise HTTPException(503, "예측 엔진 미초기화")
+    return predictor.predict_optimal_pace(distance_km)
+
+
+# ─── Semantic Card Endpoints (L3 하이브리드 검색) ───
+
+@app.post("/v1/cards/add")
+async def card_add(req: CardAddRequest):
+    """시맨틱 카드 추가"""
+    if card_store is None:
+        raise HTTPException(503, "시맨틱 카드 스토어 미초기화")
+    card_id = req.card_id or f"card_{int(time.time() * 1000)}"
+    result_id = card_store.add_card(
+        card_id=card_id,
+        content=req.content,
+        event_type=req.event_type,
+        user_id=req.user_id,
+        person=req.person,
+        location=req.location,
+        emotion=req.emotion,
+        tags=req.tags,
+        extra_metadata=req.metadata,
+    )
+    return {"card_id": result_id, "total_cards": card_store.count()}
+
+
+@app.post("/v1/cards/search")
+async def card_search(req: CardSearchRequest):
+    """시맨틱 카드 하이브리드 검색 (벡터 유사도 + 메타데이터 필터)"""
+    if card_store is None:
+        raise HTTPException(503, "시맨틱 카드 스토어 미초기화")
+    results = card_store.search(
+        query=req.query,
+        n_results=req.n_results,
+        event_type=req.event_type,
+        user_id=req.user_id,
+        person=req.person,
+        location=req.location,
+        emotion=req.emotion,
+        date=req.date,
+        date_from=req.date_from,
+        date_to=req.date_to,
+        hour_min=req.hour_min,
+        hour_max=req.hour_max,
+        has_tag=req.has_tag,
+    )
+    return {"results": results, "count": len(results)}
+
+
+@app.get("/v1/cards/{card_id}")
+async def card_get(card_id: str):
+    """특정 시맨틱 카드 조회"""
+    if card_store is None:
+        raise HTTPException(503, "시맨틱 카드 스토어 미초기화")
+    card = card_store.get_card(card_id)
+    if card is None:
+        raise HTTPException(404, f"카드 없음: {card_id}")
+    return card
+
+
+@app.delete("/v1/cards/{card_id}")
+async def card_delete(card_id: str):
+    """시맨틱 카드 삭제"""
+    if card_store is None:
+        raise HTTPException(503, "시맨틱 카드 스토어 미초기화")
+    ok = card_store.delete_card(card_id)
+    return {"deleted": ok, "card_id": card_id}
+
+
+@app.get("/v1/cards/stats/overview")
+async def card_stats():
+    """시맨틱 카드 통계"""
+    if card_store is None:
+        raise HTTPException(503, "시맨틱 카드 스토어 미초기화")
+    return card_store.get_stats()
+
+
+@app.post("/v1/cards/ingest-episodes")
+async def card_ingest_episodes(limit: int = 20):
+    """최근 에피소드를 시맨틱 카드로 일괄 변환"""
+    if card_store is None:
+        raise HTTPException(503, "시맨틱 카드 스토어 미초기화")
+
+    recent = episode_buffer[-limit:]
+    ingested = 0
+    for ep in recent:
+        ep_dict = ep.model_dump()
+        try:
+            card_store.add_episode_as_card(ep_dict)
+            ingested += 1
+        except Exception as e:
+            log.warning(f"카드 변환 실패: {e}")
+
+    return {"ingested": ingested, "total_cards": card_store.count()}
+
+
+# ─── Mining Trigger Endpoints ───
+
+@app.post("/v1/mining/topic")
+async def trigger_topic_mining():
+    """BERTopic 토픽 마이닝 수동 트리거 (보통 주간 자동)"""
+    import subprocess
+    import sys
+    proc = subprocess.Popen(
+        [sys.executable, "topic_miner.py"],
+        stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+    )
+    return {"status": "started", "pid": proc.pid, "schedule": "weekly (Sun 04:00)"}
+
+
+@app.post("/v1/mining/timeseries")
+async def trigger_timeseries_mining():
+    """STUMPY 시계열 마이닝 수동 트리거 (보통 일일 자동)"""
+    import subprocess
+    import sys
+    proc = subprocess.Popen(
+        [sys.executable, "timeseries_miner.py"],
+        stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+    )
+    return {"status": "started", "pid": proc.pid, "schedule": "daily (04:30)"}
+
+
+@app.post("/v1/mining/knowledge-graph")
+async def trigger_kg_build():
+    """Graphiti 지식 그래프 구축 수동 트리거 (보통 월간 자동)"""
+    import subprocess
+    import sys
+    proc = subprocess.Popen(
+        [sys.executable, "knowledge_graph.py"],
+        stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+    )
+    return {"status": "started", "pid": proc.pid, "schedule": "monthly (1st 05:00)"}
+
+
+@app.post("/v1/mining/reflection")
+async def trigger_reflection():
+    """야간 반성 수동 트리거 (보통 매일 새벽 3시 자동)"""
+    import subprocess
+    import sys
+    proc = subprocess.Popen(
+        [sys.executable, "nightly_reflection.py"],
+        stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+    )
+    return {"status": "started", "pid": proc.pid, "schedule": "daily (03:00)"}
+
+
+@app.post("/v1/mining/forecast")
+async def trigger_forecast():
+    """예측 엔진 수동 트리거 (보통 매일 새벽 5시 자동)"""
+    import subprocess
+    import sys
+    proc = subprocess.Popen(
+        [sys.executable, "forecast_engine.py"],
+        stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+    )
+    return {"status": "started", "pid": proc.pid, "schedule": "daily (05:00)"}
+
+
+@app.get("/v1/predict/forecast")
+async def get_forecast():
+    """최신 행동 예측 리포트 조회 (NeuralProphet + TFT)"""
+    from pathlib import Path
+    forecast_dir = Path("data/forecasts")
+    if not forecast_dir.exists():
+        raise HTTPException(404, "예측 리포트 없음")
+
+    # 최신 파일
+    files = sorted(forecast_dir.glob("forecast_*.json"), reverse=True)
+    if not files:
+        raise HTTPException(404, "예측 리포트 없음")
+
+    report = json.loads(files[0].read_text(encoding="utf-8"))
+    return report
+
+
+@app.get("/v1/storyteller/context")
+async def get_storyteller_context():
+    """이야기꾼용 통합 컨텍스트 — 모든 마이닝/예측 결과를 하나로 합침
+
+    이 엔드포인트는 이야기꾼이 사용자와 대화할 때 참조할 배경 지식을 제공.
+    순서: 최근 에피소드 → Mem0 기억 → 예측 → 마이닝 인사이트 → 브리핑
+    """
+    from pathlib import Path
+    context = {
+        "generated_at": datetime.now().isoformat(),
+        "sections": {},
+    }
+
+    # 1. 최근 에피소드 요약 (L1)
+    recent = episode_buffer[-10:] if episode_buffer else []
+    if recent:
+        context["sections"]["recent_episodes"] = [
+            {"time": datetime.fromtimestamp(e.timestamp).strftime("%H:%M"),
+             "type": e.event_type, "content": e.content[:200]}
+            for e in recent
+        ]
+
+    # 2. Mem0 관련 기억 (L3)
+    if mem0_svc:
+        try:
+            memories = mem0_svc.search("오늘 중요한 일", user_id="teacher", limit=5)
+            context["sections"]["relevant_memories"] = memories
+        except Exception as e:
+            log.warning(f"Mem0 검색 실패: {e}")
+
+    # 3. 최신 행동 예측
+    try:
+        forecast_dir = Path("data/forecasts")
+        files = sorted(forecast_dir.glob("forecast_*.json"), reverse=True)
+        if files:
+            forecast = json.loads(files[0].read_text(encoding="utf-8"))
+            context["sections"]["forecast"] = {
+                "insights": forecast.get("insights", []),
+                "model": forecast.get("activity_forecast", {}).get("model", "unknown"),
+            }
+    except Exception as e:
+        log.warning(f"예측 로드 실패: {e}")
+
+    # 4. 최신 마이닝 인사이트 (토픽, 시계열, 지식그래프)
+    for name, pattern in [
+        ("topic_insights", "data/topic_reports/topic_report_*.json"),
+        ("timeseries_insights", "data/timeseries_reports/timeseries_*.json"),
+        ("kg_insights", "data/kg_reports/kg_report_*.json"),
+    ]:
+        try:
+            files = sorted(Path(".").glob(pattern), reverse=True)
+            if files:
+                report = json.loads(files[0].read_text(encoding="utf-8"))
+                context["sections"][name] = report.get("insights", [])
+        except Exception as e:
+            log.warning(f"{name} 로드 실패: {e}")
+
+    # 5. 최신 아침 브리핑
+    try:
+        briefing_dir = Path("data/briefings")
+        files = sorted(briefing_dir.glob("briefing_*.md"), reverse=True)
+        if files:
+            context["sections"]["morning_briefing"] = files[0].read_text(encoding="utf-8")[:2000]
+    except Exception as e:
+        log.warning(f"브리핑 로드 실패: {e}")
+
+    # 6. 디지털 트윈 예측 (기존 prediction_engine)
+    if predictor:
+        try:
+            daily = predictor.predict_daily()
+            context["sections"]["digital_twin"] = {
+                "recovery": daily.get("recovery_pct"),
+                "optimal_pace": daily.get("optimal_pace"),
+                "training_load": daily.get("training_load"),
+            }
+        except Exception:
+            pass
+
+    return context
+
+
+@app.post("/v1/mining/run-all")
+async def trigger_all_mining():
+    """모든 마이닝 배치를 순차적으로 실행 (테스트/수동 트리거용)"""
+    import subprocess
+    import sys
+
+    results = {}
+    scripts = [
+        ("reflection", "nightly_reflection.py"),
+        ("topic", "topic_miner.py"),
+        ("timeseries", "timeseries_miner.py"),
+        ("forecast", "forecast_engine.py"),
+    ]
+
+    for name, script in scripts:
+        try:
+            proc = subprocess.Popen(
+                [sys.executable, script],
+                stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+            )
+            results[name] = {"status": "started", "pid": proc.pid}
+        except Exception as e:
+            results[name] = {"status": "error", "error": str(e)}
+
+    return {"status": "all_started", "jobs": results}
+
+
 # ─── Internal ───
 
 def _add_episode(event: EpisodeEvent):
-    """에피소드 버퍼에 추가 (L1 워킹 메모리)"""
+    """에피소드 버퍼에 추가 (L1 워킹 메모리) + L2 영속 저장"""
     episode_buffer.append(event)
     if len(episode_buffer) > MAX_EPISODE_BUFFER:
-        # 오래된 것부터 제거 (나중에 L2로 flush 추가)
         episode_buffer.pop(0)
+
+    # L2 영속 저장 (SQLite)
+    if episode_db is not None:
+        try:
+            episode_db.save(
+                event_type=event.event_type,
+                content=event.content,
+                timestamp=event.timestamp,
+                metadata=event.metadata,
+            )
+        except Exception as e:
+            log.warning(f"에피소드 L2 저장 실패: {e}")
 
 
 def _build_context_summary(events: list[EpisodeEvent]) -> str:
