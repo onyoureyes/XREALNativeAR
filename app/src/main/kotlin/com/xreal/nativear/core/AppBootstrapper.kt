@@ -515,6 +515,14 @@ class AppBootstrapper(
             Log.w(TAG, "Situation recognizer not available: ${e.message}")
         }
 
+        // 14b. Action Classifier (skeleton → behavior, ST-GCN + rule-based)
+        try {
+            org.koin.java.KoinJavaComponent.getKoin().getOrNull<com.xreal.nativear.context.ActionClassifier>()?.start()
+            Log.i(TAG, "Action classifier started (10 actions, skeleton sequence → behavior)")
+        } catch (e: Exception) {
+            Log.w(TAG, "Action classifier not available: ${e.message}")
+        }
+
         // 15. Expert Team Manager (Phase 2: auto-activate domain teams on situation change)
         try {
             org.koin.java.KoinJavaComponent.getKoin().getOrNull<com.xreal.nativear.expert.ExpertTeamManager>()?.start()

@@ -99,6 +99,14 @@ sealed class XRealEvent {
         data class FpsUpdated(val fps: Double) : PerceptionEvent()
         data class PoseDetected(val keypoints: List<PoseKeypoint>) : PerceptionEvent()
 
+        // Action classification from skeleton sequence (ST-GCN or rule-based)
+        data class ActionClassified(
+            val action: String,         // e.g. "SITTING", "STANDING", "WALKING", "REACHING"
+            val confidence: Float,      // 0.0-1.0
+            val previousAction: String? = null,
+            val timestamp: Long = System.currentTimeMillis()
+        ) : PerceptionEvent()
+
         // Visual Embedding Event for Image-based lifelog (no bitmap — only embedding data)
         data class VisualEmbedding(
             val embedding: ByteArray,

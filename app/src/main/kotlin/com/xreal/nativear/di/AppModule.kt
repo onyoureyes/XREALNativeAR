@@ -872,7 +872,17 @@ val appModule = module {
             scope = kotlinx.coroutines.CoroutineScope(kotlinx.coroutines.Dispatchers.Default + kotlinx.coroutines.SupervisorJob()),
             userProfileManager = get(),
             aiRegistry = get<com.xreal.nativear.ai.IAICallService>(),
-            storyPhaseController = get<com.xreal.nativear.storyteller.IStoryPhaseGate>()
+            storyPhaseController = get<com.xreal.nativear.storyteller.IStoryPhaseGate>(),
+            database = get()
+        )
+    }
+
+    // --- Action Classifier (ST-GCN + rule-based fallback) ---
+    single {
+        com.xreal.nativear.context.ActionClassifier(
+            eventBus = get(),
+            scope = kotlinx.coroutines.CoroutineScope(kotlinx.coroutines.Dispatchers.Default + kotlinx.coroutines.SupervisorJob()),
+            modelPath = null  // ST-GCN TFLite 모델 경로 — 학습 후 설정
         )
     }
 

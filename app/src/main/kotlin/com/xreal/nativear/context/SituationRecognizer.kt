@@ -28,7 +28,8 @@ class SituationRecognizer(
     private val scope: CoroutineScope,
     private val userProfileManager: com.xreal.nativear.meeting.UserProfileManager? = null,
     private val aiRegistry: com.xreal.nativear.ai.IAICallService? = null,
-    private val storyPhaseController: com.xreal.nativear.storyteller.IStoryPhaseGate? = null
+    private val storyPhaseController: com.xreal.nativear.storyteller.IStoryPhaseGate? = null,
+    private val database: com.xreal.nativear.UnifiedMemoryDatabase? = null
 ) {
     companion object {
         private const val TAG = "SituationRecognizer"
@@ -51,8 +52,17 @@ class SituationRecognizer(
     private val BAYESIAN_WEIGHT: Float get() =
         PolicyReader.getFloat("situation.bayesian_weight", 0.4f)
 
+    // 영속화: N번 업데이트마다 DB 저장
+    private var updatesSinceLastSave = 0
+    private val SAVE_EVERY_N_UPDATES = 10
+    private val DB_DOMAIN = "bayesian_model"
+    private val DB_KEY = "situation_classifier"
+
     fun start() {
         Log.i(TAG, "SituationRecognizer started")
+
+        // DB에서 베이지안 모델 복원
+        loadBayesianModel()
 
         // Fast rule-based classification every 10 seconds
         classifyJob = scope.launch(Dispatchers.Default) {
@@ -130,6 +140,8 @@ class SituationRecognizer(
     fun stop() {
         classifyJob?.cancel()
         deepClassifyJob?.cancel()
+        // 종료 시 베이지안 모델 저장
+        saveBayesianModel()
         Log.i(TAG, "SituationRecognizer stopped")
     }
 
@@ -451,6 +463,11 @@ class SituationRecognizer(
             // 베이지안 모델 온라인 업데이트 (확정된 상황으로 학습)
             try {
                 bayesianClassifier.update(snapshot, newSituation, oldSituation)
+                updatesSinceLastSave++
+                if (updatesSinceLastSave >= SAVE_EVERY_N_UPDATES) {
+                    saveBayesianModel()
+                    updatesSinceLastSave = 0
+                }
             } catch (e: Exception) {
                 Log.w(TAG, "Bayesian update 실패: ${e.message}")
             }
@@ -469,6 +486,28 @@ class SituationRecognizer(
 
             // ★ 상태 머신: 상황 인식 성공 → OBSERVING → NARRATING 전이
             storyPhaseController?.onSituationRecognized()
+        }
+    }
+
+    // ─── 베이지안 모델 영속화 ───
+
+    private fun loadBayesianModel() {
+        try {
+            val record = database?.getStructuredDataExact(DB_DOMAIN, DB_KEY) ?: return
+            bayesianClassifier.deserialize(record.value)
+            Log.i(TAG, "베이지안 모델 DB 복원 완료: ${bayesianClassifier.diagnostics()}")
+        } catch (e: Exception) {
+            Log.w(TAG, "베이지안 모델 로드 실패 (기본값 사용): ${e.message}")
+        }
+    }
+
+    private fun saveBayesianModel() {
+        try {
+            val data = bayesianClassifier.serialize()
+            database?.upsertStructuredData(DB_DOMAIN, DB_KEY, data, "bayesian,situation,model")
+            Log.d(TAG, "베이지안 모델 DB 저장 완료 (${data.length} bytes)")
+        } catch (e: Exception) {
+            Log.w(TAG, "베이지안 모델 저장 실패: ${e.message}")
         }
     }
 
