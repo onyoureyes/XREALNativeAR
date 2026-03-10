@@ -1,4 +1,35 @@
-# Track C 임무: :input 모듈 테스트
+# :input 모듈 — 비전 모델 + 손 추적 + 케이던스
+
+## 모듈 개요
+센서 입력 처리: 비전 모델(YOLO, CenterNet, BlazeFace, HandTracking), 텍스트 임베딩, 적응형 케이던스.
+IAssetLoader를 통해 모델 파일 로딩 (Context 추상화됨).
+
+## 의존 관계
+- 의존: `:core` (IAssetLoader, XRealLogger, PolicyReader)
+- 이 모듈에 의존하는 모듈: `:app`
+
+## 파일 목록
+```
+input/src/main/kotlin/com/xreal/nativear/
+├── AudioEventClassifier.kt    — YAMNet 오디오 이벤트 분류
+├── EmotionClassifier.kt       — FER 감정 분류 (7감정)
+├── FaceDetector.kt            — BlazeFace 얼굴 감지
+├── FaceEmbedder.kt            — MobileFaceNet 얼굴 임베딩
+├── FacialExpressionClassifier.kt — 표정 분류
+├── ImageEmbedder.kt           — MobileNetV3 이미지 임베딩
+├── LiteRTWrapper.kt           — LiteRT/TFLite 래퍼 (GPU delegate 포함)
+├── OCRModel.kt                — ML Kit OCR
+├── PoseEstimationModel.kt     — CenterNet 포즈 추정
+├── TextEmbedder.kt            — MediaPipe 텍스트 임베딩 (USE)
+├── cadence/CadenceConfig.kt   — 적응형 케이던스 간격 설정
+└── hand/
+    ├── HandGestureRecognizer.kt — 제스처 인식 (PINCH, POINT 등)
+    └── HandTrackingModel.kt     — 손 감지 + 랜드마크 (21포인트)
+```
+
+---
+
+# 테스트 임무
 
 ## 너의 역할
 :input 모듈의 단위 테스트를 작성하는 테스트 엔지니어.
@@ -101,7 +132,7 @@ class HandGestureRecognizerTest {
 
 ## 빌드 & 실행
 ```bash
-JAVA_HOME="F:/AndroidAndroid Studio/jbr" ./gradlew :input:test
+./gradlew :input:test
 ```
 
 ## 완료 기준

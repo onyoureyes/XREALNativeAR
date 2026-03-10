@@ -1,4 +1,32 @@
-# Track B 임무: :core 모듈 테스트
+# :core 모듈 — 이벤트버스 + 정책 인프라
+
+## 모듈 개요
+시스템 전체의 신경계. 모든 모듈 간 통신(GlobalEventBus)과 정책 읽기(PolicyReader)를 담당.
+Coroutines + Koin 사용.
+
+## 의존 관계
+- 의존: `:core-models`
+- 이 모듈에 의존하는 모듈: `:input`, `:output`, `:spatial`, `:app`
+
+## 파일 목록
+```
+core/src/main/kotlin/com/xreal/nativear/
+├── core/
+│   ├── GlobalEventBus.kt       — MutableSharedFlow<XRealEvent> (replay=0, buffer=64)
+│   ├── XRealEvent.kt           — sealed class: InputEvent, PerceptionEvent, SystemEvent, ActionRequest
+│   ├── ErrorReporter.kt        — 에러 → EventBus 전파 유틸
+│   ├── ExecutionFlowMonitor.kt — 실행 흐름 추적 (시작/종료/타임아웃)
+│   ├── SequenceTracer.kt       — 이벤트 시퀀스 기록
+│   ├── IAssetLoader.kt         — 에셋 로딩 인터페이스 (Context 추상화)
+│   └── XRealLogger.kt          — 플랫폼 독립 로거 (테스트: println, 앱: android.util.Log)
+└── policy/
+    ├── IPolicyStore.kt         — 정책 저장소 인터페이스
+    └── PolicyReader.kt         — 정책 읽기 (Koin 미초기화 시 fallback 보장)
+```
+
+---
+
+# 테스트 임무
 
 ## 너의 역할
 :core 모듈의 단위 테스트를 작성하는 테스트 엔지니어.
@@ -120,7 +148,7 @@ class GlobalEventBusTest {
 
 ## 빌드 & 실행
 ```bash
-JAVA_HOME="F:/AndroidAndroid Studio/jbr" ./gradlew :core:test
+./gradlew :core:test
 ```
 
 ## 완료 기준

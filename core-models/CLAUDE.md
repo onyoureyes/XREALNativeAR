@@ -1,4 +1,33 @@
-# Track A 임무: :core-models 모듈 테스트
+# :core-models 모듈 — 순수 데이터 타입
+
+## 모듈 개요
+시스템 전체에서 공유하는 순수 데이터 타입(data class, enum, sealed class) 모듈.
+Android 의존성 없음. 가장 기초적인 계층.
+
+## 의존 관계
+- 의존: 없음 (최하위 계층)
+- 이 모듈에 의존하는 모듈: `:core`, `:autonomy`, `:input`, `:output`, `:spatial`, `:app`
+
+## 파일 목록
+```
+core-models/src/main/kotlin/com/xreal/nativear/
+├── Detection.kt              — 객체 감지 (label, confidence, bbox)
+├── DrawElement.kt            — HUD 드로잉 요소 + DrawCommand (퍼센트 좌표계)
+├── FaceInfo.kt               — 얼굴 정보 (embedding, emotion, bbox)
+├── OcrResult.kt              — OCR 결과 (text, bbox)
+├── PoseKeypoint.kt           — 포즈 키포인트 (17개, CenterNet)
+├── ai/AIProviderTypes.kt     — ProviderId, AIMessage, AIResponse, AIToolCall, TokenUsage
+├── context/LifeSituation.kt  — 상황 인식 enum (IDLE, WALKING, RUNNING, MEETING 등)
+├── hand/HandData.kt          — 손 데이터 (landmarks, gesture)
+├── learning/OutcomeTypes.kt  — InterventionOutcome, StrategyRecord, OutcomeStats
+├── policy/PolicyTypes.kt     — PolicyEntry, PolicyCategory, PolicyValueType
+├── policy/PolicyDefaults.kt  — 전체 정책 기본값 레지스트리
+└── spatial/SpatialTypes.kt   — AnchorType, AnchorLabel2D
+```
+
+---
+
+# 테스트 임무
 
 ## 너의 역할
 :core-models 모듈의 단위 테스트를 작성하는 테스트 엔지니어.
@@ -80,7 +109,7 @@ class DetectionTest {
 
 ## 빌드 & 실행
 ```bash
-JAVA_HOME="F:/AndroidAndroid Studio/jbr" ./gradlew :core-models:test
+./gradlew :core-models:test
 ```
 
 ## 완료 기준

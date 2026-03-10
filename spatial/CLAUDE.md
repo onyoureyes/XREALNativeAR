@@ -1,4 +1,36 @@
-# Track E 임무: :spatial 모듈 테스트
+# :spatial 모듈 — 3D 공간 앵커 + 경로 + 드리프트 보정
+
+## 모듈 개요
+AR 공간 계층: 공간 앵커 관리, 경로 추적, 드리프트 보정, 장소 인식, 시각적 루프 클로저.
+핵심은 수학 로직(행렬 연산, 좌표 변환, 거리 계산).
+
+## 의존 관계
+- 의존: `:core` (GlobalEventBus, XRealEvent), `:input` (CadenceConfig)
+- 이 모듈에 의존하는 모듈: `:app`
+
+## 파일 목록
+```
+spatial/src/main/kotlin/com/xreal/nativear/spatial/
+├── AnchorPersistence.kt       — 앵커 저장/로딩 (ISpatialDatabase)
+├── CameraModel.kt             — 카메라 내부 파라미터 + 투영
+├── DepthPriors.kt             — 깊이 사전 추정
+├── DriftCorrection.kt         — 드리프트 보정 알고리즘
+├── DriftCorrectionManager.kt  — 드리프트 보정 매니저
+├── ISpatialDatabase.kt        — 공간 DB 인터페이스 (app에서 구현)
+├── MagneticHeadingProvider.kt — 자기 방향 제공
+├── PathTracker.kt             — 이동 경로 추적
+├── PlaceRecognitionManager.kt — 장소 인식
+├── PlaceSignature.kt          — 장소 시그니처 DTO
+├── PoseTransform.kt           — 포즈 변환 (4x4 행렬)
+├── SpatialAnchor.kt           — 공간 앵커 DTO
+├── SpatialAnchorManager.kt    — 앵커 CRUD 매니저
+├── SpatialUIManager.kt        — 공간 UI 렌더링
+└── VisualLoopCloser.kt        — 시각적 루프 클로저
+```
+
+---
+
+# 테스트 임무
 
 ## 너의 역할
 :spatial 모듈의 단위 테스트를 작성하는 테스트 엔지니어.
@@ -138,7 +170,7 @@ class PoseTransformTest {
 
 ## 빌드 & 실행
 ```bash
-JAVA_HOME="F:/AndroidAndroid Studio/jbr" ./gradlew :spatial:test
+./gradlew :spatial:test
 ```
 
 ## 완료 기준

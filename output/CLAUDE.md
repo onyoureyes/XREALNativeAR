@@ -1,4 +1,36 @@
-# Track D 임무: :output 모듈 테스트
+# :output 모듈 — HUD + 렌더러 + 물리 엔진
+
+## 모듈 개요
+AR 출력 계층: HUD 템플릿 엔진, Filament 3D 렌더러, 물리 기반 인터랙션.
+DrawElement/DrawCommand를 받아서 OverlayView(2D)와 Filament(3D)로 렌더링.
+
+## 의존 관계
+- 의존: `:core` (GlobalEventBus, XRealEvent, DrawCommand)
+- 이 모듈에 의존하는 모듈: `:app`
+
+## 파일 목록
+```
+output/src/main/kotlin/com/xreal/nativear/
+├── hud/
+│   ├── HUDMode.kt              — HUD 모드 enum + IHUDWidgetRenderer 인터페이스
+│   ├── HUDModeManager.kt       — 상황별 자동 HUD 모드 전환
+│   └── HUDTemplateEngine.kt    — 위젯 활성화/비활성화 관리
+├── interaction/
+│   ├── HUDPhysicsEngine.kt     — HUD 요소 물리 시뮬레이션 (관성, 충돌)
+│   └── InteractionTypes.kt     — 인터랙션 데이터 타입
+└── renderer/
+    ├── CapsuleMeshGenerator.kt      — 캡슐 메시 생성 (고스트 러너)
+    ├── FilamentRenderer.kt          — Filament 3D 렌더러 (SurfaceView)
+    ├── FilamentSceneManager.kt      — Filament 씬 관리
+    ├── GhostRunnerEntity.kt         — 고스트 러너 3D 엔티티
+    ├── MaterialFactory.kt           — Filament 머티리얼 팩토리
+    ├── PaceColorMapper.kt           — 페이스 → 색상 매핑
+    └── QuaternionMatrixConverter.kt — 쿼터니언 ↔ 행렬 변환
+```
+
+---
+
+# 테스트 임무
 
 ## 너의 역할
 :output 모듈의 단위 테스트를 작성하는 테스트 엔지니어.
@@ -120,7 +152,7 @@ class MockWidgetRenderer : IHUDWidgetRenderer {
 
 ## 빌드 & 실행
 ```bash
-JAVA_HOME="F:/AndroidAndroid Studio/jbr" ./gradlew :output:test
+./gradlew :output:test
 ```
 
 ## 완료 기준
