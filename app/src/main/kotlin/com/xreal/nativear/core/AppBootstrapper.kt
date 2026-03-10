@@ -720,6 +720,14 @@ class AppBootstrapper(
             Log.w(TAG, "PredictionSyncService not available: ${e.message}")
         }
 
+        // 26e. OrchestratorClient — Fold↔PC 양방향 에피소드/컨텍스트 동기화
+        try {
+            org.koin.java.KoinJavaComponent.getKoin().getOrNull<com.xreal.nativear.sync.OrchestratorClient>()?.start()
+            Log.i(TAG, "OrchestratorClient started (episode push + context/forecast pull)")
+        } catch (e: Exception) {
+            Log.w(TAG, "OrchestratorClient not available: ${e.message}")
+        }
+
         // 27. EvolutionBridge — 자가 진화 루프 (에러 수집 + 서버 자동 동기화)
         try {
             org.koin.java.KoinJavaComponent.getKoin().getOrNull<com.xreal.nativear.evolution.EvolutionBridge>()?.start()

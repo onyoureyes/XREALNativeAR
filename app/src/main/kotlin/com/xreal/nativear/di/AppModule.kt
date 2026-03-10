@@ -365,6 +365,11 @@ val appModule = module {
         eventBus = get<GlobalEventBus>(),
         syncConfig = get<com.xreal.nativear.sync.BackupSyncConfig>()
     ) }
+    single { com.xreal.nativear.sync.OrchestratorClient(
+        httpClient = get(),
+        eventBus = get<GlobalEventBus>(),
+        syncConfig = get<com.xreal.nativear.sync.BackupSyncConfig>()
+    ) }
 
     // --- Wear OS Data Receiver ---
     single { com.xreal.nativear.wear.WearDataReceiver(androidContext(), get()) }
