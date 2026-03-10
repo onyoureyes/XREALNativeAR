@@ -1,7 +1,7 @@
 package com.xreal.nativear
 
-import android.content.Context
-import android.util.Log
+import com.xreal.nativear.core.IAssetLoader
+import com.xreal.nativear.core.XRealLogger
 import org.tensorflow.lite.Interpreter
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
@@ -13,7 +13,7 @@ import java.nio.ByteOrder
  *   - [1, 521] class scores (Speech, Music, Traffic, Dog, etc.)
  *   - [1, 1024] audio embedding vector for similarity search
  */
-class AudioEventClassifier(private val context: Context) : com.xreal.ai.IAIModel {
+class AudioEventClassifier(private val assetLoader: IAssetLoader) : com.xreal.ai.IAIModel {
 
     private val TAG = "AudioEventClassifier"
     private val MODEL_FILE = "yamnet.tflite"
@@ -36,23 +36,18 @@ class AudioEventClassifier(private val context: Context) : com.xreal.ai.IAIModel
 
     override suspend fun prepare(options: Interpreter.Options): Boolean {
         return try {
-            val assetFileDescriptor = context.assets.openFd(MODEL_FILE)
-            val inputStream = assetFileDescriptor.createInputStream()
-            val modelBytes = inputStream.readBytes()
-            inputStream.close()
-            val buffer = ByteBuffer.allocateDirect(modelBytes.size).order(ByteOrder.nativeOrder())
-            buffer.put(modelBytes)
+            val buffer = assetLoader.loadModelBuffer(MODEL_FILE)
 
             interpreter = Interpreter(buffer, options)
 
-            labels = context.assets.open(LABELS_FILE).bufferedReader().readLines()
-            Log.i(TAG, "YAMNet loaded: ${labels.size} classes")
+            labels = assetLoader.loadTextAsset(LABELS_FILE).lines().filter { it.isNotBlank() }
+            XRealLogger.impl.i(TAG, "YAMNet loaded: ${labels.size} classes")
 
             isLoaded = true
             isReady = true
             true
         } catch (e: Exception) {
-            Log.e(TAG, "Failed to load YAMNet: ${e.message}", e)
+            XRealLogger.impl.e(TAG, "Failed to load YAMNet: ${e.message}", e)
             false
         }
     }
@@ -85,7 +80,7 @@ class AudioEventClassifier(private val context: Context) : com.xreal.ai.IAIModel
         try {
             interp.runForMultipleInputsOutputs(arrayOf(inputBuffer), outputMap)
         } catch (e: Exception) {
-            Log.e(TAG, "YAMNet inference failed: ${e.message}")
+            XRealLogger.impl.e(TAG, "YAMNet inference failed: ${e.message}")
             return emptyList()
         }
 
@@ -119,7 +114,7 @@ class AudioEventClassifier(private val context: Context) : com.xreal.ai.IAIModel
         try {
             interp.runForMultipleInputsOutputs(arrayOf(inputBuffer), outputMap)
         } catch (e: Exception) {
-            Log.e(TAG, "YAMNet embedding extraction failed: ${e.message}")
+            XRealLogger.impl.e(TAG, "YAMNet embedding extraction failed: ${e.message}")
             return FloatArray(0)
         }
 
@@ -145,7 +140,7 @@ class AudioEventClassifier(private val context: Context) : com.xreal.ai.IAIModel
         try {
             interp.runForMultipleInputsOutputs(arrayOf(inputBuffer), outputMap)
         } catch (e: Exception) {
-            Log.e(TAG, "YAMNet inference failed: ${e.message}")
+            XRealLogger.impl.e(TAG, "YAMNet inference failed: ${e.message}")
             return emptyList<AudioEvent>() to FloatArray(0)
         }
 

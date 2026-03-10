@@ -1,15 +1,14 @@
 package com.xreal.nativear
 
-import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.ColorMatrix
 import android.graphics.ColorMatrixColorFilter
 import android.graphics.Canvas
 import android.graphics.Paint
-import android.util.Log
+import com.xreal.nativear.core.IAssetLoader
+import com.xreal.nativear.core.XRealLogger
 import org.tensorflow.lite.DataType
 import org.tensorflow.lite.Interpreter
-import org.tensorflow.lite.support.common.FileUtil
 import org.tensorflow.lite.support.common.ops.NormalizeOp
 import org.tensorflow.lite.support.image.ImageProcessor
 import org.tensorflow.lite.support.image.TensorImage
@@ -23,7 +22,7 @@ import org.tensorflow.lite.support.image.ops.ResizeOp
  *
  * Labels: angry, disgust, fear, happy, sad, surprise, neutral
  */
-class FacialExpressionClassifier(private val context: Context) : com.xreal.ai.IAIModel {
+class FacialExpressionClassifier(private val assetLoader: IAssetLoader) : com.xreal.ai.IAIModel {
 
     private val TAG = "FERClassifier"
     private val MODEL_FILE = "fer_emotion.tflite"
@@ -44,18 +43,18 @@ class FacialExpressionClassifier(private val context: Context) : com.xreal.ai.IA
         if (isLoaded) return true
 
         return try {
-            val modelBuffer = FileUtil.loadMappedFile(context, MODEL_FILE)
+            val modelBuffer = assetLoader.loadModelBuffer(MODEL_FILE)
             interpreter = Interpreter(modelBuffer, options)
 
             val outputShape = interpreter!!.getOutputTensor(0).shape() // [1, 7]
             outputArray = Array(1) { FloatArray(outputShape[1]) }
 
-            Log.i(TAG, "FER model loaded: ${outputShape[1]} classes")
+            XRealLogger.impl.i(TAG, "FER model loaded: ${outputShape[1]} classes")
             isLoaded = true
             isReady = true
             true
         } catch (e: Exception) {
-            Log.e(TAG, "Failed to load FER model: ${e.message}", e)
+            XRealLogger.impl.e(TAG, "Failed to load FER model: ${e.message}", e)
             false
         }
     }
@@ -93,7 +92,7 @@ class FacialExpressionClassifier(private val context: Context) : com.xreal.ai.IA
 
             return EXPRESSIONS[maxIdx] to scores[maxIdx]
         } catch (e: Exception) {
-            Log.e(TAG, "FER classification failed: ${e.message}")
+            XRealLogger.impl.e(TAG, "FER classification failed: ${e.message}")
             return null
         }
     }

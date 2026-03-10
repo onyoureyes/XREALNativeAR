@@ -1,6 +1,6 @@
 package com.xreal.nativear.renderer
 
-import android.util.Log
+import com.xreal.nativear.core.XRealLogger
 import com.google.android.filament.Engine
 import com.google.android.filament.Material
 import com.google.android.filament.filamat.MaterialBuilder
@@ -11,8 +11,10 @@ import com.google.android.filament.filamat.MaterialPackage
  * Uses filamat-android to compile materials at runtime (no matc tool needed).
  * Materials are compiled once and cached for the Engine lifetime.
  */
-object MaterialFactory {
-    private const val TAG = "MaterialFactory"
+class MaterialFactory {
+    companion object {
+        private const val TAG = "MaterialFactory"
+    }
 
     private var cameraBgMaterial: Material? = null
     private var ghostMaterial: Material? = null
@@ -23,7 +25,7 @@ object MaterialFactory {
         if (!initialized) {
             MaterialBuilder.init()
             initialized = true
-            Log.i(TAG, "MaterialBuilder initialized")
+            XRealLogger.impl.i(TAG, "MaterialBuilder initialized")
         }
     }
 
@@ -31,7 +33,7 @@ object MaterialFactory {
         if (initialized) {
             MaterialBuilder.shutdown()
             initialized = false
-            Log.i(TAG, "MaterialBuilder shutdown")
+            XRealLogger.impl.i(TAG, "MaterialBuilder shutdown")
         }
     }
 
@@ -76,9 +78,9 @@ object MaterialFactory {
             cameraBgMaterial = Material.Builder()
                 .payload(data, data.remaining())
                 .build(engine)
-            Log.i(TAG, "Camera background material compiled")
+            XRealLogger.impl.i(TAG, "Camera background material compiled")
         } else {
-            Log.e(TAG, "Failed to compile camera background material")
+            XRealLogger.impl.e(TAG, "Failed to compile camera background material")
         }
 
         return cameraBgMaterial!!
@@ -127,9 +129,9 @@ object MaterialFactory {
             ghostMaterial = Material.Builder()
                 .payload(data, data.remaining())
                 .build(engine)
-            Log.i(TAG, "Ghost runner material compiled")
+            XRealLogger.impl.i(TAG, "Ghost runner material compiled")
         } else {
-            Log.e(TAG, "Failed to compile ghost runner material")
+            XRealLogger.impl.e(TAG, "Failed to compile ghost runner material")
         }
 
         return ghostMaterial!!
@@ -165,9 +167,9 @@ object MaterialFactory {
             solidColorMaterial = Material.Builder()
                 .payload(data, data.remaining())
                 .build(engine)
-            Log.i(TAG, "Solid color material compiled")
+            XRealLogger.impl.i(TAG, "Solid color material compiled")
         } else {
-            Log.e(TAG, "Failed to compile solid color material")
+            XRealLogger.impl.e(TAG, "Failed to compile solid color material")
         }
 
         return solidColorMaterial!!

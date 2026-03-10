@@ -483,9 +483,10 @@ class MissionConductor(
         if (newTasks.isNotEmpty()) {
             Log.i(TAG, "Re-plan added ${newTasks.size} new tasks")
             scope.launch {
+                val currentPlan = mission.plan
                 val updatedMission = mission.copy(
-                    plan = mission.plan?.copy(
-                        initialTasks = mission.plan.initialTasks + newTasks
+                    plan = currentPlan?.copy(
+                        initialTasks = currentPlan.initialTasks + newTasks
                     )
                 )
                 runtime.mission = updatedMission

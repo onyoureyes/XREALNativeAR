@@ -1,6 +1,6 @@
 package com.xreal.nativear
 
-import android.util.Log
+import com.xreal.nativear.core.XRealLogger
 
 /**
  * EmotionClassifier: Classifies emotion from audio embeddings.
@@ -54,7 +54,7 @@ class EmotionClassifier : com.xreal.ai.IAIModel {
             else -> "neutral" to 0.60f
         }
         
-        Log.d(TAG, "Classified emotion: $emotion (confidence: $confidence)")
+        XRealLogger.impl.d(TAG, "Classified emotion: $emotion (confidence: $confidence)")
         return EmotionResult(emotion, confidence)
     }
     

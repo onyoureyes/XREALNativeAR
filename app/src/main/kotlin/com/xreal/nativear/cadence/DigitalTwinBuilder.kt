@@ -18,7 +18,7 @@ import java.util.Calendar
 class DigitalTwinBuilder(
     private val memoryDatabase: UnifiedMemoryDatabase,
     private val sceneDatabase: SceneDatabase,
-    private val memorySaveHelper: com.xreal.nativear.memory.IMemoryAccess? = null,
+    private val memoryStore: com.xreal.nativear.memory.api.IMemoryStore? = null,
     private val predictionSyncService: com.xreal.nativear.sync.PredictionSyncService? = null
 ) {
     private val TAG = "DigitalTwinBuilder"
@@ -333,8 +333,8 @@ class DigitalTwinBuilder(
      */
     private suspend fun persistProfile(profile: UserProfileModel) {
         try {
-            if (memorySaveHelper != null) {
-                memorySaveHelper.saveMemory(
+            if (memoryStore != null) {
+                memoryStore.save(
                     content = profile.toSummaryString(),
                     role = "DIGITAL_TWIN",
                     metadata = profile.toJson().toString()

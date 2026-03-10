@@ -1,6 +1,6 @@
 package com.xreal.nativear.spatial
 
-import android.util.Log
+import com.xreal.nativear.core.XRealLogger
 import org.json.JSONObject
 
 /**

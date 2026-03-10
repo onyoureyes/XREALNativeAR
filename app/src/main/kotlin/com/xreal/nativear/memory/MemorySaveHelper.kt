@@ -6,6 +6,7 @@ import com.xreal.nativear.TextEmbedder
 import com.xreal.nativear.UnifiedMemoryDatabase
 import com.xreal.nativear.core.ErrorReporter
 import com.xreal.nativear.core.ErrorSeverity
+import com.xreal.nativear.memory.impl.SqliteMemoryStore.Companion.toRecord
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
@@ -77,7 +78,7 @@ class MemorySaveHelper(
         // ★ Phase I: importance_score 자동 계산
         if (nodeId > 0 && importanceScorer != null) {
             try {
-                val score = importanceScorer.score(node)
+                val score = importanceScorer.score(node.toRecord())
                 database.updateImportanceScore(nodeId, score)
             } catch (e: Exception) {
                 Log.w(TAG, "importance_score 계산 실패 (무시됨): ${e.message}")

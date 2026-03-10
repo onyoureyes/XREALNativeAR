@@ -12,7 +12,7 @@ import com.xreal.nativear.core.GlobalEventBus
 import com.xreal.nativear.core.XRealEvent
 import com.xreal.nativear.goal.IGoalService
 import com.xreal.nativear.learning.IOutcomeRecorder
-import com.xreal.nativear.memory.IMemoryAccess
+import com.xreal.nativear.memory.api.IMemoryStore
 import com.xreal.nativear.MemorySearcher
 import com.xreal.nativear.plan.IPlanService
 import com.xreal.nativear.policy.PolicyReader
@@ -42,7 +42,7 @@ class StorytellerOrchestrator(
     private val eventBus: GlobalEventBus,
     private val contextAggregator: IContextSnapshot,
     private val aiRegistry: IAICallService,
-    private val memorySaveHelper: IMemoryAccess,
+    private val memoryStore: IMemoryStore,
     private val memorySearcher: MemorySearcher,
     private val proactiveScheduler: ProactiveScheduler,
     private val planManager: IPlanService,
@@ -391,7 +391,7 @@ class StorytellerOrchestrator(
         dayStory.eveningSummary = summaryText
 
         try {
-            memorySaveHelper.saveMemory(
+            memoryStore.save(
                 content = "[하루 이야기 — ${dayStory.date}]\n$summaryText",
                 role = "storyteller",
                 metadata = "type=day_story,chapters=${dayStory.chapters.size},beats=${dayStory.totalBeats}"

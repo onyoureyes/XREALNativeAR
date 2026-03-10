@@ -1,6 +1,6 @@
 package com.xreal.nativear.memory
 
-import com.xreal.nativear.UnifiedMemoryDatabase
+import com.xreal.nativear.memory.api.MemoryRecord
 
 /**
  * MemoryImportanceScorer — 규칙 기반 메모리 중요도 계산기.
@@ -15,22 +15,19 @@ import com.xreal.nativear.UnifiedMemoryDatabase
  * - 중요도 키워드 포함: +0.05
  *
  * AI 호출 없음 — 저장 시점 즉시 계산, 비용 0.
- *
- * ## Koin 등록
- * AppModule.kt: single { MemoryImportanceScorer() }
  */
 class MemoryImportanceScorer {
 
     /**
-     * MemoryNode의 importance_score 계산 (0.0~1.0).
+     * MemoryRecord의 importance_score 계산 (0.0~1.0).
      */
-    fun score(node: UnifiedMemoryDatabase.MemoryNode): Float {
-        var s = roleBase(node.role)
-        s += lengthBonus(node.content)
-        s += if (node.latitude != null && node.longitude != null) 0.08f else 0f
-        s += if (node.content.contains('?')) 0.07f else 0f
-        s += if (node.content.any { it.isDigit() }) 0.05f else 0f
-        s += if (IMPORTANCE_KEYWORDS.any { node.content.contains(it) }) 0.05f else 0f
+    fun score(record: MemoryRecord): Float {
+        var s = roleBase(record.role)
+        s += lengthBonus(record.content)
+        s += if (record.latitude != null && record.longitude != null) 0.08f else 0f
+        s += if (record.content.contains('?')) 0.07f else 0f
+        s += if (record.content.any { it.isDigit() }) 0.05f else 0f
+        s += if (IMPORTANCE_KEYWORDS.any { record.content.contains(it) }) 0.05f else 0f
         return s.coerceIn(0f, 1f)
     }
 

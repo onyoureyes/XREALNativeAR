@@ -1,18 +1,16 @@
 package com.xreal.nativear.hand
 
-import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.RectF
-import android.util.Log
+import com.xreal.nativear.core.IAssetLoader
+import com.xreal.nativear.core.XRealLogger
 import com.xreal.ai.IAIModel
 import org.tensorflow.lite.Interpreter
 import org.tensorflow.lite.support.image.ImageProcessor
 import org.tensorflow.lite.support.image.TensorImage
 import org.tensorflow.lite.support.image.ops.ResizeOp
-import java.io.FileInputStream
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
-import java.nio.channels.FileChannel
 import kotlin.math.exp
 import kotlin.math.max
 import kotlin.math.min
@@ -38,9 +36,9 @@ import kotlin.math.sqrt
  * MediaPipe GitHub에서 다운로드:
  * https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/latest/
  *
- * @param context Android Context (assets 접근용)
+ * @param assetLoader IAssetLoader (assets 접근용)
  */
-class HandTrackingModel(private val context: Context) : IAIModel {
+class HandTrackingModel(private val assetLoader: IAssetLoader) : IAIModel {
 
     companion object {
         private const val TAG = "HandTrackingModel"
@@ -102,7 +100,7 @@ class HandTrackingModel(private val context: Context) : IAIModel {
             // Palm detection 모델 로드
             val palmBuffer = loadModelFile(PALM_MODEL)
             if (palmBuffer == null) {
-                Log.w(TAG, "Palm detection model not found: $PALM_MODEL")
+                XRealLogger.impl.w(TAG, "Palm detection model not found: $PALM_MODEL")
                 return false
             }
             palmInterpreter = Interpreter(palmBuffer, interpreterOptions)
@@ -110,7 +108,7 @@ class HandTrackingModel(private val context: Context) : IAIModel {
             // Hand landmark 모델 로드
             val landmarkBuffer = loadModelFile(LANDMARK_MODEL)
             if (landmarkBuffer == null) {
-                Log.w(TAG, "Hand landmark model not found: $LANDMARK_MODEL")
+                XRealLogger.impl.w(TAG, "Hand landmark model not found: $LANDMARK_MODEL")
                 palmInterpreter?.close()
                 palmInterpreter = null
                 return false
@@ -125,14 +123,14 @@ class HandTrackingModel(private val context: Context) : IAIModel {
 
             // Palm detection 출력 shape 확인
             val palmOutTensors = palmInterpreter!!.outputTensorCount
-            Log.i(TAG, "Palm model output tensors: $palmOutTensors")
+            XRealLogger.impl.i(TAG, "Palm model output tensors: $palmOutTensors")
 
             // 출력 텐서 0: regressors [1, NUM_ANCHORS, 18]
             // 출력 텐서 1: classificators [1, NUM_ANCHORS, 1]
             val regShape = palmInterpreter!!.getOutputTensor(0).shape()
             val clsShape = palmInterpreter!!.getOutputTensor(1).shape()
             val numAnchors = regShape[1]
-            Log.i(TAG, "Palm anchors: $numAnchors, regressor shape: ${regShape.toList()}, " +
+            XRealLogger.impl.i(TAG, "Palm anchors: $numAnchors, regressor shape: ${regShape.toList()}, " +
                     "classificator shape: ${clsShape.toList()}")
 
             palmRegressorOutput = ByteBuffer.allocateDirect(numAnchors * 18 * 4).apply {
@@ -173,11 +171,11 @@ class HandTrackingModel(private val context: Context) : IAIModel {
 
             isLoaded = true
             isReady = true
-            Log.i(TAG, "Hand tracking model ready (anchors=$numAnchors)")
+            XRealLogger.impl.i(TAG, "Hand tracking model ready (anchors=$numAnchors)")
             return true
 
         } catch (e: Exception) {
-            Log.e(TAG, "Failed to prepare hand tracking model", e)
+            XRealLogger.impl.e(TAG, "Failed to prepare hand tracking model", e)
             release()
             return false
         }
@@ -219,7 +217,7 @@ class HandTrackingModel(private val context: Context) : IAIModel {
             return results
 
         } catch (e: Exception) {
-            Log.e(TAG, "Hand detection failed", e)
+            XRealLogger.impl.e(TAG, "Hand detection failed", e)
             return emptyList()
         }
     }
@@ -411,7 +409,7 @@ class HandTrackingModel(private val context: Context) : IAIModel {
 
         // 앵커 수가 모델과 맞지 않으면 단순 그리드로 폴백
         if (totalGenerated != numAnchors) {
-            Log.w(TAG, "Anchor count mismatch: generated=$totalGenerated, model=$numAnchors. Using uniform grid.")
+            XRealLogger.impl.w(TAG, "Anchor count mismatch: generated=$totalGenerated, model=$numAnchors. Using uniform grid.")
             palmAnchors.clear()
             val gridSize = sqrt(numAnchors.toFloat()).toInt()
             for (i in 0 until numAnchors) {
@@ -421,7 +419,7 @@ class HandTrackingModel(private val context: Context) : IAIModel {
             }
         }
 
-        Log.i(TAG, "Generated ${palmAnchors.size} palm detection anchors")
+        XRealLogger.impl.i(TAG, "Generated ${palmAnchors.size} palm detection anchors")
     }
 
     // ── NMS ──
@@ -461,14 +459,9 @@ class HandTrackingModel(private val context: Context) : IAIModel {
 
     private fun loadModelFile(filename: String): ByteBuffer? {
         return try {
-            val fd = context.assets.openFd(filename)
-            val inputStream = FileInputStream(fd.fileDescriptor)
-            val channel = inputStream.channel
-            val buffer = channel.map(FileChannel.MapMode.READ_ONLY, fd.startOffset, fd.declaredLength)
-            inputStream.close()
-            buffer
+            assetLoader.loadModelBuffer(filename)
         } catch (e: Exception) {
-            Log.w(TAG, "Model file not found: $filename (${e.message})")
+            XRealLogger.impl.w(TAG, "Model file not found: $filename (${e.message})")
             null
         }
     }

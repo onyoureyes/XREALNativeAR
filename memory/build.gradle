@@ -1,0 +1,32 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android {
+    namespace 'com.xreal.nativear.memory'
+    compileSdk 35
+
+    defaultConfig {
+        minSdk 26
+        targetSdk 34
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = '17'
+        freeCompilerArgs += ['-Xskip-metadata-version-check']
+    }
+}
+
+// 메모리 인터페이스 + DTO 모듈 (순수 Kotlin, Android 의존 최소)
+// 소비자는 이 모듈의 IMemoryStore, MemoryRecord만 의존한다.
+dependencies {
+    // Test
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation "io.mockk:mockk:1.13.10"
+}

@@ -2,12 +2,13 @@ package com.xreal.nativear.strategist
 
 import android.util.Log
 import com.xreal.nativear.UnifiedMemoryDatabase
+import com.xreal.nativear.memory.api.IMemoryStore
 import org.json.JSONArray
 import org.json.JSONObject
 
 class DirectiveStore(
     private val database: UnifiedMemoryDatabase,
-    private val memorySaveHelper: com.xreal.nativear.memory.IMemoryAccess? = null
+    private val memoryStore: IMemoryStore? = null
 ) {
     private val TAG = "DirectiveStore"
 
@@ -61,9 +62,9 @@ class DirectiveStore(
     fun persistToDatabase(directives: List<Directive>) {
         for (directive in directives) {
             try {
-                if (memorySaveHelper != null) {
+                if (memoryStore != null) {
                     kotlinx.coroutines.runBlocking(kotlinx.coroutines.Dispatchers.IO) {
-                        memorySaveHelper.saveMemory(
+                        memoryStore.save(
                             content = "[${directive.targetPersonaId}] ${directive.instruction}",
                             role = "STRATEGIST",
                             metadata = directive.toJson().toString(),

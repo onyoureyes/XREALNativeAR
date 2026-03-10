@@ -92,12 +92,13 @@ class MultiAIOrchestrator(
 
         // Store each persona's response in memory (fire and forget)
         results.forEach { (personaId, response) ->
-            if (response.text != null && !response.text.startsWith("Error:")) {
+            val respText = response.text
+            if (respText != null && !respText.startsWith("Error:")) {
                 scope.launch {
                     try {
                         personaMemoryService.savePersonaMemory(
                             personaId = personaId,
-                            content = response.text,
+                            content = respText,
                             role = "AI_${personaId.uppercase()}",
                             metadata = JSONObject().apply {
                                 put("query", query)
@@ -239,7 +240,7 @@ class MultiAIOrchestrator(
         } catch (_: Exception) { emptyList() }
 
         var tools = (persona.tools + dynamicToolNames).distinct()
-            .mapNotNull { ToolDefinitionRegistry.getToolDefinition(it) }
+            .mapNotNull { org.koin.java.KoinJavaComponent.getKoin().get<ToolDefinitionRegistry>().getToolDefinition(it) }
 
         // ★ Phase N: 예산 등급별 도구 필터링 (resolvedProviderId 기준)
         tools = tokenBudgetTracker?.let { tracker ->

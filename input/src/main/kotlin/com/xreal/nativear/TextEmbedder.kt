@@ -1,7 +1,7 @@
 package com.xreal.nativear
 
 import android.content.Context
-import android.util.Log
+import com.xreal.nativear.core.XRealLogger
 import com.google.mediapipe.tasks.core.BaseOptions
 import com.google.mediapipe.tasks.text.textembedder.TextEmbedder as MPTextEmbedder
 import org.tensorflow.lite.Interpreter
@@ -33,10 +33,10 @@ class TextEmbedder(private val context: Context) : com.xreal.ai.IAIModel {
             embedder = MPTextEmbedder.createFromOptions(context, embedderOptions)
             isLoaded = true
             isReady = true
-            Log.i(TAG, "MediaPipe TextEmbedder ready (Universal Sentence Encoder)")
+            XRealLogger.impl.i(TAG, "MediaPipe TextEmbedder ready (Universal Sentence Encoder)")
             true
         } catch (e: Exception) {
-            Log.e(TAG, "TextEmbedder init failed: ${e.message}")
+            XRealLogger.impl.e(TAG, "TextEmbedder init failed: ${e.message}")
             false
         }
     }
@@ -47,7 +47,7 @@ class TextEmbedder(private val context: Context) : com.xreal.ai.IAIModel {
      */
     fun getEmbedding(text: String): FloatArray {
         val emb = embedder ?: run {
-            Log.w(TAG, "Embedder not initialized, returning zero vector")
+            XRealLogger.impl.w(TAG, "Embedder not initialized, returning zero vector")
             return FloatArray(embeddingSize) { 0.0f }
         }
 
@@ -60,7 +60,7 @@ class TextEmbedder(private val context: Context) : com.xreal.ai.IAIModel {
             embeddingSize = arr.size
             l2Normalize(arr)
         } catch (e: Exception) {
-            Log.e(TAG, "Embedding failed: ${e.message}")
+            XRealLogger.impl.e(TAG, "Embedding failed: ${e.message}")
             FloatArray(embeddingSize) { 0.0f }
         }
     }

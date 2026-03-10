@@ -1,13 +1,12 @@
 package com.xreal.nativear
 
-import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.PointF
 import android.graphics.RectF
-import android.util.Log
+import com.xreal.nativear.core.IAssetLoader
+import com.xreal.nativear.core.XRealLogger
 import org.tensorflow.lite.DataType
 import org.tensorflow.lite.Interpreter
-import org.tensorflow.lite.support.common.FileUtil
 import org.tensorflow.lite.support.common.ops.NormalizeOp
 import org.tensorflow.lite.support.image.ImageProcessor
 import org.tensorflow.lite.support.image.TensorImage
@@ -24,7 +23,7 @@ import java.nio.ByteOrder
  *   - Each box: [x_center, y_center, w, h, keypoint0_x, keypoint0_y, ..., keypoint5_x, keypoint5_y]
  *   - 6 keypoints: right_eye, left_eye, nose, mouth, right_ear, left_ear
  */
-class FaceDetector(private val context: Context) : com.xreal.ai.IAIModel {
+class FaceDetector(private val assetLoader: IAssetLoader) : com.xreal.ai.IAIModel {
 
     private val TAG = "FaceDetector"
     private val MODEL_FILE = "face_detection_front.tflite"
@@ -62,7 +61,7 @@ class FaceDetector(private val context: Context) : com.xreal.ai.IAIModel {
         if (isLoaded) return true
 
         return try {
-            val modelBuffer = FileUtil.loadMappedFile(context, MODEL_FILE)
+            val modelBuffer = assetLoader.loadModelBuffer(MODEL_FILE)
             interpreter = Interpreter(modelBuffer, options)
 
             imageProcessor = ImageProcessor.Builder()
@@ -73,12 +72,12 @@ class FaceDetector(private val context: Context) : com.xreal.ai.IAIModel {
 
             generateAnchors()
 
-            Log.i(TAG, "BlazeFace loaded: ${anchors.size} anchors")
+            XRealLogger.impl.i(TAG, "BlazeFace loaded: ${anchors.size} anchors")
             isLoaded = true
             isReady = true
             true
         } catch (e: Exception) {
-            Log.e(TAG, "Failed to load BlazeFace: ${e.message}", e)
+            XRealLogger.impl.e(TAG, "Failed to load BlazeFace: ${e.message}", e)
             false
         }
     }
@@ -151,7 +150,7 @@ class FaceDetector(private val context: Context) : com.xreal.ai.IAIModel {
 
             return nms(candidates)
         } catch (e: Exception) {
-            Log.e(TAG, "Face detection failed: ${e.message}")
+            XRealLogger.impl.e(TAG, "Face detection failed: ${e.message}")
             return emptyList()
         }
     }
@@ -220,6 +219,6 @@ class FaceDetector(private val context: Context) : com.xreal.ai.IAIModel {
         }
 
         anchors = anchorList.toTypedArray()
-        Log.d(TAG, "Generated ${anchors.size} anchors")
+        XRealLogger.impl.d(TAG, "Generated ${anchors.size} anchors")
     }
 }

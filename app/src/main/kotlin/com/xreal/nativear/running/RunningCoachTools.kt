@@ -7,24 +7,25 @@ import org.json.JSONObject
 
 object RunningCoachTools {
 
-    private val _toolDefs = mutableListOf<AIToolDefinition>()
+    private data class ToolPair(val declaration: FunctionDeclaration, val definition: AIToolDefinition)
 
     private fun defineTool(
         name: String,
         description: String,
         schemaJson: String
-    ): FunctionDeclaration {
-        _toolDefs.add(AIToolDefinition(name, description, schemaJson))
-        return defineFunction(name, description) { JSONObject(schemaJson) }
+    ): ToolPair {
+        val declaration = defineFunction(name, description) { JSONObject(schemaJson) }
+        val definition = AIToolDefinition(name, description, schemaJson)
+        return ToolPair(declaration, definition)
     }
 
-    val getRunningStats = defineTool(
+    private val runningStats = defineTool(
         "get_running_stats",
         "Get current running session statistics including pace, distance, cadence, and form metrics.",
         """{ "type": "OBJECT", "properties": {} }"""
     )
 
-    val controlRunningSession = defineTool(
+    private val runningSession = defineTool(
         "control_running_session",
         "Control the running session: start, stop, pause, resume, or record a lap.",
         """{
@@ -39,15 +40,20 @@ object RunningCoachTools {
         }"""
     )
 
-    val getRunningAdvice = defineTool(
+    private val runningAdvice = defineTool(
         "get_running_advice",
         "Get AI coaching advice based on current running form and metrics.",
         """{ "type": "OBJECT", "properties": {} }"""
     )
 
-    fun getAllRunningTools(): List<FunctionDeclaration> {
-        return listOf(getRunningStats, controlRunningSession, getRunningAdvice)
-    }
+    // 기존 공개 API 호환 유지
+    val getRunningStats: FunctionDeclaration = runningStats.declaration
+    val controlRunningSession: FunctionDeclaration = runningSession.declaration
+    val getRunningAdvice: FunctionDeclaration = runningAdvice.declaration
 
-    fun getAllRunningToolDefinitions(): List<AIToolDefinition> = _toolDefs.toList()
+    private val allTools = listOf(runningStats, runningSession, runningAdvice)
+
+    fun getAllRunningTools(): List<FunctionDeclaration> = allTools.map { it.declaration }
+
+    fun getAllRunningToolDefinitions(): List<AIToolDefinition> = allTools.map { it.definition }
 }

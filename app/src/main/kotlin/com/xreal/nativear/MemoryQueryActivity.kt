@@ -8,6 +8,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.xreal.nativear.memory.api.IMemoryStore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
@@ -20,7 +21,7 @@ class MemoryQueryActivity : AppCompatActivity() {
     private val TAG = "MemoryQuery"
     
     // Injected dependencies
-    private val memoryService: IMemoryService by inject()
+    private val memoryStore: IMemoryStore by inject()
     
     // Lazy injection for AIAgentManager (now a singleton)
     private val aiAgentManager: AIAgentManager by inject()
@@ -92,7 +93,7 @@ class MemoryQueryActivity : AppCompatActivity() {
         
         // Show DB status on start
         lifecycleScope.launch(Dispatchers.IO) {
-            val count = memoryService.getMemoryCount()
+            val count = memoryStore.getCount()
             runOnUiThread {
                 logDisplay.append("[System] Total Memories in DB: $count\n")
                 if (count == 0) {

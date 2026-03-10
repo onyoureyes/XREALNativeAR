@@ -12,6 +12,7 @@ import com.xreal.nativear.ai.IAIProvider
 import com.xreal.nativear.ai.ProviderId
 import com.xreal.nativear.router.persona.TokenBudgetTracker
 import com.xreal.nativear.core.ErrorReporter
+import com.xreal.nativear.memory.api.IMemoryStore
 import kotlinx.coroutines.launch
 
 /**
@@ -22,7 +23,7 @@ import kotlinx.coroutines.launch
  */
 class AIAgentManager(
     private val context: Context,
-    private val memoryService: IMemoryService,
+    private val memoryStore: IMemoryStore,
     private val searchService: ISearchService,
     private val weatherService: IWeatherService,
     private val navigationService: INavigationService,
@@ -74,7 +75,7 @@ class AIAgentManager(
 
     // ★ 모든 프로바이더 공통 도구 정의 (매 호출마다 최신 목록 — 원격 도구 동적 등록 반영)
     private val toolDefs: List<AIToolDefinition>
-        get() = try { com.xreal.nativear.ai.ToolDefinitionRegistry.getAllToolDefinitions() } catch (e: Exception) { emptyList() }
+        get() = try { org.koin.java.KoinJavaComponent.getKoin().get<com.xreal.nativear.ai.ToolDefinitionRegistry>().getAllToolDefinitions() } catch (e: Exception) { emptyList() }
 
     // ★ Phase C: LifeSessionManager (lazy Koin inject)
     private val lifeSessionManager: com.xreal.nativear.session.LifeSessionManager? by lazy {
@@ -347,7 +348,7 @@ class AIAgentManager(
                             systemPrompt = "당신은 XREAL AR 안경을 위한 AI 어시스턴트입니다. 간결하게 한국어로 답하세요."
                         )
                         val reply = "[엣지] ${response.text ?: "[엣지 응답 없음]"}"
-                        memoryService.saveMemory(reply, "EDGE_AI")
+                        memoryStore.save(reply, "EDGE_AI")
                         callback?.onGeminiResponse(reply)
                         // important=true: 사용자 명령에 대한 응답 → 조용히 모드에서도 출력
                         eventBus.publish(com.xreal.nativear.core.XRealEvent.ActionRequest.SpeakTTS(reply, important = true))
@@ -375,7 +376,7 @@ class AIAgentManager(
             } else {
                 "$contextInfo\n\nUser: $userText"
             }
-            memoryService.saveMemory(userText, "USER")
+            memoryStore.save(userText, "USER")
 
             // ★ Phase L: 예산별 히스토리 턴 수 결정 후 messages 구성 (히스토리 + 현재 메시지)
             val maxHistoryTurns = when (tokenBudgetTracker?.getBudgetTier(ProviderId.GEMINI)) {
@@ -496,7 +497,7 @@ class AIAgentManager(
             // Record token usage (rough estimate: ~4 chars per token)
             tokenBudgetTracker?.recordUsage(routedProviderId ?: ProviderId.GEMINI, (rawReply.length / 4).coerceAtLeast(100))
 
-            memoryService.saveMemory(reply, "AI")
+            memoryStore.save(reply, "AI")
 
             // ★ Phase L: 대화 교환 버퍼에 저장 (trimmed=순수 질문, reply=AI 답변)
             synchronized(sessionConversationBuffer) {
@@ -564,7 +565,7 @@ class AIAgentManager(
 
                 if (result != null) {
                     val reply = result.synthesizedText ?: "분석 결과 없음"
-                    memoryService.saveMemory(reply, "MULTI_AI")
+                    memoryStore.save(reply, "MULTI_AI")
                     callback?.onGeminiResponse(reply)
                     eventBus.publish(com.xreal.nativear.core.XRealEvent.ActionRequest.SpeakTTS(reply, important = true))
                     // ★ Phase K: Multi-AI HUD 배지 제거
@@ -813,7 +814,7 @@ class AIAgentManager(
 
     private fun saveScenesMemory(reply: String) {
         scope.launch(kotlinx.coroutines.Dispatchers.IO) {
-            memoryService.saveMemory(reply, "CAMERA", "{\"trigger\":\"MANUAL_STABILITY\"}")
+            memoryStore.save(reply, "CAMERA", "{\"trigger\":\"MANUAL_STABILITY\"}")
         }
     }
 
@@ -842,7 +843,7 @@ class AIAgentManager(
                             put("trigger", "AUTO_DETECTION")
                         }.toString()
 
-                        memoryService.saveMemory(
+                        memoryStore.save(
                             content = "I see a ${detection.label}.",
                             role = "CAMERA",
                             metadata = metadata

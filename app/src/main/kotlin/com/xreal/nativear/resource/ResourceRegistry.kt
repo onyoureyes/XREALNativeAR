@@ -1,6 +1,6 @@
 package com.xreal.nativear.resource
 
-import android.util.Log
+import com.xreal.nativear.core.XRealLogger
 import com.xreal.nativear.core.GlobalEventBus
 import com.xreal.nativear.core.XRealEvent
 import kotlinx.coroutines.CoroutineScope
@@ -74,15 +74,15 @@ class ResourceRegistry(
                 } catch (e: kotlinx.coroutines.CancellationException) {
                     throw e
                 } catch (e: Exception) {
-                    Log.e(TAG, "이벤트 처리 오류: ${e.message}", e)
+                    XRealLogger.impl.e(TAG, "이벤트 처리 오류: ${e.message}", e)
                 }
             }
         }
-        Log.i(TAG, "ResourceRegistry 시작 — ${statusMap.size}개 리소스 등록")
+        XRealLogger.impl.i(TAG, "ResourceRegistry 시작 — ${statusMap.size}개 리소스 등록")
     }
 
     fun stop() {
-        Log.i(TAG, "ResourceRegistry 종료")
+        XRealLogger.impl.i(TAG, "ResourceRegistry 종료")
     }
 
     // =========================================================================
@@ -173,7 +173,7 @@ class ResourceRegistry(
     private fun setActive(type: ResourceType, active: Boolean, requestedBy: String) {
         val current = statusMap[type] ?: return
         statusMap[type] = current.copy(isActive = active)
-        Log.i(TAG, "리소스 ${if (active) "활성화" else "비활성화"}: ${type.displayName} (by: $requestedBy)")
+        XRealLogger.impl.i(TAG, "리소스 ${if (active) "활성화" else "비활성화"}: ${type.displayName} (by: $requestedBy)")
 
         scope.launch {
             eventBus.publish(
@@ -231,13 +231,13 @@ class ResourceRegistry(
             "EMERGENCY_E2B" -> {
                 e2bReady = event.state == "READY"
                 updateAvailability(ResourceType.COMPUTE_EDGE_E2B, e2bReady)
-                Log.i(TAG, "E2B 모델 상태 변경 → ${event.state}: COMPUTE_EDGE_E2B 가용=${e2bReady}")
+                XRealLogger.impl.i(TAG, "E2B 모델 상태 변경 → ${event.state}: COMPUTE_EDGE_E2B 가용=${e2bReady}")
             }
             "AGENT_1B" -> {
                 // 1B 모델은 DeviceHealthUpdated.edgeLlmReady와 중복이지만 즉시 반영
                 val ready = event.state == "READY"
                 updateAvailability(ResourceType.COMPUTE_EDGE_1B, ready)
-                Log.i(TAG, "1B 모델 상태 변경 → ${event.state}: COMPUTE_EDGE_1B 가용=$ready")
+                XRealLogger.impl.i(TAG, "1B 모델 상태 변경 → ${event.state}: COMPUTE_EDGE_1B 가용=$ready")
             }
             // ROUTER_270M은 별도 리소스 타입 없음 (내부 라우팅 전용)
             else -> {}
@@ -253,7 +253,7 @@ class ResourceRegistry(
                 isActive = if (!available) false else current.isActive
             )
             if (!available && current.isActive) {
-                Log.w(TAG, "리소스 비가용으로 자동 비활성화: ${type.displayName}")
+                XRealLogger.impl.w(TAG, "리소스 비가용으로 자동 비활성화: ${type.displayName}")
                 scope.launch {
                     eventBus.publish(
                         XRealEvent.SystemEvent.ResourceActivated(

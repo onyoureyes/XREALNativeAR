@@ -4,7 +4,7 @@ package com.xreal.nativear.ai
  * Registry that provides provider-agnostic tool definitions.
  * Maps existing GeminiTools names to AIToolDefinition format.
  */
-object ToolDefinitionRegistry {
+class ToolDefinitionRegistry {
 
     // mutableMapOf로 변경 — 원격 도구 동적 등록 지원
     private val tools = mutableMapOf(

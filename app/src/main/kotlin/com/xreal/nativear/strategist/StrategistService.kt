@@ -2,6 +2,7 @@ package com.xreal.nativear.strategist
 
 import android.util.Log
 import com.xreal.nativear.UnifiedMemoryDatabase
+import com.xreal.nativear.memory.impl.SqliteMemoryStore.Companion.toRecord
 import com.xreal.nativear.ai.IPersonaService
 import com.xreal.nativear.ai.PersonaMemoryService
 import com.xreal.nativear.core.ErrorReporter
@@ -115,14 +116,14 @@ class StrategistService(
 
         // 2. Gather router decisions
         val routerDecisions = try {
-            database.getNodesByRole("ROUTER", limit = 30)
+            database.getNodesByRole("ROUTER", limit = 30).map { it.toRecord() }
         } catch (e: Exception) {
             emptyList()
         }
 
         // 3. Gather recent user/camera/whisper events
         val recentEvents = try {
-            database.getRecentNodesByRoles(EVENT_ROLES, limit = 20)
+            database.getRecentNodesByRoles(EVENT_ROLES, limit = 20).map { it.toRecord() }
         } catch (e: Exception) {
             emptyList()
         }

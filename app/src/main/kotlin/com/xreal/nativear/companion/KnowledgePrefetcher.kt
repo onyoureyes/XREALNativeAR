@@ -5,7 +5,7 @@ import com.xreal.nativear.UnifiedMemoryDatabase
 import com.xreal.nativear.ai.AICallGateway
 import com.xreal.nativear.ai.AIMessage
 import com.xreal.nativear.core.ErrorReporter
-import com.xreal.nativear.memory.IMemoryAccess
+import com.xreal.nativear.memory.api.IMemoryStore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
@@ -47,7 +47,7 @@ import java.util.*
  */
 class KnowledgePrefetcher(
     private val aiRegistry: com.xreal.nativear.ai.IAICallService,
-    private val memorySaveHelper: IMemoryAccess,
+    private val memoryStore: IMemoryStore,
     private val database: UnifiedMemoryDatabase
 ) {
     companion object {
@@ -171,7 +171,7 @@ class KnowledgePrefetcher(
             "knowledge_type":"domain_background"
         }""".trimIndent()
 
-        memorySaveHelper.saveMemory(
+        memoryStore.save(
             content = content,
             role = "KNOWLEDGE",
             metadata = metadata,

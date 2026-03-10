@@ -1,12 +1,8 @@
 package com.xreal.nativear.core
 
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.launch
 
 /**
  * GlobalEventBus — 전체 시스템의 중추 신경계 (Central Nervous System).
@@ -43,8 +39,6 @@ class GlobalEventBus {
         onBufferOverflow = kotlinx.coroutines.channels.BufferOverflow.DROP_OLDEST
     )
     val events: SharedFlow<XRealEvent> = _events.asSharedFlow()
-
-    private val scope = CoroutineScope(Dispatchers.Default + SupervisorJob())
 
     /**
      * 논블로킹 이벤트 발행. 버퍼가 가득 차면 가장 오래된 이벤트를 드롭.

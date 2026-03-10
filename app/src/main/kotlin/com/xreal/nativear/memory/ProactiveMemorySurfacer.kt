@@ -2,11 +2,11 @@ package com.xreal.nativear.memory
 
 import android.util.Log
 import com.xreal.nativear.ILocationService
-import com.xreal.nativear.IMemoryService
 import com.xreal.nativear.SceneDatabase
-import com.xreal.nativear.UnifiedMemoryDatabase
 import com.xreal.nativear.core.GlobalEventBus
 import com.xreal.nativear.core.XRealEvent
+import com.xreal.nativear.memory.api.IMemoryStore
+import com.xreal.nativear.memory.api.MemoryRecord
 import com.xreal.nativear.spatial.SpatialAnchorManager
 import com.xreal.nativear.spatial.SpatialUIManager
 import kotlinx.coroutines.*
@@ -46,9 +46,8 @@ import java.util.concurrent.ConcurrentHashMap
  */
 class ProactiveMemorySurfacer(
     private val eventBus: GlobalEventBus,
-    private val memoryService: IMemoryService,
+    private val memoryStore: IMemoryStore,
     private val sceneDatabase: SceneDatabase,
-    private val memoryDatabase: UnifiedMemoryDatabase,
     private val locationService: ILocationService,
     private val spatialUIManager: SpatialUIManager,
     private val spatialAnchorManager: SpatialAnchorManager
@@ -253,7 +252,7 @@ class ProactiveMemorySurfacer(
 
         // 이 씬과 관련된 메모리 검색 (시간 기반)
         val windowMs = 5 * 60 * 1000L // ±5분
-        val temporalMemories = memoryDatabase.getNodesInTimeRange(
+        val temporalMemories = memoryStore.searchTemporal(
             sceneTimestamp - windowMs,
             sceneTimestamp + windowMs
         )
@@ -291,7 +290,7 @@ class ProactiveMemorySurfacer(
         // 1주 전 같은 시간대 (±1시간)
         val oneWeekAgo = now - 7 * 24 * 60 * 60 * 1000L
         val oneHour = 60 * 60 * 1000L
-        val weekAgoMemories = memoryDatabase.getNodesInTimeRange(
+        val weekAgoMemories = memoryStore.searchTemporal(
             oneWeekAgo - oneHour,
             oneWeekAgo + oneHour
         )
@@ -299,11 +298,13 @@ class ProactiveMemorySurfacer(
         // 공간 필터 (같은 위치 근처인 경우만)
         val spatiallyRelevant = if (location != null) {
             weekAgoMemories.filter { mem ->
-                if (mem.latitude == null || mem.longitude == null) false
+                val memLat = mem.latitude
+                val memLon = mem.longitude
+                if (memLat == null || memLon == null) false
                 else {
                     val dist = haversineDistance(
                         location.latitude, location.longitude,
-                        mem.latitude, mem.longitude
+                        memLat, memLon
                     )
                     dist < 500.0  // 500m 이내
                 }
@@ -344,10 +345,10 @@ class ProactiveMemorySurfacer(
 
                 // 키워드로 메모리 검색
                 for (keyword in keywords.take(2)) {
-                    val results = memoryDatabase.searchNodesByKeyword(keyword)
-                    val fresh = results.filter { !surfacedMemoryIds.containsKey(it.id) }
+                    val results = memoryStore.searchKeyword(keyword)
+                    val fresh = results.filter { !surfacedMemoryIds.containsKey(it.record.id) }
                     if (fresh.isNotEmpty()) {
-                        val memory = fresh.first()
+                        val memory = fresh.first().record
                         val focusedAnchor = spatialUIManager.getFocusedAnchorId()
                         if (focusedAnchor != null) {
                             spatialUIManager.attachContentPanel(
@@ -389,16 +390,16 @@ class ProactiveMemorySurfacer(
 
         // 차원 1: 키워드 매칭
         try {
-            val keywordResults = memoryDatabase.searchNodesByKeyword(label)
-            keywordResults.forEach { mem ->
-                allCandidates.add(CandidateMemory(mem, source = "keyword"))
+            val keywordResults = memoryStore.searchKeyword(label)
+            keywordResults.forEach { result ->
+                allCandidates.add(CandidateMemory(result.record, source = "keyword"))
             }
         } catch (_: Exception) {}
 
         // 차원 2: 공간 매칭
         if (useLat != null && useLon != null) {
             try {
-                val spatialResults = memoryDatabase.getNodesInSpatialRange(useLat, useLon, 0.5)
+                val spatialResults = memoryStore.searchSpatial(useLat, useLon, 0.5)
                 spatialResults.forEach { mem ->
                     allCandidates.add(CandidateMemory(mem, source = "spatial"))
                 }
@@ -409,7 +410,7 @@ class ProactiveMemorySurfacer(
         try {
             val weekAgo = now - 7 * 24 * 60 * 60 * 1000L
             val hourMs = 60 * 60 * 1000L
-            val temporalResults = memoryDatabase.getNodesInTimeRange(weekAgo - hourMs, weekAgo + hourMs)
+            val temporalResults = memoryStore.searchTemporal(weekAgo - hourMs, weekAgo + hourMs)
             temporalResults.forEach { mem ->
                 allCandidates.add(CandidateMemory(mem, source = "temporal"))
             }
@@ -420,7 +421,7 @@ class ProactiveMemorySurfacer(
             try {
                 val similarScenes = sceneDatabase.findSimilarScenes(visualEmbedding, topK = 3)
                 for ((scene, _) in similarScenes) {
-                    val sceneMemories = memoryDatabase.getNodesInTimeRange(
+                    val sceneMemories = memoryStore.searchTemporal(
                         scene.timestamp - 5 * 60 * 1000L,
                         scene.timestamp + 5 * 60 * 1000L
                     )
@@ -460,8 +461,10 @@ class ProactiveMemorySurfacer(
         val mem = candidate.memory
 
         // 공간 관련성 (0-1)
-        val spatialScore = if (lat != null && lon != null && mem.latitude != null && mem.longitude != null) {
-            val dist = haversineDistance(lat, lon, mem.latitude, mem.longitude)
+        val memLat = mem.latitude
+        val memLon = mem.longitude
+        val spatialScore = if (lat != null && lon != null && memLat != null && memLon != null) {
+            val dist = haversineDistance(lat, lon, memLat, memLon)
             (1.0 - dist / 1000.0).coerceIn(0.0, 1.0).toFloat()
         } else 0f
 
@@ -536,7 +539,7 @@ class ProactiveMemorySurfacer(
     // ══════════════════════════════════════════════
 
     private data class CandidateMemory(
-        val memory: UnifiedMemoryDatabase.MemoryNode,
+        val memory: MemoryRecord,
         val source: String  // "keyword", "spatial", "temporal", "visual"
     )
 

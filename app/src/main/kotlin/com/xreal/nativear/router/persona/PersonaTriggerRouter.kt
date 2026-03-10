@@ -95,8 +95,9 @@ class PersonaTriggerRouter(
 
                 Log.i(TAG, "Persona $personaId responded: ${response.text?.take(100)}")
 
-                if (speakResult && !response.text.isNullOrBlank() && !response.text.startsWith("Error")) {
-                    eventBus.publish(XRealEvent.ActionRequest.SpeakTTS(response.text))
+                val responseText = response.text
+                if (speakResult && !responseText.isNullOrBlank() && !responseText.startsWith("Error")) {
+                    eventBus.publish(XRealEvent.ActionRequest.SpeakTTS(responseText))
                 }
             } catch (e: Exception) {
                 Log.e(TAG, "Persona trigger failed for $personaId: ${e.message}")

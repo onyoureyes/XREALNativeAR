@@ -1,6 +1,6 @@
 package com.xreal.nativear.renderer
 
-import android.util.Log
+import com.xreal.nativear.core.XRealLogger
 import com.xreal.nativear.core.GlobalEventBus
 import com.xreal.nativear.core.XRealEvent
 import kotlinx.coroutines.CoroutineScope
@@ -25,7 +25,7 @@ class FilamentSceneManager(
     }
 
     fun start() {
-        Log.i(TAG, "Starting FilamentSceneManager event subscriptions")
+        XRealLogger.impl.i(TAG, "Starting FilamentSceneManager event subscriptions")
 
         // Subscribe to VIO pose updates
         scope.launch {
@@ -50,7 +50,7 @@ class FilamentSceneManager(
                 }
         }
 
-        Log.i(TAG, "FilamentSceneManager subscriptions active")
+        XRealLogger.impl.i(TAG, "FilamentSceneManager subscriptions active")
     }
 
     private fun handlePacemakerAnchor(event: XRealEvent.PerceptionEvent.SpatialAnchorEvent) {
@@ -61,26 +61,9 @@ class FilamentSceneManager(
                 ghost.setPose(event.worldX, event.worldY, event.worldZ)
                 ghost.setVisible(true)
 
-                // Parse pace difference from label to determine color
-                // Label format: "▶ +Xm" (behind, red) or "◀ -Xm" (ahead, green)
-                val label = event.label
-                when {
-                    label.contains("▶") || label.contains("+") -> {
-                        // User is behind pacer → red tint
-                        ghost.setColor(1.0f, 0.3f, 0.2f, 0.6f)
-                    }
-                    label.contains("◀") || label.contains("-") -> {
-                        // User is ahead of pacer → green tint
-                        ghost.setColor(0.2f, 1.0f, 0.4f, 0.6f)
-                    }
-                    label.contains("✓") -> {
-                        // On pace → white/cyan
-                        ghost.setColor(0.4f, 0.9f, 1.0f, 0.5f)
-                    }
-                    else -> {
-                        ghost.setColor(0.2f, 1.0f, 0.4f, 0.6f)
-                    }
-                }
+                // 라벨 → 색상 매핑 (PaceColorMapper로 위임)
+                val color = PaceColorMapper.mapLabelToColor(event.label)
+                ghost.setColor(color.r, color.g, color.b, color.a)
             }
             "REMOVED" -> {
                 ghost.setVisible(false)

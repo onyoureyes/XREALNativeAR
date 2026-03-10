@@ -1,6 +1,6 @@
 package com.xreal.nativear.spatial
 
-import android.util.Log
+import com.xreal.nativear.core.XRealLogger
 import com.xreal.nativear.core.GlobalEventBus
 import com.xreal.nativear.core.XRealEvent
 import kotlinx.coroutines.*

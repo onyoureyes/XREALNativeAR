@@ -1,6 +1,6 @@
 package com.xreal.nativear.hud
 
-import android.util.Log
+import com.xreal.nativear.core.XRealLogger
 import com.xreal.nativear.context.LifeSituation
 import com.xreal.nativear.core.GlobalEventBus
 import com.xreal.nativear.core.XRealEvent
@@ -26,7 +26,7 @@ class HUDModeManager(
     private var subscriptionJob: Job? = null
 
     fun start() {
-        Log.i(TAG, "HUDModeManager started")
+        XRealLogger.impl.i(TAG, "HUDModeManager started")
 
         // Subscribe to situation changes
         subscriptionJob = scope.launch(Dispatchers.Default) {
@@ -35,9 +35,9 @@ class HUDModeManager(
                     is XRealEvent.SystemEvent.SituationChanged -> {
                         try {
                             templateEngine.onSituationChanged(event.newSituation)
-                            Log.d(TAG, "HUD switched for situation: ${event.newSituation.displayName}")
+                            XRealLogger.impl.d(TAG, "HUD switched for situation: ${event.newSituation.displayName}")
                         } catch (e: Exception) {
-                            Log.e(TAG, "Error switching HUD: ${e.message}")
+                            XRealLogger.impl.e(TAG, "Error switching HUD: ${e.message}")
                         }
                     }
                     else -> { /* ignore */ }
@@ -52,7 +52,7 @@ class HUDModeManager(
     fun stop() {
         subscriptionJob?.cancel()
         templateEngine.deactivateAll()
-        Log.i(TAG, "HUDModeManager stopped")
+        XRealLogger.impl.i(TAG, "HUDModeManager stopped")
     }
 
     /**

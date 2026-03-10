@@ -18,6 +18,8 @@ dependencyResolutionManagement {
 rootProject.name = "XREALNativeAR"
 include ':core-models'
 include ':core'
+include ':memory'
+include ':autonomy'
 include ':output'
 include ':input'
 include ':spatial'

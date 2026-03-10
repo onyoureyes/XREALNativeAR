@@ -1,7 +1,7 @@
 package com.xreal.nativear
 
 import android.graphics.Bitmap
-import android.util.Log
+import com.xreal.nativear.core.XRealLogger
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.TextRecognizer
@@ -33,7 +33,7 @@ class OCRModel : IAIModel {
 
     override suspend fun prepare(options: Interpreter.Options): Boolean {
         if (isLoaded) return true
-        Log.i(TAG, "Preparing Multi-Language OCR (KR 우선, JP/CN 보조)...")
+        XRealLogger.impl.i(TAG, "Preparing Multi-Language OCR (KR 우선, JP/CN 보조)...")
         return try {
             krRecognizer = TextRecognition.getClient(KoreanTextRecognizerOptions.Builder().build())
             jpRecognizer = TextRecognition.getClient(JapaneseTextRecognizerOptions.Builder().build())
@@ -42,14 +42,14 @@ class OCRModel : IAIModel {
             isReady = true
             true
         } catch (e: Exception) {
-            Log.e(TAG, "OCR Preparation Failed: ${e.message}")
+            XRealLogger.impl.e(TAG, "OCR Preparation Failed: ${e.message}")
             false
         }
     }
 
     fun process(bitmap: Bitmap, callback: (List<OcrResult>, Int, Int) -> Unit) {
         val kr = krRecognizer ?: run {
-            Log.w(TAG, "OCR 미준비 — process 무시")
+            XRealLogger.impl.w(TAG, "OCR 미준비 — process 무시")
             return
         }
         frameCount++
@@ -92,12 +92,12 @@ class OCRModel : IAIModel {
                 callback(results, bitmap.width, bitmap.height)
             }
             .addOnFailureListener { e ->
-                Log.e(TAG, "OCR Processing Failed ($contextLang): ${e.message}")
+                XRealLogger.impl.e(TAG, "OCR Processing Failed ($contextLang): ${e.message}")
             }
     }
     
     override fun release() {
-        Log.i(TAG, "Releasing OCR Recognizers")
+        XRealLogger.impl.i(TAG, "Releasing OCR Recognizers")
         krRecognizer?.close(); krRecognizer = null
         jpRecognizer?.close(); jpRecognizer = null
         cnRecognizer?.close(); cnRecognizer = null

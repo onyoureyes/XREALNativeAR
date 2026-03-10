@@ -1,6 +1,6 @@
 package com.xreal.nativear.spatial
 
-import android.util.Log
+import com.xreal.nativear.core.XRealLogger
 import com.xreal.nativear.core.FloorDirection
 import com.xreal.nativear.core.GlobalEventBus
 import com.xreal.nativear.core.XRealEvent
@@ -175,7 +175,7 @@ class DriftCorrectionManager(
         }
 
         log("DriftCorrectionManager started")
-        Log.i(TAG, "Drift correction system active — baro Y + magnetic yaw + visual loop closure XZ")
+        XRealLogger.impl.i(TAG, "Drift correction system active — baro Y + magnetic yaw + visual loop closure XZ")
     }
 
     /**
@@ -469,7 +469,7 @@ class DriftCorrectionManager(
      */
     private fun logStats() {
         val s = state
-        Log.d(TAG, "DriftCorrection stats: " +
+        XRealLogger.impl.d(TAG, "DriftCorrection stats: " +
                 "offsets=(X=${"%.3f".format(s.offsetX)}, Y=${"%.3f".format(s.offsetY)}, Z=${"%.3f".format(s.offsetZ)})m, " +
                 "yaw=${"%.1f".format(Math.toDegrees(s.yawCorrectionRad.toDouble()))}°, " +
                 "baro=${s.baroCorrectionsApplied} fixes/${s.totalBaroDriftCorrected.let { "%.2f".format(it) }}m, " +

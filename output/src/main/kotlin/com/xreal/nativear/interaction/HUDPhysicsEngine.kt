@@ -1,6 +1,5 @@
 package com.xreal.nativear.interaction
 
-import android.util.Log
 import kotlin.math.abs
 import kotlin.math.cos
 import kotlin.math.sin

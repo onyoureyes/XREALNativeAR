@@ -1,10 +1,10 @@
 package com.xreal.nativear
 
-import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.RectF
 import android.os.SystemClock
-import android.util.Log
+import com.xreal.nativear.core.IAssetLoader
+import com.xreal.nativear.core.XRealLogger
 import org.tensorflow.lite.DataType
 import org.tensorflow.lite.Interpreter
 import org.tensorflow.lite.support.image.ImageProcessor
@@ -18,7 +18,7 @@ import java.nio.channels.FileChannel
 // LiteRTWrapper: Handles object detection using YOLO26n (NMS-free) or YOLOv8n (legacy).
 // Dynamically detects output format: YOLO26 [1,300,6] vs YOLOv8 [1,84,8400].
 // Now integrated with UnifiedAIOrchestrator via IAIModel.
-class LiteRTWrapper(private val context: Context) : com.xreal.ai.IAIModel {
+class LiteRTWrapper(private val assetLoader: IAssetLoader) : com.xreal.ai.IAIModel {
 
     private var interpreter: Interpreter? = null
 
@@ -77,21 +77,17 @@ class LiteRTWrapper(private val context: Context) : com.xreal.ai.IAIModel {
         if (isLoaded) return true
         try {
             // Try YOLO26n first, fallback to YOLOv8n
-            val modelName = try {
-                context.assets.openFd(MODEL_NAME_YOLO26).close()
-                Log.i(TAG, "Found YOLO26n model, using NMS-free detection")
+            val modelName = if (assetLoader.assetExists(MODEL_NAME_YOLO26)) {
+                XRealLogger.impl.i(TAG, "Found YOLO26n model, using NMS-free detection")
                 MODEL_NAME_YOLO26
-            } catch (_: Exception) {
-                Log.i(TAG, "YOLO26n not found, falling back to YOLOv8n legacy")
+            } else {
+                XRealLogger.impl.i(TAG, "YOLO26n not found, falling back to YOLOv8n legacy")
                 MODEL_NAME_LEGACY
             }
 
-            Log.i(TAG, "Preparing LiteRTWrapper ($modelName) with Orchestrator Options...")
+            XRealLogger.impl.i(TAG, "Preparing LiteRTWrapper ($modelName) with Orchestrator Options...")
 
-            val fileDescriptor = context.assets.openFd(modelName)
-            val inputStream = FileInputStream(fileDescriptor.fileDescriptor)
-            val fileChannel = inputStream.channel
-            val modelBuffer = fileChannel.map(FileChannel.MapMode.READ_ONLY, fileDescriptor.startOffset, fileDescriptor.declaredLength)
+            val modelBuffer = assetLoader.loadModelBuffer(modelName)
 
             interpreter = Interpreter(modelBuffer, interpreterOptions)
 
@@ -108,7 +104,7 @@ class LiteRTWrapper(private val context: Context) : com.xreal.ai.IAIModel {
 
             // Auto-detect output format: YOLO26 [1,300,6] vs YOLOv8 [1,84,8400]
             isYolo26Format = outputShape.size == 3 && outputShape[2] <= 10 // [1, N, 6]
-            Log.i(TAG, "Output: shape=${outputShape.toList()}, dtype=${outputTensor.dataType()}, " +
+            XRealLogger.impl.i(TAG, "Output: shape=${outputShape.toList()}, dtype=${outputTensor.dataType()}, " +
                     "scale=$outputScale, zp=$outputZeroPoint, format=${if (isYolo26Format) "YOLO26_NMS_FREE" else "YOLOv8_LEGACY"}")
 
             // Buffer Allocation
@@ -125,13 +121,13 @@ class LiteRTWrapper(private val context: Context) : com.xreal.ai.IAIModel {
                 .build()
             tensorImage = TensorImage(DataType.UINT8)
 
-            Log.i(TAG, "Prepared: $modelName ($inputImageWidth x $inputImageHeight $inputDataType)")
+            XRealLogger.impl.i(TAG, "Prepared: $modelName ($inputImageWidth x $inputImageHeight $inputDataType)")
             isLoaded = true
             isReady = true
             return true
 
         } catch (e: Exception) {
-            Log.e(TAG, "LiteRT Preparation Failed: ${e.message}")
+            XRealLogger.impl.e(TAG, "LiteRT Preparation Failed: ${e.message}")
             return false
         }
     }
@@ -177,14 +173,14 @@ class LiteRTWrapper(private val context: Context) : com.xreal.ai.IAIModel {
             }
             val postTime = SystemClock.elapsedRealtime() - postStart
 
-            Log.i(TAG, "Perf: Pre ${preTime}ms | Inf ${inferTime}ms | Post ${postTime}ms | " +
+            XRealLogger.impl.i(TAG, "Perf: Pre ${preTime}ms | Inf ${inferTime}ms | Post ${postTime}ms | " +
                     "Total ${SystemClock.elapsedRealtime() - totalStart}ms | Det=${result.size} " +
                     "fmt=${if (isYolo26Format) "YOLO26" else "YOLOv8"}")
 
             return result
 
         } catch (e: Exception) {
-            Log.e(TAG, "Detection Failed: ${e.message}")
+            XRealLogger.impl.e(TAG, "Detection Failed: ${e.message}")
             return emptyList()
         }
     }

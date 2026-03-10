@@ -1,12 +1,12 @@
 package com.xreal.nativear.router
 
 import android.util.Log
-import com.xreal.nativear.IMemoryService
+import com.xreal.nativear.memory.api.IMemoryStore
 import kotlinx.coroutines.*
 import org.json.JSONObject
 
 class DecisionLogger(
-    private val memoryService: IMemoryService
+    private val memoryStore: IMemoryStore
 ) {
     private val TAG = "DecisionLogger"
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
@@ -66,7 +66,7 @@ class DecisionLogger(
 
                 val content = "[${decision.routerId}] ${decision.action}: ${decision.reason}"
 
-                memoryService.saveMemory(
+                memoryStore.save(
                     content = content,
                     role = "ROUTER",
                     metadata = metadata

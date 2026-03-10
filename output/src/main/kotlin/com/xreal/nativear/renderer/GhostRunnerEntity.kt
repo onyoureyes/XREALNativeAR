@@ -1,10 +1,9 @@
 package com.xreal.nativear.renderer
 
-import android.util.Log
+import com.xreal.nativear.core.XRealLogger
 import com.google.android.filament.*
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
-import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
 
@@ -17,7 +16,8 @@ import kotlin.math.sin
  */
 class GhostRunnerEntity(
     private val engine: Engine,
-    private val scene: Scene
+    private val scene: Scene,
+    private val materialFactory: MaterialFactory = MaterialFactory()
 ) {
     companion object {
         private const val TAG = "GhostRunnerEntity"
@@ -114,117 +114,18 @@ class GhostRunnerEntity(
     // ========== Procedural Capsule Generation ==========
 
     private fun createCapsuleMesh() {
-        // Generate capsule vertices and indices
-        val vertices = mutableListOf<Float>()  // x, y, z, nx, ny, nz
-        val indices = mutableListOf<Short>()
-
-        // Bottom hemisphere
-        for (ring in 0..RINGS) {
-            val phi = (PI / 2.0) * ring / RINGS  // 0 → π/2
-            val ringRadius = RADIUS * cos(phi).toFloat()
-            val ringY = -BODY_HEIGHT / 2f - RADIUS * sin(phi).toFloat()
-
-            for (seg in 0..SEGMENTS) {
-                val theta = 2.0 * PI * seg / SEGMENTS
-                val x = ringRadius * cos(theta).toFloat()
-                val z = ringRadius * sin(theta).toFloat()
-
-                // Normal (points outward from hemisphere center)
-                val nx = cos(phi).toFloat() * cos(theta).toFloat()
-                val ny = -sin(phi).toFloat()
-                val nz = cos(phi).toFloat() * sin(theta).toFloat()
-
-                vertices.addAll(listOf(x, ringY, z, nx, ny, nz))
-            }
-        }
-
-        val bottomVertCount = (RINGS + 1) * (SEGMENTS + 1)
-
-        // Cylinder body (2 rings)
-        for (i in 0..1) {
-            val y = if (i == 0) -BODY_HEIGHT / 2f else BODY_HEIGHT / 2f
-            for (seg in 0..SEGMENTS) {
-                val theta = 2.0 * PI * seg / SEGMENTS
-                val x = RADIUS * cos(theta).toFloat()
-                val z = RADIUS * sin(theta).toFloat()
-                val nx = cos(theta).toFloat()
-                val nz = sin(theta).toFloat()
-                vertices.addAll(listOf(x, y, z, nx, 0f, nz))
-            }
-        }
-
-        val cylinderStart = bottomVertCount
-
-        // Top hemisphere
-        val topStart = cylinderStart + 2 * (SEGMENTS + 1)
-        for (ring in 0..RINGS) {
-            val phi = (PI / 2.0) * ring / RINGS  // 0 → π/2
-            val ringRadius = RADIUS * cos(phi).toFloat()
-            val ringY = BODY_HEIGHT / 2f + RADIUS * sin(phi).toFloat()
-
-            for (seg in 0..SEGMENTS) {
-                val theta = 2.0 * PI * seg / SEGMENTS
-                val x = ringRadius * cos(theta).toFloat()
-                val z = ringRadius * sin(theta).toFloat()
-
-                val nx = cos(phi).toFloat() * cos(theta).toFloat()
-                val ny = sin(phi).toFloat()
-                val nz = cos(phi).toFloat() * sin(theta).toFloat()
-
-                vertices.addAll(listOf(x, ringY, z, nx, ny, nz))
-            }
-        }
-
-        // Generate indices
-
-        // Bottom hemisphere triangles
-        for (ring in 0 until RINGS) {
-            for (seg in 0 until SEGMENTS) {
-                val curr = ring * (SEGMENTS + 1) + seg
-                val next = curr + SEGMENTS + 1
-
-                indices.add(curr.toShort())
-                indices.add(next.toShort())
-                indices.add((curr + 1).toShort())
-
-                indices.add((curr + 1).toShort())
-                indices.add(next.toShort())
-                indices.add((next + 1).toShort())
-            }
-        }
-
-        // Cylinder triangles
-        for (seg in 0 until SEGMENTS) {
-            val a = cylinderStart + seg
-            val b = cylinderStart + SEGMENTS + 1 + seg
-
-            indices.add(a.toShort())
-            indices.add(b.toShort())
-            indices.add((a + 1).toShort())
-
-            indices.add((a + 1).toShort())
-            indices.add(b.toShort())
-            indices.add((b + 1).toShort())
-        }
-
-        // Top hemisphere triangles
-        for (ring in 0 until RINGS) {
-            for (seg in 0 until SEGMENTS) {
-                val curr = topStart + ring * (SEGMENTS + 1) + seg
-                val next = curr + SEGMENTS + 1
-
-                indices.add(curr.toShort())
-                indices.add((curr + 1).toShort())
-                indices.add(next.toShort())
-
-                indices.add((curr + 1).toShort())
-                indices.add((next + 1).toShort())
-                indices.add(next.toShort())
-            }
-        }
+        // 정점/인덱스 생성을 CapsuleMeshGenerator로 위임
+        val meshData = CapsuleMeshGenerator.generate(
+            radius = RADIUS,
+            bodyHeight = BODY_HEIGHT,
+            segments = SEGMENTS,
+            rings = RINGS
+        )
+        val vertices = meshData.vertices
+        val indices = meshData.indices
 
         // Build Filament buffers
-        val vertexCount = vertices.size / 6
+        val vertexCount = meshData.vertexCount
         val vertexData = ByteBuffer.allocateDirect(vertices.size * 4)
             .order(ByteOrder.nativeOrder())
         vertices.forEach { vertexData.putFloat(it) }
@@ -253,7 +154,7 @@ class GhostRunnerEntity(
         indexBuffer!!.setBuffer(engine, indexData)
 
         // Create material instance
-        val material = MaterialFactory.getGhostMaterial(engine)
+        val material = materialFactory.getGhostMaterial(engine)
         materialInstance = material.createInstance().apply {
             setParameter("ghostColor", colorR, colorG, colorB, colorA)
             setParameter("animPhase", 0f)
@@ -279,6 +180,6 @@ class GhostRunnerEntity(
         val tcm = engine.transformManager
         tcm.create(entity)
 
-        Log.i(TAG, "Ghost runner capsule created: $vertexCount vertices, ${indices.size} indices")
+        XRealLogger.impl.i(TAG, "Ghost runner capsule created: $vertexCount vertices, ${indices.size} indices")
     }
 }

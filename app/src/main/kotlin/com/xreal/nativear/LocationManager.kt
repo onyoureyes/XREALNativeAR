@@ -10,6 +10,7 @@ import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.*
 import com.xreal.nativear.core.ErrorReporter
 import com.xreal.nativear.core.ErrorSeverity
+import com.xreal.nativear.memory.api.IMemoryStore
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -26,8 +27,8 @@ class LocationManager(
     private val eventBus: com.xreal.nativear.core.GlobalEventBus
 ) : ILocationService {
 
-    // Lazy inject to break circular dependency: MemoryRepository → ILocationService → LocationManager → IMemoryService
-    private val memoryService: IMemoryService by org.koin.java.KoinJavaComponent.inject(IMemoryService::class.java)
+    // Lazy inject to break circular dependency: MemoryRepository → ILocationService → LocationManager → IMemoryStore
+    private val memoryStore: IMemoryStore by org.koin.java.KoinJavaComponent.inject(IMemoryStore::class.java)
 
     private val TAG = "LocationManager"
     private val fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
@@ -152,7 +153,7 @@ class LocationManager(
                     put("duration_min", durationMin.toLong())
                 }.toString()
 
-                memoryService.saveMemory(content, "SYSTEM_LOG", metadata, endLocation.latitude, endLocation.longitude)
+                memoryStore.save(content, "SYSTEM_LOG", metadata, lat = endLocation.latitude, lon = endLocation.longitude)
             } catch (e: Exception) {
                 ErrorReporter.report(TAG, "여정 완료 기록 실패", e, ErrorSeverity.WARNING)
             }
@@ -197,7 +198,7 @@ class LocationManager(
                     put("source", "GPS_PASSIVE")
                 }.toString()
 
-                memoryService.saveMemory("User Location Update: $addressStr", "SYSTEM_LOG", metadata, loc.latitude, loc.longitude)
+                memoryStore.save("User Location Update: $addressStr", "SYSTEM_LOG", metadata, lat = loc.latitude, lon = loc.longitude)
             } catch (e: Exception) {
                 ErrorReporter.report(TAG, "위치 로그 기록 실패", e, ErrorSeverity.INFO)
             }

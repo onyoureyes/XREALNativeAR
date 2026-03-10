@@ -2,10 +2,14 @@ package com.xreal.nativear.tools
 
 import android.graphics.Bitmap
 import com.xreal.nativear.CloudBackupManager
-import com.xreal.nativear.IMemoryService
+import com.xreal.nativear.MemorySearcher
+import com.xreal.nativear.SceneDatabase
+import com.xreal.nativear.memory.api.IMemoryStore
 
 class MemoryToolExecutor(
-    private val memoryService: IMemoryService,
+    private val memoryStore: IMemoryStore,
+    private val memorySearcher: MemorySearcher,
+    private val sceneDatabase: SceneDatabase,
     private val cloudBackupManager: CloudBackupManager,
     private val bitmapProvider: () -> Bitmap?
 ) : IToolExecutor {
@@ -21,29 +25,42 @@ class MemoryToolExecutor(
             "query_temporal_memory" -> {
                 val start = parseTimeToLong(args["start_time"] as? String ?: "")
                 val end = parseTimeToLong(args["end_time"] as? String ?: "")
-                ToolResult(true, memoryService.queryTemporal(start, end))
+                val results = memoryStore.searchTemporal(start, end)
+                val formatted = results.joinToString("\n") { "[${it.role}] ${it.content}" }
+                ToolResult(true, formatted.ifEmpty { "No memories found in the specified time range." })
             }
             "query_spatial_memory" -> {
                 val lat = (args["latitude"] as? Number)?.toDouble() ?: 0.0
                 val lon = (args["longitude"] as? Number)?.toDouble() ?: 0.0
                 val radius = (args["radius_km"] as? Number)?.toDouble() ?: 0.5
-                ToolResult(true, memoryService.querySpatial(lat, lon, radius))
+                val results = memoryStore.searchSpatial(lat, lon, radius)
+                val formatted = results.joinToString("\n") { "[${it.role}] ${it.content}" }
+                ToolResult(true, formatted.ifEmpty { "No memories found near the specified location." })
             }
             "query_keyword_memory" -> {
                 val keyword = args["keyword"] as? String ?: ""
-                ToolResult(true, memoryService.queryKeyword(keyword))
+                val results = memoryStore.searchKeyword(keyword)
+                val formatted = results.joinToString("\n") { "[${it.record.role}] ${it.record.content}" }
+                ToolResult(true, formatted.ifEmpty { "No memories found for keyword '$keyword'." })
             }
             "query_visual_memory" -> {
                 val bitmap = bitmapProvider()
                 if (bitmap != null) {
-                    ToolResult(true, memoryService.queryVisual(bitmap))
+                    val results = memorySearcher.searchByImage(bitmap)
+                    val formatted = formatSearchResults(results)
+                    ToolResult(true, formatted.ifEmpty { "No visually similar memories found." })
                 } else {
                     ToolResult(false, "Error: Could not capture current view.")
                 }
             }
             "query_emotion_memory" -> {
                 val emotion = args["emotion"] as? String ?: ""
-                ToolResult(true, memoryService.queryEmotion(emotion))
+                val logs = sceneDatabase.getVoiceLogsByEmotion(emotion)
+                val sdf = java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss", java.util.Locale.getDefault())
+                val formatted = logs.joinToString("\n") { log ->
+                    "[${sdf.format(java.util.Date(log.timestamp))} | ${log.emotion}] ${log.transcript}"
+                }
+                ToolResult(true, formatted.ifEmpty { "No memories found with emotion '$emotion'." })
             }
             "sync_memory" -> {
                 cloudBackupManager.syncToCloud()
@@ -51,6 +68,10 @@ class MemoryToolExecutor(
             }
             else -> ToolResult(false, "Unsupported tool: $name")
         }
+    }
+
+    private fun formatSearchResults(results: List<MemorySearcher.SearchResult>): String {
+        return results.joinToString("\n") { "[${it.node.role}] ${it.node.content}" }
     }
 
     private fun parseTimeToLong(timeStr: String): Long {

@@ -3,13 +3,15 @@ package com.xreal.nativear.ai
 import android.util.Log
 import com.xreal.nativear.UnifiedMemoryDatabase
 import com.xreal.nativear.MemoryCompressor
-import com.xreal.nativear.memory.IMemoryAccess
+import com.xreal.nativear.memory.api.IMemoryStore
+import com.xreal.nativear.memory.api.MemoryRecord
+import com.xreal.nativear.memory.impl.SqliteMemoryStore.Companion.toRecord
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class PersonaMemoryService(
     private val database: UnifiedMemoryDatabase,
-    private val memorySaveHelper: IMemoryAccess,
+    private val memoryStore: IMemoryStore,
     private val memoryCompressor: MemoryCompressor
 ) {
     private val TAG = "PersonaMemoryService"
@@ -26,7 +28,7 @@ class PersonaMemoryService(
         role: String,
         metadata: String? = null
     ) = withContext(Dispatchers.IO) {
-        val nodeId = memorySaveHelper.saveMemory(
+        val nodeId = memoryStore.save(
             content = content,
             role = role,
             metadata = metadata,
@@ -41,22 +43,22 @@ class PersonaMemoryService(
      * ★ Phase I: importance × recency 복합 정렬 (순수 시간 순 → 중요도 반영).
      * 폴백: getNodesByPersonaId() (시간 순)
      */
-    suspend fun getRecentMemories(personaId: String, limit: Int = 10): List<UnifiedMemoryDatabase.MemoryNode> =
+    suspend fun getRecentMemories(personaId: String, limit: Int = 10): List<MemoryRecord> =
         withContext(Dispatchers.IO) {
             try {
-                database.getMemoriesByImportanceRecency(personaId, limit)
+                database.getMemoriesByImportanceRecency(personaId, limit).map { it.toRecord() }
             } catch (e: Exception) {
                 Log.w(TAG, "importance 정렬 실패, 시간 순 폴백: ${e.message}")
-                database.getNodesByPersonaId(personaId, limit)
+                database.getNodesByPersonaId(personaId, limit).map { it.toRecord() }
             }
         }
 
     /**
      * Get insight/reflection nodes for a persona (level > 0 summaries).
      */
-    suspend fun getInsights(personaId: String, limit: Int = 5): List<UnifiedMemoryDatabase.MemoryNode> =
+    suspend fun getInsights(personaId: String, limit: Int = 5): List<MemoryRecord> =
         withContext(Dispatchers.IO) {
-            database.getPersonaInsights(personaId, limit)
+            database.getPersonaInsights(personaId, limit).map { it.toRecord() }
         }
 
     /**

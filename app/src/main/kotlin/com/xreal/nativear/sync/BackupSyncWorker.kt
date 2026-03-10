@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.xreal.nativear.UnifiedMemoryDatabase
+import com.xreal.nativear.memory.api.IMemoryStore
 import org.koin.java.KoinJavaComponent.getKoin
 
 /**
@@ -21,12 +22,14 @@ class BackupSyncWorker(
     override suspend fun doWork(): Result {
         val config: BackupSyncConfig
         val apiClient: SyncApiClient
+        val memoryStore: IMemoryStore
         val database: UnifiedMemoryDatabase
 
         try {
             config = getKoin().get()
             apiClient = getKoin().get()
-            database = getKoin().get()
+            memoryStore = getKoin().get()
+            database = getKoin().get()  // structured_data 전용 (IMemoryStore 미포함)
         } catch (e: Exception) {
             Log.e(TAG, "Failed to get dependencies: ${e.message}")
             return Result.failure()
@@ -70,20 +73,20 @@ class BackupSyncWorker(
         try {
             val now = System.currentTimeMillis()
             val oneDayAgo = now - 24 * 3600_000L
-            val recentNodes = database.getNodesInTimeRange(oneDayAgo, now)
+            val recentRecords = memoryStore.searchTemporal(oneDayAgo, now)
 
-            if (recentNodes.isNotEmpty()) {
-                val payloads = recentNodes.map { node ->
+            if (recentRecords.isNotEmpty()) {
+                val payloads = recentRecords.map { record ->
                     SyncApiClient.MemoryNodePayload(
-                        id = node.id,
-                        timestamp = node.timestamp,
-                        role = node.role,
-                        content = node.content,
-                        level = node.level,
-                        latitude = node.latitude,
-                        longitude = node.longitude,
-                        metadata = node.metadata,
-                        personaId = node.personaId
+                        id = record.id,
+                        timestamp = record.timestamp,
+                        role = record.role,
+                        content = record.content,
+                        level = record.level,
+                        latitude = record.latitude,
+                        longitude = record.longitude,
+                        metadata = record.metadata,
+                        personaId = record.personaId
                     )
                 }
 

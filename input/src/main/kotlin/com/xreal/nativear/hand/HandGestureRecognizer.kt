@@ -1,6 +1,6 @@
 package com.xreal.nativear.hand
 
-import android.util.Log
+import com.xreal.nativear.core.XRealLogger
 import kotlin.math.abs
 import kotlin.math.sqrt
 

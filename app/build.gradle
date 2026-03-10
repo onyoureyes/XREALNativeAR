@@ -88,6 +88,8 @@ dependencies {
     api project(':output')  // api: 전이적 노출 (:output → :core → :core-models 전이 포함)
     api project(':input')   // api: 비전 모델 + 케이던스 (:input → :core → :core-models 전이 포함)
     api project(':spatial') // api: 공간 앵커 + 경로 + 드리프트 보정
+    api project(':memory')  // api: 메모리 인터페이스 + DTO (IMemoryStore, MemoryRecord)
+    api project(':autonomy')  // api: 자율 행동 (Mission, Strategy, Evolution 타입 + 인터페이스)
 
     implementation 'androidx.core:core-ktx:1.12.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'

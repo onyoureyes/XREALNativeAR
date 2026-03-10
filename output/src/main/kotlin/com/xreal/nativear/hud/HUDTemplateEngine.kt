@@ -1,6 +1,6 @@
 package com.xreal.nativear.hud
 
-import android.util.Log
+import com.xreal.nativear.core.XRealLogger
 import com.xreal.nativear.DrawCommand
 import com.xreal.nativear.DrawElement
 import com.xreal.nativear.context.LifeSituation
@@ -39,7 +39,7 @@ class HUDTemplateEngine(
      */
     fun registerRenderer(renderer: IHUDWidgetRenderer) {
         widgetRenderers.add(renderer)
-        Log.d(TAG, "Registered renderer: ${renderer.javaClass.simpleName} for ${renderer.supportedWidgets}")
+        XRealLogger.impl.d(TAG, "Registered renderer: ${renderer.javaClass.simpleName} for ${renderer.supportedWidgets}")
     }
 
     private val templates = mutableMapOf<String, HUDTemplate>()
@@ -160,7 +160,7 @@ class HUDTemplateEngine(
         builtIn.forEach { template ->
             templates[template.id] = template
         }
-        Log.i(TAG, "Registered ${builtIn.size} built-in templates")
+        XRealLogger.impl.i(TAG, "Registered ${builtIn.size} built-in templates")
     }
 
     // ─── Template Management ───
@@ -185,7 +185,7 @@ class HUDTemplateEngine(
             situationTriggers = setOf(situation)
         )
         templates[id] = template
-        Log.i(TAG, "Composed new template: $name with ${widgets.size} widgets")
+        XRealLogger.impl.i(TAG, "Composed new template: $name with ${widgets.size} widgets")
         return template
     }
 
@@ -224,7 +224,7 @@ class HUDTemplateEngine(
     fun activateTemplate(template: HUDTemplate) {
         if (_activeTemplate.value?.id == template.id) return
 
-        Log.i(TAG, "Switching HUD: ${_activeTemplate.value?.name ?: "none"} -> ${template.name}")
+        XRealLogger.impl.i(TAG, "Switching HUD: ${_activeTemplate.value?.name ?: "none"} -> ${template.name}")
 
         // Deactivate widgets no longer in the new template
         val newWidgets = template.widgets.toSet()
@@ -235,7 +235,7 @@ class HUDTemplateEngine(
         for (widget in widgetsToDeactivate) {
             widgetRenderers.filter { widget in it.supportedWidgets }.forEach { renderer ->
                 try { renderer.onWidgetDeactivated(widget) }
-                catch (e: Exception) { Log.e(TAG, "Deactivate error: ${e.message}") }
+                catch (e: Exception) { XRealLogger.impl.e(TAG, "Deactivate error: ${e.message}") }
             }
         }
 
@@ -253,7 +253,7 @@ class HUDTemplateEngine(
         for (widget in widgetsToActivate) {
             widgetRenderers.filter { widget in it.supportedWidgets }.forEach { renderer ->
                 try { renderer.onWidgetActivated(widget) }
-                catch (e: Exception) { Log.e(TAG, "Activate error: ${e.message}") }
+                catch (e: Exception) { XRealLogger.impl.e(TAG, "Activate error: ${e.message}") }
             }
         }
 

@@ -393,7 +393,7 @@ class GoalOrientedAgentLoop(
     private fun getAvailableToolDefs(agentId: String): List<com.xreal.nativear.ai.AIToolDefinition> {
         // 모든 도구 즉시 접근 — 승인 불필요
         return try {
-            com.xreal.nativear.ai.ToolDefinitionRegistry.getAllToolDefinitions()
+            org.koin.java.KoinJavaComponent.getKoin().get<com.xreal.nativear.ai.ToolDefinitionRegistry>().getAllToolDefinitions()
         } catch (_: Exception) { emptyList() }
     }
 

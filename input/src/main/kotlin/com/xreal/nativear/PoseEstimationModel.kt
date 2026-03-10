@@ -1,8 +1,8 @@
 package com.xreal.nativear
 
-import android.content.Context
 import android.graphics.Bitmap
-import android.util.Log
+import com.xreal.nativear.core.IAssetLoader
+import com.xreal.nativear.core.XRealLogger
 import com.xreal.ai.IAIModel
 import org.tensorflow.lite.DataType
 import org.tensorflow.lite.Interpreter
@@ -10,15 +10,13 @@ import org.tensorflow.lite.support.common.ops.NormalizeOp
 import org.tensorflow.lite.support.image.ImageProcessor
 import org.tensorflow.lite.support.image.TensorImage
 import org.tensorflow.lite.support.image.ops.ResizeOp
-import java.io.FileInputStream
-import java.nio.MappedByteBuffer
-import java.nio.channels.FileChannel
+import java.nio.ByteBuffer
 
 /**
  * PoseEstimationModel: Handles human body pose detection using TFLite.
  * Zero-copy optimized: all per-frame buffers are pre-allocated in prepare().
  */
-class PoseEstimationModel(private val context: Context) : IAIModel {
+class PoseEstimationModel(private val assetLoader: IAssetLoader) : IAIModel {
     private val TAG = "PoseEstimationModel"
     private var interpreter: Interpreter? = null
 
@@ -38,7 +36,7 @@ class PoseEstimationModel(private val context: Context) : IAIModel {
 
     override suspend fun prepare(options: Interpreter.Options): Boolean {
         if (isLoaded) return true
-        Log.i(TAG, "Preparing Pose estimation model...")
+        XRealLogger.impl.i(TAG, "Preparing Pose estimation model...")
         return try {
             val modelBuffer = loadModelFile("centernet_pose.tflite")
             interpreter = Interpreter(modelBuffer, options)
@@ -54,16 +52,13 @@ class PoseEstimationModel(private val context: Context) : IAIModel {
             isReady = true
             true
         } catch (e: Exception) {
-            Log.e(TAG, "Failed to load pose model: ${e.message}")
+            XRealLogger.impl.e(TAG, "Failed to load pose model: ${e.message}")
             false
         }
     }
 
-    private fun loadModelFile(modelName: String): MappedByteBuffer {
-        val fileDescriptor = context.assets.openFd(modelName)
-        val inputStream = FileInputStream(fileDescriptor.fileDescriptor)
-        val fileChannel = inputStream.channel
-        return fileChannel.map(FileChannel.MapMode.READ_ONLY, fileDescriptor.startOffset, fileDescriptor.declaredLength)
+    private fun loadModelFile(modelName: String): ByteBuffer {
+        return assetLoader.loadModelBuffer(modelName)
     }
 
     /**
@@ -96,13 +91,13 @@ class PoseEstimationModel(private val context: Context) : IAIModel {
 
             callback(keypoints)
         } catch (e: Exception) {
-            Log.e(TAG, "Pose Inference Error: ${e.message}")
+            XRealLogger.impl.e(TAG, "Pose Inference Error: ${e.message}")
             callback(emptyList())
         }
     }
 
     override fun release() {
-        Log.i(TAG, "Releasing Pose Interpreter")
+        XRealLogger.impl.i(TAG, "Releasing Pose Interpreter")
         interpreter?.close()
         interpreter = null
         imageProcessor = null

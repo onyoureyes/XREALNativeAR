@@ -1,7 +1,7 @@
 package com.xreal.nativear.renderer
 
 import android.graphics.BitmapFactory
-import android.util.Log
+import com.xreal.nativear.core.XRealLogger
 import android.view.Choreographer
 import android.view.Surface
 import android.view.SurfaceView
@@ -11,9 +11,6 @@ import com.google.android.filament.android.UiHelper
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import java.nio.channels.Channels
-import kotlin.math.cos
-import kotlin.math.sin
-import kotlin.math.tan
 
 /**
  * Filament-based 3D renderer for XREAL AR glasses.
@@ -63,6 +60,9 @@ class FilamentRenderer(private val surfaceView: SurfaceView) {
     private var cameraTextureHeight = 0
     private var cameraTextureReady = false
 
+    // Material factory (lifecycle tied to this renderer)
+    private val materialFactory = MaterialFactory()
+
     // Ghost runner
     var ghostRunner: GhostRunnerEntity? = null
         private set
@@ -79,9 +79,9 @@ class FilamentRenderer(private val surfaceView: SurfaceView) {
     private var projectionComputed = false
 
     fun setup() {
-        Log.i(TAG, "Setting up Filament renderer")
+        XRealLogger.impl.i(TAG, "Setting up Filament renderer")
 
-        MaterialFactory.init()
+        materialFactory.init()
 
         // Create engine (OpenGL ES backend for camera texture compatibility)
         engine = Engine.create()
@@ -143,18 +143,18 @@ class FilamentRenderer(private val surfaceView: SurfaceView) {
 
                 override fun onResized(width: Int, height: Int) {
                     view.viewport = Viewport(0, 0, width, height)
-                    Log.d(TAG, "Viewport resized: ${width}x${height}")
+                    XRealLogger.impl.d(TAG, "Viewport resized: ${width}x${height}")
                 }
             }
             attachTo(surfaceView)
         }
 
         // Create ghost runner entity
-        ghostRunner = GhostRunnerEntity(engine, scene)
+        ghostRunner = GhostRunnerEntity(engine, scene, materialFactory)
 
         setupComplete = true
         choreographer.postFrameCallback(frameCallback)
-        Log.i(TAG, "Filament renderer setup complete")
+        XRealLogger.impl.i(TAG, "Filament renderer setup complete")
     }
 
     /**
@@ -173,35 +173,11 @@ class FilamentRenderer(private val surfaceView: SurfaceView) {
      */
     fun setPose(x: Float, y: Float, z: Float,
                 qx: Float, qy: Float, qz: Float, qw: Float) {
-        // Hamilton quaternion → rotation matrix (column-major for Filament)
-        val x2 = qx + qx; val y2 = qy + qy; val z2 = qz + qz
-        val xx = qx * x2; val xy = qx * y2; val xz = qx * z2
-        val yy = qy * y2; val yz = qy * z2; val zz = qz * z2
-        val wx = qw * x2; val wy = qw * y2; val wz = qw * z2
+        // 쿼터니언 → 행렬 변환 (QuaternionMatrixConverter로 위임)
+        val matrix = QuaternionMatrixConverter.toMatrix(x, y, z, qx, qy, qz, qw)
 
-        // Column-major 4x4 model matrix (camera-to-world)
         synchronized(poseModelMatrix) {
-            // Column 0
-            poseModelMatrix[0]  = (1.0 - (yy + zz))
-            poseModelMatrix[1]  = (xy + wz).toDouble()
-            poseModelMatrix[2]  = (xz - wy).toDouble()
-            poseModelMatrix[3]  = 0.0
-            // Column 1
-            poseModelMatrix[4]  = (xy - wz).toDouble()
-            poseModelMatrix[5]  = (1.0 - (xx + zz))
-            poseModelMatrix[6]  = (yz + wx).toDouble()
-            poseModelMatrix[7]  = 0.0
-            // Column 2
-            poseModelMatrix[8]  = (xz + wy).toDouble()
-            poseModelMatrix[9]  = (yz - wx).toDouble()
-            poseModelMatrix[10] = (1.0 - (xx + yy))
-            poseModelMatrix[11] = 0.0
-            // Column 3 (translation)
-            poseModelMatrix[12] = x.toDouble()
-            poseModelMatrix[13] = y.toDouble()
-            poseModelMatrix[14] = z.toDouble()
-            poseModelMatrix[15] = 1.0
-
+            System.arraycopy(matrix, 0, poseModelMatrix, 0, 16)
             poseValid = true
         }
     }
@@ -217,7 +193,7 @@ class FilamentRenderer(private val surfaceView: SurfaceView) {
     }
 
     fun destroy() {
-        Log.i(TAG, "Destroying Filament renderer")
+        XRealLogger.impl.i(TAG, "Destroying Filament renderer")
         choreographer.removeFrameCallback(frameCallback)
 
         ghostRunner?.destroy(engine)
@@ -225,7 +201,7 @@ class FilamentRenderer(private val surfaceView: SurfaceView) {
 
         destroyCameraBackground()
 
-        MaterialFactory.destroyAll(engine)
+        materialFactory.destroyAll(engine)
 
         uiHelper.detach()
         engine.destroyRenderer(renderer)
@@ -235,8 +211,8 @@ class FilamentRenderer(private val surfaceView: SurfaceView) {
         EntityManager.get().destroy(camera.entity)
         engine.destroy()
 
-        MaterialFactory.shutdown()
-        Log.i(TAG, "Filament renderer destroyed")
+        materialFactory.shutdown()
+        XRealLogger.impl.i(TAG, "Filament renderer destroyed")
     }
 
     // ========== Private Implementation ==========
@@ -305,7 +281,7 @@ class FilamentRenderer(private val surfaceView: SurfaceView) {
             )
             cameraTextureReady = true
         } catch (e: Exception) {
-            Log.e(TAG, "Camera frame decode error: ${e.message}")
+            XRealLogger.impl.e(TAG, "Camera frame decode error: ${e.message}")
         }
     }
 
@@ -326,7 +302,7 @@ class FilamentRenderer(private val surfaceView: SurfaceView) {
             .build(engine)
 
         // Get material
-        val material = MaterialFactory.getCameraBgMaterial(engine)
+        val material = materialFactory.getCameraBgMaterial(engine)
         cameraMaterialInstance = material.createInstance().apply {
             setParameter("cameraTexture", cameraTexture!!,
                 TextureSampler(
@@ -397,7 +373,7 @@ class FilamentRenderer(private val surfaceView: SurfaceView) {
 
         scene.addEntity(cameraQuadEntity)
 
-        Log.i(TAG, "Camera background created: ${width}x${height}")
+        XRealLogger.impl.i(TAG, "Camera background created: ${width}x${height}")
     }
 
     private fun destroyCameraBackground() {

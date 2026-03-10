@@ -11,9 +11,8 @@ class XREALApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        // ★ ExecutionFlowMonitor 크래시 핸들러 — 가장 먼저 설치 (네이티브 크래시 포함)
-        // 크래시 시 마지막 50개 FlowEvent를 ASCII 타임라인으로 logcat 출력 (TAG=FlowMon)
-        com.xreal.nativear.core.ExecutionFlowMonitor.installCrashHandler()
+        // ★ ExecutionFlowMonitor 크래시 핸들러 → AppBootstrapper.start()로 이동 (Koin 후 실행)
+        // Koin init 중 크래시는 flow event가 0개이므로 dump할 것 없음 → 수용 가능
 
         // Initialize OpenCV native library BEFORE Koin (DI singletons may use OpenCV types)
         if (OpenCVLoader.initDebug()) {

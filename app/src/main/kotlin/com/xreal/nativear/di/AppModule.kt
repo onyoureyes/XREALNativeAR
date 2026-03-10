@@ -36,7 +36,23 @@ val appModule = module {
     single { MemorySearcher(get<UnifiedMemoryDatabase>(), get()) }
     // MemoryRepository: receives both databases via constructor
     single { MemoryRepository(androidContext(), get<UnifiedMemoryDatabase>(), get<SceneDatabase>(), get(), get(), get(), get(), get(), get<EmotionClassifier>(), get<com.xreal.nativear.memory.MemorySaveHelper>()) }
-    single<IMemoryService> { get<MemoryRepository>() }
+    // IMemoryService는 IMemoryStore로 대체됨 — 소비자가 없으므로 바인딩 제거
+
+    // ★ Memory Abstraction Layer: IMemoryStore + IMemoryCompaction
+    single<com.xreal.nativear.memory.api.IMemoryStore> {
+        com.xreal.nativear.memory.impl.SqliteMemoryStore(
+            get<UnifiedMemoryDatabase>(),
+            get<com.xreal.nativear.memory.MemorySaveHelper>(),
+            get<MemorySearcher>(),
+            get<TextEmbedder>()
+        )
+    }
+    single<com.xreal.nativear.memory.api.IMemoryCompaction> {
+        com.xreal.nativear.memory.impl.SqliteMemoryCompaction(
+            get<UnifiedMemoryDatabase>(),
+            get<MemoryCompressor>()
+        )
+    }
 
     single { UnifiedAIOrchestrator(androidContext()) }
 
@@ -100,16 +116,19 @@ val appModule = module {
     }
 
 
+    // Asset Loader (Context 추상화 — input 모듈의 Android 의존 제거)
+    single<com.xreal.nativear.core.IAssetLoader> { com.xreal.nativear.core.AndroidAssetLoader(androidContext()) }
+
     // Engine Components
     // Note: WhisperEngine (standalone module) is created directly by AudioAnalysisService/WhisperLifelogService.
     // It does not need Koin DI or Orchestrator registration.
     single {
-        val model = LiteRTWrapper(androidContext())
+        val model = LiteRTWrapper(get())
         get<UnifiedAIOrchestrator>().registerModel("LiteRT_YOLO", model)
         model
     }
-    single { 
-        val model = ImageEmbedder(androidContext())
+    single {
+        val model = ImageEmbedder(get())
         get<UnifiedAIOrchestrator>().registerModel("ImageEmbedder", model)
         model
     }
@@ -131,29 +150,29 @@ val appModule = module {
         model
     }
     single { 
-        val model = PoseEstimationModel(androidContext())
+        val model = PoseEstimationModel(get())
         get<UnifiedAIOrchestrator>().registerModel("Pose", model)
         model
     }
     single { EmotionTTSService(get()) }
     single {
-        val model = AudioEventClassifier(androidContext())
+        val model = AudioEventClassifier(get())
         get<UnifiedAIOrchestrator>().registerModel("YAMNet", model)
         model
     }
     single {
-        val model = FaceDetector(androidContext())
+        val model = FaceDetector(get())
         get<UnifiedAIOrchestrator>().registerModel("BlazeFace", model)
         model
     }
     single {
-        val model = FaceEmbedder(androidContext())
+        val model = FaceEmbedder(get())
         get<UnifiedAIOrchestrator>().registerModel("FaceEmbedder", model)
         model
     }
     single { PersonRepository(get(), get(), get(), get()) }
     single {
-        val model = FacialExpressionClassifier(androidContext())
+        val model = FacialExpressionClassifier(get())
         get<UnifiedAIOrchestrator>().registerModel("FER", model)
         model
     }
@@ -228,37 +247,45 @@ val appModule = module {
         com.xreal.nativear.tools.ToolExecutorRegistry(
             toolUsageTracker = get()  // ★ Phase M
         ).apply {
-            register(com.xreal.nativear.tools.WebToolExecutor(get(), get(), get()))
-            register(com.xreal.nativear.tools.MemoryToolExecutor(
-                memoryService = get(),
+            // 개별 executor 등록 실패가 다른 executor에 영향 주지 않도록 격리
+            fun safeRegister(name: String, block: () -> com.xreal.nativear.tools.IToolExecutor) {
+                try { register(block()) } catch (e: Exception) {
+                    android.util.Log.w("ToolExecutorRegistry", "$name 등록 실패 (비치명적): ${e.message}")
+                }
+            }
+            safeRegister("Web") { com.xreal.nativear.tools.WebToolExecutor(get(), get(), get()) }
+            safeRegister("Memory") { com.xreal.nativear.tools.MemoryToolExecutor(
+                memoryStore = get(),
+                memorySearcher = get(),
+                sceneDatabase = get(),
                 cloudBackupManager = get(),
                 bitmapProvider = { try { get<VisionManager>().getLatestBitmap() } catch (e: Exception) { null } }
-            ))
-            register(com.xreal.nativear.tools.VisionToolExecutor(
+            ) }
+            safeRegister("Vision") { com.xreal.nativear.tools.VisionToolExecutor(
                 visionService = get(),
                 screenObjectsProvider = { "[]" } // Updated by MainActivity callback
-            ))
-            register(com.xreal.nativear.tools.DrawingToolExecutor(get()))
-            register(com.xreal.nativear.tools.RunningToolExecutor())
-            register(com.xreal.nativear.tools.SystemToolExecutor(get()))
-            register(com.xreal.nativear.tools.DataToolExecutor(get()))
-            register(com.xreal.nativear.interaction.HUDInteractionToolExecutor(
+            ) }
+            safeRegister("Drawing") { com.xreal.nativear.tools.DrawingToolExecutor(get()) }
+            safeRegister("Running") { com.xreal.nativear.tools.RunningToolExecutor() }
+            safeRegister("System") { com.xreal.nativear.tools.SystemToolExecutor(get()) }
+            safeRegister("Data") { com.xreal.nativear.tools.DataToolExecutor(get()) }
+            safeRegister("HUDInteraction") { com.xreal.nativear.interaction.HUDInteractionToolExecutor(
                 interactionManager = get(),
                 physicsEngine = get(),
                 templateManager = get(),
                 eventBus = get()
-            ))
-            register(com.xreal.nativear.plan.PlannerToolExecutor(get()))
-            register(com.xreal.nativear.hud.HUDToolExecutor(get(), get()))
-            register(com.xreal.nativear.evolution.CapabilityToolExecutor(get()))
-            register(com.xreal.nativear.tools.AnalyticsToolExecutor(get()))
-            register(com.xreal.nativear.remote.RemoteCameraToolExecutor(get(), get()))
+            ) }
+            safeRegister("Planner") { com.xreal.nativear.plan.PlannerToolExecutor(get()) }
+            safeRegister("HUD") { com.xreal.nativear.hud.HUDToolExecutor(get(), get()) }
+            safeRegister("Capability") { com.xreal.nativear.evolution.CapabilityToolExecutor(get()) }
+            safeRegister("Analytics") { com.xreal.nativear.tools.AnalyticsToolExecutor(get()) }
+            safeRegister("RemoteCamera") { com.xreal.nativear.remote.RemoteCameraToolExecutor(get(), get()) }
             // ★ Phase 19: 전문가 AI 자기진화 도구 (request_prompt_addition 등 3개)
-            register(com.xreal.nativear.tools.ExpertSelfAdvocacyToolExecutor(
+            safeRegister("ExpertSelfAdvocacy") { com.xreal.nativear.tools.ExpertSelfAdvocacyToolExecutor(
                 get<com.xreal.nativear.expert.ExpertPeerRequestStore>()
-            ))
+            ) }
             // ★ Policy Department: 정책 조회/변경 도구
-            register(com.xreal.nativear.tools.PolicyToolExecutor(get(), get()))
+            safeRegister("Policy") { com.xreal.nativear.tools.PolicyToolExecutor(get(), get()) }
             // ResourceToolExecutor는 DI 사이클 방지를 위해 lazy 등록
             // (ResourceRegistry/ResourceProposalManager가 이 블록보다 늦게 정의됨)
         }
@@ -267,7 +294,7 @@ val appModule = module {
     single {
         AIAgentManager(
             context = androidContext(),
-            memoryService = get(),
+            memoryStore = get(),
             searchService = get(),
             weatherService = get(),
             navigationService = get(),
@@ -381,7 +408,8 @@ val appModule = module {
 
     // AI Providers (Koin named qualifiers)
     // ★ Phase B: 모든 프로바이더에 전달할 AIToolDefinition 목록 (ToolDefinitionRegistry 단일 소스)
-    single<List<com.xreal.nativear.ai.AIToolDefinition>> { com.xreal.nativear.ai.ToolDefinitionRegistry.getAllToolDefinitions() }
+    single { com.xreal.nativear.ai.ToolDefinitionRegistry() }
+    single<List<com.xreal.nativear.ai.AIToolDefinition>> { get<com.xreal.nativear.ai.ToolDefinitionRegistry>().getAllToolDefinitions() }
 
     // ★ Phase C: 생활 세션 관리자
     single {
@@ -697,13 +725,13 @@ val appModule = module {
 
     // ★ 도메인 인터페이스 바인딩 (10개 인터페이스 → 구체 싱글톤 매핑)
     single<com.xreal.nativear.ai.IPersonaService> { get<com.xreal.nativear.ai.PersonaManager>() }
-    single<com.xreal.nativear.memory.IMemoryAccess> { get<com.xreal.nativear.memory.MemorySaveHelper>() }
+    // IMemoryAccess는 IMemoryStore로 대체됨 — 소비자가 없으므로 바인딩 제거
 
     // Persona Memory Service
     single {
         com.xreal.nativear.ai.PersonaMemoryService(
             database = get<UnifiedMemoryDatabase>(),
-            memorySaveHelper = get<com.xreal.nativear.memory.MemorySaveHelper>(),
+            memoryStore = get(),
             memoryCompressor = get<MemoryCompressor>()
         )
     }
@@ -732,7 +760,7 @@ val appModule = module {
     }
 
     // Strategist System
-    single { com.xreal.nativear.strategist.DirectiveStore(get<UnifiedMemoryDatabase>(), get<com.xreal.nativear.memory.MemorySaveHelper>()) }
+    single { com.xreal.nativear.strategist.DirectiveStore(get<UnifiedMemoryDatabase>(), get<com.xreal.nativear.memory.api.IMemoryStore>()) }
     single {
         com.xreal.nativear.strategist.StrategistReflector(
             aiRegistry = get<com.xreal.nativear.ai.IAICallService>(),
@@ -816,7 +844,7 @@ val appModule = module {
         com.xreal.nativear.cadence.DigitalTwinBuilder(
             memoryDatabase = get<UnifiedMemoryDatabase>(),
             sceneDatabase = get<SceneDatabase>(),
-            memorySaveHelper = get<com.xreal.nativear.memory.MemorySaveHelper>(),
+            memoryStore = get<com.xreal.nativear.memory.api.IMemoryStore>(),
             predictionSyncService = getOrNull<com.xreal.nativear.sync.PredictionSyncService>()
         )
     }
@@ -1228,7 +1256,7 @@ val appModule = module {
     }
 
     // Router Infrastructure
-    single { com.xreal.nativear.router.DecisionLogger(get<IMemoryService>()).also { it.start() } }
+    single { com.xreal.nativear.router.DecisionLogger(get<com.xreal.nativear.memory.api.IMemoryStore>()).also { it.start() } }
 
     // Persona Router (smart persona selection with budget awareness)
     single {
@@ -1311,9 +1339,8 @@ val appModule = module {
     single {
         com.xreal.nativear.memory.ProactiveMemorySurfacer(
             eventBus = get(),
-            memoryService = get(),
+            memoryStore = get(),
             sceneDatabase = get(),
-            memoryDatabase = get(),
             locationService = get(),
             spatialUIManager = get(),
             spatialAnchorManager = get()
@@ -1322,7 +1349,7 @@ val appModule = module {
 
     // --- Hand Tracking + Interactive AR System ---
     single {
-        val model = com.xreal.nativear.hand.HandTrackingModel(androidContext())
+        val model = com.xreal.nativear.hand.HandTrackingModel(get())
         get<UnifiedAIOrchestrator>().registerModel("HandTracking", model)
         model
     }
@@ -1395,6 +1422,9 @@ val appModule = module {
 
     // Core Objects
     single { GlobalEventBus() }
+    single { ExecutionFlowMonitor() }
+    single { SequenceTracer(get()) }
+    single { ErrorReporter(get()) }
 
     // LifeTornadoEngine — 10년 인생 시뮬레이션 🌪️
     single { com.xreal.nativear.core.LifeTornadoEngine(get()) }
@@ -1520,7 +1550,7 @@ val appModule = module {
     single {
         com.xreal.nativear.companion.KnowledgePrefetcher(
             aiRegistry = get<com.xreal.nativear.ai.IAICallService>(),
-            memorySaveHelper = get(),
+            memoryStore = get(),
             database = get()
         )
     }
@@ -1664,7 +1694,7 @@ val appModule = module {
             eventBus = get(),
             contextAggregator = get(),
             aiRegistry = get<com.xreal.nativear.ai.IAICallService>(),
-            memorySaveHelper = get(),
+            memoryStore = get(),
             memorySearcher = get(),
             proactiveScheduler = get(),
             planManager = get(),

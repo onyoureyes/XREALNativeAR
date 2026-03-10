@@ -35,9 +35,8 @@ class AppBootstrapper(
      *
      * Level 1: DB + Policy (필수 인프라)
      * Level 2: HUD + TTS (사용자 피드백)
-     * Level 3: 센서 + 하드웨어 (입력)
-     * Level 4: AI 모델 + 컨텍스트 (지능)
-     * Level 5: 자율행동 (전략/미션/진화)
+     * Level 3: 센서 + 하드웨어 + 자율행동 서비스 (입력/전략/미션)
+     * Level 4: AI 모델 + 컨텍스트 (지능) + 학습/동기화
      *
      * 테스트 시 boot_level=1로 설정하면 DB+Policy만 초기화 → 레이어별 검증 가능.
      */
@@ -45,14 +44,21 @@ class AppBootstrapper(
         com.xreal.nativear.policy.PolicyReader.getInt("system.boot_level", 5)
 
     fun start() {
+        // 0-logger. XRealLogger 프로덕션 구현 설정 (android.util.Log 위임)
+        XRealLogger.impl = AndroidLogger
+
         val currentBootLevel = bootLevel
+        val bootStartMs = System.currentTimeMillis()
         Log.i(TAG, "🚀 AppBootstrapper: Starting (boot_level=$currentBootLevel)")
 
         // ═══════════════════════════════════════════════════════
         // LEVEL 1: DB + Policy (필수 인프라) — 항상 실행
         // ═══════════════════════════════════════════════════════
 
-        // 0. ErrorReporter — 에러 가시성 파이프라인
+        // 0. 크래시 핸들러 설치 (Koin 초기화 완료 후 → 인스턴스 정상 조회 보장)
+        org.koin.java.KoinJavaComponent.getKoin().get<ExecutionFlowMonitor>().installCrashHandler()
+
+        // 0-1. ErrorReporter — Koin에서 관리 (init은 no-op, 호환성용)
         ErrorReporter.init(eventBus)
 
         // 0-policy. PolicyManager — 정책 변경 요청 심사 + 음성 명령 구독
@@ -79,6 +85,25 @@ class AppBootstrapper(
             Log.i(TAG, "SystemErrorLogger started")
         } catch (e: Exception) {
             Log.w(TAG, "SystemErrorLogger not available: ${e.message}")
+        }
+
+        // DB 무결성 체크 (비동기 — 부팅 차단 없음)
+        scope.launch(Dispatchers.IO) {
+            try {
+                val helper = org.koin.java.KoinJavaComponent.getKoin()
+                    .getOrNull<com.xreal.nativear.batch.DatabaseIntegrityHelper>()
+                if (helper != null) {
+                    val report = helper.runIntegrityCheck()
+                    if (report.totalIssues > 0) {
+                        Log.w(TAG, "DB 무결성 이슈 ${report.totalIssues}건 발견 — cleanupOrphans 실행")
+                        helper.cleanupOrphans()
+                    } else {
+                        Log.i(TAG, "DB 무결성 체크 통과 (이슈 없음)")
+                    }
+                }
+            } catch (e: Exception) {
+                Log.w(TAG, "DB 무결성 체크 실패 (비치명적): ${e.message}")
+            }
         }
 
         Log.i(TAG, "✅ Level 1 complete (DB+Policy)")
@@ -310,12 +335,7 @@ class AppBootstrapper(
             Log.w(TAG, "ValueGatekeeper AI 보강 연결 실패: ${e.message}")
         }
 
-        Log.i(TAG, "✅ Level 4 complete (AI+컨텍스트)")
-        if (currentBootLevel < 5) { Log.i(TAG, "⏸ Boot stopped at level 4"); return }
-
-        // ═══════════════════════════════════════════════════════
-        // LEVEL 5: 자율행동 (전략/미션/진화)
-        // ═══════════════════════════════════════════════════════
+        // ── LEVEL 3 계속: 자율행동 서비스 (전략/미션/카메라/센서 릴레이) ──
 
         // ★ ProactiveScheduler 시작 (중앙 스케줄러)
         try {
@@ -338,14 +358,7 @@ class AppBootstrapper(
             ))
         }
 
-        // 7a. ★ Policy Department — 정책 관리자 시작 (음성 명령 구독)
-        try {
-            org.koin.java.KoinJavaComponent.getKoin()
-                .getOrNull<com.xreal.nativear.policy.PolicyManager>()?.start()
-            Log.i(TAG, "PolicyManager started (정책 음성 명령 구독 활성)")
-        } catch (e: Exception) {
-            Log.w(TAG, "PolicyManager not available: ${e.message}")
-        }
+        // 7a. PolicyManager — LEVEL 1에서 이미 start() 완료 (중복 호출 제거됨)
 
         // 7b. ★ CameraStreamManager — 카메라 소스 선택 + 건강 모니터링 시작
         try {
@@ -720,13 +733,13 @@ class AppBootstrapper(
             val remoteExecutor = org.koin.java.KoinJavaComponent.getKoin().getOrNull<com.xreal.nativear.tools.RemoteToolExecutor>()
             val registry = org.koin.java.KoinJavaComponent.getKoin().getOrNull<com.xreal.nativear.tools.ToolExecutorRegistry>()
             if (remoteExecutor != null && registry != null) {
-                Thread {
+                scope.launch(Dispatchers.IO) {
                     try {
-                        val count = kotlinx.coroutines.runBlocking { remoteExecutor.loadRemoteTools() }
+                        val count = remoteExecutor.loadRemoteTools()
                         if (count > 0) {
                             registry.register(remoteExecutor)
                             // 모든 프로바이더 공통 도구 정의 등록 (단일 소스: ToolDefinitionRegistry)
-                            com.xreal.nativear.ai.ToolDefinitionRegistry.registerAdditionalTools(remoteExecutor.loadedToolDefinitions)
+                            org.koin.java.KoinJavaComponent.getKoin().get<com.xreal.nativear.ai.ToolDefinitionRegistry>().registerAdditionalTools(remoteExecutor.loadedToolDefinitions)
                             Log.i(TAG, "RemoteToolExecutor: $count 개 원격 도구 등록 완료 (all providers)")
                         } else {
                             Log.d(TAG, "RemoteToolExecutor: 서버 미연결 — 원격 도구 없음")
@@ -734,7 +747,7 @@ class AppBootstrapper(
                     } catch (e: Exception) {
                         Log.d(TAG, "RemoteToolExecutor 로드 실패 (정상 — Tailscale 미연결): ${e.message}")
                     }
-                }.start()
+                }
             }
         } catch (e: Exception) {
             Log.w(TAG, "RemoteToolExecutor init failed: ${e.message}")
@@ -749,8 +762,9 @@ class AppBootstrapper(
             Log.w(TAG, "StorytellerOrchestrator not available: ${e.message}")
         }
 
-        Log.i(TAG, "✅ Level 5 complete (자율행동)")
-        Log.i(TAG, "✅ System services initialized (boot_level=$currentBootLevel)")
+        val bootDurationMs = System.currentTimeMillis() - bootStartMs
+        Log.i(TAG, "✅ Level 4 complete (AI+컨텍스트+자율행동)")
+        Log.i(TAG, "✅ All boot levels complete (boot_level=$currentBootLevel, ${bootDurationMs}ms)")
     }
 
     fun release() {

@@ -2,7 +2,7 @@ package com.xreal.nativear.spatial
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.util.Log
+import com.xreal.nativear.core.XRealLogger
 import com.xreal.nativear.ImageEmbedder
 import java.io.ByteArrayOutputStream
 import java.nio.ByteBuffer
@@ -222,7 +222,7 @@ class VisualLoopCloser(
 
         if (driftDistance > MAX_CORRECTION_DISTANCE_M) {
             // 드리프트가 너무 크면 잘못된 매칭 의심 → 무시
-            Log.w(TAG, "Loop closure rejected: drift ${driftDistance}m too large (max $MAX_CORRECTION_DISTANCE_M)")
+            XRealLogger.impl.w(TAG, "Loop closure rejected: drift ${driftDistance}m too large (max $MAX_CORRECTION_DISTANCE_M)")
             return null
         }
 
@@ -256,7 +256,7 @@ class VisualLoopCloser(
             }
             floatArray
         } catch (e: Exception) {
-            Log.w(TAG, "ByteArray→FloatArray conversion failed: ${e.message}")
+            XRealLogger.impl.w(TAG, "ByteArray→FloatArray conversion failed: ${e.message}")
             null
         }
     }
@@ -293,7 +293,7 @@ class VisualLoopCloser(
             val result = baos.toByteArray()
             result
         } catch (e: Exception) {
-            Log.w(TAG, "Thumbnail creation failed: ${e.message}")
+            XRealLogger.impl.w(TAG, "Thumbnail creation failed: ${e.message}")
             null
         }
     }

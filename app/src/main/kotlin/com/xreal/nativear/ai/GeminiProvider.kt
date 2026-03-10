@@ -75,7 +75,8 @@ class GeminiProvider(private var config: ProviderConfig) : IAIProvider {
                     }
                     // 도구 호출이 포함된 assistant 메시지 → FunctionCallPart
                     msg.role == "assistant" && msg.pendingToolCalls != null -> content(role = "model") {
-                        msg.pendingToolCalls.forEach { tc ->
+                        val toolCalls = msg.pendingToolCalls ?: emptyList()
+                        toolCalls.forEach { tc ->
                             part(FunctionCallPart(
                                 name = tc.name,
                                 args = tc.arguments.mapValues { it.value?.toString() ?: "" }

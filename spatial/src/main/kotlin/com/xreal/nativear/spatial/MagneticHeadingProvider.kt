@@ -5,7 +5,7 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
-import android.util.Log
+import com.xreal.nativear.core.XRealLogger
 
 /**
  * MagneticHeadingProvider — 폰 자기 센서 기반 절대 방위 제공자.
@@ -89,7 +89,7 @@ class MagneticHeadingProvider(
 
     fun start() {
         if (rotationVectorSensor == null) {
-            Log.w(TAG, "TYPE_ROTATION_VECTOR sensor not available on this device")
+            XRealLogger.impl.w(TAG, "TYPE_ROTATION_VECTOR sensor not available on this device")
             return
         }
 
@@ -102,13 +102,13 @@ class MagneticHeadingProvider(
             rotationVectorSensor,
             SensorManager.SENSOR_DELAY_UI  // ~60ms, 충분한 갱신 빈도
         )
-        Log.i(TAG, "Magnetic heading provider started (ROTATION_VECTOR)")
+        XRealLogger.impl.i(TAG, "Magnetic heading provider started (ROTATION_VECTOR)")
     }
 
     fun stop() {
         sensorManager.unregisterListener(this)
         isAvailable = false
-        Log.i(TAG, "Magnetic heading provider stopped (last heading: ${"%.1f".format(absoluteHeadingDegrees)}°)")
+        XRealLogger.impl.i(TAG, "Magnetic heading provider stopped (last heading: ${"%.1f".format(absoluteHeadingDegrees)}°)")
     }
 
     // ── SensorEventListener ──
@@ -147,7 +147,7 @@ class MagneticHeadingProvider(
 
         if (!isAvailable && bufferCount >= 3) {
             isAvailable = true
-            Log.i(TAG, "First valid magnetic heading: ${"%.1f".format(absoluteHeadingDegrees)}° (accuracy=$accuracy)")
+            XRealLogger.impl.i(TAG, "First valid magnetic heading: ${"%.1f".format(absoluteHeadingDegrees)}° (accuracy=$accuracy)")
         }
     }
 
@@ -162,7 +162,7 @@ class MagneticHeadingProvider(
                     SensorManager.SENSOR_STATUS_ACCURACY_LOW -> "LOW"
                     else -> "UNRELIABLE"
                 }
-                Log.d(TAG, "Magnetic sensor accuracy changed: $label")
+                XRealLogger.impl.d(TAG, "Magnetic sensor accuracy changed: $label")
             }
         }
     }

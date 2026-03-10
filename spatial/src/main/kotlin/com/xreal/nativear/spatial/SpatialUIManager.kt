@@ -1,6 +1,6 @@
 package com.xreal.nativear.spatial
 
-import android.util.Log
+import com.xreal.nativear.core.XRealLogger
 import com.xreal.nativear.core.GlobalEventBus
 import com.xreal.nativear.core.XRealEvent
 import kotlinx.coroutines.*
@@ -131,18 +131,18 @@ class SpatialUIManager(
                 } catch (e: CancellationException) {
                     throw e
                 } catch (e: Exception) {
-                    Log.e(TAG, "이벤트 처리 오류 (루프 유지됨): ${event::class.simpleName} — ${e.message}", e)
+                    XRealLogger.impl.e(TAG, "이벤트 처리 오류 (루프 유지됨): ${event::class.simpleName} — ${e.message}", e)
                 }
             }
         }
-        Log.i(TAG, "SpatialUIManager started — stabilization + gaze focus + depth rendering active")
+        XRealLogger.impl.i(TAG, "SpatialUIManager started — stabilization + gaze focus + depth rendering active")
     }
 
     fun stop() {
         scope.cancel()
         smoothedPositions.clear()
         contentPanels.clear()
-        Log.i(TAG, "SpatialUIManager stopped")
+        XRealLogger.impl.i(TAG, "SpatialUIManager stopped")
     }
 
     /**
@@ -162,7 +162,7 @@ class SpatialUIManager(
             content = content,
             color = color
         )
-        Log.d(TAG, "Content panel attached to anchor $anchorId: $title")
+        XRealLogger.impl.d(TAG, "Content panel attached to anchor $anchorId: $title")
     }
 
     /**
@@ -355,7 +355,7 @@ class SpatialUIManager(
             }
 
             if (newFocusId != null) {
-                Log.d(TAG, "Gaze focus changed → $newFocusId")
+                XRealLogger.impl.d(TAG, "Gaze focus changed → $newFocusId")
             }
         } else if (newFocusId != null) {
             updateDwellTime(newFocusId, now)
@@ -376,7 +376,7 @@ class SpatialUIManager(
                         timestamp = now
                     ))
                 }
-                Log.i(TAG, "Deep focus triggered on anchor $anchorId (${dwellTime}ms)")
+                XRealLogger.impl.i(TAG, "Deep focus triggered on anchor $anchorId (${dwellTime}ms)")
             }
         }
     }

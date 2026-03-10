@@ -1,18 +1,16 @@
 package com.xreal.nativear
 
-import android.content.Context
 import android.graphics.Bitmap
-import android.os.SystemClock
-import android.util.Log
+import com.xreal.nativear.core.IAssetLoader
+import com.xreal.nativear.core.XRealLogger
 import org.tensorflow.lite.DataType
 import org.tensorflow.lite.Interpreter
-import org.tensorflow.lite.support.common.FileUtil
 import org.tensorflow.lite.support.common.ops.NormalizeOp
 import org.tensorflow.lite.support.image.ImageProcessor
 import org.tensorflow.lite.support.image.TensorImage
 import org.tensorflow.lite.support.image.ops.ResizeOp
 
-class ImageEmbedder(private val context: Context) : com.xreal.ai.IAIModel {
+class ImageEmbedder(private val assetLoader: IAssetLoader) : com.xreal.ai.IAIModel {
     private var interpreter: Interpreter? = null
     private val TAG = "ImageEmbedder"
     
@@ -38,7 +36,7 @@ class ImageEmbedder(private val context: Context) : com.xreal.ai.IAIModel {
         if (isLoaded) return true
 
         return try {
-            val modelBuffer = FileUtil.loadMappedFile(context, MODEL_NAME)
+            val modelBuffer = assetLoader.loadModelBuffer(MODEL_NAME)
             val interp = Interpreter(modelBuffer, options)
             interpreter = interp
 
@@ -54,12 +52,12 @@ class ImageEmbedder(private val context: Context) : com.xreal.ai.IAIModel {
             tensorImage = TensorImage(DataType.FLOAT32)
             outputArray = Array(1) { FloatArray(embeddingSize) }
 
-            Log.i(TAG, "Embedder Initialized with Size: $embeddingSize")
+            XRealLogger.impl.i(TAG, "Embedder Initialized with Size: $embeddingSize")
             isLoaded = true
             isReady = true
             true
         } catch (e: Exception) {
-            Log.e(TAG, "Init Failed: ${e.message}")
+            XRealLogger.impl.e(TAG, "Init Failed: ${e.message}")
             false
         }
     }
@@ -82,7 +80,7 @@ class ImageEmbedder(private val context: Context) : com.xreal.ai.IAIModel {
 
             return l2Normalize(out[0])
         } catch (e: Exception) {
-            Log.e(TAG, "Embedding Failed: ${e.message}")
+            XRealLogger.impl.e(TAG, "Embedding Failed: ${e.message}")
             return null
         }
     }

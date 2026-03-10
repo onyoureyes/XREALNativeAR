@@ -1,7 +1,7 @@
 package com.xreal.nativear.strategist
 
 import android.util.Log
-import com.xreal.nativear.UnifiedMemoryDatabase
+import com.xreal.nativear.memory.api.MemoryRecord
 import com.xreal.nativear.ai.AIMessage
 import org.json.JSONArray
 import org.json.JSONObject
@@ -102,9 +102,9 @@ mission_conductor 지시사항 형식 (커스텀 미션 생성):
      *   전달되면 buildContextPrompt에 포함 → Gemini가 "뭐가 통했는지" 보고 지시사항 생성.
      */
     suspend fun reflect(
-        personaMemories: Map<String, List<UnifiedMemoryDatabase.MemoryNode>>,
-        routerDecisions: List<UnifiedMemoryDatabase.MemoryNode>,
-        recentEvents: List<UnifiedMemoryDatabase.MemoryNode>,
+        personaMemories: Map<String, List<MemoryRecord>>,
+        routerDecisions: List<MemoryRecord>,
+        recentEvents: List<MemoryRecord>,
         hitRates: Map<String, Float?>,
         previousDirectives: List<Directive>,
         outcomeContext: String? = null   // ← 피드백 루프 핵심 데이터 (OutcomeTracker)
@@ -171,9 +171,9 @@ mission_conductor 지시사항 형식 (커스텀 미션 생성):
     }
 
     private fun buildContextPrompt(
-        personaMemories: Map<String, List<UnifiedMemoryDatabase.MemoryNode>>,
-        routerDecisions: List<UnifiedMemoryDatabase.MemoryNode>,
-        recentEvents: List<UnifiedMemoryDatabase.MemoryNode>,
+        personaMemories: Map<String, List<MemoryRecord>>,
+        routerDecisions: List<MemoryRecord>,
+        recentEvents: List<MemoryRecord>,
         hitRates: Map<String, Float?>,
         previousDirectives: List<Directive>,
         outcomeContext: String? = null

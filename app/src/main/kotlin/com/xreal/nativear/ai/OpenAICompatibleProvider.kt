@@ -64,7 +64,8 @@ abstract class OpenAICompatibleProvider(
                     // ★ 도구 호출이 포함된 assistant 메시지 → tool_calls 포맷
                     msg.role == "assistant" && msg.pendingToolCalls != null -> {
                         val toolCallsArray = JSONArray()
-                        msg.pendingToolCalls.forEach { tc ->
+                        val toolCalls = msg.pendingToolCalls ?: emptyList()
+                        toolCalls.forEach { tc ->
                             toolCallsArray.put(JSONObject().apply {
                                 put("id", tc.id)
                                 put("type", "function")

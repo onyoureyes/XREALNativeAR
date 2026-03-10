@@ -11,6 +11,7 @@ import org.koin.android.ext.android.inject
 import org.koin.core.qualifier.named
 import com.xreal.nativear.core.GlobalEventBus
 import com.xreal.nativear.core.XRealEvent
+import com.xreal.nativear.memory.api.IMemoryStore
 import com.xreal.whisper.SpeechResult
 
 /**
@@ -47,7 +48,7 @@ class AudioAnalysisService : Service() {
     private val serviceScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
 
     // Injected dependencies
-    private val memoryService: IMemoryService by inject()
+    private val memoryStore: IMemoryStore by inject()
     private val locationManager: LocationManager by inject()
     private val eventBus: GlobalEventBus by inject()
     private val yamnetClassifier: AudioEventClassifier by inject()
@@ -400,7 +401,7 @@ class AudioAnalysisService : Service() {
 
         // 1. Save to memory
         serviceScope.launch {
-            memoryService.saveMemory(cleanText, "PASSIVE_VOICE")
+            memoryStore.save(cleanText, "PASSIVE_VOICE")
         }
 
         // 2. Publish AudioEmbedding event

@@ -112,7 +112,8 @@ class ClaudeProvider(
                             put("text", msg.content)
                         })
                     }
-                    msg.pendingToolCalls.forEach { tc ->
+                    val toolCalls = msg.pendingToolCalls ?: emptyList()
+                    toolCalls.forEach { tc ->
                         contentArray.put(JSONObject().apply {
                             put("type", "tool_use")
                             put("id", tc.id)

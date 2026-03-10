@@ -101,6 +101,12 @@ JAVA_HOME="F:/AndroidAndroid Studio/jbr" ./gradlew :core-models:test
 3. 차단되면 Mock/Fake로 우회해서 진행
 4. **절대로 다른 모듈 파일을 직접 수정하지 않는다**
 
+### 코드 작성 전 3단계 체크 (필수 — 위반 시 컴파일 에러 반복의 원인)
+
+1. **읽기**: 참조할 클래스의 시그니처를 Read 도구로 확인. 추측 금지.
+2. **생명주기**: "Koin 전? 후? 테스트에서는?" — `by lazy { getKoin() }` 금지 (영구 캐싱 위험)
+3. **반문**: "이 수정이 같은 문제를 다른 곳에 만드는가?" — 문제 이동 ≠ 문제 해결
+
 ### 절대 금지 (Git 안전)
 - `git clean`, `git checkout -- .`, `git reset --hard`, `git stash drop` 등 **작업물 삭제 명령 사용 금지**
 - `git push --force` **절대 금지**
