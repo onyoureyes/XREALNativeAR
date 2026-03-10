@@ -42,10 +42,22 @@ upload_res.txt
 *.onnx
 *.dlc
 *.bin
+*.pv
+*.aar
 archive/
 log_raw.txt
 log_stuck.txt
+log_dump.txt
+log_dump_utf8.txt
 alt_log_discovery.log
+replay_pid*.log
+db_base64.txt
+temp_db.sqlite
+temp_java_aar.zip
+temp_java_aar_inspect/
+apk_contents/
+screen.png
+server/backup.db
 
 # Native prebuilt libs (rebuild from source)
 app/src/main/cpp/llama_cpp/lib/
