@@ -456,22 +456,8 @@ class AppBootstrapper(
             Log.w(TAG, "Spatial anchor manager not available: ${e.message}")
         }
 
-        // 9b. SpatialUIManager (3D 공간 UI — 스무딩 + 시선 포커스 + 깊이 렌더링)
-        try {
-            org.koin.java.KoinJavaComponent.getKoin().getOrNull<com.xreal.nativear.spatial.SpatialUIManager>()?.start()
-            Log.i(TAG, "Spatial UI manager started (stabilization + gaze focus + depth rendering)")
-        } catch (e: Exception) {
-            Log.w(TAG, "Spatial UI manager not available: ${e.message}")
-        }
-
-        // 10. Hand Tracking + Interactive AR System
-        try {
-            val handInteractionManager = org.koin.java.KoinJavaComponent.getKoin().getOrNull<com.xreal.nativear.interaction.HandInteractionManager>()
-            handInteractionManager?.start()
-            Log.i(TAG, "Hand interaction manager started")
-        } catch (e: Exception) {
-            Log.w(TAG, "Hand interaction manager not available: ${e.message}")
-        }
+        // 9b~10. SpatialUIManager + HandInteractionManager → SituationAwareStarter로 이관
+        // (HandsDetected 이벤트 시 lazy start)
 
         // 12. Proactive Memory Surfacing (DeepFocus + visual + temporal + voice triggers)
         try {
@@ -523,21 +509,18 @@ class AppBootstrapper(
             Log.w(TAG, "Action classifier not available: ${e.message}")
         }
 
-        // 15. Expert Team Manager (Phase 2: auto-activate domain teams on situation change)
+        // 14c. ★ SituationAwareStarter — 이벤트 기반 서비스 지연 시작 (Koin Lazy Phase 1)
+        // ExpertTeamManager, HUDModeManager, RunningCoachManager, MeetingContextService,
+        // RelationshipTracker, HandInteractionManager, 학습/백업 서비스 등 ~20개를 이벤트 트리거로 전환
         try {
-            org.koin.java.KoinJavaComponent.getKoin().getOrNull<com.xreal.nativear.expert.ExpertTeamManager>()?.start()
-            Log.i(TAG, "Expert team manager started (8 domains, situation-driven activation)")
+            org.koin.java.KoinJavaComponent.getKoin().getOrNull<SituationAwareStarter>()?.start()
+            Log.i(TAG, "SituationAwareStarter started (이벤트 기반 lazy start — ~20개 서비스 지연)")
         } catch (e: Exception) {
-            Log.w(TAG, "Expert team manager not available: ${e.message}")
+            Log.w(TAG, "SituationAwareStarter not available: ${e.message}")
         }
 
-        // 16. HUD Mode Manager (Phase 4: auto-switch HUD based on situation)
-        try {
-            org.koin.java.KoinJavaComponent.getKoin().getOrNull<com.xreal.nativear.hud.HUDModeManager>()?.start()
-            Log.i(TAG, "HUD mode manager started (11 modes, situation-driven switching)")
-        } catch (e: Exception) {
-            Log.w(TAG, "HUD mode manager not available: ${e.message}")
-        }
+        // 15~16: ExpertTeamManager + HUDModeManager → SituationAwareStarter로 이관됨
+        // (첫 SituationChanged 이벤트 시 lazy start)
 
         // 17. Goal Tracker (Phase 6: hierarchical goal tracking)
         try {
@@ -557,37 +540,8 @@ class AppBootstrapper(
 
         // 19. Briefing Service → StorytellerOrchestrator에 흡수 (방안 B)
 
-        // 20. Debug HUD (Phase 10: developer monitoring overlay, toggle: QUAD_TAP)
-        try {
-            org.koin.java.KoinJavaComponent.getKoin().getOrNull<com.xreal.nativear.hud.DebugHUD>()?.start()
-            Log.i(TAG, "Debug HUD started (QUAD_TAP to toggle)")
-        } catch (e: Exception) {
-            Log.w(TAG, "Debug HUD not available: ${e.message}")
-        }
-
-        // 21. Familiarity Engine (Phase 12: progressive object/person/place familiarity)
-        try {
-            org.koin.java.KoinJavaComponent.getKoin().getOrNull<com.xreal.nativear.companion.FamiliarityEngine>()?.start()
-            Log.i(TAG, "Familiarity engine started (progressive insight depth)")
-        } catch (e: Exception) {
-            Log.w(TAG, "Familiarity engine not available: ${e.message}")
-        }
-
-        // 22. Relationship Tracker (Phase 13: relationship intelligence)
-        try {
-            org.koin.java.KoinJavaComponent.getKoin().getOrNull<com.xreal.nativear.companion.RelationshipTracker>()?.start()
-            Log.i(TAG, "Relationship tracker started (person dynamics tracking)")
-        } catch (e: Exception) {
-            Log.w(TAG, "Relationship tracker not available: ${e.message}")
-        }
-
-        // 23. Agent Personality Evolution (Phase 16: persistent agent growth)
-        try {
-            org.koin.java.KoinJavaComponent.getKoin().getOrNull<com.xreal.nativear.companion.AgentPersonalityEvolution>()?.loadCharacters()
-            Log.i(TAG, "Agent personality evolution loaded (persistent agent growth)")
-        } catch (e: Exception) {
-            Log.w(TAG, "Agent personality evolution not available: ${e.message}")
-        }
+        // 20~23: DebugHUD, FamiliarityEngine, RelationshipTracker, AgentPersonalityEvolution
+        // → SituationAwareStarter로 이관 (5분 지연 or 이벤트 트리거)
 
         // 24a. PlanHUD (할일/일정 AR HUD 업데이트 루프 — 60초 갱신)
         try {
@@ -597,19 +551,7 @@ class AppBootstrapper(
             Log.w(TAG, "PlanHUD not available: ${e.message}")
         }
 
-        // 24. Meeting Assistant System (TILT 궁금증, 일정 추출, 리마인더)
-        try {
-            org.koin.java.KoinJavaComponent.getKoin().getOrNull<com.xreal.nativear.meeting.MeetingContextService>()?.start()
-            Log.i(TAG, "Meeting context service started (TILT curiosity + schedule extraction)")
-        } catch (e: Exception) {
-            Log.w(TAG, "Meeting context service not available: ${e.message}")
-        }
-        try {
-            org.koin.java.KoinJavaComponent.getKoin().getOrNull<com.xreal.nativear.meeting.ReminderScheduler>()?.schedule()
-            Log.i(TAG, "Reminder scheduler started (15min periodic check)")
-        } catch (e: Exception) {
-            Log.w(TAG, "Reminder scheduler not available: ${e.message}")
-        }
+        // 24. Meeting → SituationAwareStarter로 이관 (SituationChanged(MEETING/TEACHING) 트리거)
 
         // 25. 적응형 회복력 시스템 (Part C)
         try {
@@ -657,12 +599,7 @@ class AppBootstrapper(
         } catch (e: Exception) {
             Log.w(TAG, "ResourceGuardian not available: ${e.message}")
         }
-        try {
-            org.koin.java.KoinJavaComponent.getKoin().getOrNull<com.xreal.nativear.remote.NetworkCameraClient>()?.start()
-            Log.i(TAG, "NetworkCameraClient started (CAMERA_NETWORK_ENDPOINT ResourceActivated 이벤트 대기)")
-        } catch (e: Exception) {
-            Log.w(TAG, "NetworkCameraClient not available: ${e.message}")
-        }
+        // NetworkCameraClient → SituationAwareStarter 5분 지연 시작
         try {
             org.koin.java.KoinJavaComponent.getKoin().getOrNull<com.xreal.nativear.resource.ResourceProposalManager>()?.start()
             Log.i(TAG, "ResourceProposalManager started (AI proposal approval flow)")
@@ -680,20 +617,7 @@ class AppBootstrapper(
         } catch (e: Exception) {
             Log.w(TAG, "ResourceToolExecutor registration failed: ${e.message}")
         }
-        try {
-            org.koin.java.KoinJavaComponent.getKoin().getOrNull<com.xreal.nativear.companion.CompanionDeviceManager>()?.start()
-            Log.i(TAG, "CompanionDeviceManager started (Nearby Connections P2P_CLUSTER)")
-        } catch (e: Exception) {
-            Log.w(TAG, "CompanionDeviceManager not available: ${e.message}")
-        }
-
-        // 26. 학습 파이프라인 (decision_log → Drive → Colab → .tflite → RoutineClassifier)
-        try {
-            org.koin.java.KoinJavaComponent.getKoin().getOrNull<com.xreal.nativear.learning.DriveTrainingScheduler>()?.schedule()
-            Log.i(TAG, "DriveTrainingScheduler started (업로드 7일 Wi-Fi, 모델 체크 1일 Wi-Fi)")
-        } catch (e: Exception) {
-            Log.w(TAG, "DriveTrainingScheduler not available: ${e.message}")
-        }
+        // CompanionDeviceManager + DriveTrainingScheduler → SituationAwareStarter 5분 지연 시작
 
         // 26b. ★ Phase F-6: LocalMLBridge — 기존 RoutineClassifier 모델로 LOCAL_ML 즉시 활성화
         // 이전 세션에서 이미 다운로드된 모델이 있으면 MASTERED 상황에 LOCAL_ML 등록
@@ -712,37 +636,8 @@ class AppBootstrapper(
             Log.w(TAG, "LocalMLBridge 초기화 실패 (비치명적): ${e.message}")
         }
 
-        // 26c. BackupSyncScheduler — PC 백업 서버로 메모리/데이터 자동 동기화
-        try {
-            org.koin.java.KoinJavaComponent.getKoin().getOrNull<com.xreal.nativear.sync.BackupSyncScheduler>()?.schedule()
-            Log.i(TAG, "BackupSyncScheduler started (60min periodic, Tailscale :8090)")
-        } catch (e: Exception) {
-            Log.w(TAG, "BackupSyncScheduler not available: ${e.message}")
-        }
-
-        // 26d. PredictionSyncService — PC 서버 디지털트윈 예측 결과 주기적 pull
-        try {
-            org.koin.java.KoinJavaComponent.getKoin().getOrNull<com.xreal.nativear.sync.PredictionSyncService>()?.start()
-            Log.i(TAG, "PredictionSyncService started (daily: 1h, weekly: 6h)")
-        } catch (e: Exception) {
-            Log.w(TAG, "PredictionSyncService not available: ${e.message}")
-        }
-
-        // 26e. OrchestratorClient — Fold↔PC 양방향 에피소드/컨텍스트 동기화
-        try {
-            org.koin.java.KoinJavaComponent.getKoin().getOrNull<com.xreal.nativear.sync.OrchestratorClient>()?.start()
-            Log.i(TAG, "OrchestratorClient started (episode push + context/forecast pull)")
-        } catch (e: Exception) {
-            Log.w(TAG, "OrchestratorClient not available: ${e.message}")
-        }
-
-        // 27. EvolutionBridge — 자가 진화 루프 (에러 수집 + 서버 자동 동기화)
-        try {
-            org.koin.java.KoinJavaComponent.getKoin().getOrNull<com.xreal.nativear.evolution.EvolutionBridge>()?.start()
-            Log.i(TAG, "EvolutionBridge started (error auto-collect + 30min server sync)")
-        } catch (e: Exception) {
-            Log.w(TAG, "EvolutionBridge not available: ${e.message}")
-        }
+        // 26c~27: BackupSyncScheduler, PredictionSyncService, OrchestratorClient, EvolutionBridge
+        // → SituationAwareStarter 5분 지연 시작
 
         // 28. RemoteToolExecutor — PC 서버 원격 도구 로드 (비동기, 서버 불가 시 무시)
         try {
@@ -785,6 +680,7 @@ class AppBootstrapper(
 
     fun release() {
         Log.i(TAG, "AppBootstrapper: Releasing services...")
+        try { org.koin.java.KoinJavaComponent.getKoin().getOrNull<SituationAwareStarter>()?.stop() } catch (_: Exception) {}
         try { org.koin.java.KoinJavaComponent.getKoin().getOrNull<com.xreal.nativear.storyteller.StorytellerOrchestrator>()?.stop() } catch (_: Exception) {}
         try { org.koin.java.KoinJavaComponent.getKoin().getOrNull<com.xreal.nativear.ai.ProactiveScheduler>()?.stop() } catch (_: Exception) {}
         try { org.koin.java.KoinJavaComponent.getKoin().getOrNull<com.xreal.nativear.ai.RemoteLLMPool>()?.stopHealthCheck() } catch (_: Exception) {}

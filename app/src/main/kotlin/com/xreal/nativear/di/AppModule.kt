@@ -877,6 +877,14 @@ val appModule = module {
         )
     }
 
+    // --- SituationAwareStarter (Koin Lazy Phase 1: event-driven service startup) ---
+    single {
+        com.xreal.nativear.core.SituationAwareStarter(
+            eventBus = get(),
+            scope = kotlinx.coroutines.CoroutineScope(kotlinx.coroutines.Dispatchers.Default + kotlinx.coroutines.SupervisorJob())
+        )
+    }
+
     // --- Action Classifier (ST-GCN + rule-based fallback) ---
     single {
         com.xreal.nativear.context.ActionClassifier(
