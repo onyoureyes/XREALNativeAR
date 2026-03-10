@@ -61,7 +61,8 @@ tone: (감정 톤 — reflective/joyful/curious/calm/tense/warm/melancholic 중 
     fun buildReflectionPrompt(
         snapshot: ContextSnapshot,
         currentChapter: Chapter?,
-        recentMemories: List<String> = emptyList()
+        recentMemories: List<String> = emptyList(),
+        serverInsights: String? = null
     ): String {
         val sb = StringBuilder()
 
@@ -81,6 +82,13 @@ tone: (감정 톤 — reflective/joyful/curious/calm/tense/warm/melancholic 중 
             sb.appendLine()
             sb.appendLine("## 관련 기억")
             recentMemories.take(3).forEach { sb.appendLine("  - $it") }
+        }
+
+        // PC 서버 마이닝/예측 인사이트 (있으면 추가)
+        if (!serverInsights.isNullOrBlank()) {
+            sb.appendLine()
+            sb.appendLine("## 서버 인사이트 (참고용)")
+            sb.appendLine(serverInsights.take(500))
         }
 
         sb.appendLine()

@@ -347,7 +347,14 @@ class StorytellerOrchestrator(
             emptyList()
         }
 
-        val prompt = NarrativeBuilder.buildReflectionPrompt(snapshot, chapter, memories)
+        // PC 서버 인사이트 (OrchestratorClient에서 캐싱된 컨텍스트)
+        val serverInsights = try {
+            org.koin.java.KoinJavaComponent.getKoin()
+                .getOrNull<com.xreal.nativear.sync.OrchestratorClient>()
+                ?.getContextSummary()
+        } catch (_: Exception) { null }
+
+        val prompt = NarrativeBuilder.buildReflectionPrompt(snapshot, chapter, memories, serverInsights)
         generateBeat(BeatType.PERIODIC_REFLECTION, prompt, snapshot)
 
         // ★ 리플렉션 완료 → NARRATING 복귀
