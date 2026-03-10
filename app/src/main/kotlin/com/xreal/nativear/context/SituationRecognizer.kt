@@ -46,6 +46,11 @@ class SituationRecognizer(
     private var candidateSituation = LifeSituation.UNKNOWN
     private var lastConfidence = 0f
 
+    // Bayesian classifier (온라인 학습 + HMM 전이)
+    val bayesianClassifier = BayesianClassifier()
+    private val BAYESIAN_WEIGHT: Float get() =
+        PolicyReader.getFloat("situation.bayesian_weight", 0.4f)
+
     fun start() {
         Log.i(TAG, "SituationRecognizer started")
 
@@ -129,10 +134,35 @@ class SituationRecognizer(
     }
 
     /**
+     * 하이브리드 분류: 규칙 기반 + Bayesian 앙상블.
+     * BAYESIAN_WEIGHT=0 이면 순수 규칙, =1 이면 순수 베이지안.
+     */
+    fun classify(snapshot: ContextSnapshot): Pair<LifeSituation, Float> {
+        val ruleResult = classifyRuleBased(snapshot)
+
+        // 베이지안 앙상블 (관측 데이터가 충분할 때만)
+        val bw = BAYESIAN_WEIGHT
+        if (bw > 0f) {
+            val bayesResult = bayesianClassifier.classifyTop(snapshot, _currentSituation.value)
+            // 규칙이 0.9+ 신뢰도면 규칙 우선 (명확한 경우)
+            if (ruleResult.second >= 0.90f) return ruleResult
+            // 앙상블: 두 결과가 같으면 신뢰도 부스트, 다르면 가중 평균
+            return if (ruleResult.first == bayesResult.first) {
+                ruleResult.first to minOf(1.0f, ruleResult.second * (1 - bw) + bayesResult.second * bw + 0.1f)
+            } else if (bayesResult.second > ruleResult.second + 0.15f) {
+                bayesResult  // 베이지안이 확연히 높으면 베이지안 우선
+            } else {
+                ruleResult  // 그 외에는 규칙 우선 (안정성)
+            }
+        }
+        return ruleResult
+    }
+
+    /**
      * Rule-based fast classification (~1ms).
      * Returns (LifeSituation, confidence).
      */
-    fun classify(snapshot: ContextSnapshot): Pair<LifeSituation, Float> {
+    private fun classifyRuleBased(snapshot: ContextSnapshot): Pair<LifeSituation, Float> {
         // Priority-ordered rules (most specific first)
 
         // ── Running ──
@@ -418,7 +448,14 @@ class SituationRecognizer(
             val oldSituation = _currentSituation.value
             _currentSituation.value = newSituation
 
-            Log.i(TAG, "Situation changed: ${oldSituation.displayName} -> ${newSituation.displayName} (conf: %.2f)".format(confidence))
+            // 베이지안 모델 온라인 업데이트 (확정된 상황으로 학습)
+            try {
+                bayesianClassifier.update(snapshot, newSituation, oldSituation)
+            } catch (e: Exception) {
+                Log.w(TAG, "Bayesian update 실패: ${e.message}")
+            }
+
+            Log.i(TAG, "Situation changed: ${oldSituation.displayName} -> ${newSituation.displayName} (conf: %.2f, bayes: %s)".format(confidence, bayesianClassifier.diagnostics()))
 
             // Publish event
             eventBus.publish(
