@@ -439,8 +439,7 @@ val appModule = module {
         com.xreal.nativear.ai.OpenAIProvider(
             com.xreal.nativear.ai.ProviderConfig(
                 providerId = com.xreal.nativear.ai.ProviderId.OPENAI,
-                apiKey = keyManager.getApiKey(com.xreal.nativear.ai.ProviderId.OPENAI)
-                    ?: "REDACTED_OPENAI_KEY",
+                apiKey = keyManager.getApiKey(com.xreal.nativear.ai.ProviderId.OPENAI) ?: "",
                 model = "gpt-4.1-mini"
             ),
             get()
@@ -452,8 +451,7 @@ val appModule = module {
         com.xreal.nativear.ai.ClaudeProvider(
             com.xreal.nativear.ai.ProviderConfig(
                 providerId = com.xreal.nativear.ai.ProviderId.CLAUDE,
-                apiKey = keyManager.getApiKey(com.xreal.nativear.ai.ProviderId.CLAUDE)
-                    ?: "REDACTED_CLAUDE_KEY",
+                apiKey = keyManager.getApiKey(com.xreal.nativear.ai.ProviderId.CLAUDE) ?: "",
                 model = "claude-sonnet-4-6"
             ),
             get()
@@ -465,8 +463,7 @@ val appModule = module {
         com.xreal.nativear.ai.GrokProvider(
             com.xreal.nativear.ai.ProviderConfig(
                 providerId = com.xreal.nativear.ai.ProviderId.GROK,
-                apiKey = keyManager.getApiKey(com.xreal.nativear.ai.ProviderId.GROK)
-                    ?: "REDACTED_GROK_KEY",
+                apiKey = keyManager.getApiKey(com.xreal.nativear.ai.ProviderId.GROK) ?: "",
                 model = "grok-3-fast"
             ),
             get()
