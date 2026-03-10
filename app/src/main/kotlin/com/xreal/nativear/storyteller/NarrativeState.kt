@@ -51,11 +51,24 @@ data class Chapter(
     /** 소속된 beat 목록 */
     val beats: MutableList<StoryBeat> = mutableListOf(),
     /** 시작 시 상황 */
-    val situation: String
+    val situation: String,
+    /** 챕터 내 대화 이력 (능동적 질문 + 사용자 응답) */
+    val conversationHistory: MutableList<ConversationTurn> = mutableListOf(),
+    /** 전문가 위임 결과 (재통합용) */
+    val expertInsights: MutableList<ExpertInsight> = mutableListOf()
 ) {
     val isActive: Boolean get() = endedAt == null
     val duration: Long get() = (endedAt ?: System.currentTimeMillis()) - startedAt
 }
+
+/** 전문가 위임 결과 */
+data class ExpertInsight(
+    val timestamp: Long = System.currentTimeMillis(),
+    val domainId: String,
+    val expertName: String,
+    val insight: String,
+    val actionTaken: String? = null
+)
 
 /** 진행 중인 대화 스레드 (StoryBeat과 연결될 수 있음) */
 data class ConversationThread(

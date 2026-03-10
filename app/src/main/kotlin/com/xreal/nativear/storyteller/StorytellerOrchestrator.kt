@@ -83,6 +83,10 @@ class StorytellerOrchestrator(
     private var lastMorningBriefing: Long = 0
     private var lastEveningReview: Long = 0
 
+    // Phase B: 능동적 질문 엔진
+    private val questionEngine = ProactiveQuestionEngine()
+    private var previousSituation: LifeSituation? = null
+
     // 세션 API (LifeSessionManager 대체)
     @Volatile
     var currentChapterSituation: String? = null
@@ -132,6 +136,18 @@ class StorytellerOrchestrator(
                         is XRealEvent.InputEvent.VoiceCommand -> {
                             // ★ 사용자 음성 → 강제 NARRATING 전이
                             phaseController.onUserCommand()
+                        }
+                        is XRealEvent.InputEvent.EnrichedVoiceCommand -> {
+                            // Phase B: 사용자 음성 응답 → 대화 맥락에 기록
+                            if (phaseController.currentPhase.allowsAICalls) {
+                                onUserSpeech(event.text, event.emotion)
+                            }
+                        }
+                        is XRealEvent.SystemEvent.MissionStateChanged -> {
+                            // Phase B: 전문가 미션 결과 → 내러티브 재통합
+                            if (phaseController.currentPhase.allowsAICalls) {
+                                onMissionResult(event)
+                            }
                         }
                         else -> { /* 무시 */ }
                     }
@@ -235,7 +251,29 @@ class StorytellerOrchestrator(
      * 아침/저녁 상황이면 브리핑도 함께 처리.
      */
     private suspend fun onSituationChanged(situation: LifeSituation) {
+        val prevSit = previousSituation
+        previousSituation = situation
         onSituationChanged(situation.name)
+
+        // Phase B: 상황 전환 시 능동적 질문
+        val snapshot = contextAggregator.buildSnapshot()
+        val question = questionEngine.tryGenerateQuestion(
+            snapshot = snapshot,
+            currentSituation = situation,
+            previousSituation = prevSit,
+            recentBeats = dayStory.currentChapter?.beats?.takeLast(3) ?: emptyList(),
+            conversationHistory = dayStory.currentChapter?.conversationHistory ?: emptyList()
+        )
+        if (question != null) {
+            dayStory.currentChapter?.conversationHistory?.add(ConversationTurn(
+                speaker = Speaker.SYSTEM,
+                text = question.text,
+                topic = question.topic,
+                questionType = question.type
+            ))
+            eventBus.publish(XRealEvent.ActionRequest.SpeakTTS(text = question.text))
+            Log.d(TAG, "상황 전환 질문: ${question.text}")
+        }
 
         // 브리핑 트리거 (BriefingService 흡수)
         val now = System.currentTimeMillis()
@@ -356,6 +394,9 @@ class StorytellerOrchestrator(
 
         val prompt = NarrativeBuilder.buildReflectionPrompt(snapshot, chapter, memories, serverInsights)
         generateBeat(BeatType.PERIODIC_REFLECTION, prompt, snapshot)
+
+        // Phase B: 리플렉션 후 능동적 질문 시도
+        tryAskProactiveQuestion(snapshot)
 
         // ★ 리플렉션 완료 → NARRATING 복귀
         phaseController.exitReflecting()
@@ -527,6 +568,113 @@ class StorytellerOrchestrator(
     /** 수동 트리거 — BriefingService.triggerEveningReview() 대체 */
     fun triggerEveningReview() {
         CoroutineScope(Dispatchers.Default).launch { deliverEveningReview() }
+    }
+
+    // ══════════════════════════════════════════════════════
+    // Phase B: 능동적 질문 + 대화 맥락 + 전문가 재통합
+    // ══════════════════════════════════════════════════════
+
+    /**
+     * 능동적 질문 시도 — 리플렉션 beat 이후에 호출.
+     * 타이밍/상황 조건 충족 시 TTS로 질문 전달.
+     */
+    private fun tryAskProactiveQuestion(snapshot: ContextSnapshot) {
+        val chapter = dayStory.currentChapter ?: return
+        val currentSit = try {
+            LifeSituation.valueOf(chapter.situation)
+        } catch (_: Exception) { return }
+
+        val question = questionEngine.tryGenerateQuestion(
+            snapshot = snapshot,
+            currentSituation = currentSit,
+            previousSituation = previousSituation,
+            recentBeats = chapter.beats.takeLast(5),
+            conversationHistory = chapter.conversationHistory
+        ) ?: return
+
+        // 대화 이력에 시스템 질문 기록
+        chapter.conversationHistory.add(ConversationTurn(
+            speaker = Speaker.SYSTEM,
+            text = question.text,
+            topic = question.topic,
+            questionType = question.type
+        ))
+
+        // TTS로 질문 전달
+        eventBus.publish(XRealEvent.ActionRequest.SpeakTTS(text = question.text))
+        Log.d(TAG, "능동적 질문: [${question.type}] ${question.text}")
+    }
+
+    /**
+     * 사용자 음성 응답 처리.
+     * 대화 맥락에 기록 + 대화 beat 생성.
+     */
+    private suspend fun onUserSpeech(text: String, emotion: String?) {
+        val chapter = dayStory.currentChapter ?: return
+
+        // 대화 이력에 사용자 응답 기록
+        chapter.conversationHistory.add(ConversationTurn(
+            speaker = Speaker.USER,
+            text = text,
+            topic = chapter.conversationHistory.lastOrNull()?.topic
+        ))
+
+        // 최근 시스템 질문이 있었으면 대화 beat 생성
+        val recentQuestion = chapter.conversationHistory
+            .lastOrNull { it.speaker == Speaker.SYSTEM && it.questionType != null }
+        if (recentQuestion != null &&
+            System.currentTimeMillis() - recentQuestion.timestamp < 120_000L) {
+
+            val snapshot = contextAggregator.buildSnapshot()
+            val questionResult = QuestionResult(
+                text = recentQuestion.text,
+                type = recentQuestion.questionType!!,
+                topic = recentQuestion.topic ?: ""
+            )
+            val prompt = NarrativeBuilder.buildConversationBeatPrompt(
+                snapshot, questionResult, text, chapter.conversationHistory
+            )
+            generateBeat(BeatType.CONVERSATION_MOMENT, prompt, snapshot)
+        }
+
+        // 대화 이력 상한 (최대 30턴)
+        while (chapter.conversationHistory.size > 30) {
+            chapter.conversationHistory.removeFirst()
+        }
+    }
+
+    /**
+     * 전문가 미션 결과 → 내러티브 재통합.
+     * MissionStateChanged에서 COMPLETED 상태일 때 호출.
+     */
+    private suspend fun onMissionResult(event: XRealEvent.SystemEvent.MissionStateChanged) {
+        if (event.newState != "COMPLETED" && event.newState != "EXECUTING") return
+
+        val chapter = dayStory.currentChapter ?: return
+
+        // 전문가 결과를 ExpertInsight로 기록
+        val insight = ExpertInsight(
+            domainId = event.missionType,
+            expertName = event.missionType.replace("_", " "),
+            insight = "미션 ${event.missionId} 상태: ${event.oldState} → ${event.newState}"
+        )
+        chapter.expertInsights.add(insight)
+
+        // COMPLETED일 때만 내러티브 beat 생성
+        if (event.newState == "COMPLETED") {
+            val snapshot = contextAggregator.buildSnapshot()
+            val prompt = NarrativeBuilder.buildExpertInsightPrompt(snapshot, insight, chapter)
+            generateBeat(BeatType.VISUAL_HIGHLIGHT, prompt, snapshot)
+
+            // 전문가 결과를 대화에서 공유할 수 있도록 대화 이력에도 기록
+            chapter.conversationHistory.add(ConversationTurn(
+                speaker = Speaker.EXPERT,
+                text = insight.insight.take(100),
+                topic = "전문가_${insight.domainId}"
+            ))
+
+            Log.d(TAG, "전문가 결과 재통합: ${insight.domainId} — ${insight.insight.take(80)}")
+        }
     }
 
     // ── AI beat 생성 공통 ──

@@ -168,6 +168,73 @@ tone: (감정 톤 — reflective/joyful/curious/calm/tense/warm/melancholic 중 
         }
     }
 
+    /**
+     * 능동적 질문 후 사용자 응답을 내러티브에 통합하는 프롬프트.
+     */
+    fun buildConversationBeatPrompt(
+        snapshot: ContextSnapshot,
+        question: QuestionResult,
+        userResponse: String,
+        conversationHistory: List<ConversationTurn> = emptyList()
+    ): String {
+        val sb = StringBuilder()
+
+        sb.appendLine("## 대화 순간 포착")
+        sb.appendLine("이야기꾼이 물었습니다: \"${question.text}\"")
+        sb.appendLine("선생님이 대답했습니다: \"$userResponse\"")
+
+        if (conversationHistory.size > 1) {
+            sb.appendLine()
+            sb.appendLine("## 이전 대화 맥락")
+            conversationHistory.takeLast(4).forEach { turn ->
+                val speaker = when (turn.speaker) {
+                    Speaker.USER -> "선생님"
+                    Speaker.SYSTEM -> "이야기꾼"
+                    Speaker.EXPERT -> "전문가"
+                }
+                sb.appendLine("  $speaker: ${turn.text.take(80)}")
+            }
+        }
+
+        sb.appendLine()
+        appendContextBlock(sb, snapshot)
+        sb.appendLine()
+        sb.appendLine("이 대화의 순간을 내러티브로 기록하세요. 질문과 대답에서 드러난 감정이나 생각을 포착하세요.")
+
+        return sb.toString()
+    }
+
+    /**
+     * 전문가 결과를 내러티브에 재통합하는 프롬프트.
+     */
+    fun buildExpertInsightPrompt(
+        snapshot: ContextSnapshot,
+        insight: ExpertInsight,
+        currentChapter: Chapter?
+    ): String {
+        val sb = StringBuilder()
+
+        sb.appendLine("## 전문가 개입")
+        sb.appendLine("전문가: ${insight.expertName} (${insight.domainId})")
+        sb.appendLine("내용: ${insight.insight.take(300)}")
+        insight.actionTaken?.let { sb.appendLine("조치: $it") }
+
+        if (currentChapter != null) {
+            sb.appendLine()
+            sb.appendLine("현재 챕터: ${currentChapter.title}")
+            currentChapter.beats.lastOrNull()?.let {
+                sb.appendLine("직전 기록: ${it.narrative}")
+            }
+        }
+
+        sb.appendLine()
+        appendContextBlock(sb, snapshot)
+        sb.appendLine()
+        sb.appendLine("전문가의 개입이 이야기 흐름에 어떻게 녹아드는지 묘사하세요. 전문가 이름은 언급하지 마세요.")
+
+        return sb.toString()
+    }
+
     /** AI 응답에서 narrative/tone 파싱 */
     fun parseResponse(response: String): Pair<String, String?> {
         val lines = response.lines()
