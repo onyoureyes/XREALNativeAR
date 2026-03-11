@@ -143,13 +143,23 @@ class ExpertCrewManager:
         t0 = _time.time()
 
         def _run_crew():
-            from crewai import Agent, Task, Crew, Process
-            from llm_pool import create_langchain_llm
+            from crewai import Agent, Task, Crew, Process, LLM
             from langchain_tools import get_expert_tools
 
-            llm = create_langchain_llm(self.llm_pool)
-            if llm is None:
+            # CrewAI v0.60+ 네이티브 LLM (LangChain 의존 제거)
+            # llm_pool에서 가장 건강한 서버 선택
+            from llm_pool import ServerCapability
+            candidates = self.llm_pool._select_servers(ServerCapability.TEXT)
+            if not candidates:
                 raise RuntimeError("LLM 서버 없음")
+            server = candidates[0]
+
+            llm = LLM(
+                model=f"openai/{server.model_name}",
+                base_url=f"{server.base_url}/v1",
+                api_key="not-needed",
+                temperature=0.7,
+            )
 
             agent = Agent(
                 role=expert_def["role"],
@@ -182,12 +192,11 @@ class ExpertCrewManager:
             )
 
             result = crew.kickoff()
-            return str(result)
+            return result.raw  # CrewAI v1.x: .raw로 문자열 추출
 
         try:
-            # CrewAI는 동기 → ThreadPool에서 실행
-            loop = asyncio.get_event_loop()
-            result_text = await loop.run_in_executor(_executor, _run_crew)
+            # CrewAI는 동기 → asyncio.to_thread (Python 3.9+)
+            result_text = await asyncio.to_thread(_run_crew)
             latency = int((_time.time() - t0) * 1000)
 
             return {

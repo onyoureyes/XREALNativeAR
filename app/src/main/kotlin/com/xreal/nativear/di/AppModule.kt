@@ -427,15 +427,16 @@ val appModule = module {
     single<com.xreal.nativear.ai.IAIProvider>(named("gemini")) {
         val keyManager = get<com.xreal.nativear.ai.AIKeyManager>()
         com.xreal.nativear.ai.GeminiProvider(
-            com.xreal.nativear.ai.ProviderConfig(
+            config = com.xreal.nativear.ai.ProviderConfig(
                 providerId = com.xreal.nativear.ai.ProviderId.GEMINI,
                 apiKey = keyManager.getApiKey(com.xreal.nativear.ai.ProviderId.GEMINI)
                     ?: "AIzaSyAQbpllbZGGrBNjgbt8T96ZqGCeEsvn3cU",
                 model = "gemini-2.5-flash"
-            )
+            ),
+            httpClient = get()
         ).also { provider ->
-            // Register Gemini SDK tool declarations for tool-calling conversations
-            provider.registeredTools = GeminiTools.getAllTools()
+            // ToolDefinitionRegistry에서 전체 도구 목록 등록 (SDK 제거, REST API 직접 호출)
+            provider.registeredTools = get<com.xreal.nativear.ai.ToolDefinitionRegistry>().getAllToolDefinitions()
         }
     }
 

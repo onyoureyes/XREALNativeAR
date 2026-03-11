@@ -64,7 +64,6 @@ def create_mem0_config() -> dict:
             "config": {
                 "collection_name": "xreal_memories",
                 "path": CHROMA_PATH,
-                "embedding_model_dims": EMBED_DIMS,
             },
         },
         "version": "v1.1",

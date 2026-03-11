@@ -106,5 +106,11 @@ class ImageEmbedder(private val assetLoader: IAssetLoader) : com.xreal.ai.IAIMod
     
     override fun release() {
         interpreter?.close()
+        interpreter = null
+        imageProcessor = null
+        tensorImage = null
+        outputArray = null
+        isLoaded = false
+        isReady = false
     }
 }

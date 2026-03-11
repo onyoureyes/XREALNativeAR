@@ -30,9 +30,8 @@ dependencies {
     implementation 'com.google.ai.edge.litert:litert:1.4.0'
     implementation 'com.google.ai.edge.litert:litert-gpu:1.4.0'
 
-    // QNN LiteRT Delegate v2.34.0 — Hexagon NPU (NNAPI Android 15 deprecated 대체)
-    // RESEARCH.md §3 참조: HTP_BACKEND + skelLibraryDir 필수
-    // UnifiedAIOrchestrator는 리플렉션으로 접근 → 런타임 graceful degradation
-    // implementation 'com.qualcomm.qti:qnn-litert-delegate:2.34.0'  // TODO: Qualcomm repo 설정 후 활성화
-    // implementation 'com.qualcomm.qti:qnn-runtime:2.34.0'  // TODO: Qualcomm repo 설정 후 활성화
+    // QNN LiteRT Delegate — Hexagon NPU (NNAPI Android 15 deprecated 대체)
+    // Maven Central 배포, SM8450+ 지원 (Galaxy Fold 4 ✅)
+    implementation 'com.qualcomm.qti:qnn-litert-delegate:2.34.0'
+    implementation 'com.qualcomm.qti:qnn-runtime:2.34.0'
 }

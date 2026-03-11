@@ -1,59 +1,31 @@
 package com.xreal.nativear.running
 
-import com.google.ai.client.generativeai.type.defineFunction
-import com.google.ai.client.generativeai.type.FunctionDeclaration
 import com.xreal.nativear.ai.AIToolDefinition
-import org.json.JSONObject
 
+/**
+ * 러닝 코치 전용 도구 정의.
+ * ToolDefinitionRegistry에 이미 등록되어 있으므로 추가 등록 시에만 사용.
+ */
 object RunningCoachTools {
 
-    private data class ToolPair(val declaration: FunctionDeclaration, val definition: AIToolDefinition)
-
-    private fun defineTool(
-        name: String,
-        description: String,
-        schemaJson: String
-    ): ToolPair {
-        val declaration = defineFunction(name, description) { JSONObject(schemaJson) }
-        val definition = AIToolDefinition(name, description, schemaJson)
-        return ToolPair(declaration, definition)
-    }
-
-    private val runningStats = defineTool(
+    val getRunningStats = AIToolDefinition(
         "get_running_stats",
         "Get current running session statistics including pace, distance, cadence, and form metrics.",
-        """{ "type": "OBJECT", "properties": {} }"""
+        """{"type":"object","properties":{}}"""
     )
 
-    private val runningSession = defineTool(
+    val controlRunningSession = AIToolDefinition(
         "control_running_session",
         "Control the running session: start, stop, pause, resume, or record a lap.",
-        """{
-            "type": "OBJECT",
-            "properties": {
-                "action": {
-                    "type": "STRING",
-                    "description": "Action to perform: start, stop, pause, resume, lap"
-                }
-            },
-            "required": ["action"]
-        }"""
+        """{"type":"object","properties":{"action":{"type":"string","description":"Action: start, stop, pause, resume, lap"}},"required":["action"]}"""
     )
 
-    private val runningAdvice = defineTool(
+    val getRunningAdvice = AIToolDefinition(
         "get_running_advice",
         "Get AI coaching advice based on current running form and metrics.",
-        """{ "type": "OBJECT", "properties": {} }"""
+        """{"type":"object","properties":{}}"""
     )
 
-    // 기존 공개 API 호환 유지
-    val getRunningStats: FunctionDeclaration = runningStats.declaration
-    val controlRunningSession: FunctionDeclaration = runningSession.declaration
-    val getRunningAdvice: FunctionDeclaration = runningAdvice.declaration
-
-    private val allTools = listOf(runningStats, runningSession, runningAdvice)
-
-    fun getAllRunningTools(): List<FunctionDeclaration> = allTools.map { it.declaration }
-
-    fun getAllRunningToolDefinitions(): List<AIToolDefinition> = allTools.map { it.definition }
+    fun getAllRunningToolDefinitions(): List<AIToolDefinition> =
+        listOf(getRunningStats, controlRunningSession, getRunningAdvice)
 }

@@ -50,10 +50,9 @@ class WhisperStandaloneActivity : AppCompatActivity() {
     private fun initEngine(modelType: ModelType) {
         currentModel = modelType
         
-        // Let WhisperEngine (delegating to Play Services) handle the best acceleration
+        // LiteRT (standalone) — CPU 4 threads, GPU/NPU는 앱 모듈에서 Orchestrator가 관리
         val options = org.tensorflow.lite.Interpreter.Options().apply {
             setNumThreads(4)
-            // Note: Automatic acceleration is handled by the Play Services TFLite loader
         }
         
         whisperEngine.initialize(options, modelType)

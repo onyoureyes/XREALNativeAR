@@ -201,24 +201,17 @@ class SemanticCardStore:
         elif len(where_clauses) > 1:
             where = {"$and": where_clauses}
 
-        # where_document (태그는 document가 아니라 metadata에 쉼표 구분으로 저장)
-        where_document = None
-        if has_tag:
-            # tags 메타데이터에서 검색 (쉼표 구분)
-            where_clauses_with_tag = where_clauses.copy()
-            where_clauses_with_tag.append({"tags": {"$contains": has_tag}})
-            if len(where_clauses_with_tag) == 1:
-                where = where_clauses_with_tag[0]
-            else:
-                where = {"$and": where_clauses_with_tag}
+        # 태그 필터: ChromaDB $contains는 배열 메타데이터 전용이며,
+        # tags는 쉼표 구분 문자열로 저장되어 있으므로 Python 후처리 필터링.
+        # 태그 필터 시 결과를 더 많이 가져와서 후처리.
+        fetch_n = n_results if not has_tag else min(n_results * 3, self.collection.count() or 1)
 
         # 쿼리 실행
         try:
             results = self.collection.query(
                 query_texts=[query],
-                n_results=min(n_results, self.collection.count() or 1),
+                n_results=min(fetch_n, self.collection.count() or 1),
                 where=where,
-                where_document=where_document,
             )
         except Exception as e:
             log.error(f"검색 오류: {e}")
@@ -236,13 +229,22 @@ class SemanticCardStore:
         cards = []
         if results and results.get("ids") and results["ids"][0]:
             for i, card_id in enumerate(results["ids"][0]):
+                meta = results["metadatas"][0][i] if results.get("metadatas") else {}
+                # 태그 후처리 필터: 쉼표 구분 문자열에서 태그 포함 여부 확인
+                if has_tag:
+                    card_tags = meta.get("tags", "")
+                    tag_list = [t.strip() for t in card_tags.split(",") if t.strip()]
+                    if has_tag not in tag_list:
+                        continue
                 card = {
                     "id": card_id,
                     "content": results["documents"][0][i] if results.get("documents") else "",
-                    "metadata": results["metadatas"][0][i] if results.get("metadatas") else {},
+                    "metadata": meta,
                     "distance": results["distances"][0][i] if results.get("distances") else None,
                 }
                 cards.append(card)
+                if len(cards) >= n_results:
+                    break
 
         log.info(f"검색: '{query[:50]}' → {len(cards)}건 (필터: {len(where_clauses)}개)")
         return cards

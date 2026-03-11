@@ -38,7 +38,7 @@ def init_tools(mem0_svc, episode_db, card_store, predictor, episode_buffer):
 # 기억 도구 (Mem0)
 # ═══════════════════════════════════════════
 
-@tool
+@tool(parse_docstring=True)
 def search_memory(query: str, limit: int = 5) -> str:
     """사용자의 과거 기억/사실을 검색합니다. 특정 사람, 장소, 이벤트에 대한 기억을 찾을 때 사용하세요.
 
@@ -61,7 +61,7 @@ def search_memory(query: str, limit: int = 5) -> str:
         return f"기억 검색 오류: {e}"
 
 
-@tool
+@tool(parse_docstring=True)
 def save_memory(content: str, event_type: str = "observation") -> str:
     """새로운 사실/관찰을 장기 기억에 저장합니다. 중요한 대화, 관찰, 결정을 기록할 때 사용하세요.
 
@@ -87,7 +87,7 @@ def save_memory(content: str, event_type: str = "observation") -> str:
 # 에피소드 도구
 # ═══════════════════════════════════════════
 
-@tool
+@tool(parse_docstring=True)
 def get_recent_episodes(limit: int = 10) -> str:
     """최근 에피소드(비전/음성/센서 이벤트)를 조회합니다. 현재 상황을 파악할 때 사용하세요.
 
@@ -106,8 +106,8 @@ def get_recent_episodes(limit: int = 10) -> str:
     return "\n".join(lines)
 
 
-@tool
-def get_episode_history(date: str = None, limit: int = 20) -> str:
+@tool(parse_docstring=True)
+def get_episode_history(date: Optional[str] = None, limit: int = 20) -> str:
     """과거 에피소드 이력을 조회합니다. 특정 날짜의 기록을 확인할 때 사용하세요.
 
     Args:
@@ -134,13 +134,13 @@ def get_episode_history(date: str = None, limit: int = 20) -> str:
 # 시맨틱 카드 도구 (L3 하이브리드 검색)
 # ═══════════════════════════════════════════
 
-@tool
+@tool(parse_docstring=True)
 def search_semantic_cards(
     query: str,
-    person: str = None,
-    location: str = None,
-    emotion: str = None,
-    date: str = None,
+    person: Optional[str] = None,
+    location: Optional[str] = None,
+    emotion: Optional[str] = None,
+    date: Optional[str] = None,
     n_results: int = 5,
 ) -> str:
     """시맨틱 카드를 하이브리드 검색합니다. 벡터 유사도 + 메타데이터 필터를 결합합니다.
@@ -179,7 +179,7 @@ def search_semantic_cards(
 # 예측 도구
 # ═══════════════════════════════════════════
 
-@tool
+@tool(parse_docstring=True)
 def get_predictions() -> str:
     """오늘의 행동 예측을 조회합니다. 회복 상태, 최적 페이스, 훈련 부하, 수면 품질 등.
     사용자의 컨디션을 파악하거나 운동 계획을 세울 때 사용하세요.
@@ -196,7 +196,7 @@ def get_predictions() -> str:
         return f"예측 조회 오류: {e}"
 
 
-@tool
+@tool(parse_docstring=True)
 def get_forecast_report() -> str:
     """NeuralProphet/TFT 기반 행동 예측 리포트를 조회합니다.
     향후 며칠간의 활동 패턴 예측, 이상 징후 등을 확인할 때 사용하세요.
@@ -219,7 +219,7 @@ def get_forecast_report() -> str:
 # 마이닝 인사이트 도구
 # ═══════════════════════════════════════════
 
-@tool
+@tool(parse_docstring=True)
 def get_mining_insights(category: str = "all") -> str:
     """마이닝 인사이트를 조회합니다. 토픽 분석, 시계열 패턴, 지식 그래프 결과를 확인할 때 사용하세요.
 
@@ -252,7 +252,7 @@ def get_mining_insights(category: str = "all") -> str:
     return "\n".join(parts) if parts else f"'{category}' 마이닝 인사이트 없음"
 
 
-@tool
+@tool(parse_docstring=True)
 def get_morning_briefing() -> str:
     """오늘의 아침 브리핑을 조회합니다. 야간 반성 + 마이닝 결과의 종합 요약입니다."""
     try:
@@ -269,7 +269,7 @@ def get_morning_briefing() -> str:
 # 학생/인물 도구
 # ═══════════════════════════════════════════
 
-@tool
+@tool(parse_docstring=True)
 def search_person_history(person_name: str) -> str:
     """특정 인물에 대한 모든 기록을 검색합니다. 학생 이름으로 과거 기록, 행동 이력, 관계 정보를 조회합니다.
 

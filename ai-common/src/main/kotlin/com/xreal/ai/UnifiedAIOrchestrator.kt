@@ -11,9 +11,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.tensorflow.lite.Interpreter
 import org.tensorflow.lite.gpu.GpuDelegate
-// QNN LiteRT Delegate v2.34.0 — NNAPI Android 15 deprecated 대체
-// RESEARCH.md §3 QNN LiteRT Delegate 참조
-// import com.qualcomm.qti.tflite.QnnDelegate  // 컴파일 타임 import (app 모듈에서는 사용 가능)
+import com.qualcomm.qti.QnnDelegate
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.PriorityBlockingQueue
 
@@ -60,18 +58,17 @@ class UnifiedAIOrchestrator(private val context: Context) {
     private fun initializeEngine() {
         Log.i(TAG, "Initializing Unified AI Engine (LiteRT V1 standalone)...")
         try {
-            // Probe which backend is available (probe with a throw-away delegate)
+            // Probe which backend is available (NPU → GPU → CPU)
             if (useAcceleration) {
                 activeBackend = try {
-                    val probe = GpuDelegate()
-                    probe.close()
-                    InferenceBackend.GPU
+                    probeQnnDelegate()
+                    InferenceBackend.QNN_NPU
                 } catch (e: Exception) {
-                    // GPU 불가 → QNN NPU 시도 (NNAPI Android 15 deprecated 대체)
-                    // RESEARCH.md §3 QNN LiteRT Delegate v2.34.0 참조
+                    Log.d(TAG, "QNN NPU 불가: ${e.message}")
                     try {
-                        probeQnnDelegate()
-                        InferenceBackend.QNN_NPU
+                        val probe = GpuDelegate()
+                        probe.close()
+                        InferenceBackend.GPU
                     } catch (e2: Exception) {
                         InferenceBackend.CPU
                     }
@@ -102,45 +99,38 @@ class UnifiedAIOrchestrator(private val context: Context) {
 
     /**
      * Creates a fresh Interpreter.Options for a single model.
-     * MUST be called separately for each model — GpuDelegate cannot be shared.
+     * MUST be called separately for each model — delegates cannot be shared across Interpreters.
      *
-     * Priority: GPU (Adreno 730) → QNN NPU (Hexagon HTP) → CPU (4 threads)
-     * Expected speedups vs CPU: GPU ~10x, QNN NPU ~47x (YOLOv8n), ~100x (simple models)
-     *
-     * RESEARCH.md §1 LiteRT, §3 QNN LiteRT Delegate v2.34.0 참조.
-     * NNAPI: Android 15에서 deprecated → QNN delegate로 교체.
+     * Priority: QNN NPU (Hexagon HTP, ~47x) → GPU (Adreno 730, ~10x) → CPU (4 threads)
+     * NPU 우선: INT8 양자화 모델(YOLO 등)은 NPU에서 최대 성능, GPU는 float 모델에 적합.
      */
     private fun createInterpreterOptions(): Interpreter.Options {
         if (!useAcceleration) {
             return Interpreter.Options().apply { setNumThreads(4) }
         }
-        // 1순위: GPU delegate (Adreno 730) — fresh instance required per Interpreter
+        // 1순위: QNN NPU (Hexagon HTP) — INT8 모델 최적, ~47x speedup
+        try {
+            val options = QnnDelegate.Options().apply {
+                setBackendType(QnnDelegate.Options.BackendType.HTP_BACKEND)
+                setSkelLibraryDir(context.applicationInfo.nativeLibraryDir)
+            }
+            return Interpreter.Options().apply {
+                addDelegate(QnnDelegate(options))
+                setNumThreads(1)
+                Log.d(TAG, "QNN NPU (Hexagon HTP) applied to new interpreter")
+            }
+        } catch (e: Exception) {
+            Log.w(TAG, "QNN NPU delegate unavailable: ${e.message}")
+        }
+        // 2순위: GPU delegate (Adreno 730) — float 모델에 적합
         try {
             return Interpreter.Options().apply {
                 addDelegate(GpuDelegate())
-                setNumThreads(1) // GPU handles compute; 1 CPU thread for scheduling
+                setNumThreads(1)
                 Log.d(TAG, "GPU delegate (Adreno 730) applied to new interpreter")
             }
         } catch (e: Exception) {
             Log.w(TAG, "GPU delegate unavailable: ${e.message}")
-        }
-        // 2순위: QNN NPU (Hexagon HTP) — NNAPI Android 15 deprecated 대체
-        // RESEARCH.md §3: skelLibraryDir 필수, API 31+ 권장
-        // 리플렉션으로 addDelegate 호출 (타입 안전성 우회)
-        try {
-            val qnnDelegate = createQnnOptions()
-            if (qnnDelegate != null) {
-                val interpOptions = Interpreter.Options().apply { setNumThreads(1) }
-                // Interpreter.Options.addDelegate(Delegate) — 리플렉션으로 호출
-                val delegateClass = Class.forName("org.tensorflow.lite.Delegate")
-                interpOptions.javaClass
-                    .getMethod("addDelegate", delegateClass)
-                    .invoke(interpOptions, qnnDelegate)
-                Log.d(TAG, "QNN NPU (Hexagon HTP) applied to new interpreter")
-                return interpOptions
-            }
-        } catch (e: Exception) {
-            Log.w(TAG, "QNN NPU delegate unavailable: ${e.message}")
         }
         // 3순위: CPU fallback
         return Interpreter.Options().apply {
@@ -150,48 +140,16 @@ class UnifiedAIOrchestrator(private val context: Context) {
     }
 
     /**
-     * QNN Delegate Options 생성 (리플렉션 — ai-common 모듈에서 직접 import 불가 시 대응).
-     * RESEARCH.md §3: com.qualcomm.qti.tflite.QnnDelegate
-     * - BackendType.HTP_BACKEND 명시
-     * - setSkelLibraryDir(nativeLibraryDir) 필수
-     */
-    private fun createQnnOptions(): Any? {
-        return try {
-            val qnnDelegateClass = Class.forName("com.qualcomm.qti.tflite.QnnDelegate")
-            val optionsClass = Class.forName("com.qualcomm.qti.tflite.QnnDelegate\$Options")
-            val backendTypeClass = Class.forName("com.qualcomm.qti.tflite.QnnDelegate\$Options\$BackendType")
-
-            val options = optionsClass.newInstance()
-            val htpBackend = backendTypeClass.getField("HTP_BACKEND").get(null)
-
-            optionsClass.getMethod("setBackendType", backendTypeClass).invoke(options, htpBackend)
-            // skelLibraryDir: Context 필요 → context.applicationInfo.nativeLibraryDir
-            val nativeLibDir = context.applicationInfo.nativeLibraryDir
-            optionsClass.getMethod("setSkelLibraryDir", String::class.java)
-                .invoke(options, nativeLibDir)
-
-            // QnnDelegate(options) 생성
-            qnnDelegateClass.getConstructor(optionsClass).newInstance(options)
-        } catch (e: ClassNotFoundException) {
-            Log.d(TAG, "QNN delegate 클래스 없음 (qnn-litert-delegate 미포함): ${e.message}")
-            null
-        } catch (e: Exception) {
-            Log.w(TAG, "QNN delegate 생성 실패: ${e.message}")
-            null
-        }
-    }
-
-    /**
      * QNN delegate probe (initializeEngine에서 가용성 확인용).
      * @throws Exception if QNN is not available
      */
     private fun probeQnnDelegate() {
-        val probe = createQnnOptions()
-            ?: throw Exception("QNN delegate 생성 실패")
-        // 프로브만 생성 (Interpreter 초기화 없이 delegate 생성 성공 = 가용)
-        try {
-            probe.javaClass.getMethod("close").invoke(probe)
-        } catch (e: Exception) { /* close 메서드 없을 수 있음 — 무시 */ }
+        val options = QnnDelegate.Options().apply {
+            setBackendType(QnnDelegate.Options.BackendType.HTP_BACKEND)
+            setSkelLibraryDir(context.applicationInfo.nativeLibraryDir)
+        }
+        val probe = QnnDelegate(options)
+        probe.close()
     }
 
     fun setAccelerationMode(enabled: Boolean) {

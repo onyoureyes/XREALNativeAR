@@ -102,5 +102,7 @@ class PoseEstimationModel(private val assetLoader: IAssetLoader) : IAIModel {
         interpreter = null
         imageProcessor = null
         tensorImage = null
+        isLoaded = false
+        isReady = false
     }
 }

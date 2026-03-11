@@ -270,11 +270,11 @@ def train_neuralprophet(df: pd.DataFrame) -> dict:
     except Exception as e:
         log.warning(f"패턴 분해 실패: {e}")
 
-    # 모델 저장 (torch checkpoint)
-    model_path = MODEL_DIR / "neuralprophet_activity.pt"
+    # 모델 저장 (NeuralProphet 공식 API)
+    model_path = MODEL_DIR / "neuralprophet_activity.np"
     try:
-        import torch
-        torch.save(model.model.state_dict(), str(model_path))
+        from neuralprophet import save
+        save(model, str(model_path))
         log.info(f"모델 저장: {model_path}")
     except Exception as e:
         log.warning(f"모델 저장 실패: {e}")
@@ -400,8 +400,8 @@ def _tft_forecast(df: pd.DataFrame) -> dict:
         training, df, min_prediction_idx=training_cutoff + 1
     )
 
-    train_dl = training.to_dataloader(batch_size=32, shuffle=True)
-    val_dl = validation.to_dataloader(batch_size=32, shuffle=False)
+    train_dl = training.to_dataloader(train=True, batch_size=32)
+    val_dl = validation.to_dataloader(train=False, batch_size=32)
 
     # 모델
     tft = TemporalFusionTransformer.from_dataset(
@@ -417,6 +417,7 @@ def _tft_forecast(df: pd.DataFrame) -> dict:
     trainer = pl.Trainer(
         max_epochs=30,
         accelerator="auto",
+        gradient_clip_val=0.1,  # RNN 기반 모델 발산 방지 (공식 권장)
         enable_progress_bar=False,
         logger=False,
     )

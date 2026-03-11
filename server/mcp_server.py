@@ -37,7 +37,6 @@ DB_PATH = SERVER_DIR / "backup.db"
 MODEL_DIR = Path("D:/XREALNativeAR/yolo_training/export")
 APP_ASSETS = PROJECT_ROOT / "app/src/main/assets"
 APK_PATH = PROJECT_ROOT / "app/build/outputs/apk/debug/app-debug.apk"
-API_KEY = "3ztg3rzTith-vViCK7FLe5SQNUqqACKTojyDX1oiNe0"
 JAVA_HOME = "F:/AndroidAndroid Studio/jbr"
 LLM_URL = "http://localhost:8080/v1/chat/completions"
 

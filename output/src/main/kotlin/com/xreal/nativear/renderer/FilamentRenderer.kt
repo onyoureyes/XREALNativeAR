@@ -46,7 +46,8 @@ class FilamentRenderer(private val surfaceView: SurfaceView) {
     private lateinit var camera: Camera
     private lateinit var uiHelper: UiHelper
     private lateinit var displayHelper: DisplayHelper
-    private var swapChain: SwapChain? = null
+    // UiHelper 콜백(main thread)과 doFrame(render thread) 양쪽 접근 → Volatile 필수
+    @Volatile private var swapChain: SwapChain? = null
 
     // Camera background
     private var cameraTexture: Texture? = null

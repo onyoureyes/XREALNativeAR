@@ -50,6 +50,9 @@ class OrchestratorClient(
         // 에피소드 배치 전송
         private const val EPISODE_BATCH_SIZE = 10
         private const val EPISODE_FLUSH_INTERVAL_MS = 60_000L  // 1분마다 플러시
+
+        // 서버 다운 감지 — 3회 연속 실패 시 2분간 호출 억제
+        private const val BACKOFF_DURATION_MS = 2 * 60 * 1000L
     }
 
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
@@ -67,6 +70,13 @@ class OrchestratorClient(
     @Volatile var isConnected: Boolean = false
         private set
 
+    // 서버 다운 감지 — 연속 실패 시 호출 억제 (불필요한 타임아웃 방지)
+    @Volatile private var consecutiveFailures: Int = 0
+    @Volatile private var lastFailureTime: Long = 0
+    private val isServerDown: Boolean
+        get() = consecutiveFailures >= 3 &&
+                (System.currentTimeMillis() - lastFailureTime) < BACKOFF_DURATION_MS
+
     private var eventJob: Job? = null
     private var contextPullJob: Job? = null
     private var forecastPullJob: Job? = null
@@ -76,6 +86,28 @@ class OrchestratorClient(
         get() = syncConfig.serverUrl.takeIf { it.isNotBlank() }
             ?.replace(":8090", ":8091")  // backup → orchestrator
             ?: DEFAULT_URL
+
+    /** 서버 호출 성공 시 — 연속 실패 카운터 리셋 */
+    private fun onServerSuccess() {
+        if (consecutiveFailures > 0) {
+            Log.i(TAG, "서버 복구 감지 (이전 연속 실패: $consecutiveFailures)")
+        }
+        consecutiveFailures = 0
+        isConnected = true
+    }
+
+    /** 서버 호출 실패 시 — 연속 실패 카운터 증가, 3회 이상이면 2분간 억제 */
+    private fun onServerFailure(endpoint: String, code: Int = 0, error: String = "") {
+        consecutiveFailures++
+        lastFailureTime = System.currentTimeMillis()
+        isConnected = false
+        val reason = if (code > 0) "HTTP $code" else error.take(80)
+        if (consecutiveFailures == 3) {
+            Log.w(TAG, "서버 다운 판정: $endpoint ($reason) — ${BACKOFF_DURATION_MS / 1000}초간 호출 억제")
+        } else {
+            Log.w(TAG, "서버 실패 [$consecutiveFailures]: $endpoint ($reason)")
+        }
+    }
 
     // ─── Lifecycle ───
 
@@ -229,6 +261,8 @@ class OrchestratorClient(
     }
 
     private fun flushEpisodes() {
+        if (isServerDown) return  // 서버 다운 시 불필요한 타임아웃 방지
+
         val batch: List<JSONObject>
         synchronized(bufferLock) {
             if (episodeBuffer.isEmpty()) return
@@ -246,15 +280,15 @@ class OrchestratorClient(
 
                 val response = httpClient.newCall(request).execute()
                 response.use {
-                    if (!it.isSuccessful) {
-                        Log.w(TAG, "에피소드 전송 실패: ${it.code}")
+                    if (it.isSuccessful) {
+                        onServerSuccess()
+                    } else {
+                        onServerFailure("/v1/episode", it.code)
                     }
                 }
-                isConnected = true
             } catch (e: Exception) {
-                Log.w(TAG, "에피소드 전송 에러: ${e.message}")
-                isConnected = false
-                // 실패한 에피소드를 다시 버퍼에 넣지 않음 (L1 로컬에 이미 있으므로)
+                onServerFailure("/v1/episode", error = e.message ?: "unknown")
+                break  // 첫 실패 시 나머지 배치 중단 (서버 다운이면 계속 시도 무의미)
             }
         }
 
@@ -274,6 +308,7 @@ class OrchestratorClient(
     // ─── Push: Mem0 사실 추가 ───
 
     fun addMemory(content: String, userId: String = "teacher", eventType: String = "observation") {
+        if (isServerDown) return
         scope.launch {
             try {
                 val payload = JSONObject().apply {
@@ -301,47 +336,63 @@ class OrchestratorClient(
     // ─── Pull: 이야기꾼 컨텍스트 ───
 
     private fun pullStorytellerContext() {
+        if (isServerDown) return
+
         val request = Request.Builder()
             .url("$serverUrl/v1/storyteller/context")
             .addHeader("Authorization", "Bearer $API_KEY")
             .get()
             .build()
 
-        val response = httpClient.newCall(request).execute()
-        response.use {
-            if (it.isSuccessful) {
-                val body = it.body?.string() ?: return
-                storytellerContext = JSONObject(body)
-                isConnected = true
-                Log.d(TAG, "이야기꾼 컨텍스트 갱신 (${body.length}B)")
-            } else {
-                Log.w(TAG, "컨텍스트 pull 실패: ${it.code}")
+        try {
+            val response = httpClient.newCall(request).execute()
+            response.use {
+                if (it.isSuccessful) {
+                    val body = it.body?.string() ?: return
+                    storytellerContext = JSONObject(body)
+                    onServerSuccess()
+                    Log.d(TAG, "이야기꾼 컨텍스트 갱신 (${body.length}B)")
+                } else {
+                    onServerFailure("/v1/storyteller/context", it.code)
+                }
             }
+        } catch (e: Exception) {
+            onServerFailure("/v1/storyteller/context", error = e.message ?: "unknown")
         }
     }
 
     // ─── Pull: 행동 예측 ───
 
     private fun pullForecast() {
+        if (isServerDown) return
+
         val request = Request.Builder()
             .url("$serverUrl/v1/predict/forecast")
             .addHeader("Authorization", "Bearer $API_KEY")
             .get()
             .build()
 
-        val response = httpClient.newCall(request).execute()
-        response.use {
-            if (it.isSuccessful) {
-                val body = it.body?.string() ?: return
-                latestForecast = JSONObject(body)
-                Log.d(TAG, "예측 갱신 완료")
+        try {
+            val response = httpClient.newCall(request).execute()
+            response.use {
+                if (it.isSuccessful) {
+                    val body = it.body?.string() ?: return
+                    latestForecast = JSONObject(body)
+                    onServerSuccess()
+                    Log.d(TAG, "예측 갱신 완료")
+                } else {
+                    onServerFailure("/v1/predict/forecast", it.code)
+                }
             }
+        } catch (e: Exception) {
+            onServerFailure("/v1/predict/forecast", error = e.message ?: "unknown")
         }
     }
 
     // ─── Pull: Mem0 관련 기억 검색 ───
 
     fun searchMemory(query: String, limit: Int = 5): JSONArray? {
+        if (isServerDown) return null
         return try {
             val payload = JSONObject().apply {
                 put("query", query)
@@ -367,9 +418,188 @@ class OrchestratorClient(
         }
     }
 
+    // ─── v2: 이야기꾼 Tick ───
+
+    /**
+     * 이야기꾼 한 사이클 실행 — 서버 LangGraph 그래프
+     * 에피소드 + 상황 정보 → 내러티브/질문/전문가 위임 결과 반환
+     *
+     * @return JSONObject { action, narrative_beat?, question? }
+     */
+    fun storytellerTick(
+        situation: String,
+        heartRate: Float? = null,
+        visiblePeople: List<String> = emptyList(),
+        currentEmotion: String? = null,
+        userSpeech: String? = null,
+    ): JSONObject? {
+        if (isServerDown) return null
+
+        val recentEpisodes: List<JSONObject>
+        synchronized(bufferLock) {
+            recentEpisodes = episodeBuffer.toList()
+        }
+
+        val payload = JSONObject().apply {
+            put("situation", situation)
+            put("episodes", JSONArray(recentEpisodes.map { it }))
+            if (heartRate != null) put("heart_rate", heartRate.toDouble())
+            put("visible_people", JSONArray(visiblePeople))
+            if (currentEmotion != null) put("current_emotion", currentEmotion)
+            if (userSpeech != null) put("user_speech", userSpeech)
+        }
+
+        return try {
+            val request = Request.Builder()
+                .url("$serverUrl/v2/storyteller/tick")
+                .addHeader("Authorization", "Bearer $API_KEY")
+                .post(payload.toString().toRequestBody(jsonMedia))
+                .build()
+
+            httpClient.newCall(request).execute().use { response ->
+                if (response.isSuccessful) {
+                    onServerSuccess()
+                    val body = response.body?.string() ?: return null
+                    JSONObject(body)
+                } else {
+                    onServerFailure("/v2/storyteller/tick", response.code)
+                    null
+                }
+            }
+        } catch (e: Exception) {
+            onServerFailure("/v2/storyteller/tick", error = e.message ?: "unknown")
+            null
+        }
+    }
+
+    // ─── v2: 전문가 위임 ───
+
+    /**
+     * 단일 전문가에게 분석 위임
+     *
+     * @param domain 전문가 도메인 (behavior/lesson/health/social/planning/crisis)
+     * @param query 요청 내용
+     * @param context 추가 컨텍스트
+     * @return JSONObject { expert_name, domain, insight, latency_ms }
+     */
+    fun delegateExpert(
+        domain: String,
+        query: String,
+        context: Map<String, String>? = null,
+    ): JSONObject? {
+        if (isServerDown) return null
+
+        val payload = JSONObject().apply {
+            put("domain", domain)
+            put("query", query)
+            if (context != null) put("context", JSONObject(context))
+        }
+
+        return try {
+            val request = Request.Builder()
+                .url("$serverUrl/v2/expert/delegate")
+                .addHeader("Authorization", "Bearer $API_KEY")
+                .post(payload.toString().toRequestBody(jsonMedia))
+                .build()
+
+            httpClient.newCall(request).execute().use { response ->
+                if (response.isSuccessful) {
+                    onServerSuccess()
+                    val body = response.body?.string() ?: return null
+                    JSONObject(body)
+                } else {
+                    onServerFailure("/v2/expert/delegate", response.code)
+                    null
+                }
+            }
+        } catch (e: Exception) {
+            onServerFailure("/v2/expert/delegate", error = e.message ?: "unknown")
+            null
+        }
+    }
+
+    // ─── v2: Multi-Agent Debate ───
+
+    /**
+     * 전문가 토론 실행 — 중요한 결정에서 사용
+     * 2~4명 전문가가 라운드 기반 토론 → 합의 도출
+     *
+     * @param topic 토론 주제
+     * @param domains 참여 전문가 도메인 (최소 2, 최대 4)
+     * @param context 추가 컨텍스트
+     * @param maxRounds 최대 라운드 (1=독립분석, 2=+비판, 3=+합의)
+     * @return JSONObject { consensus_level, summary, action_plan, dissent, rounds }
+     */
+    fun runDebate(
+        topic: String,
+        domains: List<String>,
+        context: Map<String, String>? = null,
+        maxRounds: Int = 3,
+    ): JSONObject? {
+        if (isServerDown) return null
+
+        val payload = JSONObject().apply {
+            put("topic", topic)
+            put("domains", JSONArray(domains))
+            if (context != null) put("context", JSONObject(context))
+            put("max_rounds", maxRounds)
+        }
+
+        return try {
+            val request = Request.Builder()
+                .url("$serverUrl/v2/debate")
+                .addHeader("Authorization", "Bearer $API_KEY")
+                .post(payload.toString().toRequestBody(jsonMedia))
+                .build()
+
+            // 토론은 오래 걸릴 수 있음 (30~120초)
+            httpClient.newCall(request).execute().use { response ->
+                if (response.isSuccessful) {
+                    onServerSuccess()
+                    val body = response.body?.string() ?: return null
+                    JSONObject(body)
+                } else {
+                    onServerFailure("/v2/debate", response.code)
+                    null
+                }
+            }
+        } catch (e: Exception) {
+            onServerFailure("/v2/debate", error = e.message ?: "unknown")
+            null
+        }
+    }
+
+    // ─── v2: LLM 풀 상태 ───
+
+    /**
+     * 분산 LLM 서버 풀 상태 확인
+     * @return JSONObject { total_servers, healthy, servers: [...] }
+     */
+    fun getLlmPoolStatus(): JSONObject? {
+        if (isServerDown) return null
+        return try {
+            val request = Request.Builder()
+                .url("$serverUrl/v2/llm/status")
+                .addHeader("Authorization", "Bearer $API_KEY")
+                .get()
+                .build()
+
+            httpClient.newCall(request).execute().use { response ->
+                if (response.isSuccessful) {
+                    val body = response.body?.string() ?: return null
+                    JSONObject(body)
+                } else null
+            }
+        } catch (e: Exception) {
+            Log.w(TAG, "LLM 풀 상태 조회 실패: ${e.message}")
+            null
+        }
+    }
+
     // ─── 상태 조회 ───
 
     fun checkHealth(): JSONObject? {
+        // health 체크는 서버 다운 시에도 복구 확인을 위해 항상 실행
         return try {
             val request = Request.Builder()
                 .url("$serverUrl/health")
@@ -381,15 +611,15 @@ class OrchestratorClient(
             response.use {
                 if (it.isSuccessful) {
                     val body = it.body?.string() ?: return null
-                    isConnected = true
+                    onServerSuccess()
                     JSONObject(body)
                 } else {
-                    isConnected = false
+                    onServerFailure("/health", it.code)
                     null
                 }
             }
         } catch (e: Exception) {
-            isConnected = false
+            onServerFailure("/health", error = e.message ?: "unknown")
             null
         }
     }

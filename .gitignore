@@ -67,3 +67,13 @@ app/libs/snpe_extracted/
 compile_error*.txt
 build_error*.txt
 app_dependencies*.txt
+
+# Python
+__pycache__/
+*.pyc
+
+# Server generated data/logs
+server/data/
+server/logs/
+server/checkpoints/
+server/lightning_logs/

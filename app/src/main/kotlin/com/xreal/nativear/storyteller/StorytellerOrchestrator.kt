@@ -69,6 +69,9 @@ class StorytellerOrchestrator(
             PolicyReader.getLong("storyteller.min_chapter_duration_ms", 120_000L)
         private val MIN_BRIEFING_INTERVAL_MS: Long get() =
             PolicyReader.getLong("expert.min_briefing_interval_ms", 14_400_000L)
+
+        // Multi-Agent Debate 트리거 도메인 (이 키워드가 missionType에 포함되면 토론 실행)
+        private val DEBATE_TRIGGER_DOMAINS = setOf("crisis", "behavior", "health_alert")
     }
 
     // ── 상태 ──
@@ -385,15 +388,45 @@ class StorytellerOrchestrator(
             emptyList()
         }
 
-        // PC 서버 인사이트 (OrchestratorClient에서 캐싱된 컨텍스트)
-        val serverInsights = try {
+        // PC 서버 이야기꾼 연동 — 서버가 살아있으면 서버 beat 우선 사용
+        val orchestratorClient = try {
             org.koin.java.KoinJavaComponent.getKoin()
                 .getOrNull<com.xreal.nativear.sync.OrchestratorClient>()
-                ?.getContextSummary()
         } catch (_: Exception) { null }
 
-        val prompt = NarrativeBuilder.buildReflectionPrompt(snapshot, chapter, memories, serverInsights)
-        generateBeat(BeatType.PERIODIC_REFLECTION, prompt, snapshot)
+        val serverBeat = if (orchestratorClient?.isConnected == true) {
+            try {
+                orchestratorClient.storytellerTick(
+                    situation = snapshot.currentUserState.name,
+                    heartRate = snapshot.heartRate?.toFloat(),
+                    visiblePeople = snapshot.visiblePeople,
+                    currentEmotion = snapshot.lastEmotion,
+                    userSpeech = null
+                )
+            } catch (e: Exception) {
+                Log.w(TAG, "서버 storyteller tick 실패, 로컬 폴백: ${e.message}")
+                null
+            }
+        } else null
+
+        // 서버가 narrative_beat를 반환했으면 서버 beat 사용
+        val serverNarrative = serverBeat?.optJSONObject("narrative_beat")
+        if (serverNarrative != null) {
+            val beat = StoryBeat(
+                type = BeatType.PERIODIC_REFLECTION,
+                narrative = serverNarrative.optString("narrative", ""),
+                contextSummary = snapshot.toSummary(),
+                emotionalTone = serverNarrative.optString("tone", "calm"),
+                placeName = snapshot.placeName
+            )
+            dayStory.currentChapter?.beats?.add(beat)
+            Log.d(TAG, "[SERVER_BEAT] ${beat.narrative.take(80)} (tone: ${beat.emotionalTone})")
+        } else {
+            // 서버 미응답 → 로컬 AI로 폴백
+            val serverInsights = orchestratorClient?.getContextSummary()
+            val prompt = NarrativeBuilder.buildReflectionPrompt(snapshot, chapter, memories, serverInsights)
+            generateBeat(BeatType.PERIODIC_REFLECTION, prompt, snapshot)
+        }
 
         // Phase B: 리플렉션 후 능동적 질문 시도
         tryAskProactiveQuestion(snapshot)
@@ -663,6 +696,14 @@ class StorytellerOrchestrator(
         // COMPLETED일 때만 내러티브 beat 생성
         if (event.newState == "COMPLETED") {
             val snapshot = contextAggregator.buildSnapshot()
+
+            // 위기/행동 도메인이면 Multi-Agent Debate로 심층 분석 시도
+            val debateDomains = DEBATE_TRIGGER_DOMAINS
+            val missionDomain = event.missionType.lowercase()
+            if (debateDomains.any { missionDomain.contains(it) }) {
+                tryRunDebate(event, snapshot, insight, chapter)
+            }
+
             val prompt = NarrativeBuilder.buildExpertInsightPrompt(snapshot, insight, chapter)
             generateBeat(BeatType.VISUAL_HIGHLIGHT, prompt, snapshot)
 
@@ -674,6 +715,79 @@ class StorytellerOrchestrator(
             ))
 
             Log.d(TAG, "전문가 결과 재통합: ${insight.domainId} — ${insight.insight.take(80)}")
+        }
+    }
+
+    /**
+     * 위기/행동 관련 미션 완료 시 Multi-Agent Debate 트리거.
+     * 서버에서 2~3명 전문가가 토론 → 합의된 행동 계획 도출.
+     * 비동기 — 토론 결과는 나중에 내러티브에 반영.
+     */
+    private fun tryRunDebate(
+        event: XRealEvent.SystemEvent.MissionStateChanged,
+        snapshot: ContextSnapshot,
+        insight: ExpertInsight,
+        chapter: Chapter
+    ) {
+        val orchestratorClient = try {
+            org.koin.java.KoinJavaComponent.getKoin()
+                .getOrNull<com.xreal.nativear.sync.OrchestratorClient>()
+        } catch (_: Exception) { return }
+
+        if (orchestratorClient?.isConnected != true) return
+
+        // 토론은 오래 걸리므로 (30~120초) 별도 코루틴에서 비동기 실행
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val topic = "${insight.domainId} 관련: ${insight.insight.take(200)}"
+                val domains = selectDebateDomains(event.missionType)
+                val context = mapOf(
+                    "situation" to snapshot.currentUserState.name,
+                    "mission_id" to event.missionId,
+                    "mission_type" to event.missionType
+                )
+
+                Log.i(TAG, "Multi-Agent Debate 시작: $topic (전문가: $domains)")
+                val result = orchestratorClient.runDebate(topic, domains, context)
+
+                if (result != null) {
+                    val consensusLevel = result.optString("consensus_level", "unknown")
+                    val summary = result.optString("summary", "")
+                    val latency = result.optInt("latency_ms", 0)
+
+                    // 토론 결과를 ExpertInsight + 대화 이력에 기록
+                    val debateInsight = ExpertInsight(
+                        domainId = "debate_${insight.domainId}",
+                        expertName = "전문가 토론 ($consensusLevel)",
+                        insight = summary.take(500)
+                    )
+                    chapter.expertInsights.add(debateInsight)
+                    chapter.conversationHistory.add(ConversationTurn(
+                        speaker = Speaker.EXPERT,
+                        text = "[토론 합의] $summary".take(200),
+                        topic = "토론_${insight.domainId}"
+                    ))
+
+                    Log.i(TAG, "Debate 완료: $consensusLevel, ${latency}ms, 요약: ${summary.take(80)}")
+                }
+            } catch (e: Exception) {
+                Log.w(TAG, "Debate 실행 실패: ${e.message}")
+            }
+        }
+    }
+
+    /**
+     * 미션 타입에 따라 토론 참여 전문가 선택.
+     * 항상 관련 도메인 + 보완 도메인 2~3명.
+     */
+    private fun selectDebateDomains(missionType: String): List<String> {
+        val domain = missionType.lowercase()
+        return when {
+            domain.contains("crisis") -> listOf("crisis", "behavior", "health")
+            domain.contains("behavior") -> listOf("behavior", "health", "social")
+            domain.contains("health") -> listOf("health", "behavior", "planning")
+            domain.contains("social") -> listOf("social", "behavior", "planning")
+            else -> listOf("behavior", "health")  // 기본 2명
         }
     }
 

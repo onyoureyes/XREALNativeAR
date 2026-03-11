@@ -146,7 +146,7 @@ class RoutineClassifier(private val context: Context) {
             val buffer = loadModelFile()
             val options = Interpreter.Options().apply {
                 setNumThreads(2)
-                setUseNNAPI(false)  // 분류기는 CPU로 충분 (5 float 입력)
+                // CPU 전용 (5 float MLP — NNAPI/GPU 불필요, 기본값 CPU)
             }
             interpreter = Interpreter(buffer, options)
             Log.i(TAG, "RoutineClassifier 로딩 완료: ${modelFile.length() / 1024}KB")

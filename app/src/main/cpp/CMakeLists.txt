@@ -5,17 +5,12 @@ project("xreal_native_ar")
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Add QNN SDK path
-set(QNN_SDK_ROOT "C:/Qualcomm/AIStack/QAIRT/2.31.0.250130" CACHE PATH "Path to QAIRT SDK")
-
 # llama.cpp pre-built static libraries path
 # 빌드 방법: scripts/build_llama_android.sh 실행 → 정적 라이브러리 + 헤더 복사
 set(LLAMA_CPP_DIR "${CMAKE_SOURCE_DIR}/llama_cpp" CACHE PATH "Path to pre-built llama.cpp")
 
 # Include headers
 include_directories(
-    ${QNN_SDK_ROOT}/include
-    ${QNN_SDK_ROOT}/include/QNN
     ${LLAMA_CPP_DIR}/include
     ${CMAKE_SOURCE_DIR}
 )
@@ -25,9 +20,6 @@ add_library(
         xreal_native_ar
         SHARED
         native_bridge.cpp
-        qnn_runtime.cpp
-        yolo_detector.cpp
-        xreal_camera.cpp
         llama_bridge.cpp
 )
 
@@ -60,17 +52,6 @@ set_target_properties(llama-common PROPERTIES
     IMPORTED_LOCATION ${LLAMA_CPP_DIR}/lib/${ANDROID_ABI}/libcommon.a
 )
 
-# Link QNN libraries
-add_library(QnnHtp SHARED IMPORTED)
-set_target_properties(QnnHtp PROPERTIES
-    IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/../jniLibs/arm64-v8a/libQnnHtp.so
-)
-
-add_library(QnnSystem SHARED IMPORTED)
-set_target_properties(QnnSystem PROPERTIES
-    IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/../jniLibs/arm64-v8a/libQnnSystem.so
-)
-
 # Link libraries
 target_link_libraries(${CMAKE_PROJECT_NAME}
     # llama.cpp (순서 중요 — 의존성 역순)
@@ -79,11 +60,6 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
     ggml
     ggml-cpu
     ggml-base
-    # QnnHtp      <-- REMOVED: Load via dlopen only
-    # QnnSystem   <-- REMOVED
     android
     log
-    GLESv3
-    camera2ndk
-    mediandk
 )

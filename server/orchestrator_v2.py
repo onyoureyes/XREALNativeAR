@@ -66,6 +66,7 @@ predictor: DigitalTwinPredictor = None
 episode_db: EpisodeStore = None
 card_store: SemanticCardStore = None
 crew_manager: ExpertCrewManager = None
+debate_manager = None
 storyteller_graph = None
 storyteller_state = None
 
@@ -80,7 +81,7 @@ start_time = time.time()
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     global llm_pool, mem0_svc, predictor, episode_db, card_store
-    global crew_manager, storyteller_graph, storyteller_state
+    global crew_manager, debate_manager, storyteller_graph, storyteller_state
 
     # 1. LLM Pool 시작 (모든 서버 헬스체크)
     llm_pool = LLMPool()
@@ -116,9 +117,13 @@ async def lifespan(app: FastAPI):
     init_tools(mem0_svc, episode_db, card_store, predictor, episode_buffer)
     log.info(f"LangChain 도구 초기화 완료 ({len(get_all_tools())}개)")
 
-    # 4. CrewAI 전문가 팀
+    # 4. CrewAI 전문가 팀 + Debate Manager
     crew_manager = ExpertCrewManager(llm_pool)
     log.info(f"전문가 팀 초기화 완료 ({len(crew_manager.list_experts())}명)")
+
+    from debate_graph import DebateManager
+    debate_manager = DebateManager(llm_pool)
+    log.info("Multi-Agent Debate 초기화 완료")
 
     # 5. LangGraph 이야기꾼 (선택적 — langgraph 설치 시)
     try:
@@ -233,6 +238,7 @@ async def health():
             "card_store": f"ok ({card_store.count()} cards)" if card_store else "not_initialized",
             "storyteller_graph": "ok" if storyteller_graph else "not_available",
             "crew_manager": f"ok ({len(crew_manager.list_experts())} experts)" if crew_manager else "not_available",
+            "debate_manager": "ok" if debate_manager else "not_available",
         }
     }
 
@@ -629,14 +635,92 @@ async def storyteller_tick(req: StorytellerInput):
         return await _storyteller_fallback(req)
 
     global storyteller_state
-    from storyteller_graph import parse_narrative_response, parse_question_response
+    from storyteller_graph import (
+        parse_narrative_response, parse_question_response,
+        STORYTELLER_SYSTEM_TEMPLATE,
+        QUESTION_SYSTEM_TEMPLATE,
+    )
+    from langchain_core.messages import HumanMessage
 
-    # 상태 업데이트
+    # ── 배경지식 수집 (JSON 프로필 + Mem0 + 컨텍스트) ──
+    background_parts = []
+    user_profile = ""
+
+    # 1) 로컬 JSON 프로필 (LLM 호출 없이 즉시 로드)
+    try:
+        from pathlib import Path
+        profile_path = Path("data/user_profile.json")
+        if profile_path.exists():
+            import json as _json
+            profile_data = _json.loads(profile_path.read_text(encoding="utf-8"))
+            profile_lines = [
+                f"- 직업: {profile_data.get('occupation', '알 수 없음')}",
+                f"- 설명: {profile_data.get('description', '')}",
+                f"- 작업환경: {profile_data.get('workspace', '')}",
+                f"- 관심사: {', '.join(profile_data.get('interests', []))}",
+            ]
+            hints = profile_data.get("context_hints", [])
+            if hints:
+                profile_lines.extend(f"- {h}" for h in hints)
+            user_profile = "## 사용자 정보\n" + "\n".join(profile_lines)
+    except Exception as e:
+        log.warning(f"프로필 JSON 로드 실패: {e}")
+
+    # 2) Mem0에서 상황 관련 기억 검색 (타임아웃 5초, 실패 시 스킵)
+    if mem0_svc:
+        try:
+            import asyncio as _aio
+            situation_query = f"{req.situation} {req.current_emotion or ''} {' '.join(req.visible_people)}"
+            relevant_memories = await _aio.wait_for(
+                _aio.to_thread(
+                    mem0_svc.search,
+                    query=situation_query.strip(),
+                    user_id="teacher",
+                    limit=5,
+                ),
+                timeout=5.0,
+            )
+            if relevant_memories:
+                mem_lines = []
+                for m in relevant_memories:
+                    text = m.get("memory", m.get("text", ""))
+                    if text:
+                        mem_lines.append(f"- {text}")
+                if mem_lines:
+                    background_parts.append("관련 기억:\n" + "\n".join(mem_lines))
+        except _aio.TimeoutError:
+            log.warning("Mem0 검색 타임아웃 (5s) — 스킵")
+        except Exception as e:
+            log.warning(f"Mem0 배경지식 검색 실패: {e}")
+
+    # 3) 최근 에피소드 요약
+    if episode_buffer:
+        recent_eps = episode_buffer[-5:]
+        ep_lines = [f"- [{e.get('event_type','?')}] {e.get('content','')[:80]}" for e in recent_eps]
+        background_parts.append("최근 활동:\n" + "\n".join(ep_lines))
+
+    # 4) 아침 브리핑 (있으면)
+    try:
+        briefings = sorted(Path("data/briefings").glob("briefing_*.md"), reverse=True)
+        if briefings:
+            briefing_text = briefings[0].read_text(encoding="utf-8")[:500]
+            background_parts.append(f"오늘의 브리핑:\n{briefing_text}")
+    except Exception:
+        pass
+
+    background_context = "\n\n".join(background_parts) if background_parts else None
+
+    # 시스템 프롬프트에 사용자 프로필 주입
+    system_prompt_narrate = STORYTELLER_SYSTEM_TEMPLATE.format(user_profile=user_profile)
+    system_prompt_question = QUESTION_SYSTEM_TEMPLATE.format(user_profile=user_profile)
+
+    # ── 상태 업데이트 ──
     storyteller_state["episodes"] = req.episodes
     storyteller_state["current_situation"] = req.situation
     storyteller_state["heart_rate"] = req.heart_rate
     storyteller_state["visible_people"] = req.visible_people
     storyteller_state["user_speech"] = req.user_speech
+    storyteller_state["_background_context"] = background_context
 
     if req.current_emotion:
         storyteller_state["previous_emotion"] = storyteller_state.get("current_emotion")
@@ -651,43 +735,100 @@ async def storyteller_tick(req: StorytellerInput):
         storyteller_state["question_count_today"] = 0
 
     try:
+        # 이전 상태의 beat/question 시간 기억 (비교용)
+        prev_beat_time = storyteller_state.get("last_beat_time", 0)
+        prev_question_time = storyteller_state.get("last_question_time", 0)
+
         # LangGraph 실행 (observe → 조건부 → narrate/ask/delegate/end)
-        config = {"configurable": {"thread_id": "storyteller-main"}}
+        # checkpointer 없음 — 상태는 storyteller_state dict로 수동 관리
         result = await asyncio.to_thread(
             storyteller_graph.invoke,
-            storyteller_state,
-            config,
+            dict(storyteller_state),  # TypedDict → plain dict 변환
         )
 
-        # 결과에서 AI 응답 추출
+        if result is None:
+            log.warning("Storyteller graph returned None")
+            return {"action": "end", "reason": "graph_returned_none"}
+
+        # 결과에서 다음 액션 추출
         output = {"action": result.get("next_action", "end")}
 
-        if result.get("messages"):
-            last_msg = result["messages"][-1]
-            if hasattr(last_msg, "content"):
-                ai_text = last_msg.content
-                action = result.get("next_action", "end")
+        # narrate 실행 여부 확인
+        new_beat_time = result.get("last_beat_time", 0)
+        new_question_time = result.get("last_question_time", 0)
 
-                if action == "end" and result.get("last_beat_time", 0) > storyteller_state.get("last_beat_time", 0):
-                    # narrate 실행됨
-                    narrative, tone = parse_narrative_response(ai_text)
-                    beat = {
-                        "timestamp": datetime.now().isoformat(),
-                        "narrative": narrative,
-                        "tone": tone,
-                        "trigger": result.get("_trigger", "reflection"),
-                        "chapter": result.get("current_chapter", {}).get("title", ""),
-                    }
-                    storyteller_state.setdefault("beats_today", []).append(beat)
-                    output["narrative_beat"] = beat
+        if new_beat_time > prev_beat_time:
+            # narrate 노드가 실행됨 — messages에서 프롬프트 추출
+            messages = result.get("messages", [])
+            prompt_text = ""
+            for msg in reversed(messages):
+                if hasattr(msg, "content") and isinstance(msg, HumanMessage):
+                    prompt_text = msg.content
+                    break
 
-                elif result.get("last_question_time", 0) > storyteller_state.get("last_question_time", 0):
-                    # ask_question 실행됨
-                    question = parse_question_response(ai_text)
-                    output["question"] = question
+            # LLM 호출하여 실제 내러티브 생성
+            narrative_text = ""
+            try:
+                llm_response = await llm_pool.chat(
+                    prompt=prompt_text,
+                    system=system_prompt_narrate,
+                    max_tokens=256,
+                )
+                narrative_text = llm_response.text
+            except Exception as e:
+                log.error(f"LLM 내러티브 생성 실패: {e}")
+                narrative_text = f"(내러티브 생성 실패: {e})"
 
-        # 상태 동기화
-        storyteller_state.update(result)
+            narrative, tone = parse_narrative_response(narrative_text)
+            chapter = result.get("current_chapter") or {}
+            beat = {
+                "timestamp": datetime.now().isoformat(),
+                "narrative": narrative,
+                "tone": tone,
+                "trigger": result.get("_trigger", "reflection"),
+                "chapter": chapter.get("title", "") if isinstance(chapter, dict) else "",
+            }
+            storyteller_state.setdefault("beats_today", []).append(beat)
+            output["narrative_beat"] = beat
+
+        elif new_question_time > prev_question_time:
+            # ask_question 노드가 실행됨
+            messages = result.get("messages", [])
+            prompt_text = ""
+            for msg in reversed(messages):
+                if hasattr(msg, "content") and isinstance(msg, HumanMessage):
+                    prompt_text = msg.content
+                    break
+
+            # LLM 호출하여 질문 생성
+            question_text = ""
+            try:
+                llm_response = await llm_pool.chat(
+                    prompt=prompt_text,
+                    system=system_prompt_question,
+                    max_tokens=128,
+                )
+                question_text = llm_response.text
+            except Exception as e:
+                log.error(f"LLM 질문 생성 실패: {e}")
+                question_text = f"(질문 생성 실패: {e})"
+
+            question = parse_question_response(question_text)
+            output["question"] = question
+
+        # 상태 동기화 (messages 제외 — LangChain 메시지 객체는 dict에 누적하면 문제)
+        safe_keys = {
+            "current_situation", "previous_situation", "heart_rate",
+            "visible_people", "current_emotion", "previous_emotion",
+            "current_chapter", "chapters_today", "beats_today",
+            "conversation_history", "pending_question", "question_count_today",
+            "expert_request", "expert_result", "last_beat_time",
+            "last_question_time", "day_date", "next_action", "user_speech",
+        }
+        for k in safe_keys:
+            if k in result:
+                storyteller_state[k] = result[k]
+
         return output
 
     except Exception as e:
@@ -767,6 +908,60 @@ async def get_storyteller_state():
         "questions_today": storyteller_state.get("question_count_today", 0),
         "last_beat_time": storyteller_state.get("last_beat_time", 0),
         "last_question_time": storyteller_state.get("last_question_time", 0),
+    }
+
+
+# ─── v2 Debate 엔드포인트 ───
+
+class DebateRequest(BaseModel):
+    """전문가 토론 요청"""
+    topic: str  # 토론 주제
+    domains: list[str]  # 참여 전문가 (2~4명)
+    context: Optional[dict] = None
+    max_rounds: int = 3  # 1=독립분석, 2=+비판, 3=+합의
+
+
+@app.post("/v2/debate")
+async def run_debate(req: DebateRequest):
+    """Multi-Agent Debate — 전문가 토론 + 합의 도출
+
+    중요한 결정에서 2~4명 전문가가 라운드 기반으로 토론.
+    Round 1: 독립 분석 (병렬)
+    Round 2: 상호 비판 (병렬)
+    Round 3: 중재자 합의 도출
+    """
+    if debate_manager is None:
+        raise HTTPException(503, "토론 시스템 미초기화")
+    if len(req.domains) < 2:
+        raise HTTPException(400, "최소 2명의 전문가 필요")
+    if len(req.domains) > 4:
+        raise HTTPException(400, "최대 4명의 전문가까지 지원")
+
+    result = await debate_manager.run_debate(
+        topic=req.topic,
+        domains=req.domains,
+        context=req.context,
+        max_rounds=req.max_rounds,
+    )
+
+    return {
+        "topic": result.topic,
+        "domains": result.domains,
+        "consensus_level": result.consensus_level,
+        "summary": result.summary,
+        "action_plan": result.action_plan,
+        "dissent": result.dissent,
+        "total_rounds": result.total_rounds,
+        "latency_ms": result.latency_ms,
+        "rounds": [
+            {
+                "round": r.round_num,
+                "expert": r.expert_domain,
+                "role": r.expert_role,
+                "content": r.content,
+            }
+            for r in result.rounds
+        ],
     }
 
 

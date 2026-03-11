@@ -155,27 +155,23 @@ async def query_graph(graphiti, queries: list[str]) -> list[dict]:
     results = []
     for query in queries:
         try:
+            # graphiti.search()는 list[EntityEdge]를 반환
             search_result = await graphiti.search(query=query)
             edges = []
-            for edge in getattr(search_result, "edges", []):
+            for edge in (search_result or []):
                 edges.append({
                     "fact": getattr(edge, "fact", str(edge)),
                     "valid_at": str(getattr(edge, "valid_at", "")),
-                })
-            nodes = []
-            for node in getattr(search_result, "nodes", []):
-                nodes.append({
-                    "name": getattr(node, "name", str(node)),
-                    "labels": list(getattr(node, "labels", [])),
+                    "source_node": getattr(edge, "source_node_name", ""),
+                    "target_node": getattr(edge, "target_node_name", ""),
                 })
             results.append({
                 "query": query,
                 "edges": edges[:10],
-                "nodes": nodes[:10],
             })
         except Exception as e:
             log.warning(f"검색 실패: {query} — {e}")
-            results.append({"query": query, "edges": [], "nodes": [], "error": str(e)})
+            results.append({"query": query, "edges": [], "error": str(e)})
 
     return results
 

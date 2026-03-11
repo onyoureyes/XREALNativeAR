@@ -122,13 +122,14 @@ def load_hr_from_duckdb(days: int = 7) -> Optional[np.ndarray]:
 
     conn = duckdb.connect(DUCKDB_PATH, read_only=True)
     try:
-        rows = conn.execute(f"""
+        cutoff = (datetime.now() - timedelta(days=days)).isoformat()
+        rows = conn.execute("""
             SELECT heart_rate
             FROM heart_rate_log
             WHERE heart_rate > 30 AND heart_rate < 220
-            AND timestamp >= CURRENT_TIMESTAMP - INTERVAL '{days} days'
+            AND timestamp >= ?
             ORDER BY timestamp ASC
-        """).fetchall()
+        """, [cutoff]).fetchall()
 
         if len(rows) < MP_WINDOW_SHORT * 2:
             return None
@@ -182,13 +183,14 @@ def load_running_dynamics(days: int = 30) -> Optional[dict]:
 
     conn = duckdb.connect(DUCKDB_PATH, read_only=True)
     try:
-        rows = conn.execute(f"""
+        cutoff = (datetime.now() - timedelta(days=days)).isoformat()
+        rows = conn.execute("""
             SELECT start_time, avg_gct_ms, avg_vertical_oscillation_cm,
                    avg_stiffness_kn_m, avg_flight_time_ms
             FROM running_dynamics
-            WHERE start_time >= CURRENT_TIMESTAMP - INTERVAL '{days} days'
+            WHERE start_time >= ?
             ORDER BY start_time ASC
-        """).fetchall()
+        """, [cutoff]).fetchall()
 
         if len(rows) < 5:
             return None

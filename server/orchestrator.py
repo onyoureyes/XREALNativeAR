@@ -62,7 +62,7 @@ card_store: SemanticCardStore = None
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    global http_client, mem0_svc
+    global http_client, mem0_svc, predictor, episode_db, card_store
     http_client = httpx.AsyncClient(timeout=httpx.Timeout(60.0, connect=5.0))
 
     # Mem0 초기화 (실패해도 서버는 기동 — 나중에 재시도 가능)

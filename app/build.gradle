@@ -124,11 +124,11 @@ dependencies {
     // LiteRT-LM → llama.cpp 교체: Galaxy Fold 4 NPU 미지원, CPU GGUF 추론
     // 네이티브 라이브러리: app/src/main/cpp/llama_bridge.cpp (xreal_native_ar.so에 포함)
 
-    // QNN LiteRT Delegate v2.34.0 — Hexagon NPU (NNAPI Android 15 deprecated 대체)
-    // RESEARCH.md §3 참조: HTP_BACKEND + skelLibraryDir 필수
-    // UnifiedAIOrchestrator는 리플렉션으로 접근 → 런타임 graceful degradation
-    // implementation 'com.qualcomm.qti:qnn-litert-delegate:2.34.0'  // TODO: Qualcomm repo 설정 후 활성화
-    // implementation 'com.qualcomm.qti:qnn-runtime:2.34.0'  // TODO: Qualcomm repo 설정 후 활성화
+    // QNN LiteRT Delegate — Hexagon NPU (NNAPI Android 15 deprecated 대체)
+    // Maven Central에 배포됨 (mavenCentral() 사용, 별도 repo 불필요)
+    // SM8450+ (Snapdragon 8 Gen 1) 지원 — Galaxy Fold 4 ✅
+    implementation 'com.qualcomm.qti:qnn-litert-delegate:2.34.0'
+    implementation 'com.qualcomm.qti:qnn-runtime:2.34.0'
 
     // MediaPipe Text Embedder (semantic search)
     implementation 'com.google.mediapipe:tasks-text:0.10.32'
@@ -146,8 +146,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-nearby:19.3.0'
 
     
-    // Gemini AI
-    implementation 'com.google.ai.client.generativeai:generativeai:0.7.0'
+    // Gemini AI — SDK 제거, REST API 직접 호출 (OkHttp 재사용)
     
     // Dependency Injection (Restored for Phase 3.1)
     implementation "io.insert-koin:koin-core:3.5.0"
@@ -170,7 +169,9 @@ dependencies {
     implementation 'androidx.work:work-runtime-ktx:2.9.0'
 
     // Encrypted SharedPreferences for API key storage
-    implementation 'androidx.security:security-crypto:1.1.0-alpha06'
+    // 라이브러리 자체가 deprecated (2025.04) — 향후 Tink + DataStore 이전 권장
+    // 1.1.0은 최종 안정 릴리스 (보안 패치 포함)
+    implementation 'androidx.security:security-crypto:1.1.0'
 
     // SQLite with extension loading support (for sqlite-vec)
     implementation 'com.github.requery:sqlite-android:3.49.0'

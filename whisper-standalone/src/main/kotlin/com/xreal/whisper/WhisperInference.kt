@@ -2,7 +2,6 @@ package com.xreal.whisper
 
 import android.content.Context
 import android.util.Log
-import com.google.android.gms.tflite.gpu.GpuDelegate
 import org.tensorflow.lite.Interpreter
 import java.io.File
 import java.io.FileInputStream
@@ -210,26 +209,42 @@ class WhisperSplitInference(
     private val TAG = "WhisperSplitInference"
     private var encoderInterpreter: Interpreter? = null
     private var decoderInterpreter: Interpreter? = null
-    
+
     // Buffers
     private var inputBuffer: ByteBuffer? = null
     private var crossAttnBuffer: ByteBuffer? = null
-    
+    private var dModel = 512  // tiny=384, base=512, small=768
+
     private val melSpectrogram = MelSpectrogram()
+
+    // Whisper special tokens
+    companion object {
+        const val TOKEN_SOT = 50258       // <|startoftranscript|>
+        const val TOKEN_EOT = 50257       // <|endoftext|>
+        const val TOKEN_TRANSCRIBE = 50359 // <|transcribe|>
+        const val TOKEN_NO_TIMESTAMPS = 50363 // <|notimestamps|>
+        const val TOKEN_EN = 50259        // <|en|>
+        const val TOKEN_KO = 50264        // <|ko|>
+        const val MAX_DECODE_STEPS = 224  // Whisper 최대 디코딩 길이
+    }
 
     override fun initialize(options: Interpreter.Options) {
         Log.i(TAG, "Initializing Split Inference ($modelType) with injected options...")
-        
+
         val suffix = when(modelType) {
             ModelType.TINY -> "tiny"
             ModelType.BASE -> "base"
             ModelType.SMALL -> "small"
         }
 
-        // Search for Qualcomm proxy files first, then fallback to standard naming
+        dModel = when(modelType) {
+            ModelType.TINY -> 384
+            ModelType.BASE -> 512
+            ModelType.SMALL -> 768
+        }
+
         val assetList = context.assets.list("") ?: emptyArray()
-        
-        // Match both naming conventions: "whisper_base_encoder..." or "whisper_encoder_base..."
+
         val encPath = assetList.find {
             it.contains("whisper") && it.contains(suffix) && it.contains("encoder") && it.endsWith(".tflite")
         } ?: "whisper_encoder_$suffix.tflite"
@@ -240,122 +255,165 @@ class WhisperSplitInference(
 
         Log.i(TAG, "Loading models: $encPath, $decPath")
 
-        // Load Encoder
         val assetManager = context.assets
         try {
             val encFd = assetManager.openFd(encPath)
-            val encBuffer = FileInputStream(encFd.fileDescriptor).channel.map(FileChannel.MapMode.READ_ONLY, encFd.startOffset, encFd.declaredLength)
+            val encBuffer = FileInputStream(encFd.fileDescriptor).channel.map(
+                FileChannel.MapMode.READ_ONLY, encFd.startOffset, encFd.declaredLength)
             encoderInterpreter = Interpreter(encBuffer, options)
-            
+
             val decFd = assetManager.openFd(decPath)
-            val decBuffer = FileInputStream(decFd.fileDescriptor).channel.map(FileChannel.MapMode.READ_ONLY, decFd.startOffset, decFd.declaredLength)
+            val decBuffer = FileInputStream(decFd.fileDescriptor).channel.map(
+                FileChannel.MapMode.READ_ONLY, decFd.startOffset, decFd.declaredLength)
             decoderInterpreter = Interpreter(decBuffer, options)
         } catch (e: Exception) {
-            Log.e(TAG, "Model Load Mismatch/Error: ${e.message}")
+            Log.e(TAG, "Model Load Error: ${e.message}")
             throw e
         }
 
-        // Allocate Buffers
         inputBuffer = ByteBuffer.allocateDirect(1 * 80 * 3000 * 4).order(ByteOrder.nativeOrder())
-        
-        val dModel = when(modelType) {
-            ModelType.TINY -> 384
-            ModelType.BASE -> 512
-            ModelType.SMALL -> 768
-        }
-        Log.i(TAG, "Buffer Allocation: d_model=$dModel")
         crossAttnBuffer = ByteBuffer.allocateDirect(1 * 1500 * dModel * 4).order(ByteOrder.nativeOrder())
 
-        // Initialize Preprocessor
+        Log.i(TAG, "Buffer Allocation: d_model=$dModel")
         melSpectrogram.loadFiltersFromAssets(context)
+        Log.i(TAG, "✅ WhisperSplitInference 초기화 완료")
     }
-
 
     override fun transcribe(audioData: ShortArray): IntArray {
         val encoder = encoderInterpreter ?: return IntArray(0)
-        // val decoder = decoderInterpreter ?: return IntArray(0) 
+        val decoder = decoderInterpreter ?: return IntArray(0)
         val mInputBuffer = inputBuffer ?: return IntArray(0)
         val mCrossAttn = crossAttnBuffer ?: return IntArray(0)
 
-        // 1. Run ENCODER
+        // 1. Mel spectrogram 전처리
         val melData = melSpectrogram.process(audioData)
+        if (melData.isEmpty()) {
+            Log.e(TAG, "Mel spectrogram 비어있음 (filters.bin 누락?)")
+            return IntArray(0)
+        }
+
         mInputBuffer.rewind()
         for (i in 0 until 80) {
             for (j in 0 until 3000) mInputBuffer.putFloat(melData[i * 3000 + j])
         }
         mInputBuffer.rewind()
-        
+
+        // 2. 인코더 실행 → cross-attention 텐서
         mCrossAttn.rewind()
-        val encInputs = arrayOf<Any>(mInputBuffer)
-        val encOutputs = mutableMapOf<Int, Any>(0 to mCrossAttn)
-        encoder.runForMultipleInputsOutputs(encInputs, encOutputs)
-        
-        // 2. Decoder Loop (Placeholder)
-        return intArrayOf(50259, 50359, 220, 50257) 
+        encoder.runForMultipleInputsOutputs(
+            arrayOf<Any>(mInputBuffer),
+            mutableMapOf<Int, Any>(0 to mCrossAttn)
+        )
+
+        // 3. 디코더 autoregressive 루프
+        // 초기 토큰: [SOT, lang, TRANSCRIBE, NO_TIMESTAMPS]
+        val tokens = mutableListOf(TOKEN_SOT, TOKEN_EN, TOKEN_TRANSCRIBE, TOKEN_NO_TIMESTAMPS)
+
+        try {
+            for (step in 0 until MAX_DECODE_STEPS) {
+                // 디코더 입력: cross-attention + 현재 토큰 시퀀스
+                val tokenInput = ByteBuffer.allocateDirect(tokens.size * 4).order(ByteOrder.nativeOrder())
+                for (t in tokens) tokenInput.putInt(t)
+                tokenInput.rewind()
+
+                mCrossAttn.rewind()
+
+                // 디코더 출력: logits [1, vocab_size] 또는 [1, seq_len, vocab_size]
+                // 모델 구조에 따라 출력 shape이 다를 수 있음 — 동적 감지
+                val outTensor = decoder.getOutputTensor(0)
+                val outShape = outTensor.shape()
+                val vocabSize = outShape[outShape.size - 1]
+                val outputSize = outShape.fold(1) { acc: Int, dim: Int -> acc * dim }
+                val logitsBuffer = ByteBuffer.allocateDirect(outputSize * 4).order(ByteOrder.nativeOrder())
+
+                decoder.runForMultipleInputsOutputs(
+                    arrayOf<Any>(mCrossAttn, tokenInput),
+                    mutableMapOf<Int, Any>(0 to logitsBuffer)
+                )
+
+                // 마지막 위치의 logits에서 argmax → 다음 토큰
+                logitsBuffer.rewind()
+                val floatBuf = logitsBuffer.asFloatBuffer()
+                // 마지막 시퀀스 위치의 logits만 사용
+                val lastOffset = (outputSize / vocabSize - 1) * vocabSize
+                var maxVal = Float.NEGATIVE_INFINITY
+                var maxIdx = 0
+                for (v in 0 until vocabSize) {
+                    val logit = floatBuf.get(lastOffset + v)
+                    if (logit > maxVal) {
+                        maxVal = logit
+                        maxIdx = v
+                    }
+                }
+
+                if (maxIdx == TOKEN_EOT) break
+                tokens.add(maxIdx)
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "디코더 루프 오류: ${e.message}", e)
+        }
+
+        // 프롬프트 토큰 제거 (SOT, lang, TRANSCRIBE, NO_TIMESTAMPS)
+        return if (tokens.size > 4) tokens.subList(4, tokens.size).toIntArray() else IntArray(0)
     }
 
     override fun getEmbedding(audioData: ShortArray): FloatArray? {
         val encoder = encoderInterpreter ?: return null
         val mInputBuffer = inputBuffer ?: return null
-        
+
         return try {
-            // Pre-processing
             val melData = melSpectrogram.process(audioData)
-            
+            if (melData.isEmpty()) return null
+
             mInputBuffer.rewind()
             for (i in 0 until 80) {
                 for (j in 0 until 3000) mInputBuffer.putFloat(melData[i * 3000 + j])
             }
             mInputBuffer.rewind()
-            
-            // Run encoder to get cross-attention tensor
-            val encoderOutputSize = 1 * 1500 * 384
-            val encoderOutputBuffer = ByteBuffer.allocateDirect(encoderOutputSize * 4).apply {
-                order(ByteOrder.nativeOrder())
-            }
-            
-            encoder.run(mInputBuffer, encoderOutputBuffer)
-            
-            // Average pooling over time dimension (1500) to get 384-dim vector
+
+            val encoderOutputSize = 1 * 1500 * dModel
+            val encoderOutputBuffer = ByteBuffer.allocateDirect(encoderOutputSize * 4)
+                .order(ByteOrder.nativeOrder())
+
+            // ★ Kotlin T.run {} 확장함수 충돌 회피 — runForMultipleInputsOutputs 사용
+            encoder.runForMultipleInputsOutputs(
+                arrayOf<Any>(mInputBuffer),
+                mutableMapOf<Int, Any>(0 to encoderOutputBuffer)
+            )
+
+            // Average pooling → d_model-dim 벡터
             encoderOutputBuffer.rewind()
-            val embedding = FloatArray(384)
+            val embedding = FloatArray(dModel)
             val tempBuffer = FloatArray(encoderOutputSize)
             encoderOutputBuffer.asFloatBuffer().get(tempBuffer)
-            
-            for (i in 0 until 384) {
+
+            for (i in 0 until dModel) {
                 var sum = 0f
                 for (j in 0 until 1500) {
-                    sum += tempBuffer[j * 384 + i]
+                    sum += tempBuffer[j * dModel + i]
                 }
                 embedding[i] = sum / 1500f
             }
-            
+
             l2Normalize(embedding)
         } catch (e: Exception) {
             Log.e(TAG, "Embedding extraction failed: ${e.message}", e)
             null
         }
     }
-    
+
     private fun l2Normalize(vector: FloatArray): FloatArray {
         var sumSquares = 0f
-        for (value in vector) {
-            sumSquares += value * value
-        }
+        for (value in vector) { sumSquares += value * value }
         val magnitude = kotlin.math.sqrt(sumSquares)
-        
         if (magnitude == 0f) return vector
-        
-        for (i in vector.indices) {
-            vector[i] /= magnitude
-        }
+        for (i in vector.indices) { vector[i] /= magnitude }
         return vector
     }
 
     override fun close() {
         encoderInterpreter?.close()
         decoderInterpreter?.close()
-        // Do NOT close GpuDelegate here
         encoderInterpreter = null
         decoderInterpreter = null
     }

@@ -7,6 +7,8 @@ import android.graphics.YuvImage
 import android.util.Log
 import android.util.Size
 import androidx.camera.core.*
+import androidx.camera.core.resolutionselector.ResolutionSelector
+import androidx.camera.core.resolutionselector.ResolutionStrategy
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
@@ -76,7 +78,16 @@ class CameraStreamProvider(
         val provider = cameraProvider ?: return
 
         val imageAnalysis = ImageAnalysis.Builder()
-            .setTargetResolution(Size(640, 480))
+            .setResolutionSelector(
+                ResolutionSelector.Builder()
+                    .setResolutionStrategy(
+                        ResolutionStrategy(
+                            Size(640, 480),
+                            ResolutionStrategy.FALLBACK_RULE_CLOSEST_HIGHER_THEN_LOWER
+                        )
+                    )
+                    .build()
+            )
             .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
             .setOutputImageFormat(ImageAnalysis.OUTPUT_IMAGE_FORMAT_YUV_420_888)
             .build()
@@ -120,34 +131,63 @@ class CameraStreamProvider(
     }
 
     private fun imageProxyToJpeg(imageProxy: ImageProxy): ByteArray? {
-        val yBuffer = imageProxy.planes[0].buffer
-        val uBuffer = imageProxy.planes[1].buffer
-        val vBuffer = imageProxy.planes[2].buffer
+        val width = imageProxy.width
+        val height = imageProxy.height
+        val yPlane = imageProxy.planes[0]
+        val uPlane = imageProxy.planes[1]
+        val vPlane = imageProxy.planes[2]
 
-        val ySize = yBuffer.remaining()
-        val uSize = uBuffer.remaining()
-        val vSize = vBuffer.remaining()
+        val yBuffer = yPlane.buffer
+        val uBuffer = uPlane.buffer
+        val vBuffer = vPlane.buffer
 
-        val nv21 = ByteArray(ySize + uSize + vSize)
-        yBuffer.get(nv21, 0, ySize)
-        // YUV_420_888 → NV21: V 먼저, 그다음 U
-        vBuffer.get(nv21, ySize, vSize)
-        uBuffer.get(nv21, ySize + vSize, uSize)
+        val yRowStride = yPlane.rowStride
+        val uvRowStride = uPlane.rowStride
+        val uvPixelStride = uPlane.pixelStride
 
-        val yuvImage = YuvImage(
-            nv21,
-            ImageFormat.NV21,
-            imageProxy.width,
-            imageProxy.height,
-            null
-        )
+        // NV21: Y plane + interleaved VU
+        val nv21 = ByteArray(width * height + width * height / 2)
 
-        val out = ByteArrayOutputStream(imageProxy.width * imageProxy.height / 4)
-        yuvImage.compressToJpeg(
-            Rect(0, 0, imageProxy.width, imageProxy.height),
-            jpegQuality,
-            out
-        )
+        // Y plane — rowStride가 width와 다를 수 있음
+        if (yRowStride == width) {
+            yBuffer.get(nv21, 0, width * height)
+        } else {
+            for (row in 0 until height) {
+                yBuffer.position(row * yRowStride)
+                yBuffer.get(nv21, row * width, width)
+            }
+        }
+
+        // UV planes — pixelStride에 따라 처리
+        val chromaHeight = height / 2
+        val chromaWidth = width / 2
+        var offset = width * height
+
+        if (uvPixelStride == 2) {
+            // pixelStride=2: U,V가 이미 인터리빙 (대부분 기기)
+            // vBuffer가 VUVU... 형태 → NV21에 직접 복사 가능
+            if (uvRowStride == width) {
+                vBuffer.get(nv21, offset, width * chromaHeight)
+            } else {
+                for (row in 0 until chromaHeight) {
+                    vBuffer.position(row * uvRowStride)
+                    vBuffer.get(nv21, offset + row * width, width)
+                }
+            }
+        } else {
+            // pixelStride=1: U,V가 별도 planar → 수동 인터리빙
+            for (row in 0 until chromaHeight) {
+                for (col in 0 until chromaWidth) {
+                    val uvIndex = row * uvRowStride + col * uvPixelStride
+                    nv21[offset++] = vBuffer.get(uvIndex)  // V first (NV21)
+                    nv21[offset++] = uBuffer.get(uvIndex)  // then U
+                }
+            }
+        }
+
+        val yuvImage = YuvImage(nv21, ImageFormat.NV21, width, height, null)
+        val out = ByteArrayOutputStream(width * height / 4)
+        yuvImage.compressToJpeg(Rect(0, 0, width, height), jpegQuality, out)
         return out.toByteArray()
     }
 

@@ -18,7 +18,6 @@ from operator import add
 
 from langgraph.graph import StateGraph, START, END
 from langgraph.graph.message import add_messages
-from langgraph.checkpoint.memory import MemorySaver
 
 from langchain_core.messages import HumanMessage, SystemMessage, AIMessage
 
@@ -89,34 +88,46 @@ class StorytellerState(TypedDict):
 # 시스템 프롬프트
 # ═══════════════════════════════════════════
 
-STORYTELLER_SYSTEM = """당신은 '이야기꾼(Storyteller)'입니다.
-특수교육 교사인 사용자의 하루를 따뜻하고 통찰력 있는 3인칭 내러티브로 기록합니다.
+STORYTELLER_SYSTEM_TEMPLATE = """당신은 '이야기꾼(Storyteller)'입니다.
+사용자의 하루를 따뜻하고 통찰력 있는 3인칭 내러티브로 기록합니다.
+
+{user_profile}
 
 ## 규칙
-- 3인칭 관찰자 시점 ("그는", "선생님은")
+- 3인칭 관찰자 시점 ("그는", "그녀는")
 - 1~3문장으로 간결하게
 - 감각적 묘사 포함 (빛, 소리, 분위기)
 - 감정은 관찰에서 유추 (심박수, 표정, 목소리 톤)
 - 판단하지 않고 기록만
 - 반복 표현 회피 (이전 beat 참고)
+- 사용자의 실제 환경과 직업에 맞는 배경 묘사 (배경지식 참고)
+- 사용자가 말한 내용이 있으면 반드시 내러티브에 반영
 - 한국어로 작성
 
 ## 출력 형식
 narrative: (내러티브 텍스트)
 tone: (감정 톤 — reflective/joyful/curious/calm/tense/warm/melancholic 중 택1)"""
 
-QUESTION_SYSTEM = """당신은 '이야기꾼'입니다. 사용자(특수교육 교사)에게 자연스러운 질문을 합니다.
+# 하위 호환: 프로필 없을 때 기본 시스템 프롬프트
+STORYTELLER_SYSTEM = STORYTELLER_SYSTEM_TEMPLATE.format(user_profile="")
+
+QUESTION_SYSTEM_TEMPLATE = """당신은 '이야기꾼'입니다. 사용자에게 자연스러운 질문을 합니다.
+
+{user_profile}
 
 ## 규칙
 - 현재 상황과 맥락에 맞는 질문
 - 부담스럽지 않은 톤 (친근하게, 존댓말)
 - 열린 질문 (예/아니오 대신 생각을 이끌어내는)
 - 최근 대화 맥락을 고려해서 반복하지 않기
+- 배경지식을 활용하여 개인화된 질문
 - 한국어로 작성
 - 한 번에 하나의 질문만
 
 ## 출력 형식
 question: (질문 텍스트)"""
+
+QUESTION_SYSTEM = QUESTION_SYSTEM_TEMPLATE.format(user_profile="")
 
 
 # ═══════════════════════════════════════════
@@ -221,6 +232,11 @@ def narrate(state: StorytellerState) -> dict:
         for ep in episodes[-5:]:
             prompt_parts.append(f"- [{ep.get('event_type', '?')}] {ep.get('content', '')[:100]}")
 
+    # 배경지식 (Mem0 기억, 브리핑 등 — orchestrator_v2에서 주입)
+    background = state.get("_background_context")
+    if background:
+        prompt_parts.append(f"\n## 배경지식 (사용자에 대해 알고 있는 것)\n{background}")
+
     # 이전 beats (반복 방지)
     beats_today = state.get("beats_today", [])
     if beats_today:
@@ -228,7 +244,7 @@ def narrate(state: StorytellerState) -> dict:
         for b in beats_today[-3:]:
             prompt_parts.append(f"  - {b.get('narrative', '')[:80]}")
 
-    prompt_parts.append("\n지금 이 순간을 포착하여 새로운 관찰을 기록하세요.")
+    prompt_parts.append("\n위 정보를 바탕으로 지금 이 순간을 포착하여 새로운 관찰을 기록하세요. 사용자의 실제 상황과 배경에 맞게 묘사하세요.")
 
     prompt = "\n".join(prompt_parts)
 
@@ -328,7 +344,7 @@ def route_action(state: StorytellerState) -> str:
 # ═══════════════════════════════════════════
 
 def build_storyteller_graph():
-    """이야기꾼 LangGraph 빌드 — 체크포인트 포함"""
+    """이야기꾼 LangGraph 빌드 — 상태는 orchestrator_v2가 수동 관리"""
     graph = StateGraph(StorytellerState)
 
     # 노드 등록
@@ -344,10 +360,9 @@ def build_storyteller_graph():
     graph.add_edge("ask_question", END)
     graph.add_edge("delegate_expert", END)
 
-    # 체크포인트 (서버 재시작 시 상태 복원)
-    checkpointer = MemorySaver()
-
-    return graph.compile(checkpointer=checkpointer)
+    # checkpointer 없음 — 상태는 orchestrator_v2의 storyteller_state dict로 수동 관리.
+    # MemorySaver는 인메모리이므로 서버 재시작 시 복원 불가 + 매번 새 thread_id라 의미 없음.
+    return graph.compile()
 
 
 def create_initial_state() -> StorytellerState:

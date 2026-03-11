@@ -308,6 +308,7 @@ class LLMPool:
         server: LLMServer,
         messages: list[dict],
         max_tokens: int,
+        temperature: float = 0.7,
     ) -> str:
         """단일 서버에 채팅 요청"""
         t0 = time.time()
@@ -317,6 +318,7 @@ class LLMPool:
             "model": server.model_name,
             "messages": messages,
             "max_tokens": max_tokens,
+            "temperature": temperature,
         }
 
         r = await self.http.post(
@@ -337,17 +339,12 @@ class LLMPool:
         await asyncio.gather(*tasks, return_exceptions=True)
 
     async def _check_health(self, server: LLMServer):
-        """단일 서버 헬스체크 — 1토큰 생성 테스트"""
+        """단일 서버 헬스체크 — GET /health (토큰 소비 없음, llama.cpp 표준)"""
         try:
             t0 = time.time()
-            r = await self.http.post(
-                f"{server.base_url}/v1/chat/completions",
-                json={
-                    "model": server.model_name,
-                    "messages": [{"role": "user", "content": "hi"}],
-                    "max_tokens": 1,
-                },
-                timeout=10.0,
+            r = await self.http.get(
+                f"{server.base_url}/health",
+                timeout=5.0,
             )
             r.raise_for_status()
             server.is_healthy = True
